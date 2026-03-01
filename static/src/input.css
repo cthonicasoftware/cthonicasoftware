@@ -1,0 +1,372 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+
+@import "tailwindcss";
+@tailwind utilities;
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+
+  --color-black: #0B0B0C;
+  --color-gray: #1F2125;
+  --color-mist: #F7F7F7;
+
+  /* Celestial/Website colors */
+  --color-obsidian: #0a0a0a;
+  --color-parchment: #f5e6d3;
+  --color-starlight: #e8d5b7;
+  --color-celestial: #c9a874;
+  --color-verdigris: #43b3ae;
+
+  --color-ink: #071013;
+  --color-brand: #23B5D3;
+  --color-brand2: #75ABBC;
+  --color-slatex: #A2AEBB;
+  --color-cloud: #DFE0E2;
+
+
+
+  --boxShadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+  /* Custom animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
+  --animate-orbit-1: orbit-1 40s linear infinite;
+  --animate-orbit-2: orbit-2 60s linear infinite;
+  --animate-orbit-3: orbit-3 90s linear infinite;
+  --animate-orbit-4: orbit-4 120s linear infinite;
+  --animate-twinkle: twinkle 3s ease-in-out infinite;
+  --animate-rotate-slow: rotate-slow 120s linear infinite;
+}
+
+@layer base {
+  .app {
+    /* Light */
+    --bg: 245 230 211;        /* parchment #f5e6d3 */
+    --fg: 0 0 0;              /* black text */
+    --color-celestial: #c9a874; /* celestial gold accents */
+    --muted: 71 85 105;       /* slate-600 */
+    --muted-2: 100 116 139;   /* slate-500 */
+    --card: 248 250 252;      /* slate-50 */
+    --border: 139 116 100;    /* warm brown */
+    --ring: 16 185 129;       /* emerald-500 */
+    --brand: 35 181 211;      /* #23B5D3 - QA brand */
+    --grid-alpha: 0.06;       /* grid line alpha */
+  }
+
+  .app.dark,
+  .dark .app {
+    /* Dark */
+    --bg: 2 6 23;             /* #071013 */
+    --fg: 241 245 249;        /* slate-100 - improved contrast */
+    --color-celestial: #c9a874; /* celestial gold */
+    --muted: 148 163 184;     /* slate-400 */
+    --muted-2: 203 213 225;   /* slate-300 */
+    --card: 17 24 39;         /* slate-900 */
+    --border: 255 255 255;    /* white borders for dark */
+    --ring: 16 185 129;       /* emerald-500 */
+    --brand: 35 181 211;      /* #23B5D3 - QA brand */
+    --grid-alpha: 0.06;       /* grid line alpha */
+  }
+}
+
+
+/* App-level utility aliases ) */
+@layer utilities {
+  .bg-app {
+    background-color: rgb(var(--bg));
+  }
+
+  .text-app {
+    color: rgb(var(--fg));
+  }
+
+  .border-app {
+    border-color: rgba(var(--border), .10);
+  }
+
+  .bg-card {
+    background-color: rgb(var(--card));
+  }
+
+  .text-muted {
+    color: rgb(var(--muted));
+  }
+
+  .text-muted-2 {
+    color: rgb(var(--muted-2));
+  }
+
+  .ring-brand {
+    --tw-ring-color: rgb(var(--ring));
+  }
+
+  .bg-brand {
+    background-color: rgb(var(--brand));
+  }
+
+  .text-brand {
+    color: rgb(var(--brand));
+  }
+
+  .border-brand {
+    border-color: rgb(var(--brand));
+  }
+
+  .text-app-muted {
+    color: rgb(var(--fg) / 0.8);
+  }
+
+  .text-app-subtle {
+    color: rgb(var(--fg) / 0.6);
+  }
+
+  .hover\:text-app:hover {
+    color: rgb(var(--fg));
+  }
+
+  .hover\:text-app-muted:hover {
+    color: rgb(var(--fg) / 0.8);
+  }
+
+  .hover\:text-app-subtle:hover {
+    color: rgb(var(--fg) / 0.6);
+  }
+
+  .border-celestial\/20 {
+    border-color: color-mix(in srgb, var(--color-celestial) 20%, transparent);
+
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-celestial) 20%, transparent);
+    }
+  }
+
+  .border-celestial\/30 {
+    border-color: color-mix(in srgb, var(--color-celestial) 30%, transparent);
+
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-celestial) 30%, transparent);
+    }
+  }
+
+  .bg-celestial\/10 {
+    background-color: color-mix(in srgb, var(--color-celestial) 10%, transparent);
+
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-celestial) 10%, transparent);
+    }
+  }
+
+  .bg-celestial\/50 {
+    background-color: color-mix(in srgb, var(--color-celestial) 50%, transparent);
+
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-celestial) 50%, transparent);
+    }
+  }
+
+  .text-celestial\/50 {
+    color: color-mix(in srgb, var(--color-celestial) 50%, transparent);
+
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-celestial) 50%, transparent);
+    }
+  }
+}
+
+
+/* 3) Grid + Shine with automatic light/dark tint */
+@layer components {
+  .grid-shine {
+    background:
+      linear-gradient(135deg,
+        rgba(var(--border), var(--grid-alpha)),
+        rgba(var(--border), 0));
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(var(--border), var(--grid-alpha)) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(var(--border), var(--grid-alpha)) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Celestial sphere components */
+  .celestial-sphere {
+    position: relative;
+    width: 800px;
+    height: 800px;
+  }
+
+  .orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid color-mix(in srgb, var(--color-celestial) 80%, transparent);
+    border-radius: 50%;
+  }
+
+  .orbit-1 {
+    width: 300px;
+    height: 300px;
+  }
+
+  .orbit-2 {
+    width: 440px;
+    height: 440px;
+  }
+
+  .orbit-3 {
+    width: 600px;
+    height: 600px;
+  }
+
+  .orbit-4 {
+    width: 760px;
+    height: 760px;
+  }
+
+  .orbital-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-celestial);
+    border-radius: 50%;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--color-celestial) 60%, transparent);
+  }
+
+  .planet-1 {
+    /* Uses animate-orbit-1 from Tailwind */
+  }
+
+  .planet-2 {
+    background-color: #7fa4b5;
+    /* Uses animate-orbit-2 from Tailwind */
+  }
+
+  .planet-3 {
+    background-color: #5e8570;
+    /* Uses animate-orbit-3 from Tailwind */
+  }
+
+  .planet-4 {
+    background-color: #e8d5b7;
+    /* Uses animate-orbit-4 from Tailwind */
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: var(--color-celestial);
+    border-radius: 50%;
+  }
+
+  .star:nth-child(2n) {
+    animation-delay: 0.5s;
+    background-color: #e8d5b7;
+  }
+
+  .star:nth-child(3n) {
+    animation-delay: 1s;
+    animation-duration: 4s;
+  }
+
+  .star:nth-child(5n) {
+    animation-delay: 1.5s;
+    animation-duration: 2.5s;
+  }
+}
+
+/* Keyframes for custom animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes orbit-1 {
+  from {
+    transform: rotate(0deg) translateX(150px) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(150px) rotate(-360deg);
+  }
+}
+
+@keyframes orbit-2 {
+  from {
+    transform: rotate(0deg) translateX(220px) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(220px) rotate(-360deg);
+  }
+}
+
+@keyframes orbit-3 {
+  from {
+    transform: rotate(0deg) translateX(300px) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(300px) rotate(-360deg);
+  }
+}
+
+@keyframes orbit-4 {
+  from {
+    transform: rotate(0deg) translateX(380px) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(380px) rotate(-360deg);
+  }
+}
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

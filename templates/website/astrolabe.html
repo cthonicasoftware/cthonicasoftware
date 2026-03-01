@@ -1,0 +1,422 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Astrolabe | Go CLI/TUI for standardized data capture, normalization, and upload across QA instrumentation." />
+  <title>Cthonica | Astrolabe</title>
+  <link rel="stylesheet" href="{% static 'src/styles.css' %}" />
+
+  <script>
+    (function () {
+      const key = 'app-theme';
+      const stored = localStorage.getItem(key);
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+</head>
+
+<body class="app app-website min-h-screen bg-app text-app overflow-x-hidden" style="--color-celestial: #c9a874;">
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div class="celestial-sphere animate-rotate-slow">
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+        <div class="orbit orbit-3"></div>
+        <div class="orbit orbit-4"></div>
+        <div class="orbital-body planet-1 animate-orbit-1"></div>
+        <div class="orbital-body planet-2 animate-orbit-2"></div>
+        <div class="orbital-body planet-3 animate-orbit-3"></div>
+        <div class="orbital-body planet-4 animate-orbit-4"></div>
+      </div>
+    </div>
+    <div class="absolute inset-0 w-full h-full opacity-30">
+      <div class="star animate-twinkle" style="top: 12%; left: 20%;"></div>
+      <div class="star animate-twinkle" style="top: 28%; left: 75%;"></div>
+      <div class="star animate-twinkle" style="top: 42%; left: 50%;"></div>
+      <div class="star animate-twinkle" style="top: 66%; left: 30%;"></div>
+      <div class="star animate-twinkle" style="top: 82%; left: 60%;"></div>
+      <div class="star animate-twinkle" style="top: 18%; left: 90%;"></div>
+      <div class="star animate-twinkle" style="top: 74%; left: 10%;"></div>
+      <div class="star animate-twinkle" style="top: 5%; left: 55%;"></div>
+      <div class="star animate-twinkle" style="top: 35%; left: 15%;"></div>
+      <div class="star animate-twinkle" style="top: 48%; left: 85%;"></div>
+      <div class="star animate-twinkle" style="top: 22%; left: 42%;"></div>
+      <div class="star animate-twinkle" style="top: 63%; left: 68%;"></div>
+      <div class="star animate-twinkle" style="top: 77%; left: 25%;"></div>
+      <div class="star animate-twinkle" style="top: 8%; left: 72%;"></div>
+      <div class="star animate-twinkle" style="top: 91%; left: 48%;"></div>
+      <div class="star animate-twinkle" style="top: 44%; left: 8%;"></div>
+      <div class="star animate-twinkle" style="top: 58%; left: 92%;"></div>
+      <div class="star animate-twinkle" style="top: 14%; left: 58%;"></div>
+      <div class="star animate-twinkle" style="top: 71%; left: 35%;"></div>
+      <div class="star animate-twinkle" style="top: 88%; left: 78%;"></div>
+    </div>
+  </div>
+
+  <header class="relative z-50 border-b border-verdigris/30 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-6">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-3 group">
+          <span class="text-2xl group-hover:animate-pulse-slow hover:scale-105">☽</span>
+          <span class="flex flex-col">
+            <span class="font-garamond text-2xl font-bold  text-verdigris tracking-wide">ASTROLABE</span>
+            <span class="text-xs text-app-subtle italic -mt-1">Field Data Capture</span>
+          </span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8 text-sm font-garamond">
+          <a href="#capabilities" class="text-app-muted hover:text-verdigris transition">Capabilities</a>
+          <a href="#workflow" class="text-app-muted hover:text-verdigris transition">Workflow</a>
+          <a href="#integration" class="text-app-muted hover:text-verdigris transition">Integration</a>
+        </nav>
+        <div class="md:flex items-center gap-3">
+          <button id="theme-toggle" type="button"
+            class="text-app-subtle hover:text-verdigris focus:outline-none focus:ring-2 ring-verdigris rounded-lg text-sm p-2.5"
+            aria-label="Toggle color theme">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.415-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 6a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707A1 1 0 104.343 5.757l.707.707zm1.414 8.486l-.707.707A1 1 0 015.05 14.95l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z">
+              </path>
+            </svg>
+          </button>
+          <a href="/orrery"
+            class="hidden md:inline-flex items-center gap-2 text-sm text-app-muted hover:text-celestial transition">
+            <span>Visit Orrery</span>
+            <span class="text-celestial text-lg">↗</span>
+          </a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button id="navBtn"
+          class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-verdigris/30 text-verdigris">
+          <span class="sr-only">Menu</span>
+          <span class="text-2xl">🜃</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobileNav" class="md:hidden hidden border-t border-verdigris/30 bg-obsidian/95 backdrop-blur">
+      <div class="px-6 py-4 grid gap-2 text-sm font-garamond">
+        <a href="#capabilities" class="py-2 text-parchment/80 hover:text-verdigris">Capabilities</a>
+        <a href="#workflow" class="py-2 text-parchment/80 hover:text-verdigris">Workflow</a>
+        <a href="#integration" class="py-2 text-parchment/80 hover:text-verdigris">Integration</a>
+        <a href="/orrery" class="py-2 text-parchment/80 hover:text-celestial">Orrery</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-40">
+    <section class="relative min-h-[70vh] flex items-center">
+      <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-32 text-center">
+        <div
+          class="inline-flex items-center gap-3 px-5 py-2 border border-verdigris/40 bg-verdigris/10 text-verdigris uppercase tracking-[0.3em] text-xs">
+          <span class="text-app-subtle">●</span>
+          <span>Astrolabe CLI Agent · MVP Complete</span>
+          <span class="text-app-subtle">●</span>
+        </div>
+
+        <!-- Decorative Astrolabe Icon -->
+        <!-- <div class="mb-8 inline-block animate-float mt-10">
+          <svg class="w-32 h-32 text-verdigris" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+            <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="1.5" opacity="0.85"/>
+            <circle cx="50" cy="50" r="25" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="50" cy="50" r="15" stroke="currentColor" stroke-width="1.5" opacity="0.85"/>
+            <circle cx="50" cy="50" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+            <line x1="50" y1="5" x2="50" y2="95" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <line x1="5" y1="50" x2="95" y2="50" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <line x1="15" y1="15" x2="85" y2="85" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+            <line x1="85" y1="15" x2="15" y2="85" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+          </svg>
+        </div> -->
+
+        <h1 class="font-garamond text-6xl md:text-7xl font-bold text-app leading-tight">
+          CLI/TUI for Data capture & Test automation.
+        </h1>
+
+        <p class="mt-6 max-w-3xl mx-auto text-lg text-app-muted leading-relaxed font-garamond">
+          Astrolabe standardizes serial and TCP captures, normalizes every run with manifest metadata, and keeps QA
+          artifacts synchronized with the Orrery platform—even when teams operate offline or through the Bubbletea TUI.
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a href="#capabilities"
+            class="px-8 py-4 border-2 border-verdigris text-verdigris font-garamond text-lg tracking-wide hover:bg-verdigris hover:text-obsidian dark:hover:text-parchment transition duration-300">
+            Review Capabilities
+          </a>
+          <a href="#workflow"
+            class="px-8 py-4 border-2 border-celestial text-celestial font-garamond text-lg tracking-wide hover:bg-celestial hover:text-obsidian dark:hover:text-parchment transition duration-300">
+            See Workflow
+          </a>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="mt-16 dark:text-parchment/50 text-obsidian/50 text-sm animate-pulse">
+          <div class="text-2xl">↓</div>
+          <div class="font-garamond italic">Scroll to explore</div>
+        </div>
+      </div>
+    </section>
+    <!-- 
+    TODO: This belongs in technical docs. Move later.
+    <section id="commands" class="relative px-6 md:px-12 lg:px-16 py-32 border-t border-verdigris/30">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="font-garamond text-5xl text-app">Command reference</h2>
+          <p class="mt-4 text-app-muted">
+            Core entry points for automating captures and uploads. Full help is available through <code>astrolabe --help</code>.
+          </p>
+        </div>
+
+        <div class="flex items-center justify-center gap-6 my-8">
+          <div class="w-24 h-px bg-verdigris/50"></div>
+          <div class="text-verdigris text-xl">🜂</div>
+          <div class="w-24 h-px bg-verdigris/50"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-parchment/5 border-2 border-verdigris/40 backdrop-blur-sm p-6 duration-300 hover:border-verdigris">
+            <h3 class="font-garamond text-2xl text-app mb-2">astrolabe capture</h3>
+            <p class="text-app-muted leading-relaxed">
+              Start a recording from a serial port or TCP socket. Produces JSONL data, manifests, and checksums in the local cache.
+            </p>
+          </div>
+          <div class="bg-parchment/5 border-2 border-verdigris/40 backdrop-blur-sm p-6 transition-all duration-300 hover:border-verdigris">
+            <h3 class="font-garamond text-2xl text-app mb-2">astrolabe upload</h3>
+            <p class="text-app-muted leading-relaxed">
+              Push cached runs to Orrery with automatic retry and resume support. Works in background-friendly scripts and CI jobs.
+            </p>
+          </div>
+          <div class="bg-parchment/5 border-2 border-verdigris/40 backdrop-blur-sm p-6 transition-all duration-300 hover:border-verdigris">
+            <h3 class="font-garamond text-2xl text-app mb-2">astrolabe config</h3>
+            <p class="text-app-muted leading-relaxed">
+              Manage endpoints, tokens, and default capture parameters stored under `~/.astrolabe`. Supports interactive and scripted updates.
+            </p>
+          </div>
+          <div class="bg-parchment/5 border-2 border-verdigris/40 backdrop-blur-sm p-6 transition-all duration-300 hover:border-verdigris">
+            <h3 class="font-garamond text-2xl text-app mb-2">astrolabe validate</h3>
+            <p class="text-app-muted leading-relaxed">
+              Confirm manifests and artifacts before handoff. Verifies schema versions and checksum integrity for compliance workflows.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section id="capabilities" class="relative px-6 md:px-12 lg:px-16 py-32 border-t border-verdigris/30">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-garamond text-5xl font-bold text-app">Capabilities</h2>
+          <p class="mt-4 text-app-muted max-w-2xl mx-auto">
+            Built for engineers who need dependable acquisition, structured records, and seamless handoff to the Orrery
+            QA environment.
+          </p>
+        </div>
+
+        <div class="flex items-center justify-center gap-6 my-8">
+          <div class="w-24 h-px bg-verdigris/50"></div>
+          <div class="text-celestial text-xl">⚖</div>
+          <div class="w-24 h-px bg-verdigris/50"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-10">
+          <div
+            class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
+            <div class="text-4xl text-verdigris mb-4">🔭</div>
+            <h3 class="font-garamond text-2xl text-app mb-3">Standardized capture</h3>
+            <p class="text-app-muted leading-relaxed">
+              <code>astrolabe capture</code> connects to serial or TCP sources, applying consistent sampling and
+              timestamping so every run is repeatable.
+            </p>
+          </div>
+
+          <div
+            class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
+            <div class="text-4xl text-verdigris mb-4">🛰️</div>
+            <h3 class="font-garamond text-2xl text-app mb-3">Structured records</h3>
+            <p class="text-app-muted leading-relaxed">
+              Every run is stored with a manifest, checksums, and schema version. JSONL output is ready for automated
+              analysis or replay in CI.
+            </p>
+          </div>
+
+          <div
+            class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
+            <div class="text-4xl text-verdigris mb-4">🌌</div>
+            <h3 class="font-garamond text-2xl text-app mb-3">Resilient delivery</h3>
+            <p class="text-app-muted leading-relaxed">
+              Offline caches, resumable uploads, and <code>astrolabe upload</code> keep the Orrery backend up to date
+              without manual recovery steps. Operators can monitor queues via the Bubbletea TUI.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow"
+      class="relative px-6 md:px-12 lg:px-16 py-24 bg-parchment/5 backdrop-blur-sm border-y border-verdigris/30">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-garamond text-5xl text-app">Operational workflow</h2>
+          <p class="mt-4 text-app-muted">
+            A predictable sequence from configuration through upload keeps bench sessions traceable and auditable.
+          </p>
+        </div>
+
+        <div class="flex items-center justify-center gap-6 my-8">
+          <div class="w-24 h-px bg-verdigris/50"></div>
+          <div class="text-verdigris text-xl">🜏</div>
+          <div class="w-24 h-px bg-verdigris/50"></div>
+        </div>
+
+        <div class="space-y-10">
+          <div class="flex flex-col md:flex-row gap-8 md:items-start">
+            <div class="md:w-1/4">
+              <div class="text-verdigris text-3xl font-garamond">1. Configure</div>
+            </div>
+            <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
+              <p class="text-app-muted">
+                Define connection profiles, metadata defaults, and security credentials in `~/.astrolabe`. Environment
+                variables override sensitive fields.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col md:flex-row gap-8 md:items-start">
+            <div class="md:w-1/4">
+              <div class="text-verdigris text-3xl font-garamond">2. Capture</div>
+            </div>
+            <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
+              <p class="text-app-muted">
+                Run `astrolabe capture` to acquire serial or TCP data streams. The agent timestamps records, appends
+                manifest data, and writes local artifacts.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col md:flex-row gap-8 md:items-start">
+            <div class="md:w-1/4">
+              <div class="text-verdigris text-3xl font-garamond">3. Verify</div>
+            </div>
+            <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
+              <p class="text-app-muted">
+                Use `astrolabe validate` to confirm schema versions, checksum integrity, and manifest completeness
+                before sharing results.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col md:flex-row gap-8 md:items-start">
+            <div class="md:w-1/4">
+              <div class="text-verdigris text-3xl font-garamond">4. Upload</div>
+            </div>
+            <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
+              <p class="text-app-muted">
+                Push runs with `astrolabe upload`. The CLI retries automatically, resumes partial transfers, and
+                publishes status to the Orrery QA application.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TODO: Make beautiful with infographic/diagram -->
+    <section id="integration" class="relative px-6 md:px-12 lg:px-16 py-32 border-b border-verdigris/30">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="font-garamond text-5xl text-app mb-6">Integration with Orrery</h2>
+            <p class="text-app-muted mb-6 leading-relaxed">
+              Astrolabe is the collection front-end for the Orrery QA platform. Runs flow directly into the web
+              application for review, triage, and reporting.
+            </p>
+            <ul class="space-y-4 text-app-muted">
+              <li class="flex items-start gap-3">
+                <span class="text-verdigris mt-1">▹</span>
+                <span>Uploads target presigned URLs or API endpoints created by Orrery, keeping authentication aligned
+                  with platform policy.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-verdigris mt-1">▹</span>
+                <span>Each run is registered with a `run_id`, ensuring artifacts, manifests, and follow-up analysis
+                  share one source of truth.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-verdigris mt-1">▹</span>
+                <span>Structured JSON logs simplify CI pipelines and integrate cleanly with observability
+                  tooling.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="relative z-40 px-6 md:px-12 lg:px-16 py-12 border-t border-verdigris/30">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="font-garamond text-xl text-verdigris mb-4">ASTROLABE</p>
+      <p class="text-verdigris/60 text-sm italic">Precision in the field</p>
+
+      <div class="mt-8 flex justify-center gap-8 text-sm">
+        <a href="#capabilities" class="text-app-muted hover:text-verdigris transition">Capabilities</a>
+        <a href="#workflow" class="text-app-muted hover:text-verdigris transition-colors">Workflow</a>
+        <a href="#integration" class="text-app-muted hover:text-verdigris transition-colors">Integration</a>
+        <a href="/orrery" class="text-app-muted hover:text-celestial transition-colors">Orrery</a>
+      </div>
+
+      <div class="mt-8 dark:text-parchment/40 text-obsidian/40 text-xs">
+        <p>Part of the Cthonica instrumentation stack.</p>
+        <p class="mt-1">© <span id="year"></span> Cthonica Software. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile navigation toggle
+    const navBtn = document.getElementById('navBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    navBtn?.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          // Close mobile menu if open
+          const mobileNav = document.getElementById('mobileNav');
+          if (mobileNav && !mobileNav.classList.contains('hidden')) {
+            mobileNav.classList.add('hidden');
+          }
+          // Smooth scroll to target
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+  <!-- Theme toggle logic -->
+  <script src="{% static 'js/light-dark-mode.js' %}"></script>
+</body>
+
+</html>
