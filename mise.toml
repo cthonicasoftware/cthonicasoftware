@@ -1,0 +1,75 @@
+[tools]
+python = "3.13.7"
+uv = 'latest'
+node = 'latest'
+
+# NPM packages to be installed globally
+"npm:prettier" = 'latest'
+
+[env]
+PYTHONPATH = "{{config_root}}"
+_.path = ["{{config_root}}/.venv/bin"]
+
+[tasks.init-python]
+description = "Create a local virtualenv and install Python dependencies with uv"
+run = "uv sync"
+
+[tasks.install-npm]
+description = "Install Node.js dependencies"
+run = "npm install"
+
+[tasks.build-css]
+description = "Build Tailwind CSS (production build)"
+run = "npm run build"
+
+[tasks.watch-css]
+description = "Watch and rebuild Tailwind CSS on changes (run in separate terminal)"
+run = "npm run dev"
+
+[tasks.dev]
+description = "Run Orrery in development mode (builds CSS first, then starts Django server)"
+depends = ["init-python", "build-css"]
+run = "uv run python manage.py runserver"
+
+[tasks.migration]
+description = "Make migration files for new database tables/columns"
+depends = ["init-python"]
+run = "uv run python manage.py makemigrations"
+
+[tasks.migrate]
+description = "Apply database migrations"
+depends = ["init-python"]
+run = "uv run python manage.py migrate"
+
+
+[tasks.server]
+description = "Run Orrery in development mode"
+depends = ["init-python"]
+run = "uv run python manage.py runserver"
+
+[tasks.test]
+description = "Run tests with pytest"
+depends = ["init-python"]
+run = "uv run pytest -v"
+
+[tasks.generate-ulid]
+description = "Generate a valid ULID for tests or fixtures"
+depends = ["init-python"]
+run = "uv run python -c \"from django_ulid.models import default as ulid_default; print(ulid_default())\""
+
+[tasks.db-shell]
+description = "Open a psql shell connected as the dev database user"
+run = "psql \"host=127.0.0.1 dbname=orrery user=dev\""
+
+[tasks.generate_api_tokens]
+description = "Generate Orrery API tokens (wraps runs/management/commands/generate_api_token.py)"
+depends = ["init-python"]
+run = "uv run python manage.py generate_api_token"
+
+[tasks.clean]
+description = "Remove __pycache__ directories and .pyc files"
+run = "find . -type d -name '__pycache__' -exec rm -rf {} + && find . -type f -name '*.pyc' -delete"
+
+[settings]
+python.uv_venv_auto = true
+experimental = true
