@@ -1,0 +1,10 @@
+/node_modules
+/.venv
+__pycache__/
+.vscode/
+.env
+.idea
+
+# Generated CSS files
+/static/src/styles.css
+staticfiles
