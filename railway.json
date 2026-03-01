@@ -8,7 +8,7 @@
     "preDeployCommand": [
       "python manage.py migrate"
     ],
-    "startCommand": "gunicorn naiwebsite.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 60 --log-level info --access-logfile - --error-logfile -",
+    "startCommand": "gunicorn cthonicasoftware.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 60 --log-level info --access-logfile - --error-logfile -",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
