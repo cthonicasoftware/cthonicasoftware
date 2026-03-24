@@ -267,7 +267,7 @@
 
           <div
             class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
-            <div class="text-4xl text-verdigris mb-4">📂</div>
+            <div class="text-4xl text-verdigris mb-4">☄️</div>
             <h3 class="font-garamond text-2xl text-app mb-3">File ingestion</h3>
             <p class="text-app-muted leading-relaxed">
               Import existing CSV, JSONL, and raw log files into the same normalized run format with <code>astrolabe
@@ -348,8 +348,8 @@
           <div>
             <h2 class="font-garamond text-5xl text-app mb-6">Integration with Orrery</h2>
             <p class="text-app-muted mb-6 leading-relaxed">
-              Astrolabe is the collection front-end for the Orrery QA platform. Runs flow directly into the web
-              application for review, triage, and reporting.
+              Once a run leaves the local cache, Orrery takes over — registering artifacts, coordinating storage, and
+              making the data immediately available for review, triage, and reporting.
             </p>
             <ul class="space-y-4 text-app-muted">
               <li class="flex items-start gap-3">
@@ -378,28 +378,10 @@
               <span class="text-xs uppercase tracking-widest text-verdigris/60">Local</span>
             </div>
 
-            <!-- Node: Device / Log File -->
+            <!-- Node: Validated run (collapsed local steps) -->
             <div class="w-full bg-card border border-verdigris/40 backdrop-blur-sm p-4 text-center">
-              <div class="font-garamond text-lg text-app">Device / Log File</div>
-              <div class="text-xs text-app-subtle mt-1">Serial &nbsp;·&nbsp; TCP &nbsp;·&nbsp; File</div>
-            </div>
-
-            <!-- Arrow -->
-            <div class="text-verdigris/50 text-xl leading-none py-1">↓</div>
-
-            <!-- Node: astrolabe capture -->
-            <div class="w-full bg-card border border-verdigris/40 backdrop-blur-sm p-4 text-center">
-              <code class="text-sm text-verdigris">astrolabe capture</code>
-              <div class="text-xs text-app-subtle mt-1">normalizes &amp; caches locally</div>
-            </div>
-
-            <!-- Arrow -->
-            <div class="text-verdigris/50 text-xl leading-none py-1">↓</div>
-
-            <!-- Node: astrolabe validate -->
-            <div class="w-full bg-card border border-verdigris/40 backdrop-blur-sm p-4 text-center">
-              <code class="text-sm text-verdigris">astrolabe validate</code>
-              <div class="text-xs text-app-subtle mt-1">checksums &nbsp;·&nbsp; manifest &nbsp;·&nbsp; schema version</div>
+              <div class="font-garamond text-lg text-app">Validated run</div>
+              <div class="text-xs text-app-subtle mt-1">captured &nbsp;·&nbsp; normalized &nbsp;·&nbsp; checksummed</div>
             </div>
 
             <!-- Zone separator -->
