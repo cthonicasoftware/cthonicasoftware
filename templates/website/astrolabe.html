@@ -124,9 +124,7 @@
       <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-32 text-center">
         <div
           class="inline-flex items-center gap-3 px-5 py-2 border border-verdigris/40 bg-verdigris/10 text-verdigris uppercase tracking-[0.3em] text-xs">
-          <span class="text-app-subtle">●</span>
-          <span>Astrolabe CLI Agent · MVP Complete</span>
-          <span class="text-app-subtle">●</span>
+          <span>Serial · TCP · File</span>
         </div>
 
         <!-- Decorative Astrolabe Icon -->
@@ -145,12 +143,13 @@
         </div> -->
 
         <h1 class="font-garamond text-6xl md:text-7xl font-bold text-app leading-tight">
-          CLI/TUI for Data capture & Test automation.
+          Every engineer has their own system. That's the problem.
         </h1>
 
         <p class="mt-6 max-w-3xl mx-auto text-lg text-app-muted leading-relaxed font-garamond">
-          Astrolabe standardizes serial and TCP captures, normalizes every run with manifest metadata, and keeps QA
-          artifacts synchronized with the Orrery platform—even when teams operate offline or through the Bubbletea TUI.
+          Astrolabe replaces ad-hoc scripts and inconsistent folder structures with a single capture workflow — serial,
+          TCP, or file, normalized to a structured format with full metadata every time. Runs are stored locally first,
+          so field sessions work offline, and nothing gets lost before it reaches the backend.
         </p>
 
         <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -163,6 +162,7 @@
             See Workflow
           </a>
         </div>
+        <!-- TODO: social proof — add credibility callout here once field data is available -->
 
         <!-- Scroll indicator -->
         <div class="mt-16 dark:text-parchment/50 text-obsidian/50 text-sm animate-pulse">
@@ -171,7 +171,7 @@
         </div>
       </div>
     </section>
-    <!-- 
+    <!--
     TODO: This belongs in technical docs. Move later.
     <section id="commands" class="relative px-6 md:px-12 lg:px-16 py-32 border-t border-verdigris/30">
       <div class="max-w-5xl mx-auto">
@@ -233,14 +233,14 @@
           <div class="w-24 h-px bg-verdigris/50"></div>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-10">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div
             class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
             <div class="text-4xl text-verdigris mb-4">🔭</div>
             <h3 class="font-garamond text-2xl text-app mb-3">Standardized capture</h3>
             <p class="text-app-muted leading-relaxed">
-              <code>astrolabe capture</code> connects to serial or TCP sources, applying consistent sampling and
-              timestamping so every run is repeatable.
+              Connect serial ports and TCP sockets with <code>astrolabe capture</code>. Every run uses consistent
+              sampling and timestamping, so results are comparable across engineers, sessions, and devices.
             </p>
           </div>
 
@@ -249,8 +249,8 @@
             <div class="text-4xl text-verdigris mb-4">🛰️</div>
             <h3 class="font-garamond text-2xl text-app mb-3">Structured records</h3>
             <p class="text-app-muted leading-relaxed">
-              Every run is stored with a manifest, checksums, and schema version. JSONL output is ready for automated
-              analysis or replay in CI.
+              Every run is stored with a manifest, SHA-256 checksums, and schema version. NDJSON output is ready for
+              automated analysis, CI replay, or direct handoff to the Orrery platform.
             </p>
           </div>
 
@@ -259,8 +259,19 @@
             <div class="text-4xl text-verdigris mb-4">🌌</div>
             <h3 class="font-garamond text-2xl text-app mb-3">Resilient delivery</h3>
             <p class="text-app-muted leading-relaxed">
-              Offline caches, resumable uploads, and <code>astrolabe upload</code> keep the Orrery backend up to date
-              without manual recovery steps. Operators can monitor queues via the Bubbletea TUI.
+              Runs are cached locally before upload, so captures succeed even without network. <code>astrolabe
+              upload</code> retries automatically, resumes partial transfers, and never double-submits a run that
+              already landed.
+            </p>
+          </div>
+
+          <div
+            class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
+            <div class="text-4xl text-verdigris mb-4">📂</div>
+            <h3 class="font-garamond text-2xl text-app mb-3">File ingestion</h3>
+            <p class="text-app-muted leading-relaxed">
+              Import existing CSV, JSONL, and raw log files into the same normalized run format with <code>astrolabe
+              capture file</code>. Bring your existing test data with you — no recapture required.
             </p>
           </div>
         </div>
@@ -290,8 +301,7 @@
             </div>
             <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
               <p class="text-app-muted">
-                Define connection profiles, metadata defaults, and security credentials in `~/.astrolabe`. Environment
-                variables override sensitive fields.
+                Run `astrolabe config` to define connection profiles, set metadata defaults (operator, location, device info), and store credentials in `~/.astrolabe`. Sensitive fields can be overridden at any time with environment variables.
               </p>
             </div>
           </div>
@@ -302,8 +312,7 @@
             </div>
             <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
               <p class="text-app-muted">
-                Run `astrolabe capture` to acquire serial or TCP data streams. The agent timestamps records, appends
-                manifest data, and writes local artifacts.
+                Run `astrolabe capture` to acquire data from a serial port, TCP socket, or existing file. The agent timestamps every record, writes a manifest, and stores artifacts locally — so the capture succeeds whether or not you have network access.
               </p>
             </div>
           </div>
@@ -314,8 +323,7 @@
             </div>
             <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
               <p class="text-app-muted">
-                Use `astrolabe validate` to confirm schema versions, checksum integrity, and manifest completeness
-                before sharing results.
+                Run `astrolabe validate` to confirm the run is complete before handoff. It checks SHA-256 checksums, manifest integrity, and schema version — and reports any gaps before you attempt an upload.
               </p>
             </div>
           </div>
@@ -326,8 +334,7 @@
             </div>
             <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
               <p class="text-app-muted">
-                Push runs with `astrolabe upload`. The CLI retries automatically, resumes partial transfers, and
-                publishes status to the Orrery QA application.
+                Run `astrolabe upload` to push runs to the Orrery platform. The CLI retries on failure, resumes partial transfers, and won't re-submit a run that already landed. Monitor progress through the Bubbletea TUI or pipe output to CI.
               </p>
             </div>
           </div>
