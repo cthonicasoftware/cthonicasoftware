@@ -370,61 +370,8 @@
             </ul>
           </div>
 
-          <!-- Infographic: end-to-end data flow -->
-          <div class="w-full max-w-sm mx-auto flex flex-col items-center gap-0">
-
-            <!-- LOCAL ZONE label -->
-            <div class="w-full text-center mb-2">
-              <span class="text-xs uppercase tracking-widest text-verdigris/60">Local</span>
-            </div>
-
-            <!-- Node: Validated run (collapsed local steps) -->
-            <div class="w-full bg-card border border-verdigris/40 backdrop-blur-sm p-4 text-center">
-              <div class="font-garamond text-lg text-app">Validated run</div>
-              <div class="text-xs text-app-subtle mt-1">captured &nbsp;·&nbsp; normalized &nbsp;·&nbsp; checksummed</div>
-            </div>
-
-            <!-- Zone separator -->
-            <div class="w-full flex items-center gap-3 my-3">
-              <div class="flex-1 border-t border-dashed border-verdigris/30"></div>
-              <span class="text-xs text-verdigris/50 whitespace-nowrap">↑ local &nbsp;·&nbsp; remote ↓</span>
-              <div class="flex-1 border-t border-dashed border-verdigris/30"></div>
-            </div>
-
-            <!-- Node: astrolabe upload -->
-            <div class="w-full bg-card border border-celestial/40 backdrop-blur-sm p-4 text-center">
-              <code class="text-sm text-celestial">astrolabe upload</code>
-            </div>
-
-            <!-- Arrow -->
-            <div class="text-celestial/50 text-xl leading-none py-1">↓</div>
-
-            <!-- Node: Orrery API (with 4-step sub-flow) -->
-            <div class="w-full bg-card border border-celestial/40 backdrop-blur-sm p-4">
-              <div class="font-garamond text-lg text-celestial text-center mb-3">Orrery API</div>
-              <ol class="text-xs text-app-subtle space-y-1 list-none">
-                <li class="flex items-center gap-2"><span class="text-celestial/60">1.</span> Create run</li>
-                <li class="flex items-center gap-2"><span class="text-celestial/60">2.</span> Presign artifacts</li>
-                <li class="flex items-center gap-2"><span class="text-celestial/60">3.</span> Upload to storage</li>
-                <li class="flex items-center gap-2"><span class="text-celestial/60">4.</span> Confirm</li>
-              </ol>
-            </div>
-
-            <!-- Arrow -->
-            <div class="text-celestial/50 text-xl leading-none py-1">↓</div>
-
-            <!-- Node: Orrery Platform -->
-            <div class="w-full bg-celestial/5 border border-celestial/40 backdrop-blur-sm p-4 text-center">
-              <div class="font-garamond text-xl text-celestial">Orrery Platform</div>
-              <div class="text-xs text-app-subtle mt-1">review &nbsp;·&nbsp; triage &nbsp;·&nbsp; reporting</div>
-            </div>
-
-            <!-- REMOTE ZONE label -->
-            <div class="w-full text-center mt-2">
-              <span class="text-xs uppercase tracking-widest text-celestial/60">Remote</span>
-            </div>
-
-          </div>
+          <!-- Infographic: end-to-end data flow (animated SVG) -->
+          {% include 'includes/astrolabe-integration-flow.svg' %}
         </div>
       </div>
     </section>
