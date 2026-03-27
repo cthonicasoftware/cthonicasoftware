@@ -122,10 +122,6 @@
   <main class="relative z-40">
     <section class="relative min-h-[70vh] flex items-center">
       <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-32 text-center">
-        <div
-          class="inline-flex items-center gap-3 px-5 py-2 border border-verdigris/40 bg-verdigris/10 text-verdigris uppercase tracking-[0.3em] text-xs">
-          <span>Serial · TCP · File</span>
-        </div>
 
         <!-- Decorative Astrolabe Icon -->
         <!-- <div class="mb-8 inline-block animate-float mt-10">
@@ -361,6 +357,20 @@
     const navBtn = document.getElementById('navBtn');
     const mobileNav = document.getElementById('mobileNav');
     navBtn?.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+
+    // Lazy-animate SVGs: pause on load, reset + unpause when scrolled into view
+    const lazySVGs = document.querySelectorAll('svg.lazy-svg');
+    lazySVGs.forEach(svg => svg.pauseAnimations());
+    const svgObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.setCurrentTime(0);
+          entry.target.unpauseAnimations();
+          svgObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    lazySVGs.forEach(svg => svgObserver.observe(svg));
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
