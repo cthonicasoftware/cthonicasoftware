@@ -294,51 +294,7 @@
           <div class="w-24 h-px bg-verdigris/50"></div>
         </div>
 
-        <div class="space-y-10">
-          <div class="flex flex-col md:flex-row gap-8 md:items-start">
-            <div class="md:w-1/4">
-              <div class="text-verdigris text-3xl font-garamond">1. Configure</div>
-            </div>
-            <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
-              <p class="text-app-muted">
-                Run `astrolabe config` to define connection profiles, set metadata defaults (operator, location, device info), and store credentials in `~/.astrolabe`. Sensitive fields can be overridden at any time with environment variables.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex flex-col md:flex-row gap-8 md:items-start">
-            <div class="md:w-1/4">
-              <div class="text-verdigris text-3xl font-garamond">2. Capture</div>
-            </div>
-            <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
-              <p class="text-app-muted">
-                Run `astrolabe capture` to acquire data from a serial port, TCP socket, or existing file. The agent timestamps every record, writes a manifest, and stores artifacts locally — so the capture succeeds whether or not you have network access.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex flex-col md:flex-row gap-8 md:items-start">
-            <div class="md:w-1/4">
-              <div class="text-verdigris text-3xl font-garamond">3. Verify</div>
-            </div>
-            <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
-              <p class="text-app-muted">
-                Run `astrolabe validate` to confirm the run is complete before handoff. It checks SHA-256 checksums, manifest integrity, and schema version — and reports any gaps before you attempt an upload.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex flex-col md:flex-row gap-8 md:items-start">
-            <div class="md:w-1/4">
-              <div class="text-verdigris text-3xl font-garamond">4. Upload</div>
-            </div>
-            <div class="md:flex-1 bg-card border border-verdigris/30 p-6">
-              <p class="text-app-muted">
-                Run `astrolabe upload` to push runs to the Orrery platform. The CLI retries on failure, resumes partial transfers, and won't re-submit a run that already landed. Monitor progress through the Bubbletea TUI or pipe output to CI.
-              </p>
-            </div>
-          </div>
-        </div>
+        {% include 'includes/astrolabe-workflow.svg' %}
       </div>
     </section>
 
