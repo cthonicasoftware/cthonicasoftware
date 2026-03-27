@@ -23,50 +23,7 @@
 </head>
 
 <body class="app app-website min-h-screen bg-app text-app overflow-x-hidden" style="--color-celestial: #c9a874;">
-  <!-- Background celestial elements -->
-  <div class="fixed inset-0 pointer-events-none overflow-hidden">
-    <!-- Celestial sphere with orbiting planets -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      <div class="celestial-sphere animate-rotate-slow">
-
-        <!-- Orbital rings -->
-        <div class="orbit orbit-1"></div>
-        <div class="orbit orbit-2"></div>
-        <div class="orbit orbit-3"></div>
-        <div class="orbit orbit-4"></div>
-
-        <!-- Orbiting planets -->
-        <div class="orbital-body planet-1 animate-orbit-1"></div>
-        <div class="orbital-body planet-2 animate-orbit-2"></div>
-        <div class="orbital-body planet-3 animate-orbit-3"></div>
-        <div class="orbital-body planet-4 animate-orbit-4"></div>
-      </div>
-    </div>
-
-    <!-- Scattered twinkling stars -->
-    <div class="absolute inset-0 w-full h-full opacity-30">
-      <div class="star animate-twinkle" style="top: 10%; left: 15%;"></div>
-      <div class="star animate-twinkle" style="top: 20%; left: 80%;"></div>
-      <div class="star animate-twinkle" style="top: 15%; left: 45%;"></div>
-      <div class="star animate-twinkle" style="top: 60%; left: 25%;"></div>
-      <div class="star animate-twinkle" style="top: 70%; left: 65%;"></div>
-      <div class="star animate-twinkle" style="top: 85%; left: 40%;"></div>
-      <div class="star animate-twinkle" style="top: 30%; left: 90%;"></div>
-      <div class="star animate-twinkle" style="top: 50%; left: 10%;"></div>
-      <div class="star animate-twinkle" style="top: 40%; left: 70%;"></div>
-      <div class="star animate-twinkle" style="top: 75%; left: 85%;"></div>
-      <div class="star animate-twinkle" style="top: 25%; left: 35%;"></div>
-      <div class="star animate-twinkle" style="top: 90%; left: 20%;"></div>
-      <div class="star animate-twinkle" style="top: 12%; left: 60%;"></div>
-      <div class="star animate-twinkle" style="top: 55%; left: 50%;"></div>
-      <div class="star animate-twinkle" style="top: 80%; left: 75%;"></div>
-      <div class="star animate-twinkle" style="top: 35%; left: 5%;"></div>
-      <div class="star animate-twinkle" style="top: 65%; left: 95%;"></div>
-      <div class="star animate-twinkle" style="top: 45%; left: 30%;"></div>
-      <div class="star animate-twinkle" style="top: 95%; left: 55%;"></div>
-      <div class="star animate-twinkle" style="top: 5%; left: 85%;"></div>
-    </div>
-  </div>
+  {% include 'includes/index-background.svg' %}
 
   <header class="relative z-50 border-b border-celestial/30 backdrop-blur-sm">
     <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-6">
