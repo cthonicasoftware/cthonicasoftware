@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 540" width="100%"
+     role="img" aria-label="Astrolabe to Orrery integration flow diagram"
+     class="lazy-svg">
+  <defs>
+    <style>
+      .svg-title { font-family: 'EB Garamond', Georgia, serif; }
+      .svg-code  { font-family: 'Cascadia Code', 'JetBrains Mono', 'Fira Code', monospace; }
+      .svg-label { font-family: system-ui, sans-serif; }
+    </style>
+
+    <filter id="gv" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feFlood flood-color="#3D9E8C" flood-opacity="0.45"/>
+      <feComposite in2="b" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="gc" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feFlood flood-color="#C9A874" flood-opacity="0.45"/>
+      <feComposite in2="b" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="gcs" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feFlood flood-color="#C9A874" flood-opacity="0.55"/>
+      <feComposite in2="b" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <marker id="av" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#3D9E8C" opacity="0.8"/>
+    </marker>
+    <marker id="ac" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#C9A874"/>
+    </marker>
+
+    <linearGradient id="shimmer" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0"   stop-color="white" stop-opacity="0"/>
+      <stop offset="0.4" stop-color="white" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="white" stop-opacity="0.15"/>
+      <stop offset="0.6" stop-color="white" stop-opacity="0"/>
+      <stop offset="1"   stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="clip-api"><rect x="20" y="252" width="360" height="175" rx="3"/></clipPath>
+    <clipPath id="clip-plat"><rect x="20" y="450" width="360" height="82"  rx="3"/></clipPath>
+  </defs>
+
+  <!-- Dark base + zone tints -->
+  <rect width="400" height="540" fill="#0D1117" rx="4"/>
+  <rect x="0" y="0"   width="400" height="200" fill="#3D9E8C" fill-opacity="0.05" rx="4"/>
+  <rect x="0" y="210" width="400" height="330" fill="#C9A874" fill-opacity="0.04" rx="4"/>
+
+  <!-- Validated Run -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="0.4s" dur="0.5s" fill="freeze"/>
+    <rect x="20" y="25" width="360" height="72" rx="3" fill="#3D9E8C" fill-opacity="0.08"/>
+    <rect x="20" y="25" width="360" height="72" rx="3" fill="none"
+          stroke="#3D9E8C" stroke-width="1.5" stroke-opacity="0.5" filter="url(#gv)"/>
+    <text x="200" y="56" text-anchor="middle" font-size="17" font-weight="600"
+          fill="#C8DDD9" class="svg-title">Validated Run</text>
+    <text x="200" y="77" text-anchor="middle" font-size="10.5" letter-spacing="0.8"
+          fill="#3D9E8C" fill-opacity="0.8" class="svg-label">captured · normalized · checksummed</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <line x1="200" y1="97" x2="200" y2="97" stroke="#3D9E8C" stroke-width="1.5"
+        stroke-opacity="0" marker-end="url(#av)">
+    <animate attributeName="stroke-opacity" from="0" to="0.6" begin="1s" dur="0.3s" fill="freeze"/>
+    <animate attributeName="y2" from="97" to="120" begin="0.9s" dur="0.4s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
+  </line>
+
+  <!-- astrolabe upload -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="1.2s" dur="0.5s" fill="freeze"/>
+    <rect x="20" y="122" width="360" height="50" rx="3" fill="#C9A874" fill-opacity="0.07"/>
+    <rect x="20" y="122" width="360" height="50" rx="3" fill="none"
+          stroke="#C9A874" stroke-width="1.5" stroke-opacity="0.6" filter="url(#gc)"/>
+    <text x="200" y="153" text-anchor="middle" font-size="14" font-weight="600"
+          fill="#C9A874" class="svg-code">astrolabe upload</text>
+  </g>
+
+  <!-- Arrow crossing to remote -->
+  <line x1="200" y1="174" x2="200" y2="248" stroke="#C9A874" stroke-width="2"
+        stroke-opacity="0" marker-end="url(#ac)">
+    <animate attributeName="stroke-opacity" from="0" to="0.85" begin="1.8s" dur="0.4s" fill="freeze"/>
+  </line>
+
+  <!-- Orrery API box -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="2.2s" dur="0.5s" fill="freeze"/>
+    <rect x="20" y="252" width="360" height="175" rx="3" fill="#C9A874" fill-opacity="0.06"/>
+    <rect x="20" y="252" width="360" height="175" rx="3" fill="none"
+          stroke="#C9A874" stroke-width="1.5" stroke-opacity="0.55" filter="url(#gc)"/>
+    <text x="200" y="277" text-anchor="middle" font-size="15" font-weight="700"
+          fill="#C9A874" class="svg-title">Orrery API</text>
+  </g>
+
+  <!-- API step 1 -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="2.6s" dur="0.4s" fill="freeze"/>
+    <rect x="36" y="284" width="328" height="30" rx="2" fill="#C9A874" fill-opacity="0.07"/>
+    <text x="56" y="304" font-size="11" font-weight="700" fill="#C9A874" fill-opacity="0.6" class="svg-label">1.</text>
+    <text x="74" y="304" font-size="11" fill="#C9B98A" class="svg-label">Create run</text>
+  </g>
+  <!-- API step 2 -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="3s" dur="0.4s" fill="freeze"/>
+    <rect x="36" y="318" width="328" height="30" rx="2" fill="#C9A874" fill-opacity="0.07"/>
+    <text x="56" y="338" font-size="11" font-weight="700" fill="#C9A874" fill-opacity="0.6" class="svg-label">2.</text>
+    <text x="74" y="338" font-size="11" fill="#C9B98A" class="svg-label">Presign artifacts</text>
+  </g>
+  <!-- API step 3 -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="3.4s" dur="0.4s" fill="freeze"/>
+    <rect x="36" y="352" width="328" height="30" rx="2" fill="#C9A874" fill-opacity="0.07"/>
+    <text x="56" y="372" font-size="11" font-weight="700" fill="#C9A874" fill-opacity="0.6" class="svg-label">3.</text>
+    <text x="74" y="372" font-size="11" fill="#C9B98A" class="svg-label">Upload to storage</text>
+  </g>
+  <!-- API step 4 -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="3.8s" dur="0.4s" fill="freeze"/>
+    <rect x="36" y="386" width="328" height="30" rx="2" fill="#C9A874" fill-opacity="0.07"/>
+    <text x="56" y="406" font-size="11" font-weight="700" fill="#C9A874" fill-opacity="0.6" class="svg-label">4.</text>
+    <text x="74" y="406" font-size="11" fill="#C9B98A" class="svg-label">Confirm</text>
+  </g>
+
+  <!-- Step connector ticks -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="0.35" begin="4.2s" dur="0.5s" fill="freeze"/>
+    <line x1="50" y1="314" x2="50" y2="318" stroke="#C9A874" stroke-width="1"/>
+    <line x1="50" y1="348" x2="50" y2="352" stroke="#C9A874" stroke-width="1"/>
+    <line x1="50" y1="382" x2="50" y2="386" stroke="#C9A874" stroke-width="1"/>
+  </g>
+
+  <!-- Arrow to platform -->
+  <line x1="200" y1="429" x2="200" y2="448" stroke="#C9A874" stroke-width="2"
+        stroke-opacity="0" marker-end="url(#ac)">
+    <animate attributeName="stroke-opacity" from="0" to="0.9" begin="4.4s" dur="0.4s" fill="freeze"/>
+  </line>
+
+  <!-- Orrery Platform hero card -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="4.6s" dur="0.7s" fill="freeze"/>
+    <rect x="20" y="450" width="360" height="82" rx="3" fill="#C9A874" fill-opacity="0.10"/>
+    <rect x="20" y="450" width="360" height="82" rx="3" fill="none"
+          stroke="#C9A874" stroke-width="2" filter="url(#gcs)"/>
+    <text x="200" y="492" text-anchor="middle" font-size="21" font-weight="700"
+          fill="#C9A874" class="svg-title">Orrery Platform</text>
+    <text x="200" y="515" text-anchor="middle" font-size="10.5" letter-spacing="2"
+          fill="#C9A874" fill-opacity="0.65" class="svg-label">review · triage · reporting</text>
+  </g>
+
+  <!-- Shimmer sweeps -->
+  <rect x="20" y="252" width="360" height="175" rx="3" fill="url(#shimmer)"
+        clip-path="url(#clip-api)" opacity="0">
+    <animate attributeName="opacity" values="0;1;0" dur="0.6s" begin="9s" fill="freeze"/>
+    <animateTransform attributeName="transform" type="translate"
+      from="-400,0" to="400,0" dur="0.8s" begin="9s" fill="freeze"
+      calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
+  </rect>
+  <rect x="20" y="450" width="360" height="82" rx="3" fill="url(#shimmer)"
+        clip-path="url(#clip-plat)" opacity="0">
+    <animate attributeName="opacity" values="0;1;0" dur="0.6s" begin="9.3s" fill="freeze"/>
+    <animateTransform attributeName="transform" type="translate"
+      from="-400,0" to="400,0" dur="0.8s" begin="9.3s" fill="freeze"
+      calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
+  </rect>
+
+  <!-- Idle: Validated Run glow pulse -->
+  <rect x="20" y="25" width="360" height="72" rx="3" fill="none"
+        stroke="#3D9E8C" stroke-width="1.5" stroke-opacity="0">
+    <animate attributeName="stroke-opacity" values="0;0.35;0" dur="4s" begin="10s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Idle: Platform fill pulse -->
+  <rect x="20" y="450" width="360" height="82" rx="3" fill="#C9A874" fill-opacity="0">
+    <animate attributeName="fill-opacity" values="0.10;0.18;0.10" dur="5s" begin="10s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Idle: travelling dot on upload arrow -->
+  <circle r="2.5" fill="#C9A874" cx="200" cy="174" opacity="0">
+    <animate attributeName="cy"      values="174;248" dur="1.2s" begin="11s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.9;0" dur="1.2s" begin="11s" repeatCount="indefinite"/>
+  </circle>
+</svg>
