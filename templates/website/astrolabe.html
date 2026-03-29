@@ -24,7 +24,7 @@
   </script>
 </head>
 
-<body class="app app-website min-h-screen bg-app text-app overflow-x-hidden" style="--color-celestial: #c9a874;">
+<body class="app app-website min-h-screen bg-app text-app overflow-x-hidden" style="--color-celestial: #c6a664; --color-verdigris: #5e8570;">
   {% include 'includes/index-background.svg' %}
 
   <header class="relative z-50 border-b border-verdigris/30 backdrop-blur-sm">
@@ -33,18 +33,18 @@
         <a href="/" class="flex items-center gap-3 group">
           <span class="text-2xl group-hover:animate-pulse-slow hover:scale-105">☽</span>
           <span class="flex flex-col">
-            <span class="font-garamond text-2xl font-bold  text-verdigris tracking-wide">ASTROLABE</span>
+            <span class="font-garamond text-2xl font-bold  text-celestial tracking-wide">ASTROLABE</span>
             <span class="text-xs text-app-subtle italic -mt-1">Field Data Capture</span>
           </span>
         </a>
         <nav class="hidden md:flex items-center gap-8 text-sm font-garamond">
-          <a href="#capabilities" class="text-app-muted hover:text-verdigris transition">Capabilities</a>
-          <a href="#workflow" class="text-app-muted hover:text-verdigris transition">Workflow</a>
-          <a href="#integration" class="text-app-muted hover:text-verdigris transition">Integration</a>
+          <a href="#capabilities" class="text-app-muted hover:text-celestial transition">Capabilities</a>
+          <a href="#workflow" class="text-app-muted hover:text-celestial transition">Workflow</a>
+          <a href="#integration" class="text-app-muted hover:text-celestial transition">Integration</a>
         </nav>
         <div class="md:flex items-center gap-3">
           <button id="theme-toggle" type="button"
-            class="text-app-subtle hover:text-verdigris focus:outline-none focus:ring-2 ring-verdigris rounded-lg text-sm p-2.5"
+            class="text-app-subtle hover:text-celestial focus:outline-none focus:ring-2 ring-verdigris rounded-lg text-sm p-2.5"
             aria-label="Toggle color theme">
             <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
@@ -66,7 +66,7 @@
 
         <!-- Mobile menu button -->
         <button id="navBtn"
-          class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-verdigris/30 text-verdigris">
+          class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-verdigris/30 text-celestial">
           <span class="sr-only">Menu</span>
           <span class="text-2xl">🜃</span>
         </button>
@@ -76,9 +76,9 @@
     <!-- Mobile Navigation -->
     <div id="mobileNav" class="md:hidden hidden border-t border-verdigris/30 bg-obsidian/95 backdrop-blur">
       <div class="px-6 py-4 grid gap-2 text-sm font-garamond">
-        <a href="#capabilities" class="py-2 text-parchment/80 hover:text-verdigris">Capabilities</a>
-        <a href="#workflow" class="py-2 text-parchment/80 hover:text-verdigris">Workflow</a>
-        <a href="#integration" class="py-2 text-parchment/80 hover:text-verdigris">Integration</a>
+        <a href="#capabilities" class="py-2 text-parchment/80 hover:text-celestial">Capabilities</a>
+        <a href="#workflow" class="py-2 text-parchment/80 hover:text-celestial">Workflow</a>
+        <a href="#integration" class="py-2 text-parchment/80 hover:text-celestial">Integration</a>
         <a href="/orrery" class="py-2 text-parchment/80 hover:text-celestial">Orrery</a>
       </div>
     </div>
@@ -90,7 +90,7 @@
 
         <!-- Decorative Astrolabe Icon -->
         <!-- <div class="mb-8 inline-block animate-float mt-10">
-          <svg class="w-32 h-32 text-verdigris" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="w-32 h-32 text-celestial" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
             <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="1.5" opacity="0.85"/>
             <circle cx="50" cy="50" r="25" stroke="currentColor" stroke-width="1.5"/>
@@ -115,7 +115,7 @@
 
         <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a href="#capabilities"
-            class="px-8 py-4 border-2 border-verdigris text-verdigris font-garamond text-lg tracking-wide hover:bg-verdigris hover:text-obsidian dark:hover:text-parchment transition duration-300">
+            class="px-8 py-4 border-2 border-verdigris text-celestial font-garamond text-lg tracking-wide hover:bg-verdigris hover:text-obsidian dark:hover:text-parchment transition duration-300">
             Review Capabilities
           </a>
           <a href="#workflow"
@@ -145,7 +145,7 @@
 
         <div class="flex items-center justify-center gap-6 my-8">
           <div class="w-24 h-px bg-verdigris/50"></div>
-          <div class="text-verdigris text-xl">🜂</div>
+          <div class="text-celestial text-xl">🜂</div>
           <div class="w-24 h-px bg-verdigris/50"></div>
         </div>
 
@@ -197,7 +197,7 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div
             class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
-            <div class="text-4xl text-verdigris mb-4">🔭</div>
+            <div class="text-4xl text-celestial mb-4">🔭</div>
             <h3 class="font-garamond text-2xl text-app mb-3">Standardized capture</h3>
             <p class="text-app-muted leading-relaxed">
               Connect serial ports and TCP sockets with <code>astrolabe capture</code>. Every run uses consistent
@@ -207,7 +207,7 @@
 
           <div
             class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
-            <div class="text-4xl text-verdigris mb-4">🛰️</div>
+            <div class="text-4xl text-celestial mb-4">🛰️</div>
             <h3 class="font-garamond text-2xl text-app mb-3">Structured records</h3>
             <p class="text-app-muted leading-relaxed">
               Every run is stored with a manifest, SHA-256 checksums, and schema version. NDJSON output is ready for
@@ -217,7 +217,7 @@
 
           <div
             class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
-            <div class="text-4xl text-verdigris mb-4">🌌</div>
+            <div class="text-4xl text-celestial mb-4">🌌</div>
             <h3 class="font-garamond text-2xl text-app mb-3">Resilient delivery</h3>
             <p class="text-app-muted leading-relaxed">
               Runs are cached locally before upload, so captures succeed even without network. <code>astrolabe
@@ -228,7 +228,7 @@
 
           <div
             class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
-            <div class="text-4xl text-verdigris mb-4">☄️</div>
+            <div class="text-4xl text-celestial mb-4">☄️</div>
             <h3 class="font-garamond text-2xl text-app mb-3">File ingestion</h3>
             <p class="text-app-muted leading-relaxed">
               Import existing CSV, JSONL, and raw log files into the same normalized run format with <code>astrolabe
@@ -251,7 +251,7 @@
 
         <div class="flex items-center justify-center gap-6 my-8">
           <div class="w-24 h-px bg-verdigris/50"></div>
-          <div class="text-verdigris text-xl">🜏</div>
+          <div class="text-celestial text-xl">🜏</div>
           <div class="w-24 h-px bg-verdigris/50"></div>
         </div>
 
@@ -270,17 +270,17 @@
             </p>
             <ul class="space-y-4 text-app-muted">
               <li class="flex items-start gap-3">
-                <span class="text-verdigris mt-1">▹</span>
+                <span class="text-celestial mt-1">▹</span>
                 <span>Uploads target presigned URLs or API endpoints created by Orrery, keeping authentication aligned
                   with platform policy.</span>
               </li>
               <li class="flex items-start gap-3">
-                <span class="text-verdigris mt-1">▹</span>
+                <span class="text-celestial mt-1">▹</span>
                 <span>Each run is registered with a <code>run_id</code>, ensuring artifacts, manifests, and follow-up
                   analysis share one source of truth.</span>
               </li>
               <li class="flex items-start gap-3">
-                <span class="text-verdigris mt-1">▹</span>
+                <span class="text-celestial mt-1">▹</span>
                 <span>Structured JSON logs simplify CI pipelines and integrate cleanly with observability
                   tooling.</span>
               </li>
@@ -296,13 +296,13 @@
 
   <footer class="relative z-40 px-6 md:px-12 lg:px-16 py-12 border-t border-verdigris/30">
     <div class="max-w-6xl mx-auto text-center">
-      <p class="font-garamond text-xl text-verdigris mb-4">ASTROLABE</p>
-      <p class="text-verdigris/60 text-sm italic">Precision in the field</p>
+      <p class="font-garamond text-xl text-celestial mb-4">ASTROLABE</p>
+      <p class="text-celestial/60 text-sm italic">Precision in the field</p>
 
       <div class="mt-8 flex justify-center gap-8 text-sm">
-        <a href="#capabilities" class="text-app-muted hover:text-verdigris transition">Capabilities</a>
-        <a href="#workflow" class="text-app-muted hover:text-verdigris transition-colors">Workflow</a>
-        <a href="#integration" class="text-app-muted hover:text-verdigris transition-colors">Integration</a>
+        <a href="#capabilities" class="text-app-muted hover:text-celestial transition">Capabilities</a>
+        <a href="#workflow" class="text-app-muted hover:text-celestial transition-colors">Workflow</a>
+        <a href="#integration" class="text-app-muted hover:text-celestial transition-colors">Integration</a>
         <a href="/orrery" class="text-app-muted hover:text-celestial transition-colors">Orrery</a>
       </div>
 
