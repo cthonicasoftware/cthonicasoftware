@@ -41,8 +41,7 @@
 }
 
 @layer base {
-  .app,
-  .app * {
+  .app {
     font-family: "EB Garamond", Georgia, serif;
   }
 
@@ -51,7 +50,7 @@
   kbd,
   samp,
   .font-mono {
-    font-family: "Caskadyia Cove Nerd Font", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", "Cascadia Code", monospace;
+    font-family: "Cascadia Code", "Caskadyia Cove Nerd Font", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", monospace;
   }
 
   .app {

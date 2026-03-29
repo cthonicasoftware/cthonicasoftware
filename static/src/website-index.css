@@ -655,7 +655,7 @@ body.app-website {
   text-transform: uppercase;
   font-size: 0.75rem;
   color: var(--verdigris);
-  font-family: "Caskadyia Cove Nerd Font", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", "Cascadia Code", monospace;
+  font-family: "Cascadia Code", "Caskadyia Cove Nerd Font", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", monospace;
 }
 
 .story-step h3 {
@@ -1197,8 +1197,9 @@ body.app-website {
 
 /* ── Instrument panel ──────────────────────────────────────────────────────── */
 
-.instr-panel {
-  font-family: "Caskadyia Cove Nerd Font", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", "Cascadia Code", monospace;
+.instr-panel,
+.instr-panel * {
+  font-family: "Cascadia Code", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", monospace;
   font-size: 0.82rem;
   line-height: 1.5;
 }

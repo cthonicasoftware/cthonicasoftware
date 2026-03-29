@@ -4,7 +4,7 @@
   <defs>
     <style>
       .wf-title { font-family: 'EB Garamond', Georgia, serif; }
-      .wf-code  { font-family: 'Caskadyia Cove Nerd Font', 'Caskaydia Cove Nerd Font', 'CaskaydiaCove Nerd Font', 'Cascadia Code', monospace; }
+      .wf-code  { font-family: 'Cascadia Code', 'Caskadyia Cove Nerd Font', 'Caskaydia Cove Nerd Font', 'CaskaydiaCove Nerd Font', monospace; }
       .wf-label { font-family: 'EB Garamond', Georgia, serif; }
 
       /* ── Light mode overrides ── */

@@ -4,7 +4,7 @@
   <defs>
     <style>
       .svg-title { font-family: 'EB Garamond', Georgia, serif; }
-      .svg-code  { font-family: 'Caskadyia Cove Nerd Font', 'Caskaydia Cove Nerd Font', 'CaskaydiaCove Nerd Font', 'Cascadia Code', monospace; }
+      .svg-code  { font-family: 'Cascadia Code', 'Caskadyia Cove Nerd Font', 'Caskaydia Cove Nerd Font', 'CaskaydiaCove Nerd Font', monospace; }
       .svg-label { font-family: 'EB Garamond', Georgia, serif; }
 
       /* ── Light mode overrides ── */
