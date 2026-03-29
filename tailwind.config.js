@@ -22,6 +22,7 @@ module.exports = {
         },
         fontFamily: {
             garamond: ['"EB Garamond"', 'serif'],
+            mono: ['"Caskadyia Cove Nerd Font"', '"Caskaydia Cove Nerd Font"', '"CaskaydiaCove Nerd Font"', '"Cascadia Code"', 'monospace'],
         },
         animation: {
             'float': 'float 6s ease-in-out infinite',

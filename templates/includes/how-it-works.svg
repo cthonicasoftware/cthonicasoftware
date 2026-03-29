@@ -4,7 +4,7 @@
   <defs>
     <style>
       .hiw-title { font-family: 'EB Garamond', Georgia, serif; }
-      .hiw-label { font-family: system-ui, sans-serif; }
+      .hiw-label { font-family: 'EB Garamond', Georgia, serif; }
 
       /* ── Light mode overrides ── */
       :root:not(.dark) .hiw-zone-v        { fill: #3a5e47; fill-opacity: 0.05; }
@@ -30,7 +30,7 @@
       :root:not(.dark) .hiw-zone-label-c  { fill: #8b6020; fill-opacity: 0.65; }
 
       :root:not(.dark) .hiw-arrow-v       { stroke: #3a5e47; stroke-opacity: 0.65; }
-      :root:not(.dark) .hiw-arrow-m       { stroke: #5a7a62; stroke-opacity: 0.60; }
+      :root:not(.dark) .hiw-arrow-m       { stroke: #5e8570; stroke-opacity: 0.60; }
       :root:not(.dark) .hiw-arrow-c       { stroke: #8b6020; stroke-opacity: 0.80; }
       :root:not(.dark) .hiw-dot-c         { fill: #8b6020; }
       :root:not(.dark) .hiw-idle-fill     { fill: #8b6020; }
@@ -38,7 +38,7 @@
 
     <filter id="hiw-gv" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="3" result="b"/>
-      <feFlood flood-color="#3D9E8C" flood-opacity="0.4"/>
+      <feFlood flood-color="#5e8570" flood-opacity="0.4"/>
       <feComposite in2="b" operator="in"/>
       <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
@@ -51,10 +51,10 @@
     </filter>
 
     <marker id="hiw-av" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-      <polygon points="0,0 8,3 0,6" fill="#3D9E8C" opacity="0.7"/>
+      <polygon points="0,0 8,3 0,6" fill="#5e8570" opacity="0.7"/>
     </marker>
     <marker id="hiw-am" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-      <polygon points="0,0 8,3 0,6" fill="#8AB49C" opacity="0.8"/>
+      <polygon points="0,0 8,3 0,6" fill="#5e8570" opacity="0.8"/>
     </marker>
     <marker id="hiw-ac" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
       <polygon points="0,0 8,3 0,6" fill="#C9A874"/>
@@ -72,7 +72,7 @@
   </defs>
 
   <!-- Zone tints -->
-  <rect class="hiw-zone-v" x="0"   y="0" width="400" height="240" fill="#3D9E8C" fill-opacity="0.03" rx="4"/>
+  <rect class="hiw-zone-v" x="0"   y="0" width="400" height="240" fill="#5e8570" fill-opacity="0.03" rx="4"/>
   <rect class="hiw-zone-c" x="400" y="0" width="400" height="240" fill="#C9A874" fill-opacity="0.03" rx="4"/>
 
   <!-- Zone divider -->
@@ -83,7 +83,7 @@
   <g opacity="0">
     <animate attributeName="opacity" from="0" to="1" begin="2.8s" dur="0.5s" fill="freeze"/>
     <text class="hiw-zone-label-v hiw-label" x="216" y="16" text-anchor="middle"
-          font-size="8" font-weight="700" fill="#3D9E8C" fill-opacity="0.5" letter-spacing="2.5">ASTROLABE</text>
+          font-size="8" font-weight="700" fill="#5e8570" fill-opacity="0.5" letter-spacing="2.5">ASTROLABE</text>
     <text class="hiw-zone-label-c hiw-label" x="584" y="16" text-anchor="middle"
           font-size="8" font-weight="700" fill="#C9A874" fill-opacity="0.5" letter-spacing="2.5">ORRERY</text>
   </g>
@@ -95,12 +95,12 @@
       <animateTransform attributeName="transform" type="translate"
         from="0,70" to="0,0" begin="0.3s" dur="0.7s" fill="freeze"
         calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
-      <rect class="hiw-card-bg-v"     x="48" y="32" width="152" height="170" rx="3" fill="#3D9E8C" fill-opacity="0.07"/>
+      <rect class="hiw-card-bg-v"     x="48" y="32" width="152" height="170" rx="3" fill="#5e8570" fill-opacity="0.07"/>
       <rect class="hiw-card-border-v" x="48" y="32" width="152" height="170" rx="3" fill="none"
-            stroke="#3D9E8C" stroke-width="1.5" stroke-opacity="0.45"/>
-      <text class="hiw-num-v hiw-label"  x="62"  y="58"  font-size="10" font-weight="700" fill="#3D9E8C" fill-opacity="0.4">01</text>
-      <text class="hiw-heading hiw-title" x="124" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C8DDD9">Capture</text>
-      <text class="hiw-sub-v hiw-label"  x="124" y="130" text-anchor="middle" font-size="10" fill="#3D9E8C">Records hardware test data</text>
+            stroke="#5e8570" stroke-width="1.5" stroke-opacity="0.45"/>
+      <text class="hiw-num-v hiw-label"  x="62"  y="58"  font-size="10" font-weight="700" fill="#5e8570" fill-opacity="0.4">01</text>
+      <text class="hiw-heading hiw-title" x="124" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#f2e9de">Capture</text>
+      <text class="hiw-sub-v hiw-label"  x="124" y="130" text-anchor="middle" font-size="10" fill="#5e8570">Records hardware test data</text>
       <text class="hiw-desc hiw-label"   x="124" y="172" text-anchor="middle" font-size="9"  fill="#9CA3AF">serial · TCP · file</text>
     </g>
   </g>
@@ -112,12 +112,12 @@
       <animateTransform attributeName="transform" type="translate"
         from="0,70" to="0,0" begin="0.6s" dur="0.7s" fill="freeze"
         calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
-      <rect class="hiw-card-bg-v"     x="232" y="32" width="152" height="170" rx="3" fill="#3D9E8C" fill-opacity="0.07"/>
+      <rect class="hiw-card-bg-v"     x="232" y="32" width="152" height="170" rx="3" fill="#5e8570" fill-opacity="0.07"/>
       <rect class="hiw-card-border-v" x="232" y="32" width="152" height="170" rx="3" fill="none"
-            stroke="#3D9E8C" stroke-width="1.5" stroke-opacity="0.45"/>
-      <text class="hiw-num-v hiw-label"  x="246" y="58"  font-size="10" font-weight="700" fill="#3D9E8C" fill-opacity="0.4">02</text>
-      <text class="hiw-heading hiw-title" x="308" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C8DDD9">Upload</text>
-      <text class="hiw-sub-v hiw-label"  x="308" y="130" text-anchor="middle" font-size="10" fill="#3D9E8C">Delivers runs to Orrery</text>
+            stroke="#5e8570" stroke-width="1.5" stroke-opacity="0.45"/>
+      <text class="hiw-num-v hiw-label"  x="246" y="58"  font-size="10" font-weight="700" fill="#5e8570" fill-opacity="0.4">02</text>
+      <text class="hiw-heading hiw-title" x="308" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#f2e9de">Upload</text>
+      <text class="hiw-sub-v hiw-label"  x="308" y="130" text-anchor="middle" font-size="10" fill="#5e8570">Delivers runs to Orrery</text>
       <text class="hiw-desc hiw-label"   x="308" y="172" text-anchor="middle" font-size="9"  fill="#9CA3AF">retry · resume · verified</text>
     </g>
   </g>
@@ -133,7 +133,7 @@
       <rect class="hiw-card-border-c" x="416" y="32" width="152" height="170" rx="3" fill="none"
             stroke="#C9A874" stroke-width="1.5" stroke-opacity="0.45"/>
       <text class="hiw-num-c hiw-label"       x="430" y="58"  font-size="10" font-weight="700" fill="#C9A874" fill-opacity="0.4">03</text>
-      <text class="hiw-heading hiw-title"      x="492" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C8DDD9">Analyze</text>
+      <text class="hiw-heading hiw-title"      x="492" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#f2e9de">Analyze</text>
       <text class="hiw-sub-c hiw-label"        x="492" y="130" text-anchor="middle" font-size="10" fill="#C9A874">Normalize, run AI analysis</text>
       <text class="hiw-desc hiw-label"         x="492" y="172" text-anchor="middle" font-size="9"  fill="#9CA3AF">features · AI · rules</text>
     </g>
@@ -158,7 +158,7 @@
 
   <!-- Arrow 1: Capture → Upload (verdigris) -->
   <line class="hiw-arrow-v" x1="200" y1="117" x2="224" y2="117"
-        stroke="#3D9E8C" stroke-width="1.5" stroke-opacity="0.7"
+        stroke="#5e8570" stroke-width="1.5" stroke-opacity="0.7"
         stroke-dasharray="40" stroke-dashoffset="40" marker-end="url(#hiw-av)">
     <animate attributeName="stroke-dashoffset" from="40" to="0" begin="2s" dur="0.4s" fill="freeze"
              calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
@@ -166,7 +166,7 @@
 
   <!-- Arrow 2: Upload → Analyze (handoff, mixed tone) -->
   <line class="hiw-arrow-m" x1="384" y1="117" x2="408" y2="117"
-        stroke="#8AB49C" stroke-width="1.5" stroke-opacity="0.7"
+        stroke="#5e8570" stroke-width="1.5" stroke-opacity="0.7"
         stroke-dasharray="40" stroke-dashoffset="40" marker-end="url(#hiw-am)">
     <animate attributeName="stroke-dashoffset" from="40" to="0" begin="2.3s" dur="0.4s" fill="freeze"
              calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>

@@ -4,8 +4,8 @@
   <defs>
     <style>
       .svg-title { font-family: 'EB Garamond', Georgia, serif; }
-      .svg-code  { font-family: 'Cascadia Code', 'JetBrains Mono', 'Fira Code', monospace; }
-      .svg-label { font-family: system-ui, sans-serif; }
+      .svg-code  { font-family: 'Caskadyia Cove Nerd Font', 'Caskaydia Cove Nerd Font', 'CaskaydiaCove Nerd Font', 'Cascadia Code', monospace; }
+      .svg-label { font-family: 'EB Garamond', Georgia, serif; }
 
       /* ── Light mode overrides ── */
       :root:not(.dark) .aif-zone-v       { fill: #3a5e47; fill-opacity: 0.06; }
@@ -37,7 +37,7 @@
 
     <filter id="gv" x="-25%" y="-25%" width="150%" height="150%">
       <feGaussianBlur stdDeviation="3" result="b"/>
-      <feFlood flood-color="#3D9E8C" flood-opacity="0.45"/>
+      <feFlood flood-color="#5e8570" flood-opacity="0.45"/>
       <feComposite in2="b" operator="in"/>
       <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
@@ -57,7 +57,7 @@
     </filter>
 
     <marker id="av" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-      <polygon points="0,0 8,3 0,6" fill="#3D9E8C" opacity="0.8"/>
+      <polygon points="0,0 8,3 0,6" fill="#5e8570" opacity="0.8"/>
     </marker>
     <marker id="ac" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
       <polygon points="0,0 8,3 0,6" fill="#C9A874"/>
@@ -75,21 +75,21 @@
   </defs>
 
   <!-- Zone tints -->
-  <rect class="aif-zone-v" x="0" y="0"   width="400" height="200" fill="#3D9E8C" fill-opacity="0.05" rx="4"/>
+  <rect class="aif-zone-v" x="0" y="0"   width="400" height="200" fill="#5e8570" fill-opacity="0.05" rx="4"/>
   <rect class="aif-zone-c" x="0" y="210" width="400" height="330" fill="#C9A874" fill-opacity="0.04" rx="4"/>
 
   <!-- Validated Run -->
   <g opacity="0">
     <animate attributeName="opacity" from="0" to="1" begin="0.4s" dur="0.5s" fill="freeze"/>
-    <rect class="aif-box-bg-v"     x="20" y="25" width="360" height="72" rx="3" fill="#3D9E8C" fill-opacity="0.08"/>
+    <rect class="aif-box-bg-v"     x="20" y="25" width="360" height="72" rx="3" fill="#5e8570" fill-opacity="0.08"/>
     <rect class="aif-box-border-v" x="20" y="25" width="360" height="72" rx="3" fill="none"
-          stroke="#3D9E8C" stroke-width="1.5" stroke-opacity="0.5" filter="url(#gv)"/>
-    <text class="aif-title-v svg-title" x="200" y="56" text-anchor="middle" font-size="17" font-weight="600" fill="#C8DDD9">Validated Run</text>
-    <text class="aif-sub-v svg-label"   x="200" y="77" text-anchor="middle" font-size="10.5" letter-spacing="0.8" fill="#3D9E8C" fill-opacity="0.8">captured · normalized · checksummed</text>
+          stroke="#5e8570" stroke-width="1.5" stroke-opacity="0.5" filter="url(#gv)"/>
+    <text class="aif-title-v svg-title" x="200" y="56" text-anchor="middle" font-size="17" font-weight="600" fill="#f2e9de">Validated Run</text>
+    <text class="aif-sub-v svg-label"   x="200" y="77" text-anchor="middle" font-size="10.5" letter-spacing="0.8" fill="#5e8570" fill-opacity="0.8">captured · normalized · checksummed</text>
   </g>
 
   <!-- Arrow 1 -->
-  <line class="aif-arrow-v" x1="200" y1="97" x2="200" y2="97" stroke="#3D9E8C" stroke-width="1.5"
+  <line class="aif-arrow-v" x1="200" y1="97" x2="200" y2="97" stroke="#5e8570" stroke-width="1.5"
         stroke-opacity="0" marker-end="url(#av)">
     <animate attributeName="stroke-opacity" from="0" to="0.6" begin="1s" dur="0.3s" fill="freeze"/>
     <animate attributeName="y2" from="97" to="120" begin="0.9s" dur="0.4s" fill="freeze"
@@ -191,7 +191,7 @@
 
   <!-- Idle: Validated Run glow pulse -->
   <rect class="aif-pulse-v" x="20" y="25" width="360" height="72" rx="3" fill="none"
-        stroke="#3D9E8C" stroke-width="1.5" stroke-opacity="0">
+        stroke="#5e8570" stroke-width="1.5" stroke-opacity="0">
     <animate attributeName="stroke-opacity" values="0;0.35;0" dur="4s" begin="10s" repeatCount="indefinite"/>
   </rect>
 

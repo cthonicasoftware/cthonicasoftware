@@ -1,4 +1,4 @@
-/* Import Google Fonts */
+/* Import primary typeface */
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
 
 @import "tailwindcss";
@@ -13,11 +13,11 @@
   --color-mist: #F7F7F7;
 
   /* Celestial/Website colors */
-  --color-obsidian: #0a0a0a;
-  --color-parchment: #f5e6d3;
-  --color-starlight: #e8d5b7;
-  --color-celestial: #c9a874;
-  --color-verdigris: #43b3ae;
+  --color-obsidian: #0f0d0d;
+  --color-parchment: #f2e9de;
+  --color-starlight: #7fa4b5;
+  --color-celestial: #c6a664;
+  --color-verdigris: #5e8570;
 
   --color-ink: #071013;
   --color-brand: #23B5D3;
@@ -41,14 +41,27 @@
 }
 
 @layer base {
+  .app,
+  .app * {
+    font-family: "EB Garamond", Georgia, serif;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp,
+  .font-mono {
+    font-family: "Caskadyia Cove Nerd Font", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", "Cascadia Code", monospace;
+  }
+
   .app {
     /* Light */
-    --bg: 245 230 211;        /* parchment #f5e6d3 */
-    --fg: 0 0 0;              /* black text */
-    --color-celestial: #c9a874; /* celestial gold accents */
-    --muted: 71 85 105;       /* slate-600 */
-    --muted-2: 100 116 139;   /* slate-500 */
-    --card: 248 250 252;      /* slate-50 */
+    --bg: 243 226 193;        /* parchment #f3e2c1 */
+    --fg: 15 10 4;            /* warm near-black */
+    --color-celestial: #c6a664; /* celestial gold accents */
+    --muted: 80 60 35;        /* warm brown-grey */
+    --muted-2: 110 85 55;     /* lighter warm brown */
+    --card: 252 246 237;      /* warm cream #fcf6ed */
     --border: 139 116 100;    /* warm brown */
     --ring: 16 185 129;       /* emerald-500 */
     --brand: 35 181 211;      /* #23B5D3 - QA brand */
@@ -58,12 +71,12 @@
   .app.dark,
   .dark .app {
     /* Dark */
-    --bg: 2 6 23;             /* #071013 */
+    --bg: 15 13 13;           /* #0f0d0d — Obsidian Black */
     --fg: 241 245 249;        /* slate-100 - improved contrast */
-    --color-celestial: #c9a874; /* celestial gold */
+    --color-celestial: #c6a664; /* celestial gold */
     --muted: 148 163 184;     /* slate-400 */
     --muted-2: 203 213 225;   /* slate-300 */
-    --card: 17 24 39;         /* slate-900 */
+    --card: 18 13 5;          /* warm obsidian #120d05 */
     --border: 255 255 255;    /* white borders for dark */
     --ring: 16 185 129;       /* emerald-500 */
     --brand: 35 181 211;      /* #23B5D3 - QA brand */
