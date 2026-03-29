@@ -5,6 +5,35 @@
     <style>
       .hiw-title { font-family: 'EB Garamond', Georgia, serif; }
       .hiw-label { font-family: system-ui, sans-serif; }
+
+      /* ── Light mode overrides ── */
+      :root:not(.dark) .hiw-zone-v        { fill: #3a5e47; fill-opacity: 0.05; }
+      :root:not(.dark) .hiw-zone-c        { fill: #8b6020; fill-opacity: 0.05; }
+      :root:not(.dark) .hiw-divider       { stroke: #8b6020; stroke-opacity: 0.20; }
+
+      :root:not(.dark) .hiw-card-bg-v     { fill: #3a5e47; fill-opacity: 0.08; }
+      :root:not(.dark) .hiw-card-border-v { stroke: #3a5e47; stroke-opacity: 0.40; }
+      :root:not(.dark) .hiw-card-bg-c     { fill: #8b6020; fill-opacity: 0.08; }
+      :root:not(.dark) .hiw-card-border-c { stroke: #8b6020; stroke-opacity: 0.50; filter: none; }
+
+      :root:not(.dark) .hiw-num-v         { fill: #3a5e47; fill-opacity: 0.55; }
+      :root:not(.dark) .hiw-num-c         { fill: #8b6020; fill-opacity: 0.65; }
+
+      :root:not(.dark) .hiw-heading       { fill: #2a1a06; }
+      :root:not(.dark) .hiw-heading-ship  { fill: #6b4a18; }
+      :root:not(.dark) .hiw-sub-v         { fill: #3a5e47; fill-opacity: 1; }
+      :root:not(.dark) .hiw-sub-c         { fill: #8b6020; fill-opacity: 1; }
+      :root:not(.dark) .hiw-desc          { fill: #5c4228; }
+      :root:not(.dark) .hiw-desc-ship     { fill: #8b6020; }
+
+      :root:not(.dark) .hiw-zone-label-v  { fill: #3a5e47; fill-opacity: 0.65; }
+      :root:not(.dark) .hiw-zone-label-c  { fill: #8b6020; fill-opacity: 0.65; }
+
+      :root:not(.dark) .hiw-arrow-v       { stroke: #3a5e47; stroke-opacity: 0.65; }
+      :root:not(.dark) .hiw-arrow-m       { stroke: #5a7a62; stroke-opacity: 0.60; }
+      :root:not(.dark) .hiw-arrow-c       { stroke: #8b6020; stroke-opacity: 0.80; }
+      :root:not(.dark) .hiw-dot-c         { fill: #8b6020; }
+      :root:not(.dark) .hiw-idle-fill     { fill: #8b6020; }
     </style>
 
     <filter id="hiw-gv" x="-20%" y="-20%" width="140%" height="140%">
@@ -39,25 +68,24 @@
       <stop offset="1"   stop-color="white" stop-opacity="0"/>
     </linearGradient>
     <clipPath id="hiw-clip-ship"><rect x="600" y="32" width="152" height="170" rx="3"/></clipPath>
+
   </defs>
 
-  <!-- Background -->
-  <rect width="800" height="240" fill="#0D1117" rx="4"/>
-
   <!-- Zone tints -->
-  <rect x="0"   y="0" width="400" height="240" fill="#3D9E8C" fill-opacity="0.03" rx="4"/>
-  <rect x="400" y="0" width="400" height="240" fill="#C9A874" fill-opacity="0.03" rx="4"/>
+  <rect class="hiw-zone-v" x="0"   y="0" width="400" height="240" fill="#3D9E8C" fill-opacity="0.03" rx="4"/>
+  <rect class="hiw-zone-c" x="400" y="0" width="400" height="240" fill="#C9A874" fill-opacity="0.03" rx="4"/>
 
   <!-- Zone divider -->
-  <line x1="400" y1="16" x2="400" y2="224" stroke="#9CA3AF" stroke-width="0.5" stroke-opacity="0.15" stroke-dasharray="4 4"/>
+  <line class="hiw-divider" x1="400" y1="16" x2="400" y2="224"
+        stroke="#9CA3AF" stroke-width="0.5" stroke-opacity="0.15" stroke-dasharray="4 4"/>
 
   <!-- Zone labels -->
   <g opacity="0">
     <animate attributeName="opacity" from="0" to="1" begin="2.8s" dur="0.5s" fill="freeze"/>
-    <text x="216" y="16" text-anchor="middle" font-size="8" font-weight="700"
-          fill="#3D9E8C" fill-opacity="0.5" letter-spacing="2.5" class="hiw-label">ASTROLABE</text>
-    <text x="584" y="16" text-anchor="middle" font-size="8" font-weight="700"
-          fill="#C9A874" fill-opacity="0.5" letter-spacing="2.5" class="hiw-label">ORRERY</text>
+    <text class="hiw-zone-label-v hiw-label" x="216" y="16" text-anchor="middle"
+          font-size="8" font-weight="700" fill="#3D9E8C" fill-opacity="0.5" letter-spacing="2.5">ASTROLABE</text>
+    <text class="hiw-zone-label-c hiw-label" x="584" y="16" text-anchor="middle"
+          font-size="8" font-weight="700" fill="#C9A874" fill-opacity="0.5" letter-spacing="2.5">ORRERY</text>
   </g>
 
   <!-- Card 1: Capture -->
@@ -67,13 +95,13 @@
       <animateTransform attributeName="transform" type="translate"
         from="0,70" to="0,0" begin="0.3s" dur="0.7s" fill="freeze"
         calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
-      <rect x="48" y="32" width="152" height="170" rx="3" fill="#3D9E8C" fill-opacity="0.07"/>
-      <rect x="48" y="32" width="152" height="170" rx="3" fill="none"
+      <rect class="hiw-card-bg-v"     x="48" y="32" width="152" height="170" rx="3" fill="#3D9E8C" fill-opacity="0.07"/>
+      <rect class="hiw-card-border-v" x="48" y="32" width="152" height="170" rx="3" fill="none"
             stroke="#3D9E8C" stroke-width="1.5" stroke-opacity="0.45"/>
-      <text x="62"  y="58"  font-size="10" font-weight="700" fill="#3D9E8C" fill-opacity="0.4" class="hiw-label">01</text>
-      <text x="124" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C8DDD9" class="hiw-title">Capture</text>
-      <text x="124" y="130" text-anchor="middle" font-size="10" fill="#3D9E8C" class="hiw-label">Records hardware test data</text>
-      <text x="124" y="172" text-anchor="middle" font-size="9"  fill="#9CA3AF" class="hiw-label">serial · TCP · file</text>
+      <text class="hiw-num-v hiw-label"  x="62"  y="58"  font-size="10" font-weight="700" fill="#3D9E8C" fill-opacity="0.4">01</text>
+      <text class="hiw-heading hiw-title" x="124" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C8DDD9">Capture</text>
+      <text class="hiw-sub-v hiw-label"  x="124" y="130" text-anchor="middle" font-size="10" fill="#3D9E8C">Records hardware test data</text>
+      <text class="hiw-desc hiw-label"   x="124" y="172" text-anchor="middle" font-size="9"  fill="#9CA3AF">serial · TCP · file</text>
     </g>
   </g>
 
@@ -84,13 +112,13 @@
       <animateTransform attributeName="transform" type="translate"
         from="0,70" to="0,0" begin="0.6s" dur="0.7s" fill="freeze"
         calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
-      <rect x="232" y="32" width="152" height="170" rx="3" fill="#3D9E8C" fill-opacity="0.07"/>
-      <rect x="232" y="32" width="152" height="170" rx="3" fill="none"
+      <rect class="hiw-card-bg-v"     x="232" y="32" width="152" height="170" rx="3" fill="#3D9E8C" fill-opacity="0.07"/>
+      <rect class="hiw-card-border-v" x="232" y="32" width="152" height="170" rx="3" fill="none"
             stroke="#3D9E8C" stroke-width="1.5" stroke-opacity="0.45"/>
-      <text x="246" y="58"  font-size="10" font-weight="700" fill="#3D9E8C" fill-opacity="0.4" class="hiw-label">02</text>
-      <text x="308" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C8DDD9" class="hiw-title">Upload</text>
-      <text x="308" y="130" text-anchor="middle" font-size="10" fill="#3D9E8C" class="hiw-label">Delivers runs to Orrery</text>
-      <text x="308" y="172" text-anchor="middle" font-size="9"  fill="#9CA3AF" class="hiw-label">retry · resume · verified</text>
+      <text class="hiw-num-v hiw-label"  x="246" y="58"  font-size="10" font-weight="700" fill="#3D9E8C" fill-opacity="0.4">02</text>
+      <text class="hiw-heading hiw-title" x="308" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C8DDD9">Upload</text>
+      <text class="hiw-sub-v hiw-label"  x="308" y="130" text-anchor="middle" font-size="10" fill="#3D9E8C">Delivers runs to Orrery</text>
+      <text class="hiw-desc hiw-label"   x="308" y="172" text-anchor="middle" font-size="9"  fill="#9CA3AF">retry · resume · verified</text>
     </g>
   </g>
 
@@ -101,13 +129,13 @@
       <animateTransform attributeName="transform" type="translate"
         from="0,70" to="0,0" begin="0.9s" dur="0.7s" fill="freeze"
         calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
-      <rect x="416" y="32" width="152" height="170" rx="3" fill="#C9A874" fill-opacity="0.07"/>
-      <rect x="416" y="32" width="152" height="170" rx="3" fill="none"
+      <rect class="hiw-card-bg-c"     x="416" y="32" width="152" height="170" rx="3" fill="#C9A874" fill-opacity="0.07"/>
+      <rect class="hiw-card-border-c" x="416" y="32" width="152" height="170" rx="3" fill="none"
             stroke="#C9A874" stroke-width="1.5" stroke-opacity="0.45"/>
-      <text x="430" y="58"  font-size="10" font-weight="700" fill="#C9A874" fill-opacity="0.4" class="hiw-label">03</text>
-      <text x="492" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C8DDD9" class="hiw-title">Analyze</text>
-      <text x="492" y="130" text-anchor="middle" font-size="10" fill="#C9A874" class="hiw-label">Normalize, run AI analysis</text>
-      <text x="492" y="172" text-anchor="middle" font-size="9"  fill="#9CA3AF" class="hiw-label">features · AI · rules</text>
+      <text class="hiw-num-c hiw-label"       x="430" y="58"  font-size="10" font-weight="700" fill="#C9A874" fill-opacity="0.4">03</text>
+      <text class="hiw-heading hiw-title"      x="492" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C8DDD9">Analyze</text>
+      <text class="hiw-sub-c hiw-label"        x="492" y="130" text-anchor="middle" font-size="10" fill="#C9A874">Normalize, run AI analysis</text>
+      <text class="hiw-desc hiw-label"         x="492" y="172" text-anchor="middle" font-size="9"  fill="#9CA3AF">features · AI · rules</text>
     </g>
   </g>
 
@@ -118,18 +146,18 @@
       <animateTransform attributeName="transform" type="translate"
         from="0,70" to="0,0" begin="1.2s" dur="0.7s" fill="freeze"
         calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
-      <rect x="600" y="32" width="152" height="170" rx="3" fill="#C9A874" fill-opacity="0.09"/>
-      <rect x="600" y="32" width="152" height="170" rx="3" fill="none"
+      <rect class="hiw-card-bg-c"     x="600" y="32" width="152" height="170" rx="3" fill="#C9A874" fill-opacity="0.09"/>
+      <rect class="hiw-card-border-c" x="600" y="32" width="152" height="170" rx="3" fill="none"
             stroke="#C9A874" stroke-width="2" filter="url(#hiw-gc)"/>
-      <text x="614" y="58"  font-size="10" font-weight="700" fill="#C9A874" fill-opacity="0.5" class="hiw-label">04</text>
-      <text x="676" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C9A874" class="hiw-title">Ship</text>
-      <text x="676" y="130" text-anchor="middle" font-size="10" fill="#C9A874" class="hiw-label">Make release decisions</text>
-      <text x="676" y="172" text-anchor="middle" font-size="9"  fill="#C9B98A" class="hiw-label">query · decide · release</text>
+      <text class="hiw-num-c hiw-label"        x="614" y="58"  font-size="10" font-weight="700" fill="#C9A874" fill-opacity="0.5">04</text>
+      <text class="hiw-heading-ship hiw-title"  x="676" y="107" text-anchor="middle" font-size="21" font-weight="700" fill="#C9A874">Ship</text>
+      <text class="hiw-sub-c hiw-label"         x="676" y="130" text-anchor="middle" font-size="10" fill="#C9A874">Make release decisions</text>
+      <text class="hiw-desc-ship hiw-label"     x="676" y="172" text-anchor="middle" font-size="9"  fill="#C9B98A">query · decide · release</text>
     </g>
   </g>
 
   <!-- Arrow 1: Capture → Upload (verdigris) -->
-  <line x1="200" y1="117" x2="224" y2="117"
+  <line class="hiw-arrow-v" x1="200" y1="117" x2="224" y2="117"
         stroke="#3D9E8C" stroke-width="1.5" stroke-opacity="0.7"
         stroke-dasharray="40" stroke-dashoffset="40" marker-end="url(#hiw-av)">
     <animate attributeName="stroke-dashoffset" from="40" to="0" begin="2s" dur="0.4s" fill="freeze"
@@ -137,7 +165,7 @@
   </line>
 
   <!-- Arrow 2: Upload → Analyze (handoff, mixed tone) -->
-  <line x1="384" y1="117" x2="408" y2="117"
+  <line class="hiw-arrow-m" x1="384" y1="117" x2="408" y2="117"
         stroke="#8AB49C" stroke-width="1.5" stroke-opacity="0.7"
         stroke-dasharray="40" stroke-dashoffset="40" marker-end="url(#hiw-am)">
     <animate attributeName="stroke-dashoffset" from="40" to="0" begin="2.3s" dur="0.4s" fill="freeze"
@@ -145,7 +173,7 @@
   </line>
 
   <!-- Arrow 3: Analyze → Ship (celestial) -->
-  <line x1="568" y1="117" x2="592" y2="117"
+  <line class="hiw-arrow-c" x1="568" y1="117" x2="592" y2="117"
         stroke="#C9A874" stroke-width="2" stroke-opacity="0.9"
         stroke-dasharray="40" stroke-dashoffset="40" marker-end="url(#hiw-ac)">
     <animate attributeName="stroke-dashoffset" from="40" to="0" begin="2.6s" dur="0.5s" fill="freeze"
@@ -162,12 +190,12 @@
   </rect>
 
   <!-- Idle: Ship card breathes -->
-  <rect x="600" y="32" width="152" height="170" rx="3" fill="#C9A874" fill-opacity="0">
+  <rect class="hiw-idle-fill" x="600" y="32" width="152" height="170" rx="3" fill="#C9A874" fill-opacity="0">
     <animate attributeName="fill-opacity" values="0.09;0.18;0.09" dur="5s" begin="10s" repeatCount="indefinite"/>
   </rect>
 
   <!-- Idle: travelling dot on last arrow -->
-  <circle r="3" fill="#C9A874" cx="568" cy="117" opacity="0">
+  <circle class="hiw-dot-c" r="3" fill="#C9A874" cx="568" cy="117" opacity="0">
     <animate attributeName="cx"      values="568;592" dur="1s" begin="11s" repeatCount="indefinite"/>
     <animate attributeName="opacity" values="0;0.9;0"  dur="1s" begin="11s" repeatCount="indefinite"/>
   </circle>
