@@ -1,41 +1,61 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900"
      preserveAspectRatio="xMidYMid slice"
+     class="page-bg-svg"
      style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden;">
+  <style>
+    /* ── Light mode — shift from dark starfield to faint parchment orrery ── */
+    :root:not(.dark) .star-w  { fill: #6b3f14; }
+    :root:not(.dark) .star-g  { fill: #7a4e10; }
+    :root:not(.dark) .star-t  { fill: #3a5e47; }
+    :root:not(.dark) .stars   { opacity: 0.18; }
+
+    :root:not(.dark) .center-glow { fill: url(#bg-center-light); }
+
+    :root:not(.dark) .orb-cross { stroke: #8b5e1a; }
+    :root:not(.dark) .orb-ring  { stroke: #8b5e1a; }
+
+    :root:not(.dark) .planet-v-halo, :root:not(.dark) .planet-v-core { fill: #3a5e47; }
+    :root:not(.dark) .planet-g-halo, :root:not(.dark) .planet-g-core { fill: #7a4e10; }
+  </style>
   <defs>
-    <!-- Subtle center glow -->
+    <!-- Dark mode center glow — verdigris -->
     <radialGradient id="bg-center" cx="50%" cy="50%" r="50%">
-      <stop offset="0%"   stop-color="#3D9E8C" stop-opacity="0.10"/>
-      <stop offset="100%" stop-color="#3D9E8C" stop-opacity="0"/>
+      <stop offset="0%"   stop-color="#5e8570" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#5e8570" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Light mode center glow — warm amber -->
+    <radialGradient id="bg-center-light" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#c6a664" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#c6a664" stop-opacity="0"/>
     </radialGradient>
   </defs>
 
   <!-- ── Stars layer ── -->
-  <!-- Opacity values cycle to produce twinkle; staggered begin offsets prevent synchronisation -->
-  <g opacity="0.35">
-    <circle cx="216"  cy="90"  r="1.5" fill="#C9A874"><animate attributeName="opacity" values="0.2;0.9;0.3;0.8;0.1" dur="4.2s" begin="0s"    repeatCount="indefinite"/></circle>
-    <circle cx="1152" cy="180" r="1.2" fill="#ffffff" ><animate attributeName="opacity" values="0.3;0.8;0.1;0.9;0.2" dur="3.7s" begin="0.8s"  repeatCount="indefinite"/></circle>
-    <circle cx="648"  cy="135" r="1.8" fill="#C9A874"><animate attributeName="opacity" values="0.1;0.7;0.4;0.9;0.2" dur="5.1s" begin="1.4s"  repeatCount="indefinite"/></circle>
-    <circle cx="360"  cy="540" r="1.3" fill="#ffffff" ><animate attributeName="opacity" values="0.5;0.1;0.8;0.3;0.7" dur="3.9s" begin="0.3s"  repeatCount="indefinite"/></circle>
-    <circle cx="936"  cy="630" r="1.5" fill="#3D9E8C"><animate attributeName="opacity" values="0.2;0.8;0.1;0.6;0.3" dur="4.8s" begin="2.1s"  repeatCount="indefinite"/></circle>
-    <circle cx="576"  cy="765" r="1.0" fill="#ffffff" ><animate attributeName="opacity" values="0.4;0.9;0.2;0.7;0.5" dur="3.3s" begin="1.7s"  repeatCount="indefinite"/></circle>
-    <circle cx="1296" cy="270" r="2.0" fill="#C9A874"><animate attributeName="opacity" values="0.1;0.6;0.3;0.8;0.2" dur="5.5s" begin="0.6s"  repeatCount="indefinite"/></circle>
-    <circle cx="144"  cy="450" r="1.2" fill="#ffffff" ><animate attributeName="opacity" values="0.6;0.2;0.9;0.4;0.7" dur="4.1s" begin="2.5s"  repeatCount="indefinite"/></circle>
-    <circle cx="1008" cy="360" r="1.5" fill="#3D9E8C"><animate attributeName="opacity" values="0.3;0.7;0.1;0.8;0.4" dur="3.6s" begin="1.2s"  repeatCount="indefinite"/></circle>
-    <circle cx="1224" cy="675" r="1.1" fill="#ffffff" ><animate attributeName="opacity" values="0.8;0.2;0.6;0.1;0.9" dur="4.4s" begin="0.4s"  repeatCount="indefinite"/></circle>
-    <circle cx="504"  cy="225" r="2.2" fill="#C9A874"><animate attributeName="opacity" values="0.2;0.9;0.4;0.7;0.1" dur="5.8s" begin="1.9s"  repeatCount="indefinite"/></circle>
-    <circle cx="288"  cy="810" r="1.3" fill="#ffffff" ><animate attributeName="opacity" values="0.4;0.1;0.8;0.3;0.6" dur="3.2s" begin="0.9s"  repeatCount="indefinite"/></circle>
-    <circle cx="864"  cy="108" r="1.7" fill="#3D9E8C"><animate attributeName="opacity" values="0.7;0.3;0.9;0.2;0.5" dur="4.6s" begin="2.3s"  repeatCount="indefinite"/></circle>
-    <circle cx="720"  cy="495" r="1.0" fill="#ffffff" ><animate attributeName="opacity" values="0.1;0.7;0.4;0.9;0.3" dur="3.8s" begin="1.6s"  repeatCount="indefinite"/></circle>
-    <circle cx="1080" cy="720" r="1.4" fill="#C9A874"><animate attributeName="opacity" values="0.3;0.8;0.2;0.6;0.4" dur="5.2s" begin="0.1s"  repeatCount="indefinite"/></circle>
-    <circle cx="72"   cy="315" r="1.8" fill="#ffffff" ><animate attributeName="opacity" values="0.6;0.1;0.7;0.3;0.8" dur="4.0s" begin="2.8s"  repeatCount="indefinite"/></circle>
-    <circle cx="1368" cy="585" r="1.2" fill="#3D9E8C"><animate attributeName="opacity" values="0.2;0.7;0.5;0.9;0.1" dur="3.5s" begin="1.1s"  repeatCount="indefinite"/></circle>
-    <circle cx="432"  cy="405" r="1.6" fill="#ffffff" ><animate attributeName="opacity" values="0.5;0.2;0.8;0.4;0.7" dur="4.7s" begin="0.5s"  repeatCount="indefinite"/></circle>
-    <circle cx="792"  cy="855" r="1.0" fill="#C9A874"><animate attributeName="opacity" values="0.4;0.9;0.1;0.6;0.3" dur="3.4s" begin="2.0s"  repeatCount="indefinite"/></circle>
-    <circle cx="1224" cy="45"  r="2.0" fill="#ffffff" ><animate attributeName="opacity" values="0.1;0.6;0.9;0.2;0.7" dur="5.0s" begin="1.3s"  repeatCount="indefinite"/></circle>
+  <g class="stars" opacity="0.35">
+    <circle class="star-g" cx="216"  cy="90"  r="1.5" fill="#C9A874"><animate attributeName="opacity" values="0.2;0.9;0.3;0.8;0.1" dur="4.2s" begin="0s"    repeatCount="indefinite"/></circle>
+    <circle class="star-w" cx="1152" cy="180" r="1.2" fill="#ffffff" ><animate attributeName="opacity" values="0.3;0.8;0.1;0.9;0.2" dur="3.7s" begin="0.8s"  repeatCount="indefinite"/></circle>
+    <circle class="star-g" cx="648"  cy="135" r="1.8" fill="#C9A874"><animate attributeName="opacity" values="0.1;0.7;0.4;0.9;0.2" dur="5.1s" begin="1.4s"  repeatCount="indefinite"/></circle>
+    <circle class="star-w" cx="360"  cy="540" r="1.3" fill="#ffffff" ><animate attributeName="opacity" values="0.5;0.1;0.8;0.3;0.7" dur="3.9s" begin="0.3s"  repeatCount="indefinite"/></circle>
+    <circle class="star-t" cx="936"  cy="630" r="1.5" fill="#5e8570"><animate attributeName="opacity" values="0.2;0.8;0.1;0.6;0.3" dur="4.8s" begin="2.1s"  repeatCount="indefinite"/></circle>
+    <circle class="star-w" cx="576"  cy="765" r="1.0" fill="#ffffff" ><animate attributeName="opacity" values="0.4;0.9;0.2;0.7;0.5" dur="3.3s" begin="1.7s"  repeatCount="indefinite"/></circle>
+    <circle class="star-g" cx="1296" cy="270" r="2.0" fill="#C9A874"><animate attributeName="opacity" values="0.1;0.6;0.3;0.8;0.2" dur="5.5s" begin="0.6s"  repeatCount="indefinite"/></circle>
+    <circle class="star-w" cx="144"  cy="450" r="1.2" fill="#ffffff" ><animate attributeName="opacity" values="0.6;0.2;0.9;0.4;0.7" dur="4.1s" begin="2.5s"  repeatCount="indefinite"/></circle>
+    <circle class="star-t" cx="1008" cy="360" r="1.5" fill="#5e8570"><animate attributeName="opacity" values="0.3;0.7;0.1;0.8;0.4" dur="3.6s" begin="1.2s"  repeatCount="indefinite"/></circle>
+    <circle class="star-w" cx="1224" cy="675" r="1.1" fill="#ffffff" ><animate attributeName="opacity" values="0.8;0.2;0.6;0.1;0.9" dur="4.4s" begin="0.4s"  repeatCount="indefinite"/></circle>
+    <circle class="star-g" cx="504"  cy="225" r="2.2" fill="#C9A874"><animate attributeName="opacity" values="0.2;0.9;0.4;0.7;0.1" dur="5.8s" begin="1.9s"  repeatCount="indefinite"/></circle>
+    <circle class="star-w" cx="288"  cy="810" r="1.3" fill="#ffffff" ><animate attributeName="opacity" values="0.4;0.1;0.8;0.3;0.6" dur="3.2s" begin="0.9s"  repeatCount="indefinite"/></circle>
+    <circle class="star-t" cx="864"  cy="108" r="1.7" fill="#5e8570"><animate attributeName="opacity" values="0.7;0.3;0.9;0.2;0.5" dur="4.6s" begin="2.3s"  repeatCount="indefinite"/></circle>
+    <circle class="star-w" cx="720"  cy="495" r="1.0" fill="#ffffff" ><animate attributeName="opacity" values="0.1;0.7;0.4;0.9;0.3" dur="3.8s" begin="1.6s"  repeatCount="indefinite"/></circle>
+    <circle class="star-g" cx="1080" cy="720" r="1.4" fill="#C9A874"><animate attributeName="opacity" values="0.3;0.8;0.2;0.6;0.4" dur="5.2s" begin="0.1s"  repeatCount="indefinite"/></circle>
+    <circle class="star-w" cx="72"   cy="315" r="1.8" fill="#ffffff" ><animate attributeName="opacity" values="0.6;0.1;0.7;0.3;0.8" dur="4.0s" begin="2.8s"  repeatCount="indefinite"/></circle>
+    <circle class="star-t" cx="1368" cy="585" r="1.2" fill="#5e8570"><animate attributeName="opacity" values="0.2;0.7;0.5;0.9;0.1" dur="3.5s" begin="1.1s"  repeatCount="indefinite"/></circle>
+    <circle class="star-w" cx="432"  cy="405" r="1.6" fill="#ffffff" ><animate attributeName="opacity" values="0.5;0.2;0.8;0.4;0.7" dur="4.7s" begin="0.5s"  repeatCount="indefinite"/></circle>
+    <circle class="star-g" cx="792"  cy="855" r="1.0" fill="#C9A874"><animate attributeName="opacity" values="0.4;0.9;0.1;0.6;0.3" dur="3.4s" begin="2.0s"  repeatCount="indefinite"/></circle>
+    <circle class="star-w" cx="1224" cy="45"  r="2.0" fill="#ffffff" ><animate attributeName="opacity" values="0.1;0.6;0.9;0.2;0.7" dur="5.0s" begin="1.3s"  repeatCount="indefinite"/></circle>
   </g>
 
   <!-- ── Center ambient glow ── -->
-  <ellipse cx="720" cy="450" rx="200" ry="200" fill="url(#bg-center)"/>
+  <ellipse class="center-glow" cx="720" cy="450" rx="200" ry="200" fill="url(#bg-center)"/>
 
   <!-- ── Celestial sphere (rotates as one body, 240 s / revolution) ── -->
   <g>
@@ -43,52 +63,47 @@
       from="0 720 450" to="360 720 450" dur="240s" repeatCount="indefinite"/>
 
     <!-- Faint equatorial / meridian crosshairs -->
-    <line x1="720" y1="20"  x2="720" y2="880" stroke="#3D9E8C" stroke-width="0.4" opacity="0.07"/>
-    <line x1="290" y1="450" x2="1150" y2="450" stroke="#3D9E8C" stroke-width="0.4" opacity="0.07"/>
-    <line x1="416" y1="46"  x2="1024" y2="854" stroke="#3D9E8C" stroke-width="0.3" opacity="0.04"/>
-    <line x1="1024" y1="46" x2="416"  y2="854" stroke="#3D9E8C" stroke-width="0.3" opacity="0.04"/>
+    <line class="orb-cross" x1="720" y1="20"  x2="720" y2="880" stroke="#5e8570" stroke-width="0.4" opacity="0.07"/>
+    <line class="orb-cross" x1="290" y1="450" x2="1150" y2="450" stroke="#5e8570" stroke-width="0.4" opacity="0.07"/>
+    <line class="orb-cross" x1="416" y1="46"  x2="1024" y2="854" stroke="#5e8570" stroke-width="0.3" opacity="0.04"/>
+    <line class="orb-cross" x1="1024" y1="46" x2="416"  y2="854" stroke="#5e8570" stroke-width="0.3" opacity="0.04"/>
 
-    <!-- Orbital ring 1 — r 120 -->
-    <circle cx="720" cy="450" r="120" fill="none" stroke="#3D9E8C" stroke-width="0.8" opacity="0.18"/>
-    <!-- Orbital ring 2 — r 200 -->
-    <circle cx="720" cy="450" r="200" fill="none" stroke="#3D9E8C" stroke-width="0.7" opacity="0.13"/>
-    <!-- Orbital ring 3 — r 310 -->
-    <circle cx="720" cy="450" r="310" fill="none" stroke="#3D9E8C" stroke-width="0.6" opacity="0.09"/>
-    <!-- Orbital ring 4 — r 430 -->
-    <circle cx="720" cy="450" r="430" fill="none" stroke="#3D9E8C" stroke-width="0.5" opacity="0.06"/>
+    <!-- Orbital rings -->
+    <circle class="orb-ring" cx="720" cy="450" r="120" fill="none" stroke="#5e8570" stroke-width="0.8" opacity="0.18"/>
+    <circle class="orb-ring" cx="720" cy="450" r="200" fill="none" stroke="#5e8570" stroke-width="0.7" opacity="0.13"/>
+    <circle class="orb-ring" cx="720" cy="450" r="310" fill="none" stroke="#5e8570" stroke-width="0.6" opacity="0.09"/>
+    <circle class="orb-ring" cx="720" cy="450" r="430" fill="none" stroke="#5e8570" stroke-width="0.5" opacity="0.06"/>
 
     <!-- Planet 1 — verdigris, r=120, 25 s, offset 45° -->
     <g>
       <animateTransform attributeName="transform" type="rotate"
         from="45 720 450" to="405 720 450" dur="25s" repeatCount="indefinite"/>
-      <!-- glow halo -->
-      <circle cx="720" cy="330" r="9"   fill="#3D9E8C" opacity="0.10"/>
-      <!-- core -->
-      <circle cx="720" cy="330" r="3.5" fill="#3D9E8C" opacity="0.80"/>
+      <circle class="planet-v-halo" cx="720" cy="330" r="9"   fill="#5e8570" opacity="0.10"/>
+      <circle class="planet-v-core" cx="720" cy="330" r="3.5" fill="#5e8570" opacity="0.80"/>
     </g>
 
     <!-- Planet 2 — celestial, r=200, 40 s, offset 120° -->
     <g>
       <animateTransform attributeName="transform" type="rotate"
         from="120 720 450" to="480 720 450" dur="40s" repeatCount="indefinite"/>
-      <circle cx="720" cy="250" r="7"   fill="#C9A874" opacity="0.10"/>
-      <circle cx="720" cy="250" r="2.8" fill="#C9A874" opacity="0.70"/>
+      <circle class="planet-g-halo" cx="720" cy="250" r="7"   fill="#C9A874" opacity="0.10"/>
+      <circle class="planet-g-core" cx="720" cy="250" r="2.8" fill="#C9A874" opacity="0.70"/>
     </g>
 
     <!-- Planet 3 — verdigris, r=310, 65 s, offset 220° -->
     <g>
       <animateTransform attributeName="transform" type="rotate"
         from="220 720 450" to="580 720 450" dur="65s" repeatCount="indefinite"/>
-      <circle cx="720" cy="140" r="6"   fill="#3D9E8C" opacity="0.09"/>
-      <circle cx="720" cy="140" r="2.2" fill="#3D9E8C" opacity="0.60"/>
+      <circle class="planet-v-halo" cx="720" cy="140" r="6"   fill="#5e8570" opacity="0.09"/>
+      <circle class="planet-v-core" cx="720" cy="140" r="2.2" fill="#5e8570" opacity="0.60"/>
     </g>
 
     <!-- Planet 4 — celestial, r=430, 90 s, offset 300° -->
     <g>
       <animateTransform attributeName="transform" type="rotate"
         from="300 720 450" to="660 720 450" dur="90s" repeatCount="indefinite"/>
-      <circle cx="720" cy="20"  r="5"   fill="#C9A874" opacity="0.08"/>
-      <circle cx="720" cy="20"  r="1.8" fill="#C9A874" opacity="0.50"/>
+      <circle class="planet-g-halo" cx="720" cy="20"  r="5"   fill="#C9A874" opacity="0.08"/>
+      <circle class="planet-g-core" cx="720" cy="20"  r="1.8" fill="#C9A874" opacity="0.50"/>
     </g>
   </g>
 </svg>
