@@ -32,7 +32,7 @@
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <a href="#" class="flex items-center gap-3 group">
-          <span class="text-2xl text-celestial group-hover:animate-pulse-slow hover:scale-105">🜎</span>
+          <span class="text-2xl text-celestial group-hover:animate-pulse-slow hover:scale-105">🌎</span>
           <div class="flex flex-col">
             <span class="font-garamond text-2xl font-bold text-celestial tracking-wide">CTHONICA</span>
             <span class="text-xs text-app-subtle italic -mt-1">Instruments of Understanding</span>
@@ -42,9 +42,8 @@
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center gap-8 text-sm font-garamond">
           <a href="#instruments" class="text-app-muted hover:text-celestial transition">Instruments</a>
-          <a href="#philosophy" class="text-app-muted hover:text-celestial transition">Philosophy</a>
+          <a href="#how-it-works" class="text-app-muted hover:text-celestial transition">How It Works</a>
           <a href="/pricing" class="text-app-muted hover:text-celestial transition">Pricing</a>
-          <a href="#contact" class="text-app-muted hover:text-celestial transition">Contact</a>
         </nav>
 
         <div class="md:flex items-center gap-3">
@@ -70,9 +69,8 @@
     <div id="mobileNav" class="md:hidden hidden border-t border-celestial/20 bg-obsidian/95 backdrop-blur">
       <div class="px-6 py-4 grid gap-2 text-sm font-garamond">
         <a href="#instruments" class="py-2 text-parchment/80 hover:text-celestial">Instruments</a>
-        <a href="#philosophy" class="py-2 text-parchment/80 hover:text-celestial">Philosophy</a>
+        <a href="#how-it-works" class="py-2 text-parchment/80 hover:text-celestial">How It Works</a>
         <a href="/pricing" class="py-2 text-parchment/80 hover:text-celestial">Pricing</a>
-        <a href="#contact" class="py-2 text-parchment/80 hover:text-celestial">Contact</a>
       </div>
     </div>
   </header>
@@ -96,10 +94,8 @@
         </svg>
       </div>
 
-      <!-- Tagline -->
-      <h1 class="font-garamond text-5xl md:text-7xl font-bold mb-6 text-app">
-        Instruments of Understanding<br/>
-        <span class="text-3xl md:text-5xl text-celestial italic">the Hidden Mechanics of Nature</span>
+      <h1 class="font-garamond text-5xl md:text-7xl font-bold mb-6 text-app leading-tight">
+        Cthonica turns fragmented, unreliable hardware test data into a trusted, traceable system that teams can use to make release decisions with confidence.
       </h1>
 
       <div class="flex items-center justify-center gap-6 my-8">
@@ -108,12 +104,12 @@
         <div class="w-24 h-px bg-celestial/50"></div>
       </div>
 
-      <p class="font-garamond text-2xl italic text-app-muted mb-8 leading-relaxed max-w-3xl mx-auto">
-        Where <span class="text-verdigris font-semibold">earthly empiricism</span> meets
-        <span class="text-celestial font-semibold">celestial order</span>
+      <p class="font-garamond text-2xl italic text-app-muted mb-8 leading-relaxed max-w-4xl mx-auto">
+        Astrolabe captures hardware test runs from the bench and the field. Orrery normalizes, analyzes, and validates those runs so teams can trust the results they use to ship.
       </p>
 
       <!-- CTA Buttons -->
+      <!-- TODO: social proof -->
       <div class="mt-12 flex flex-wrap items-center justify-center gap-4">
         <a href="#instruments"
            class="px-8 py-4 border-2 border-celestial text-celestial font-garamond text-lg tracking-wide hover:bg-celestial hover:text-app transition duration-300">
@@ -136,31 +132,22 @@
   <!-- OUR INSTRUMENTS SECTION -->
   <section id="instruments" class="relative py-32 px-6 border-t border-celestial/20">
     <div class="max-w-7xl mx-auto">
-      <!-- Section Header -->
       <div class="text-center mb-20">
         <h2 class="font-garamond text-5xl font-bold text-app mb-4">Our Instruments</h2>
       </div>
 
-      <!-- Instrument Cards -->
       <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-        <!-- Orrery Card -->
         <div class="bg-parchment/7 border-2 border-celestial backdrop-blur-sm p-8 rounded-none hover:border-starlight transition-all duration-500 group hover:scale-105">
-          <div class="text-6xl mb-6 text-celestial group-hover:animate-pulse-slow">🜚</div>
+          <div class="text-6xl mb-6 text-celestial group-hover:animate-pulse-slow">🌚</div>
           <h3 class="font-garamond text-3xl font-bold mb-4 text-celestial">Orrery</h3>
           <p class="text-lg text-app italic mb-4 font-garamond">The Mind of the Cosmos</p>
           <p class="text-app-muted leading-relaxed mb-6">
-            Intelligence, pattern recognition, and orchestration. Like a mechanical model of the heavens, Orrery reveals the hidden patterns in complex systems, transforming chaos into comprehensible motion.
+            The analysis system for hardware test runs, built to turn raw captures into a usable record of what happened and whether it passed.
           </p>
-          <ul class="space-y-2 text-app-subtle">
-            <li class="flex items-start gap-2">
-              <span class="text-celestial mt-1">☉ Celestial pattern recognition</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-celestial mt-1">♃ Intelligent orchestration</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-celestial mt-1">♄ Systematic understanding</span>
-            </li>
+          <ul class="list-disc space-y-2 pl-5 text-app-subtle">
+            <li>Receives run manifests and artifacts from Astrolabe, creating one source of truth for all test data.</li>
+            <li>Processes each run through normalization, AI-powered analysis, and user-defined validation rules.</li>
+            <li>Surfaces results in a queryable dashboard, filterable and scoped by project.</li>
           </ul>
           <a href="/orrery"
              class="mt-6 inline-block px-6 py-3 border-2 border-celestial bg-celestial/10 text-celestial hover:bg-celestial hover:text-app transition-all duration-300 font-garamond">
@@ -168,24 +155,17 @@
           </a>
         </div>
 
-        <!-- Astrolabe Card -->
         <div class="bg-parchment/7 border-2 border-verdigris backdrop-blur-sm p-8 rounded-none hover:border-starlight transition-all duration-500 group hover:scale-105">
           <div class="text-6xl mb-6 text-verdigris group-hover:animate-pulse-slow">☽</div>
           <h3 class="font-garamond text-3xl font-bold mb-4 text-verdigris">Astrolabe</h3>
           <p class="text-lg text-app italic mb-4 font-garamond">The Hand of the Explorer</p>
           <p class="text-app-muted leading-relaxed mb-6">
-            Measurement, data acquisition, and alignment. Ancient navigators used astrolabes to map the stars; our Astrolabe maps the terrain of data, bringing precision to the art of observation.
+            The capture tool for hardware testing, designed to acquire structured runs reliably before they ever leave the device or lab.
           </p>
-          <ul class="space-y-2 text-app-subtle mb-6">
-            <li class="flex items-start gap-2">
-              <span class="text-verdigris mt-1">☿ Precise measurement</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-verdigris mt-1">♀ Real-time data acquisition</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-verdigris mt-1">⊕ Spatial alignment</span>
-            </li>
+          <ul class="list-disc space-y-2 pl-5 text-app-subtle mb-6">
+            <li>Captures hardware test data from serial ports, TCP sockets, or existing files (CSV, JSONL, raw logs).</li>
+            <li>Stores runs locally first so captures succeed offline.</li>
+            <li>Uploads to Orrery with automatic retry, resume, and idempotent delivery.</li>
           </ul>
           <a href="/astrolabe"
              class="inline-block px-6 py-3 border-2 border-verdigris bg-verdigris/10 text-verdigris hover:bg-verdigris hover:text-app transition-all duration-300 font-garamond">
@@ -196,67 +176,23 @@
     </div>
   </section>
 
-  <!-- PHILOSOPHY / QUOTE SECTION -->
-  <section id="philosophy" class="relative py-32 px-6 bg-parchment/7 backdrop-blur-sm border-y border-celestial/20">
-    <div class="max-w-4xl mx-auto text-center">
-      <!-- Compass/Astrolabe icon -->
-      <div class="mb-8">
-        <svg class="w-16 h-16 mx-auto text-celestial" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="2"/>
-          <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/>
-          <circle cx="50" cy="50" r="15" stroke="currentColor" stroke-width="2"/>
-          <line x1="50" y1="5" x2="50" y2="95" stroke="currentColor" stroke-width="2"/>
-          <line x1="5" y1="50" x2="95" y2="50" stroke="currentColor" stroke-width="2"/>
-        </svg>
-      </div>
-
-      <!-- Quote -->
-      <p class="font-garamond text-3xl md:text-4xl italic text-verdigris mb-8 leading-relaxed">
-        "Between the heavens and the earth lies the realm of measurement—<br class="hidden md:block"/>
-        where mystery yields to method, and the cosmos whispers its secrets<br class="hidden md:block"/>
-        to those who listen with precision."
-      </p>
-
-      <div class="w-24 h-1 bg-celestial mx-auto my-12 opacity-50"></div>
-
-      <p class="text-xl text-app-muted leading-relaxed">
-        We balance <span class="text-celestial font-semibold">occult geometry</span> with
-        <span class="text-verdigris font-semibold">Renaissance craftsmanship</span>—mysterious yet rational,
-        arcane yet empirical. Our tools honor the tradition of natural philosophers who saw no division
-        between science and symbolism.
-      </p>
-
-      <div class="mt-16 text-6xl text-celestial/50">🜏</div>
-      <p class="font-garamond italic text-2xl text-celestial mt-4">As Above, So Below</p>
-    </div>
-  </section>
-
-  <!-- CONTACT SECTION -->
-  <section id="contact" class="relative py-32 px-6 border-t border-celestial/20">
-    <div class="max-w-4xl mx-auto text-center">
-      <!-- Section Header -->
-      <div class="mb-12">
-        <h2 class="font-garamond text-5xl font-bold text-app mb-4">Get in Touch</h2>
-        <div class="text-verdigris text-4xl">✉</div>
+  <!-- HOW IT WORKS SECTION -->
+  <section id="how-it-works" class="relative px-6 md:px-12 lg:px-16 py-24 bg-parchment/5 backdrop-blur-sm border-y border-celestial/20">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="font-garamond text-5xl font-bold text-app">How It Works</h2>
+        <p class="mt-4 text-app-muted max-w-2xl mx-auto">
+          Astrolabe captures. Orrery analyzes. Together, they turn hardware test sessions into release-ready data.
+        </p>
       </div>
 
       <div class="flex items-center justify-center gap-6 my-8">
         <div class="w-24 h-px bg-celestial/50"></div>
-        <div class="text-celestial text-xl">🜏</div>
+        <div class="text-celestial text-xl">🜎</div>
         <div class="w-24 h-px bg-celestial/50"></div>
       </div>
 
-      <p class="font-garamond text-2xl text-app-muted mb-8 leading-relaxed">
-        Interested in collaborating or learning more about our instruments?<br/>
-        We'd love to hear from you.
-      </p>
-
-      <div class="mt-12">
-        <a href="#" id="emailLinkMain"
-           class="px-8 py-4 rounded-none border-2 border-verdigris bg-verdigris/10 text-verdigris font-garamond text-lg hover:bg-verdigris hover:text-app transition-all duration-300 inline-block">
-          Contact Us
-        </a>
-      </div>
+      {% include 'includes/how-it-works.svg' %}
     </div>
   </section>
 
@@ -264,12 +200,11 @@
   <footer class="relative py-12 px-6 border-t border-celestial/20">
     <div class="max-w-6xl mx-auto text-center">
       <p class="font-garamond text-xl text-celestial mb-4">CTHONICA SOFTWARE</p>
-      <p class="text-celestial/60 text-sm italic">Where measurement meets meaning</p>
+      <p class="text-celestial/60 text-sm italic">Astrolabe captures. Orrery analyzes.</p>
 
       <div class="mt-8 flex justify-center gap-8 text-verdigris text-sm">
-        <a href="#docs" class="hover:text-celestial transition-colors cursor-pointer">Documentation</a>
+        <a href="/pricing" class="hover:text-celestial transition-colors cursor-pointer">Pricing</a>
         <a href="https://github.com/cthonicasoftware" class="hover:text-celestial transition-colors cursor-pointer">GitHub</a>
-        <a href="#contact" class="hover:text-celestial transition-colors cursor-pointer">Contact</a>
       </div>
 
       <div class="mt-8 text-app-subtle text-xs">
@@ -280,39 +215,35 @@
 
   <!-- Scripts -->
   <script>
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile navigation toggle
+    // Lazy-animate SVGs: pause on load, play when scrolled into view
+    const lazySVGs = document.querySelectorAll('svg.lazy-svg');
+    lazySVGs.forEach(svg => svg.pauseAnimations());
+    const svgObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.setCurrentTime(0);
+          entry.target.unpauseAnimations();
+          svgObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    lazySVGs.forEach(svg => svgObserver.observe(svg));
+
     const navBtn = document.getElementById('navBtn');
     const mobileNav = document.getElementById('mobileNav');
     navBtn?.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
 
-    // Email links (obfuscated)
-    const emailLink = document.getElementById('emailLink');
-    const emailLinkMain = document.getElementById('emailLinkMain');
-
-    const handleEmailClick = (e) => {
-      e.preventDefault();
-      const em = 'contact' + '@' + 'cthonica.software';
-      window.location.href = 'mailto:' + em;
-    };
-
-    emailLink?.addEventListener('click', handleEmailClick);
-    emailLinkMain?.addEventListener('click', handleEmailClick);
-
-    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-          // Close mobile menu if open
-          const mobileNav = document.getElementById('mobileNav');
-          if (mobileNav && !mobileNav.classList.contains('hidden')) {
-            mobileNav.classList.add('hidden');
+          const mobileNavEl = document.getElementById('mobileNav');
+          if (mobileNavEl && !mobileNavEl.classList.contains('hidden')) {
+            mobileNavEl.classList.add('hidden');
           }
-          // Smooth scroll to target
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
