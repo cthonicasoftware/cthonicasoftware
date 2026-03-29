@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 460" width="100%"
+     role="img" aria-label="Cthonica workflow: Capture, Transfer, Analyze, Ship"
+     class="lazy-svg">
+  <defs>
+    <style>
+      .wfs-title { font-family: 'EB Garamond', Georgia, serif; }
+      .wfs-code  { font-family: 'Cascadia Code', 'Caskaydia Cove Nerd Font', 'CaskaydiaCove Nerd Font', monospace; }
+      .wfs-label { font-family: 'EB Garamond', Georgia, serif; }
+
+      /* ── Light mode overrides ── */
+      :root:not(.dark) .wfs-card-bg-v      { fill: #3a5e47; fill-opacity: 0.08; }
+      :root:not(.dark) .wfs-card-border-v  { stroke: #3a5e47; stroke-opacity: 0.40; }
+      :root:not(.dark) .wfs-card-bg-c      { fill: #8b6020; fill-opacity: 0.09; }
+      :root:not(.dark) .wfs-card-border-c  { stroke: #8b6020; stroke-opacity: 0.50; filter: none; }
+
+      :root:not(.dark) .wfs-num-v          { fill: #3a5e47; fill-opacity: 0.55; }
+      :root:not(.dark) .wfs-num-c          { fill: #8b6020; fill-opacity: 0.65; }
+
+      :root:not(.dark) .wfs-heading        { fill: #2a1a06; }
+      :root:not(.dark) .wfs-heading-upload { fill: #6b4a18; }
+      :root:not(.dark) .wfs-code           { fill: #3a5e47; }
+      :root:not(.dark) .wfs-desc           { fill: #5c4228; }
+      :root:not(.dark) .wfs-desc-upload    { fill: #8b6020; }
+
+      :root:not(.dark) .wfs-arrow-v        { stroke: #3a5e47; stroke-opacity: 0.65; }
+      :root:not(.dark) .wfs-arrow-c        { stroke: #8b6020; stroke-opacity: 0.80; }
+      :root:not(.dark) .wfs-idle-fill      { fill: #8b6020; }
+    </style>
+
+    <filter id="wfs-gc" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feFlood flood-color="#C9A874" flood-opacity="0.55"/>
+      <feComposite in2="b" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Down-pointing arrowhead (verdigris) — orient="auto" rotates to match line direction -->
+    <marker id="wfs-av" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#5e8570" opacity="0.7"/>
+    </marker>
+    <!-- Down-pointing arrowhead (celestial) -->
+    <marker id="wfs-ac" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#C9A874"/>
+    </marker>
+  </defs>
+
+  <!-- ── Card 1: Capture ──────────────────────────────────────────────── -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="0.3s" dur="0.5s" fill="freeze"
+             calcMode="spline" keySplines="0 0 0.2 1" keyTimes="0;1"/>
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+        from="0,28" to="0,0" begin="0.3s" dur="0.7s" fill="freeze"
+        calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
+      <rect class="wfs-card-bg-v" x="20" y="20" width="300" height="85" rx="3"
+            fill="#5e8570" fill-opacity="0.07"/>
+      <rect class="wfs-card-border-v" x="20" y="20" width="300" height="85" rx="3"
+            fill="none" stroke="#5e8570" stroke-width="1.5" stroke-opacity="0.45"/>
+      <text class="wfs-num-v wfs-label" x="34" y="36"
+            font-size="10" font-weight="700" fill="#5e8570" fill-opacity="0.40">01</text>
+      <text class="wfs-heading wfs-title" x="170" y="65"
+            text-anchor="middle" font-size="20" font-weight="700" fill="#f2e9de">Capture</text>
+      <text class="wfs-code" x="170" y="82"
+            text-anchor="middle" font-size="10.5" fill="#5e8570">astrolabe capture</text>
+      <text class="wfs-desc wfs-label" x="170" y="96"
+            text-anchor="middle" font-size="9" fill="#9CA3AF">local · offline · retry-safe</text>
+    </g>
+  </g>
+
+  <!-- ── Connector 1: Capture → Transfer ──────────────────────────────── -->
+  <line class="wfs-arrow-v" x1="170" y1="109" x2="170" y2="129"
+        stroke="#5e8570" stroke-width="1.5" stroke-opacity="0.7"
+        stroke-dasharray="20" stroke-dashoffset="20" marker-end="url(#wfs-av)">
+    <animate attributeName="stroke-dashoffset" from="20" to="0" begin="0.8s" dur="0.35s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
+  </line>
+
+  <!-- ── Card 2: Transfer ─────────────────────────────────────────────── -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="1.0s" dur="0.5s" fill="freeze"
+             calcMode="spline" keySplines="0 0 0.2 1" keyTimes="0;1"/>
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+        from="0,28" to="0,0" begin="1.0s" dur="0.7s" fill="freeze"
+        calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
+      <rect class="wfs-card-bg-v" x="20" y="133" width="300" height="85" rx="3"
+            fill="#5e8570" fill-opacity="0.07"/>
+      <rect class="wfs-card-border-v" x="20" y="133" width="300" height="85" rx="3"
+            fill="none" stroke="#5e8570" stroke-width="1.5" stroke-opacity="0.45"/>
+      <text class="wfs-num-v wfs-label" x="34" y="149"
+            font-size="10" font-weight="700" fill="#5e8570" fill-opacity="0.40">02</text>
+      <text class="wfs-heading wfs-title" x="170" y="178"
+            text-anchor="middle" font-size="20" font-weight="700" fill="#f2e9de">Transfer</text>
+      <text class="wfs-code" x="170" y="195"
+            text-anchor="middle" font-size="10.5" fill="#5e8570">astrolabe upload</text>
+      <text class="wfs-desc wfs-label" x="170" y="209"
+            text-anchor="middle" font-size="9" fill="#9CA3AF">resume · retry · dedup</text>
+    </g>
+  </g>
+
+  <!-- ── Connector 2: Transfer → Analyze ──────────────────────────────── -->
+  <line class="wfs-arrow-v" x1="170" y1="222" x2="170" y2="242"
+        stroke="#5e8570" stroke-width="1.5" stroke-opacity="0.7"
+        stroke-dasharray="20" stroke-dashoffset="20" marker-end="url(#wfs-av)">
+    <animate attributeName="stroke-dashoffset" from="20" to="0" begin="1.5s" dur="0.35s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
+  </line>
+
+  <!-- ── Card 3: Analyze ──────────────────────────────────────────────── -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="1.7s" dur="0.5s" fill="freeze"
+             calcMode="spline" keySplines="0 0 0.2 1" keyTimes="0;1"/>
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+        from="0,28" to="0,0" begin="1.7s" dur="0.7s" fill="freeze"
+        calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
+      <rect class="wfs-card-bg-v" x="20" y="246" width="300" height="85" rx="3"
+            fill="#5e8570" fill-opacity="0.07"/>
+      <rect class="wfs-card-border-v" x="20" y="246" width="300" height="85" rx="3"
+            fill="none" stroke="#5e8570" stroke-width="1.5" stroke-opacity="0.45"/>
+      <text class="wfs-num-v wfs-label" x="34" y="262"
+            font-size="10" font-weight="700" fill="#5e8570" fill-opacity="0.40">03</text>
+      <text class="wfs-heading wfs-title" x="170" y="291"
+            text-anchor="middle" font-size="20" font-weight="700" fill="#f2e9de">Analyze</text>
+      <text class="wfs-code" x="170" y="308"
+            text-anchor="middle" font-size="10.5" fill="#5e8570">orrery</text>
+      <text class="wfs-desc wfs-label" x="170" y="322"
+            text-anchor="middle" font-size="9" fill="#9CA3AF">normalize · validate · surface insights</text>
+    </g>
+  </g>
+
+  <!-- ── Connector 3: Analyze → Ship (celestial) ───────────────────────── -->
+  <line class="wfs-arrow-c" x1="170" y1="335" x2="170" y2="355"
+        stroke="#C9A874" stroke-width="2" stroke-opacity="0.9"
+        stroke-dasharray="20" stroke-dashoffset="20" marker-end="url(#wfs-ac)">
+    <animate attributeName="stroke-dashoffset" from="20" to="0" begin="2.2s" dur="0.4s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
+  </line>
+
+  <!-- ── Card 4: Ship (celestial hero) ────────────────────────────────── -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="2.4s" dur="0.6s" fill="freeze"
+             calcMode="spline" keySplines="0 0 0.2 1" keyTimes="0;1"/>
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+        from="0,28" to="0,0" begin="2.4s" dur="0.7s" fill="freeze"
+        calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
+      <rect class="wfs-card-bg-c" x="20" y="359" width="300" height="85" rx="3"
+            fill="#C9A874" fill-opacity="0.09"/>
+      <rect class="wfs-card-border-c" x="20" y="359" width="300" height="85" rx="3"
+            fill="none" stroke="#C9A874" stroke-width="2" filter="url(#wfs-gc)"/>
+      <text class="wfs-num-c wfs-label" x="34" y="375"
+            font-size="10" font-weight="700" fill="#C9A874" fill-opacity="0.50">04</text>
+      <text class="wfs-heading-upload wfs-title" x="170" y="404"
+            text-anchor="middle" font-size="22" font-weight="700" fill="#C9A874" letter-spacing="0.12em">SHIP</text>
+      <text class="wfs-desc-upload wfs-label" x="170" y="424"
+            text-anchor="middle" font-size="10" fill="#C9B98A">release with confidence</text>
+      <text class="wfs-desc-upload wfs-label" x="170" y="438"
+            text-anchor="middle" font-size="9" fill="#C9B98A" fill-opacity="0.7">traceable · defensible · trusted</text>
+    </g>
+  </g>
+
+  <!-- ── Idle: Ship card breathes ──────────────────────────────────────── -->
+  <rect class="wfs-idle-fill" x="20" y="359" width="300" height="85" rx="3"
+        fill="#C9A874" fill-opacity="0">
+    <animate attributeName="fill-opacity" values="0.09;0.18;0.09" dur="5s" begin="10s" repeatCount="indefinite"/>
+  </rect>
+</svg>
