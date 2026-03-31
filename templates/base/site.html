@@ -1,0 +1,34 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="{% block meta_description %}{% endblock %}" />
+  <title>{% block page_title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'src/styles.css' %}" />
+  {% block extra_head_css %}{% endblock %}
+  <script>
+    (function () {
+      const key = 'app-theme';
+      const stored = localStorage.getItem(key);
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+</head>
+<body
+  class="app app-website min-h-screen bg-app text-app overflow-x-hidden{% block body_class %}{% endblock %}"
+  style="--color-celestial: {% block color_celestial %}#c6a664{% endblock %}; --color-verdigris: {% block color_verdigris %}#5e8570{% endblock %};"
+  {% block body_attributes %}{% endblock %}
+>
+  {% include 'includes/index-background.svg' %}
+  {% block body_content %}{% endblock %}
+  <script src="{% static 'js/light-dark-mode.js' %}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

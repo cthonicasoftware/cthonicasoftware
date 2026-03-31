@@ -1,294 +1,106 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Orrery | Celestial orchestration platform for harmonizing QA intelligence, telemetry, and analysis." />
-  <title>Cthonica | Orrery</title>
-  <link rel="stylesheet" href="{% static 'src/styles.css' %}" />
+{% extends 'base/product.html' %}
 
-  <script>
-    (function () {
-      const key = 'app-website-theme';
-      const stored = localStorage.getItem(key);
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (stored === 'dark' || (!stored && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    })();
-  </script>
-</head>
-
-<body class="app app-website min-h-screen bg-app text-app overflow-x-hidden" style="--color-celestial: #c9a874;">
-  {% include 'includes/index-background.svg' %}
-
-  <header class="relative z-50 border-b border-celestial/30 backdrop-blur-sm">
-    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-6">
-      <div class="flex items-center justify-between">
-        <a href="/" class="flex items-center gap-3 group">
-          <span class="text-2xl text-celestial group-hover:animate-pulse-slow hover:scale-105">🜚</span>
-          <span class="flex flex-col">
-            <span class="font-garamond text-2xl font-bold tracking-wide text-celestial">ORRERY</span>
-            <span class="text-xs text-app-subtle italic -mt-1">Celestial Intelligence</span>
-          </span>
-        </a>
-        <nav class="hidden md:flex items-center gap-8 text-sm font-garamond">
-          <a href="#overview" class="text-app-muted hover:text-celestial transition">Overview</a>
-          <a href="#telemetry" class="text-app-muted hover:text-celestial transition">Telemetry</a>
-          <a href="#architecture" class="text-app-muted hover:text-celestial transition">Architecture</a>
-          <a href="#integration" class="text-app-muted hover:text-celestial transition">Integration</a>
-        </nav>
-        <div class="md:flex items-center gap-3">
-          <button id="theme-toggle" type="button"
-                  class="text-app-subtle hover:text-celestial focus:outline-none focus:ring-2 ring-celestial rounded-lg text-sm p-2.5"
-                  aria-label="Toggle color theme">
-            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                 xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                 xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.415-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 6a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707A1 1 0 104.343 5.757l.707.707zm1.414 8.486l-.707.707A1 1 0 015.05 14.95l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
-          </button>
-          <a href="/astrolabe" class="hidden md:inline-flex items-center gap-2 text-sm text-app-muted hover:text-celestial transition">
-            <span>Visit Astrolabe</span>
-            <span class="text-celestial text-lg">↗</span>
-          </a>
-        </div>
-
-
-        <!-- Mobile menu button -->
-        <button id="navBtn" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-celestial/30 text-celestial">
-          <span class="sr-only">Menu</span>
-          <span class="text-2xl">🜃</span>
-        </button>
+{% block meta_description %}Orrery | Celestial orchestration platform for harmonizing QA intelligence, telemetry, and analysis.{% endblock %}
+{% block page_title %}Cthonica | Orrery{% endblock %}
+{% block color_celestial %}#c9a874{% endblock %}
+{% block header_border_class %}border-celestial/30{% endblock %}
+{% block nav_icon_class %}text-celestial{% endblock %}
+{% block mobile_button_border_class %}border-celestial/30{% endblock %}
+{% block mobile_nav_border_class %}border-celestial/30{% endblock %}
+{% block footer_border_class %}border-celestial/30{% endblock %}
+{% block nav_icon %}🌚{% endblock %}
+{% block product_name %}ORRERY{% endblock %}
+{% block product_tagline %}Celestial Intelligence{% endblock %}
+{% block nav_links %}
+  <a href="#overview" class="text-app-muted hover:text-celestial transition">Overview</a>
+  <a href="#telemetry" class="text-app-muted hover:text-celestial transition">Telemetry</a>
+  <a href="#architecture" class="text-app-muted hover:text-celestial transition">Architecture</a>
+  <a href="#integration" class="text-app-muted hover:text-celestial transition">Integration</a>
+{% endblock %}
+{% block nav_cta %}
+  <a href="/astrolabe" class="hidden md:inline-flex items-center gap-2 text-sm text-app-muted hover:text-celestial transition">
+    <span>Visit Astrolabe</span>
+    <span class="text-celestial text-lg">↗</span>
+  </a>
+{% endblock %}
+{% block mobile_nav_links %}
+  <a href="#overview" class="py-2 text-parchment/80 hover:text-celestial">Overview</a>
+  <a href="#telemetry" class="py-2 text-parchment/80 hover:text-celestial">Telemetry</a>
+  <a href="#architecture" class="py-2 text-parchment/80 hover:text-celestial">Architecture</a>
+  <a href="#integration" class="py-2 text-parchment/80 hover:text-celestial">Integration</a>
+  <a href="/astrolabe" class="py-2 text-parchment/80 hover:text-celestial">Astrolabe</a>
+{% endblock %}
+{% block footer_name %}CTHONICA SOFTWARE{% endblock %}
+{% block footer_tagline %}Mapping the mind of the cosmos{% endblock %}
+{% block footer_links %}
+  <a href="/" class="hover:text-celestial transition-colors cursor-pointer">Home</a>
+  <a href="/astrolabe" class="hover:text-celestial transition-colors cursor-pointer">Astrolabe</a>
+  <a href="#integration" class="hover:text-celestial transition-colors cursor-pointer">Integration</a>
+{% endblock %}
+{% block footer_note %}{% endblock %}
+{% block main %}
+  <section id="overview" class="relative min-h-[70vh] flex items-center">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-32 text-center">
+      <div class="inline-flex items-center gap-3 px-5 py-2 border border-celestial/30 bg-celestial/10 text-celestial uppercase tracking-[0.3em] text-xs"><span class="text-app-subtle">●</span><span>Orrery Platform · Intelligence Orchestration</span><span class="text-app-subtle">●</span></div>
+      <h1 class="font-garamond text-6xl md:text-7xl font-bold text-app leading-tight">Celestial coordination for every QA system.</h1>
+      <p class="mt-6 max-w-3xl mx-auto text-lg text-app-muted leading-relaxed font-garamond">Orrery synchronizes telemetry, analysis, and historical knowledge into a single celestial map—helping teams identify patterns, automate responses, and surface insights at the moment they matter.</p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <a href="#architecture" class="btn btn-celestial">Explore Architecture</a>
+        <a href="#integration" class="btn btn-verdigris">Align With Astrolabe</a>
       </div>
     </div>
-
-    <!-- Mobile Navigation -->
-    <div id="mobileNav" class="md:hidden hidden border-t border-celestial/30 bg-obsidian/95 backdrop-blur">
-      <div class="px-6 py-4 grid gap-2 text-sm font-garamond">
-        <a href="#overview" class="py-2 text-parchment/80 hover:text-celestial">Overview</a>
-        <a href="#telemetry" class="py-2 text-parchment/80 hover:text-celestial">Telemetry</a>
-        <a href="#architecture" class="py-2 text-parchment/80 hover:text-celestial">Architecture</a>
-        <a href="#integration" class="py-2 text-parchment/80 hover:text-celestial">Integration</a>
-        <a href="/astrolabe" class="py-2 text-parchment/80 hover:text-celestial">Astrolabe</a>
+  </section>
+  <section id="telemetry" class="relative px-6 md:px-12 lg:px-16 py-24 border-t border-celestial/30">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="font-garamond text-5xl text-app">Telemetry constellation</h2>
+        <p class="mt-4 text-app-muted">Every signal—structured or ad-hoc—joins a unified orbit. Orrery’s telemetry fabric normalizes incoming data streams, scores confidence, and illuminates anomaly clusters in real time.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-card border-2 border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Ingestion</h3><p class="text-app-muted leading-relaxed">Harmonize serial, TCP, and laboratory instrumentation feeds with semantic tags, schema inference, and manifest lineage.</p></div>
+        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Correlation</h3><p class="text-app-muted leading-relaxed">Orbiting analyses compute cross-run deltas, trend regressions, and resonance alerts powered by configurable rulesets.</p></div>
+        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Visualization</h3><p class="text-app-muted leading-relaxed">Celestial dashboards project system health—constellation overlays, temporal clusters, and expedition timelines ready for review.</p></div>
       </div>
     </div>
-  </header>
-
-  <main class="relative z-40">
-    <section id="overview" class="relative min-h-[70vh] flex items-center">
-      <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-32 text-center">
-        <div class="inline-flex items-center gap-3 px-5 py-2 border border-celestial/30 bg-celestial/10 text-celestial uppercase tracking-[0.3em] text-xs">
-          <span class="text-app-subtle">●</span>
-          <span>Orrery Platform · Intelligence Orchestration</span>
-          <span class="text-app-subtle">●</span>
-        </div>
-
-        <h1 class="font-garamond text-6xl md:text-7xl font-bold text-app leading-tight">
-          Celestial coordination for every QA system.
-        </h1>
-
-        <p class="mt-6 max-w-3xl mx-auto text-lg text-app-muted leading-relaxed font-garamond">
-          Orrery synchronizes telemetry, analysis, and historical knowledge into a single celestial map—helping teams identify patterns, automate responses, and surface insights at the moment they matter.
-        </p>
-
-        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <a href="#architecture"
-             class="px-8 py-4 border-2 border-celestial text-celestial font-garamond text-lg tracking-wide hover:bg-celestial hover:text-app transition duration-300">
-            Explore Architecture
-          </a>
-          <a href="#integration"
-             class="px-8 py-4 border-2 border-verdigris text-celestial font-garamond text-lg tracking-wide hover:bg-verdigris hover:text-app transition duration-300">
-            Align With Astrolabe
-          </a>
-        </div>
+  </section>
+  <section id="architecture" class="relative px-6 md:px-12 lg:px-16 py-24 bg-parchment/5 backdrop-blur-sm border border-celestial">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="font-garamond text-5xl font-bold text-app">Architecture orbits</h2>
+        <p class="mt-4 text-app-muted max-w-3xl mx-auto">Built on modular epicycles that keep data resilient and analysis reproducible. Each orbit layers purpose-built services tuned for observability and craft.</p>
       </div>
-    </section>
-
-    <section id="telemetry" class="relative px-6 md:px-12 lg:px-16 py-24 border-t border-celestial/30">
-      <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="font-garamond text-5xl text-app">Telemetry constellation</h2>
-          <p class="mt-4 text-app-muted">
-            Every signal—structured or ad-hoc—joins a unified orbit. Orrery’s telemetry fabric normalizes incoming data streams, scores confidence, and illuminates anomaly clusters in real time.
-          </p>
+      <div class="grid gap-10 md:grid-cols-2">
+        <div class="bg-card border border-celestial p-8 backdrop-blur">
+          <span class="text-app-subtle uppercase tracking-[0.3em] text-xs">Core Orbits</span>
+          <ul class="mt-4 space-y-4 text-app-muted">
+            <li class="flex gap-3"><span class="text-celestial mt-1">☉</span><div><h3 class="font-garamond text-2xl text-app">Ephemeris Store</h3><p>Immutable record of QA runs, astronomical metadata, and derived artifacts with vector search for resonance.</p></div></li>
+            <li class="flex gap-3"><span class="text-celestial mt-1">♀</span><div><h3 class="font-garamond text-2xl text-app">Orchestration Engine</h3><p>Schedules calibrations, applies corrective recipes, and invokes Astrolabe agents when instrumentation drifts.</p></div></li>
+            <li class="flex gap-3"><span class="text-celestial mt-1">♄</span><div><h3 class="font-garamond text-2xl text-app">Insight Foundry</h3><p>Maps repeating anomalies, predicts emergent faults, and shares playbooks with QA, engineering, and operators.</p></div></li>
+          </ul>
         </div>
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="bg-card border-2 border-celestial p-6">
-            <h3 class="font-garamond text-2xl text-app mb-2">Ingestion</h3>
-            <p class="text-app-muted leading-relaxed">
-              Harmonize serial, TCP, and laboratory instrumentation feeds with semantic tags, schema inference, and manifest lineage.
-            </p>
-          </div>
-          <div class="bg-card border border-celestial p-6">
-            <h3 class="font-garamond text-2xl text-app mb-2">Correlation</h3>
-            <p class="text-app-muted leading-relaxed">
-              Orbiting analyses compute cross-run deltas, trend regressions, and resonance alerts powered by configurable rulesets.
-            </p>
-          </div>
-          <div class="bg-card border border-celestial p-6">
-            <h3 class="font-garamond text-2xl text-app mb-2">Visualization</h3>
-            <p class="text-app-muted leading-relaxed">
-              Celestial dashboards project system health—constellation overlays, temporal clusters, and expedition timelines ready for review.
-            </p>
-          </div>
+        <div class="bg-card border border-celestial p-8 backdrop-blur">
+          <span class="text-app-subtle uppercase tracking-[0.3em] text-xs">Supporting Spheres</span>
+          <ul class="mt-4 space-y-4 text-app-muted">
+            <li class="flex gap-3"><span class="text-celestial mt-1">☿</span><div><h3 class="font-garamond text-2xl text-app">Gateway Relay</h3><p>Bridges remote labs, applies zero-trust policies, and ensures artifacts arrive intact even when expeditions go offline.</p></div></li>
+            <li class="flex gap-3"><span class="text-celestial mt-1">♀</span><div><h3 class="font-garamond text-2xl text-app">Celestial Graph</h3><p>Relational overlay linking specimens, runs, and instruments to trace provenance across missions.</p></div></li>
+            <li class="flex gap-3"><span class="text-celestial mt-1">⊕</span><div><h3 class="font-garamond text-2xl text-app">Renaissance UI</h3><p>Humanist interface that pairs EB Garamond elegance with analytic precision—designed for clarity in dim labs.</p></div></li>
+          </ul>
         </div>
-      </div>
-    </section>
-
-    <section id="architecture" class="relative px-6 md:px-12 lg:px-16 py-24 bg-parchment/5 backdrop-blur-sm border border-celestial">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="font-garamond text-5xl font-bold text-app">Architecture orbits</h2>
-          <p class="mt-4 text-app-muted max-w-3xl mx-auto">
-            Built on modular epicycles that keep data resilient and analysis reproducible. Each orbit layers purpose-built services tuned for observability and craft.
-          </p>
-        </div>
-
-        <div class="grid gap-10 md:grid-cols-2">
-          <div class="bg-card border border-celestial p-8 backdrop-blur">
-            <span class="text-app-subtle uppercase tracking-[0.3em] text-xs">Core Orbits</span>
-            <ul class="mt-4 space-y-4 text-app-muted">
-              <li class="flex gap-3">
-                <span class="text-celestial mt-1">☉</span>
-                <div>
-                  <h3 class="font-garamond text-2xl text-app">Ephemeris Store</h3>
-                  <p>Immutable record of QA runs, astronomical metadata, and derived artifacts with vector search for resonance.</p>
-                </div>
-              </li>
-              <li class="flex gap-3">
-                <span class="text-celestial mt-1">♃</span>
-                <div>
-                  <h3 class="font-garamond text-2xl text-app">Orchestration Engine</h3>
-                  <p>Schedules calibrations, applies corrective recipes, and invokes Astrolabe agents when instrumentation drifts.</p>
-                </div>
-              </li>
-              <li class="flex gap-3">
-                <span class="text-celestial mt-1">♄</span>
-                <div>
-                  <h3 class="font-garamond text-2xl text-app">Insight Foundry</h3>
-                  <p>Maps repeating anomalies, predicts emergent faults, and shares playbooks with QA, engineering, and operators.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div class="bg-card border border-celestial p-8 backdrop-blur">
-            <span class="text-app-subtle uppercase tracking-[0.3em] text-xs">Supporting Spheres</span>
-            <ul class="mt-4 space-y-4 text-app-muted">
-              <li class="flex gap-3">
-                <span class="text-celestial mt-1">☿</span>
-                <div>
-                  <h3 class="font-garamond text-2xl text-app">Gateway Relay</h3>
-                  <p>Bridges remote labs, applies zero-trust policies, and ensures artifacts arrive intact even when expeditions go offline.</p>
-                </div>
-              </li>
-              <li class="flex gap-3">
-                <span class="text-celestial mt-1">♀</span>
-                <div>
-                  <h3 class="font-garamond text-2xl text-app">Celestial Graph</h3>
-                  <p>Relational overlay linking specimens, runs, and instruments to trace provenance across missions.</p>
-                </div>
-              </li>
-              <li class="flex gap-3">
-                <span class="text-celestial mt-1">⊕</span>
-                <div>
-                  <h3 class="font-garamond text-2xl text-app">Renaissance UI</h3>
-                  <p>Humanist interface that pairs EB Garamond elegance with analytic precision—designed for clarity in dim labs.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="integration" class="relative px-6 md:px-12 lg:px-16 py-24 border-b border-celestial/30">
-      <div class="max-w-5xl mx-auto text-center">
-        <div class="inline-flex items-center gap-3 px-5 py-2 border border-celestial/30 bg-celestial/10 text-celestial uppercase tracking-[0.3em] text-xs">
-          <span class="text-app-subtle">●</span>
-          <span>Alignment With Astrolabe</span>
-          <span class="text-app-subtle">●</span>
-        </div>
-        <h2 class="font-garamond text-5xl font-bold text-app mt-10">Synchronization cadence</h2>
-        <p class="mt-6 text-app-muted leading-relaxed">
-          Astrolabe captures. Orrery orchestrates. Together they maintain a living archive of measurement and meaning.
-        </p>
-
-        <div class="mt-12 grid md:grid-cols-2 gap-8 text-left">
-          <div class="bg-card border border-celestial p-6">
-            <h3 class="font-garamond text-2xl text-app mb-2">Tethered workflows</h3>
-            <p class="text-app-muted">
-              Manifest uploads stream into Orrery, triggering automated validation, golden-run comparisons, and dashboard refreshes.
-            </p>
-          </div>
-          <div class="bg-card border border-celestial p-6">
-            <h3 class="font-garamond text-2xl text-app mb-2">Event symphony</h3>
-            <p class="text-app-muted">
-              Webhooks and run web sockets broadcast state changes so labs, analysts, and instrumentation remain in phase.
-            </p>
-          </div>
-          <div class="bg-card border border-celestial p-6">
-            <h3 class="font-garamond text-2xl text-app mb-2">Knowledge exchange</h3>
-            <p class="text-app-muted">
-              Insights feed back into Astrolabe playbooks, guiding explorers with suggested capture presets and anomaly annotations.
-            </p>
-          </div>
-          <div class="bg-card border border-celestial p-6">
-            <h3 class="font-garamond text-2xl text-app mb-2">APIs for artisans</h3>
-            <p class="text-app-muted">
-              GraphQL and REST endpoints expose telemetry catalogs, scored events, and orchestration commands for custom tooling.
-            </p>
-          </div>
-        </div>
-
-        <div class="mt-12">
-          <a href="#" class="px-8 py-4 border-2 border-celestial text-celestial font-garamond text-lg hover:bg-celestial hover:text-app transition duration-300 inline-block">
-            Schedule a constellation tour
-          </a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="relative py-12 px-6 border-t border-celestial/30">
-    <div class="max-w-6xl mx-auto text-center">
-      <p class="font-garamond text-xl text-celestial mb-4">CTHONICA SOFTWARE</p>
-      <p class="text-celestial/60 text-sm italic">Mapping the mind of the cosmos</p>
-      <div class="mt-8 flex justify-center gap-8 text-app-muted text-sm">
-        <a href="/" class="hover:text-celestial transition-colors cursor-pointer">Home</a>
-        <a href="/astrolabe" class="hover:text-celestial transition-colors cursor-pointer">Astrolabe</a>
-        <a href="#integration" class="hover:text-celestial transition-colors cursor-pointer">Integration</a>
-      </div>
-      <div class="mt-8 text-app-subtle text-xs">
-        <p>© <span id="year"></span> Cthonica Software. All rights reserved.</p>
       </div>
     </div>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    const navBtn = document.getElementById('navBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    navBtn?.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          if (mobileNav && !mobileNav.classList.contains('hidden')) {
-            mobileNav.classList.add('hidden');
-          }
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-  </script>
-
-  <script src="{% static 'js/light-dark-mode.js' %}"></script>
-</body>
-</html>
+  </section>
+  <section id="integration" class="relative px-6 md:px-12 lg:px-16 py-24 border-b border-celestial/30">
+    <div class="max-w-5xl mx-auto text-center">
+      <div class="inline-flex items-center gap-3 px-5 py-2 border border-celestial/30 bg-celestial/10 text-celestial uppercase tracking-[0.3em] text-xs"><span class="text-app-subtle">●</span><span>Alignment With Astrolabe</span><span class="text-app-subtle">●</span></div>
+      <h2 class="font-garamond text-5xl font-bold text-app mt-10">Synchronization cadence</h2>
+      <p class="mt-6 text-app-muted leading-relaxed">Astrolabe captures. Orrery orchestrates. Together they maintain a living archive of measurement and meaning.</p>
+      <div class="mt-12 grid md:grid-cols-2 gap-8 text-left">
+        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Tethered workflows</h3><p class="text-app-muted">Manifest uploads stream into Orrery, triggering automated validation, golden-run comparisons, and dashboard refreshes.</p></div>
+        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Event symphony</h3><p class="text-app-muted">Webhooks and run web sockets broadcast state changes so labs, analysts, and instrumentation remain in phase.</p></div>
+        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Knowledge exchange</h3><p class="text-app-muted">Insights feed back into Astrolabe playbooks, guiding explorers with suggested capture presets and anomaly annotations.</p></div>
+        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">APIs for artisans</h3><p class="text-app-muted">GraphQL and REST endpoints expose telemetry catalogs, scored events, and orchestration commands for custom tooling.</p></div>
+      </div>
+      <div class="mt-12"><a href="#" class="btn btn-celestial">Schedule a constellation tour</a></div>
+    </div>
+  </section>
+{% endblock %}

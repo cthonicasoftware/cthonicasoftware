@@ -1,31 +1,14 @@
+{% extends 'base/site.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Cthonica - Trusted, traceable release intelligence for hardware test teams." />
-  <title>Cthonica | Instruments of Understanding</title>
-  <link rel="stylesheet" href="{% static 'src/styles.css' %}" />
 
-  <script>
-    (function () {
-      const key = 'app-theme';
-      const stored = localStorage.getItem(key);
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (stored === 'dark' || (!stored && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    })();
-  </script>
+{% block meta_description %}Cthonica - Trusted, traceable release intelligence for hardware test teams.{% endblock %}
+{% block page_title %}Cthonica | Instruments of Understanding{% endblock %}
+
+{% block extra_head_css %}
   <link rel="stylesheet" href="{% static 'src/website-index.css' %}" />
-</head>
+{% endblock %}
 
-<body class="app app-website min-h-screen bg-app text-app overflow-x-hidden" style="--color-celestial: #c6a664; --color-verdigris: #5e8570;">
-  {% include 'includes/index-background.svg' %}
-
+{% block body_content %}
   <div class="landing-shell">
     <header class="landing-header">
       <div class="landing-header-inner px-6 py-6">
@@ -50,14 +33,7 @@
           </nav>
 
           <div class="flex items-center gap-3">
-            <button id="theme-toggle" type="button"
-              class="text-app-subtle hover:text-celestial focus:outline-none focus:ring-2 ring-celestial rounded-lg text-sm p-2.5"
-              aria-label="Toggle color theme">
-              <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-              <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-            </button>
+            {% include 'includes/theme-toggle-button.html' %}
             <button id="navBtn" class="mobile-nav-toggle" aria-expanded="false" aria-controls="mobileNav">
               <span class="sr-only">Menu</span>
               <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true">
@@ -83,25 +59,18 @@
             <span class="hero-brand">CTHONICA</span>
             <h1 class="hero-title is-typing" data-typed-text="Trusted, Traceable, Simple." aria-label="Trusted, Traceable, Simple.">
               <span class="hero-title-typed" aria-hidden="true"></span><span class="hero-title-caret" aria-hidden="true"></span>
-              <!-- Cthonica turns fragmented, unreliable hardware test data into a trusted, traceable system that teams can use to make release decisions with confidence. -->
             </h1>
-            <!-- <span class="hero-kicker">Release intelligence for hardware teams</span> -->
-            <!-- TODO: social proof -->
             <div class="hero-actions">
-              <a href="#instruments" class="cta-primary">Explore Orrery</a>
-              <a href="#instruments" class="cta-secondary">Discover Astrolabe</a>
+              <a href="#instruments" class="btn btn-celestial">Explore Orrery</a>
+              <a href="#instruments" class="btn btn-verdigris">Discover Astrolabe</a>
             </div>
-            <p class="hero-note">
-              Built for teams that need reliable delivery, and a release record they can defend later.
-            </p>
+            <p class="hero-note">Built for teams that need reliable delivery, and a release record they can defend later.</p>
           </div>
 
           <div class="hero-visual" aria-hidden="true">
             <div class="hero-orbit"></div>
             <div class="hero-visual-frame">
               <div class="instr-panel">
-
-                <!-- Astrolabe capture -->
                 <div class="instr-section">
                   <div class="instr-titlebar">
                     <div class="instr-dots">
@@ -135,7 +104,6 @@
                   </div>
                 </div>
 
-                <!-- Transfer band -->
                 <div class="instr-xfer" data-demo-step="upload">
                   <div class="instr-xfer-dots">
                     <span class="instr-xfer-dot"></span>
@@ -145,25 +113,15 @@
                   <span class="instr-xfer-label">uploading to orrery · retry-safe · idempotent</span>
                 </div>
 
-                <!-- Orrery analysis -->
                 <div class="instr-section instr-orrery">
                   <div class="instr-titlebar">
                     <span class="instr-title-text">orrery · run analysis</span>
                     <span class="instr-pass" data-demo-step="analysis-pass">PASS</span>
                   </div>
                   <div class="instr-body">
-                    <div class="instr-check-row" data-demo-step="analysis-1">
-                      <span class="instr-check">✓</span>
-                      <span>Normalized · 12,847 rows · schema v3</span>
-                    </div>
-                    <div class="instr-check-row" data-demo-step="analysis-2">
-                      <span class="instr-check">✓</span>
-                      <span>AI analysis complete · 4 insights surfaced</span>
-                    </div>
-                    <div class="instr-check-row" data-demo-step="analysis-3">
-                      <span class="instr-check">✓</span>
-                      <span>3 validation rules passed</span>
-                    </div>
+                    <div class="instr-check-row" data-demo-step="analysis-1"><span class="instr-check">✓</span><span>Normalized · 12,847 rows · schema v3</span></div>
+                    <div class="instr-check-row" data-demo-step="analysis-2"><span class="instr-check">✓</span><span>AI analysis complete · 4 insights surfaced</span></div>
+                    <div class="instr-check-row" data-demo-step="analysis-3"><span class="instr-check">✓</span><span>3 validation rules passed</span></div>
                     <div class="instr-tags" data-demo-step="analysis-tags">
                       <span class="instr-tag instr-tag-c">queryable</span>
                       <span class="instr-tag instr-tag-c">traceable</span>
@@ -185,39 +143,22 @@
           <line x1="158" y1="10" x2="280" y2="10" stroke="currentColor" stroke-width="0.6" opacity="0.28"/>
         </svg>
       </div>
+
       <section id="workflow" class="section-band section-band-dark">
         <div class="landing-section-inner">
           <div class="section-head">
             <span class="section-kicker">Workflow</span>
             <h2 class="section-title">One stack, two responsibilities, no handoff gap.</h2>
-            <p class="section-summary">
-              Astrolabe captures test data safely. Orrery exposes them to make releasing products with confidenc easy.
-            </p>
+            <p class="section-summary">Astrolabe captures test data safely. Orrery exposes them to make releasing products with confidence easy.</p>
           </div>
-
           <div class="support-grid">
             <div class="support-rail">
-              <div class="support-line">
-                <strong>Capture</strong>
-                <p>Astrolabe stores runs locally first, so the test succeeds even when the network does not.</p>
-              </div>
-              <div class="support-line">
-                <strong>Transfer</strong>
-                <p>Uploads resume, retry, and deduplicate automatically, so delivery stays reliable.</p>
-              </div>
-              <div class="support-line">
-                <strong>Analyze</strong>
-                <p>Orrery becomes the source of truth for manifests, artifacts, and validation output.</p>
-              </div>
-              <div class="support-line">
-                <strong>Ship</strong>
-                <p>Every release decision ties back to the exact run record that produced it. Traceable Trusted, Simple.</p>
-              </div>
+              <div class="support-line"><strong>Capture</strong><p>Astrolabe stores runs locally first, so the test succeeds even when the network does not.</p></div>
+              <div class="support-line"><strong>Transfer</strong><p>Uploads resume, retry, and deduplicate automatically, so delivery stays reliable.</p></div>
+              <div class="support-line"><strong>Analyze</strong><p>Orrery becomes the source of truth for manifests, artifacts, and validation output.</p></div>
+              <div class="support-line"><strong>Ship</strong><p>Every release decision ties back to the exact run record that produced it. Traceable, trusted, simple.</p></div>
             </div>
-
-            <div class="support-visual">
-              {% include 'includes/workflow-steps.svg' %}
-            </div>
+            <div class="support-visual">{% include 'includes/workflow-steps.svg' %}</div>
           </div>
         </div>
       </section>
@@ -230,43 +171,36 @@
           <line x1="158" y1="10" x2="280" y2="10" stroke="currentColor" stroke-width="0.6" opacity="0.28"/>
         </svg>
       </div>
+
       <section id="instruments" class="section-band">
         <div class="landing-section-inner">
           <div class="section-head">
             <span class="section-kicker">Detail</span>
             <h2 class="section-title">Use the right instrument at the right moment.</h2>
-            <p class="section-summary">
-              Each has one clear job. Together they replace folder sprawl and fragile release judgment with a traceable system.
-            </p>
+            <p class="section-summary">Each has one clear job. Together they replace folder sprawl and fragile release judgment with a traceable system.</p>
           </div>
-
           <div class="product-grid">
             <article class="product-pane">
               <span class="product-label">The capture tool</span>
               <h3 class="product-name text-verdigris">Astrolabe</h3>
-              <p>
-                Built for unstable rigs and intermittent connectivity. Preserves a complete run locally before anything else happens.
-              </p>
+              <p>Built for unstable rigs and intermittent connectivity. Preserves a complete run locally before anything else happens.</p>
               <ul class="product-list">
                 <li>Captures hardware test data from serial ports, TCP sockets, or existing files (CSV, JSONL, raw logs).</li>
                 <li>Stores runs locally first so captures succeed offline.</li>
                 <li>Uploads to Orrery with automatic retry, resume, and idempotent delivery.</li>
               </ul>
-              <a href="/astrolabe" class="product-link">Visit Astrolabe <span aria-hidden="true">-></span></a>
+              <a href="/astrolabe" class="product-link">Visit Astrolabe <span aria-hidden="true">-&gt;</span></a>
             </article>
-
             <article class="product-pane">
               <span class="product-label">The analysis system</span>
               <h3 class="product-name text-celestial">Orrery</h3>
-              <p>
-                Turns Astrolabe runs into a project-scoped record that engineers, QA, and release owners can interrogate.
-              </p>
+              <p>Turns Astrolabe runs into a project-scoped record that engineers, QA, and release owners can interrogate.</p>
               <ul class="product-list">
                 <li>Receives run manifests and artifacts from Astrolabe, creating one source of truth for all test data.</li>
                 <li>Processes each test run, optional AI-powered analysis, and user-defined validation rules.</li>
                 <li>Surfaces results in a queryable dashboard, filterable and scoped by project.</li>
               </ul>
-              <a href="/orrery" class="product-link">Visit Orrery <span aria-hidden="true">-></span></a>
+              <a href="/orrery" class="product-link">Visit Orrery <span aria-hidden="true">-&gt;</span></a>
             </article>
           </div>
         </div>
@@ -280,38 +214,18 @@
           <line x1="158" y1="10" x2="280" y2="10" stroke="currentColor" stroke-width="0.6" opacity="0.28"/>
         </svg>
       </div>
+
       <section id="outcomes" class="section-band section-band-dark">
         <div class="landing-section-inner story-layout">
           <div class="story-sticky">
             <span class="section-kicker">Outcomes</span>
             <h2 class="section-title">What changes when your test data stops fragmenting.</h2>
-            <p class="section-summary">
-              Fewer missing artifacts, fewer ambiguous failures, fewer meetings, faster, more reliable deployment.
-            </p>
+            <p class="section-summary">Fewer missing artifacts, fewer ambiguous failures, fewer meetings, faster, more reliable deployment.</p>
           </div>
-
           <div class="story-list">
-            <article class="story-step">
-              <span>01</span>
-              <h3>Offline capture still counts.</h3>
-              <p>
-                Runs are recorded first and delivered later. The data survives the environment it came from.
-              </p>
-            </article>
-            <article class="story-step">
-              <span>02</span>
-              <h3>Every run becomes queryable.</h3>
-              <p>
-                Filter by project, compare runs, inspect validation output — instead of reconstructing context from shared drives.
-              </p>
-            </article>
-            <article class="story-step">
-              <span>03</span>
-              <h3>Release decisions stay traceable.</h3>
-              <p>
-                Every decision ties back to the exact manifest, artifacts, and rule set that produced it.
-              </p>
-            </article>
+            <article class="story-step"><span>01</span><h3>Offline capture still counts.</h3><p>Runs are recorded first and delivered later. The data survives the environment it came from.</p></article>
+            <article class="story-step"><span>02</span><h3>Every run becomes queryable.</h3><p>Filter by project, compare runs, inspect validation output — instead of reconstructing context from shared drives.</p></article>
+            <article class="story-step"><span>03</span><h3>Release decisions stay traceable.</h3><p>Every decision ties back to the exact manifest, artifacts, and rule set that produced it.</p></article>
           </div>
         </div>
       </section>
@@ -320,31 +234,21 @@
         <div class="landing-section-inner">
           <div class="final-cta relative grid gap-4 px-6 py-12 border border-celestial/20">
             <h2 class="section-title w-full">Choose your first instrument.</h2>
-            <p class="max-w-3xl text-lg text-app-muted leading-relaxed">
-              Capture first, or govern what you already have.
-            </p>
+            <p class="max-w-3xl text-lg text-app-muted leading-relaxed">Capture first, or govern what you already have.</p>
             <div class="final-cta-grid">
               <article class="final-cta-path is-astrolabe grid gap-3 p-6 border border-verdigris/30 transition-all duration-300">
                 <span class="inline-block text-xs tracking-[0.2em] uppercase text-app-subtle">Free entry point</span>
                 <h3 class="font-garamond text-4xl leading-tight">Start with Astrolabe</h3>
-                <p class="max-w-3xl text-app-muted leading-relaxed">
-                  Use Astrolabe for acquisition and reliable capture at the bench or in the field.
-                </p>
+                <p class="max-w-3xl text-app-muted leading-relaxed">Use Astrolabe for acquisition and reliable capture at the bench or in the field.</p>
                 <span class="inline-flex items-center gap-2 text-sm text-app-muted"><span class="final-cta-dot is-verdigris"></span>Free under Apache 2.0</span>
-                <div class="mt-1">
-                  <a href="/astrolabe" class="cta-secondary">Use Astrolabe Free</a>
-                </div>
+                <div class="mt-1"><a href="/astrolabe" class="btn btn-verdigris">Use Astrolabe Free</a></div>
               </article>
               <article class="final-cta-path is-orrery grid gap-3 p-6 border border-celestial/30 transition-all duration-300">
                 <span class="inline-block text-xs tracking-[0.2em] uppercase text-app-subtle">Managed review surface</span>
                 <h3 class="font-garamond text-4xl leading-tight">Explore Orrery</h3>
-                <p class="max-w-3xl text-app-muted leading-relaxed">
-                  Use Orrery to turn test data queryable, and easily reviewable across multiple projects.
-                </p>
+                <p class="max-w-3xl text-app-muted leading-relaxed">Use Orrery to turn test data queryable, and easily reviewable across multiple projects.</p>
                 <span class="inline-flex items-center gap-2 text-sm text-app-muted"><span class="final-cta-dot"></span>Project-scoped review and validation</span>
-                <div class="mt-1">
-                  <a href="/orrery" class="cta-primary">See Orrery in action</a>
-                </div>
+                <div class="mt-1"><a href="/orrery" class="btn btn-celestial">See Orrery in action</a></div>
               </article>
             </div>
           </div>
@@ -365,27 +269,16 @@
         </div>
         <div class="landing-footer-links">
           <a href="/pricing">Pricing</a>
-          <a href="https://github.com/cthonicasoftware">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path fill="currentColor" d="M12 1.75C6.34 1.75 1.75 6.43 1.75 12.2c0 4.62 2.93 8.54 7 9.92.51.1.7-.23.7-.5 0-.25-.01-1.07-.02-1.95-2.85.64-3.45-1.23-3.45-1.23-.47-1.22-1.14-1.54-1.14-1.54-.93-.65.07-.64.07-.64 1.03.08 1.57 1.09 1.57 1.09.91 1.61 2.39 1.14 2.97.87.09-.68.36-1.14.65-1.4-2.28-.27-4.68-1.18-4.68-5.26 0-1.16.4-2.1 1.06-2.84-.11-.27-.46-1.36.1-2.83 0 0 .87-.28 2.85 1.08A9.7 9.7 0 0 1 12 7.13a9.7 9.7 0 0 1 2.6.36c1.98-1.36 2.84-1.08 2.84-1.08.57 1.47.21 2.56.11 2.83.66.74 1.06 1.68 1.06 2.84 0 4.09-2.4 4.99-4.69 5.26.37.33.69.97.69 1.95 0 1.41-.01 2.55-.01 2.89 0 .28.18.61.71.5 4.06-1.39 6.99-5.3 6.99-9.92 0-5.77-4.59-10.45-10.25-10.45Z"/>
-            </svg>
-            <span>GitHub</span>
-          </a>
-          <a href="https://www.linkedin.com/company/cthonica-software/">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path fill="currentColor" d="M5.8 8.44A1.72 1.72 0 1 0 5.8 5a1.72 1.72 0 0 0 0 3.44Zm-1.48 1.3H7.3V19H4.32V9.74Zm4.86 0h2.85v1.26h.04c.4-.75 1.37-1.53 2.82-1.53 3.02 0 3.58 1.99 3.58 4.58V19H15.5v-4.38c0-1.04-.02-2.38-1.45-2.38-1.45 0-1.67 1.13-1.67 2.3V19H9.18V9.74Z"/>
-            </svg>
-            <span>LinkedIn</span>
-          </a>
+          <a href="https://github.com/cthonicasoftware"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 1.75C6.34 1.75 1.75 6.43 1.75 12.2c0 4.62 2.93 8.54 7 9.92.51.1.7-.23.7-.5 0-.25-.01-1.07-.02-1.95-2.85.64-3.45-1.23-3.45-1.23-.47-1.22-1.14-1.54-1.14-1.54-.93-.65.07-.64.07-.64 1.03.08 1.57 1.09 1.57 1.09.91 1.61 2.39 1.14 2.97.87.09-.68.36-1.14.65-1.4-2.28-.27-4.68-1.18-4.68-5.26 0-1.16.4-2.1 1.06-2.84-.11-.27-.46-1.36.1-2.83 0 0 .87-.28 2.85 1.08A9.7 9.7 0 0 1 12 7.13a9.7 9.7 0 0 1 2.6.36c1.98-1.36 2.84-1.08 2.84-1.08.57 1.47.21 2.56.11 2.83.66.74 1.06 1.68 1.06 2.84 0 4.09-2.4 4.99-4.69 5.26.37.33.69.97.69 1.95 0 1.41-.01 2.55-.01 2.89 0 .28.18.61.71.5 4.06-1.39 6.99-5.3 6.99-9.92 0-5.77-4.59-10.45-10.25-10.45Z"/></svg><span>GitHub</span></a>
+          <a href="https://www.linkedin.com/company/cthonica-software/"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M5.8 8.44A1.72 1.72 0 1 0 5.8 5a1.72 1.72 0 0 0 0 3.44Zm-1.48 1.3H7.3V19H4.32V9.74Zm4.86 0h2.85v1.26h.04c.4-.75 1.37-1.53 2.82-1.53 3.02 0 3.58 1.99 3.58 4.58V19H15.5v-4.38c0-1.04-.02-2.38-1.45-2.38-1.45 0-1.67 1.13-1.67 2.3V19H9.18V9.74Z"/></svg><span>LinkedIn</span></a>
         </div>
       </div>
-      <div class="landing-section-inner mt-6 text-app-subtle text-xs">
-        <p>&copy; <span id="year"></span> Cthonica Software. All rights reserved.</p>
-      </div>
+      <div class="landing-section-inner mt-6 text-app-subtle text-xs"><p>&copy; <span id="year"></span> Cthonica Software. All rights reserved.</p></div>
     </footer>
   </div>
+{% endblock %}
 
+{% block extra_scripts %}
   <script src="{% static 'js/website-index.js' %}"></script>
-  <script src="{% static 'js/light-dark-mode.js' %}"></script>
-</body>
-</html>
+  {{ block.super }}
+{% endblock %}
