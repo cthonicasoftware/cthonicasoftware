@@ -607,6 +607,16 @@ body.app-website {
   isolation: isolate;
 }
 
+.final-cta-head {
+  justify-items: center;
+  text-align: center;
+}
+
+.final-cta-head .section-title,
+.final-cta-intro {
+  max-width: none;
+}
+
 /* Verdigris bloom — upper left */
 .final-cta::before {
   content: "";
