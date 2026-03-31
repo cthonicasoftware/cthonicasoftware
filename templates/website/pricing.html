@@ -1,461 +1,308 @@
+{% extends 'base/site.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Cthonica Pricing - Instruments calibrated to your needs" />
-  <title>Pricing | Cthonica</title>
-  <link rel="stylesheet" href="{% static 'src/styles.css' %}" />
 
-  <!-- Set initial theme ASAP to prevent FOUC -->
-  <script>
-    (function () {
-      const key = 'app-theme';
-      const stored = localStorage.getItem(key);
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (stored === 'dark' || (!stored && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    })();
-  </script>
-</head>
+{% block meta_description %}Cthonica pricing for Astrolabe and Orrery.{% endblock %}
+{% block page_title %}Pricing | Cthonica{% endblock %}
+{% block body_class %} pricing-page{% endblock %}
+{% block body_attributes %}data-billing="monthly"{% endblock %}
 
-<body class="app app-website min-h-screen bg-app text-app overflow-x-hidden" style="--color-celestial: #c9a874;">
-  {% include 'includes/index-background.svg' %}
+{% block extra_head_css %}
+  <link rel="stylesheet" href="{% static 'src/website-index.css' %}" />
+  <link rel="stylesheet" href="{% static 'src/website-pricing.css' %}" />
+{% endblock %}
 
-  <!-- HEADER / NAVIGATION -->
-  <header class="relative z-50 border-b border-celestial/20 backdrop-blur-sm">
-    <div class="max-w-7xl mx-auto px-6 py-6">
-      <div class="flex items-center justify-between">
-        <!-- Logo -->
-        <a href="/" class="flex items-center gap-3 group">
-          <span class="text-2xl text-celestial group-hover:animate-pulse-slow hover:scale-105">🌎</span>
-          <div class="flex flex-col">
-            <span class="font-garamond text-2xl font-bold text-celestial tracking-wide">CTHONICA</span>
-            <span class="text-xs text-app-subtle italic -mt-1">Instruments of Understanding</span>
-          </div>
-        </a>
-
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center gap-8 text-sm font-garamond">
-          <a href="/#instruments" class="text-app-muted hover:text-celestial transition">Instruments</a>
-          <a href="/pricing" class="text-celestial font-semibold">Pricing</a>
-        </nav>
-
-        <div class="md:flex items-center gap-3">
-          <button id="theme-toggle" type="button"
-            class="text-app-subtle hover:text-celestial focus:outline-none focus:ring-2 ring-celestial rounded-lg text-sm p-2.5"
-            aria-label="Toggle color theme">
-            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-          </button>
-        </div>
-
-        <!-- Mobile menu button -->
-        <button id="navBtn" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-celestial/30 text-celestial">
-          <span class="sr-only">Menu</span>
-          <span class="text-2xl">🜃</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Navigation -->
-    <div id="mobileNav" class="md:hidden hidden border-t border-celestial/20 bg-obsidian/95 backdrop-blur">
-      <div class="px-6 py-4 grid gap-2 text-sm font-garamond">
-        <a href="/#instruments" class="py-2 text-parchment/80 hover:text-celestial">Instruments</a>
-        <a href="/pricing" class="py-2 text-celestial font-semibold">Pricing</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- HERO SECTION -->
-  <section class="relative min-h-[70vh] flex items-center px-6 pt-20">
-    <div class="max-w-5xl mx-auto text-center z-10 py-32">
-      <div class="inline-flex items-center gap-3 px-5 py-2 border border-celestial/40 bg-celestial/10 text-celestial uppercase tracking-[0.3em] text-xs mb-8">
-        <span class="text-app-subtle">●</span>
-        <span>Pricing Plans · Choose Your Path</span>
-        <span class="text-app-subtle">●</span>
-      </div>
-
-      <h1 class="font-garamond text-5xl md:text-7xl font-bold mb-6 text-app leading-tight">
-        Instruments calibrated<br/>to your needs
-      </h1>
-
-      <div class="flex items-center justify-center gap-6 my-8">
-        <div class="w-24 h-px bg-celestial/50"></div>
-        <div class="text-celestial text-xl">⚖</div>
-        <div class="w-24 h-px bg-celestial/50"></div>
-      </div>
-
-      <p class="font-garamond text-xl md:text-2xl text-app-muted mb-8 leading-relaxed max-w-3xl mx-auto">
-        Whether you're an individual explorer or an organization orchestrating complex data workflows,
-        we have a constellation designed for your journey.
-      </p>
-
-      <div class="mt-16 text-app-subtle text-sm animate-pulse">
-        <div class="text-2xl">↓</div>
-        <div class="font-garamond italic">Scroll to explore</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING CARDS SECTION -->
-  <section class="relative py-24 px-6">
-    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
-      <div class="flex items-center justify-center gap-4 mb-12">
-        <button id="monthly-btn"
-          class="px-6 py-3 border-2 border-celestial bg-celestial/10 text-celestial font-garamond text-base uppercase tracking-wide transition-all duration-300">
-          Monthly
-        </button>
-        <button id="annual-btn"
-          class="px-6 py-3 border border-celestial/30 text-app-muted hover:border-celestial/50 font-garamond text-base uppercase tracking-wide transition-all duration-300">
-          Annual <span class="text-xs text-celestial normal-case">(Save 20%)</span>
-        </button>
-      </div>
-
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <div class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 rounded-none hover:border-verdigris hover:-translate-y-2 transition-all duration-300 flex flex-col relative">
-          <div class="text-4xl text-celestial mb-4 text-center">☿</div>
-          <h3 class="font-garamond text-3xl font-bold text-app mb-2 text-center">Basic</h3>
-          <div class="text-center mb-6">
-            <div class="flex items-baseline justify-center gap-1">
-              <span class="text-app-subtle text-2xl">$</span>
-              <span class="text-6xl font-bold text-app" id="basic-price" data-monthly="50" data-annual="40">50</span>
-            </div>
-            <p class="text-app-muted text-sm mt-1">/month</p>
-          </div>
-          <p class="text-app-muted text-base mb-6 italic text-center">
-            For individual explorers starting their journey
-          </p>
-          <ul class="space-y-3 text-app-muted mb-8 flex-grow">
-            <li class="flex items-start gap-3">
-              <span class="text-celestial mt-1">☉</span>
-              <span>1 project</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-celestial mt-1">☉</span>
-              <span>10 GB cloud storage</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-celestial mt-1">☉</span>
-              <span>Basic data capture</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-celestial mt-1">☉</span>
-              <span>Standard email support</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-celestial mt-1">☉</span>
-              <span>API access</span>
-            </li>
-          </ul>
-          <a href="#"
-            class="w-full block text-center px-6 py-4 border-2 border-verdigris text-celestial hover:bg-verdigris hover:text-obsidian font-garamond text-lg tracking-wide transition duration-300">
-            Get Started
+{% block body_content %}
+  <div class="landing-shell">
+    <header class="landing-header">
+      <div class="landing-header-inner px-6 py-6">
+        <div class="flex items-center justify-between">
+          <a href="/" class="landing-mark">
+            <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="1.2" opacity="0.8"></circle>
+              <circle cx="24" cy="24" r="8" stroke="currentColor" stroke-width="1.2" opacity="0.6"></circle>
+              <path d="M24 6v36M6 24h36" stroke="currentColor" stroke-width="1.2" opacity="0.55"></path>
+            </svg>
+            <span>
+              <span class="block font-garamond text-2xl tracking-wide text-celestial">CTHONICA</span>
+              <span class="block text-xs text-app-subtle italic">Instruments of Understanding</span>
+            </span>
           </a>
-        </div>
-
-        <div class="bg-parchment/7 border-2 border-celestial backdrop-blur-sm p-8 rounded-none hover:border-starlight hover:-translate-y-2 transition-all duration-300 flex flex-col relative scale-105 shadow-lg shadow-celestial/10">
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-celestial text-obsidian px-6 py-1.5 text-xs uppercase tracking-[0.2em] font-garamond">
-            Most Popular
+          <nav class="landing-nav">
+            <a href="/#instruments">Instruments</a>
+            <a href="#plans">Plans</a>
+            <a href="#compare">Compare</a>
+            <a href="#custom">Custom</a>
+          </nav>
+          <div class="flex items-center gap-3">
+            {% include 'includes/theme-toggle-button.html' %}
+            <button id="navBtn" class="mobile-nav-toggle" aria-expanded="false" aria-controls="mobileNav">
+              <span class="sr-only">Menu</span>
+              <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true">
+                <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </button>
           </div>
-          <div class="text-4xl text-celestial mb-4 text-center mt-2">🌚</div>
-          <h3 class="font-garamond text-3xl font-bold text-app mb-2 text-center">Professional</h3>
-          <div class="text-center mb-6">
-            <div class="flex items-baseline justify-center gap-1">
-              <span class="text-app-subtle text-2xl">$</span>
-              <span class="text-6xl font-bold text-app" id="professional-price" data-monthly="250" data-annual="200">250</span>
-            </div>
-            <p class="text-app-muted text-sm mt-1">/month</p>
-          </div>
-          <p class="text-app-muted text-base mb-6 italic text-center">
-            For teams orchestrating complex data workflows
-          </p>
-          <ul class="space-y-3 text-app-muted mb-8 flex-grow">
-            <li class="flex items-start gap-3">
-              <span class="text-celestial mt-1">☉</span>
-              <span>Unlimited projects</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-celestial mt-1">☉</span>
-              <span>100 GB cloud storage</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-celestial mt-1">☉</span>
-              <span>Advanced analytics</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-celestial mt-1">☉</span>
-              <span>Priority support</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-celestial mt-1">☉</span>
-              <span>Team collaboration (5 users)</span>
-            </li>
-          </ul>
-          <a href="#"
-            class="w-full block text-center px-6 py-4 border-2 border-celestial text-celestial hover:bg-celestial/90 font-garamond text-lg tracking-wide transition duration-300">
-            Get Started
-          </a>
-        </div>
-
-        <div class="bg-card border-2 border-starlight/40 backdrop-blur-sm p-8 rounded-none hover:border-starlight hover:-translate-y-2 transition-all duration-300 flex flex-col relative">
-          <div class="text-4xl text-starlight mb-4 text-center">🌏</div>
-          <h3 class="font-garamond text-3xl font-bold text-app mb-2 text-center">Enterprise</h3>
-          <div class="text-center mb-6">
-            <div class="flex items-baseline justify-center gap-1">
-              <span class="text-4xl font-bold text-app">Custom Pricing</span>
-            </div>
-            <p class="text-app-muted text-sm mt-1">&nbsp;</p>
-          </div>
-          <p class="text-app-muted text-base mb-6 italic text-center">
-            For organizations requiring complete control
-          </p>
-          <ul class="space-y-3 text-app-muted mb-8 flex-grow">
-            <li class="flex items-start gap-3">
-              <span class="text-starlight mt-1">☉</span>
-              <span>Unlimited projects</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-starlight mt-1">☉</span>
-              <span>Unlimited cloud storage</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-starlight mt-1">☉</span>
-              <span>White-label option</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-starlight mt-1">☉</span>
-              <span>Dedicated support team</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-starlight mt-1">☉</span>
-              <span>Custom API development</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-starlight mt-1">☉</span>
-              <span>SLA guarantee</span>
-            </li>
-          </ul>
-          <a href="#"
-            class="w-full block text-center px-6 py-4 border-2 border-starlight text-starlight hover:bg-starlight hover:text-obsidian font-garamond text-lg tracking-wide transition duration-300">
-            Contact Sales
-          </a>
         </div>
       </div>
-    </div>
-  </section>
+      <div id="mobileNav" class="mobile-nav-panel">
+        <a href="/#instruments">Instruments</a>
+        <a href="#plans">Plans</a>
+        <a href="#compare">Compare</a>
+        <a href="#custom">Custom</a>
+      </div>
+    </header>
 
-  <div class="flex items-center justify-center gap-6 my-16">
-    <div class="w-24 h-px bg-celestial/50"></div>
-    <div class="text-celestial text-xl">⚖</div>
-    <div class="w-24 h-px bg-celestial/50"></div>
+    <main>
+      <section class="hero-stage">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="hero-kicker">Pricing Ledger</span>
+            <span class="hero-brand">CTHONICA</span>
+            <h1 class="hero-title">Operational pricing for teams that need evidence, not filler tiers.</h1>
+            <p class="hero-subtitle">Start with dependable capture at the bench. Add shared review, validation, and procurement-grade controls only when your release surface demands them.</p>
+            <div class="hero-actions">
+              <a href="#plans" class="btn btn-celestial">Review Plans</a>
+              <a href="#custom" class="btn btn-verdigris">Request a Custom Quote</a>
+            </div>
+            <div class="pricing-meta">
+              <div class="pricing-meta-row"><strong>Capture</strong><span>CLI-first workflows with local-first durability, priced for a single operator starting cleanly.</span></div>
+              <div class="pricing-meta-row"><strong>Review</strong><span>Shared manifests, validation output, and AI-assisted analysis once evidence must move across a team.</span></div>
+              <div class="pricing-meta-row"><strong>Scale</strong><span>Storage, governance, deployment, and support shaped to program risk rather than decorative add-ons.</span></div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <div class="hero-orbit"></div>
+            <div class="hero-visual-frame pricing-poster">
+              <div class="pricing-poster-head"><span class="pricing-poster-mark">pricing/constellation.toml</span><span>Astrolabe + Orrery</span></div>
+              <div class="pricing-poster-grid">
+                <div class="pricing-orbit-field">
+                  <div class="pricing-axis-x"></div>
+                  <div class="pricing-axis-y"></div>
+                  <div class="pricing-orbit is-three"></div>
+                  <div class="pricing-orbit is-two"></div>
+                  <div class="pricing-orbit is-one"></div>
+                  <div class="pricing-node is-basic"><span class="pricing-node-dot"></span><strong>Basic</strong><span>Solo capture, durable storage, and a disciplined starting point.</span></div>
+                  <div class="pricing-node is-professional"><span class="pricing-node-dot"></span><strong>Professional</strong><span>Shared review, AI analysis, validation, and a release-ready record.</span></div>
+                  <div class="pricing-node is-enterprise"><span class="pricing-node-dot"></span><strong>Enterprise</strong><span>Hosting, controls, and support adjusted to contract and program risk.</span></div>
+                </div>
+                <div class="pricing-poster-footer">
+                  <div class="pricing-poster-ledger"><span>Starts at $50</span><span>Annual saves 20%</span><span>Custom when needed</span></div>
+                  <p>One stack, priced at the handoff boundary. The spend rises when the workflow stops being individual capture and starts becoming shared evidence.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-rule" aria-hidden="true">
+        <svg viewBox="0 0 280 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="10" x2="122" y2="10" stroke="currentColor" stroke-width="0.6" opacity="0.28"/>
+          <path d="M140 3 L144 10 L140 17 L136 10 Z" stroke="currentColor" stroke-width="0.6" opacity="0.42" fill="none"/>
+          <circle cx="140" cy="10" r="2" fill="currentColor" opacity="0.35"/>
+          <line x1="158" y1="10" x2="280" y2="10" stroke="currentColor" stroke-width="0.6" opacity="0.28"/>
+        </svg>
+      </div>
+
+      <section id="plans" class="pricing-band is-dark px-6 md:px-10 lg:px-16">
+        <div class="landing-section-inner pricing-layout">
+          <div class="pricing-sidebar lg:sticky lg:top-28 lg:self-start">
+            <span class="section-kicker">Plan Selection</span>
+            <h2 class="section-title">Three pricing paths, arranged by operational complexity.</h2>
+            <p class="section-summary">Capture alone, shared review, or procurement-grade deployment. The hierarchy stays simple even when the workflow does not.</p>
+            <div class="pricing-toggle" role="tablist" aria-label="Billing frequency">
+              <button id="monthly-btn" type="button" class="is-active" aria-pressed="true">Monthly</button>
+              <button id="annual-btn" type="button" aria-pressed="false">Annual</button>
+            </div>
+            <p class="pricing-footnote">Annual billing applies a 20% discount to listed production rates. Use monthly while evaluating or ramping; switch once the workflow is settled.</p>
+          </div>
+
+          <div class="pricing-grid">
+            <article class="pricing-column">
+              <div class="pricing-tier-head">
+                <span class="pricing-badge">Entry Tier</span>
+                <h3>Basic</h3>
+                <p>For individual capture workflows that need durable records and a disciplined first instrument.</p>
+                <div class="pricing-price"><span class="currency">$</span><span id="basic-price" data-monthly="50" data-annual="40" class="amount">50</span><span class="period"><span data-plan-period="monthly">/ month</span><span data-plan-period="annual">/ month billed annually</span></span></div>
+                <span class="pricing-caption">Best for solo bench work</span>
+              </div>
+              <ul class="pricing-list">
+                <li><strong>Scope</strong><span>1 project workspace with 10 GB of managed storage.</span></li>
+                <li><strong>Core Flow</strong><span>Astrolabe capture, local-first durability, and upload into the shared record.</span></li>
+                <li><strong>Support</strong><span>Email support plus API access for teams integrating early.</span></li>
+              </ul>
+              <a href="/astrolabe" class="btn btn-verdigris">Start with Astrolabe</a>
+            </article>
+
+            <article class="pricing-column is-featured">
+              <div class="pricing-tier-head">
+                <span class="pricing-badge">Recommended</span>
+                <h3>Professional</h3>
+                <p>For teams that need shared review, analytics, validation output, and a release-ready system of record.</p>
+                <div class="pricing-price"><span class="currency">$</span><span id="professional-price" data-monthly="250" data-annual="200" class="amount">250</span><span class="period"><span data-plan-period="monthly">/ month</span><span data-plan-period="annual">/ month billed annually</span></span></div>
+                <span class="pricing-caption">Most adopted configuration</span>
+              </div>
+              <ul class="pricing-list">
+                <li><strong>Scope</strong><span>Unlimited projects, 100 GB managed storage, and five collaborators.</span></li>
+                <li><strong>Review Surface</strong><span>AI analysis, validation workflows, and queryable run history across active programs.</span></li>
+                <li><strong>Support</strong><span>Priority support for teams already shipping with shared evidence requirements.</span></li>
+              </ul>
+              <a href="/orrery" class="btn btn-celestial">Explore Orrery</a>
+            </article>
+
+            <article class="pricing-column">
+              <div class="pricing-tier-head">
+                <span class="pricing-badge">Program Tier</span>
+                <h3>Enterprise</h3>
+                <p>For organizations that need governance controls, deployment flexibility, and purchasing terms shaped to contract.</p>
+                <div class="pricing-price"><span class="amount" style="font-size: clamp(2.7rem, 5vw, 4rem);">Custom</span></div>
+                <span class="pricing-caption">Scope, hosting, and support shaped to risk</span>
+              </div>
+              <ul class="pricing-list">
+                <li><strong>Scope</strong><span>Unlimited projects and storage with deployment aligned to security and residency needs.</span></li>
+                <li><strong>Controls</strong><span>SSO, role controls, audit history, custom integrations, and reporting.</span></li>
+                <li><strong>Support</strong><span>Dedicated support, SLA options, and procurement-ready packaging.</span></li>
+              </ul>
+              <a href="#custom" class="btn btn-ghost">Contact Sales</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="pricing-band px-6 md:px-10 lg:px-16">
+        <div class="landing-section-inner pricing-band-grid">
+          <div class="pricing-rail">
+            <article class="pricing-rail-item"><strong>Operating Model</strong><h3>The price line follows the handoff boundary.</h3><p>Spend rises only when responsibility broadens: from one operator capturing safely, to a team reviewing evidence, to a program buying governance and deployment certainty.</p></article>
+            <article class="pricing-rail-item"><strong>Basic</strong><p>Capture discipline for one active stream of work. It is the right entry point when the hardest problem is preserving the run.</p></article>
+            <article class="pricing-rail-item"><strong>Professional</strong><p>Shared review, queries, and validation across a working team. It becomes valuable once release conversations need a common evidence surface.</p></article>
+            <article class="pricing-rail-item"><strong>Enterprise</strong><p>Governance, procurement, and deployment terms built around program risk rather than a generic SaaS limit table.</p></article>
+          </div>
+          <aside class="pricing-side-note">
+            <p class="pricing-caption">Deployment Notes</p>
+            <p class="pricing-quote">Astrolabe stays low-friction. Orrery becomes the multiplier. Enterprise wraps the control plane around both.</p>
+            <ul>
+              <li>Use Basic while collection is still being standardized.</li>
+              <li>Move to Professional when release review needs searchable manifests, validation output, and shared context.</li>
+              <li>Use Enterprise when hosting, security review, procurement, or support terms no longer fit a fixed public tier.</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section id="compare" class="pricing-band is-dark px-6 md:px-10 lg:px-16">
+        <div class="landing-section-inner">
+          <div class="mb-12 max-w-3xl">
+            <span class="section-kicker">Comparison</span>
+            <h2 class="section-title mt-4">Read the full instrument table.</h2>
+            <p class="section-summary mt-4">The table stays operator-readable: what each tier includes, where review starts, and where governance enters the system.</p>
+          </div>
+          <div class="pricing-table-wrap">
+            <table class="pricing-table">
+              <thead><tr><th>Capability</th><th>Basic</th><th>Professional</th><th>Enterprise</th></tr></thead>
+              <tbody>
+                <tr class="group-row"><td colspan="4">Capture and storage</td></tr>
+                <tr><td>Projects</td><td>1</td><td>Unlimited</td><td>Unlimited</td></tr>
+                <tr><td>Managed storage</td><td>10 GB</td><td>100 GB</td><td>Custom / unlimited</td></tr>
+                <tr><td>Local-first capture</td><td class="is-yes">Yes</td><td class="is-yes">Yes</td><td class="is-yes">Yes</td></tr>
+                <tr class="group-row"><td colspan="4">Analysis and review</td></tr>
+                <tr><td>Queryable runs</td><td>Basic</td><td>Advanced</td><td>Advanced</td></tr>
+                <tr><td>Validation workflows</td><td>-</td><td class="is-yes">Yes</td><td class="is-yes">Yes</td></tr>
+                <tr><td>AI-assisted analysis</td><td>-</td><td class="is-yes">Yes</td><td class="is-yes">Yes</td></tr>
+                <tr class="group-row"><td colspan="4">Governance and support</td></tr>
+                <tr><td>Collaborators</td><td>1</td><td>5</td><td>Unlimited</td></tr>
+                <tr><td>Role controls and audit history</td><td>-</td><td>Limited</td><td class="is-yes">Yes</td></tr>
+                <tr><td>Support model</td><td>Email</td><td>Priority</td><td>Dedicated / SLA</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="custom" class="pricing-band px-6 md:px-10 lg:px-16">
+        <div class="landing-section-inner pricing-closing">
+          <div class="pricing-closing-grid">
+            <div>
+              <span class="section-kicker">Final CTA</span>
+              <h2 class="section-title mt-4">Need a procurement-grade constellation instead of a published tier?</h2>
+              <p class="mt-4 max-w-3xl text-lg leading-relaxed text-app-muted">We can scope storage, deployment model, security review, and support expectations around the way your hardware program already runs.</p>
+              <div class="mt-8 flex flex-wrap gap-4">
+                <a href="#" id="emailLinkCTA" class="btn btn-celestial">Contact the Team</a>
+                <a href="/orrery" class="btn btn-verdigris">See Orrery First</a>
+              </div>
+            </div>
+            <div>
+              <p class="pricing-caption">Quote Includes</p>
+              <ul class="pricing-checklist mt-5">
+                <li>Deployment model and hosting constraints</li>
+                <li>Data retention and storage shape</li>
+                <li>Security review and control requirements</li>
+                <li>Support coverage and escalation expectations</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="landing-footer">
+      <div class="landing-footer-ornaments" aria-hidden="true">
+        <span class="footer-twinkle footer-twinkle-gold"></span>
+        <span class="footer-twinkle footer-twinkle-verdigris"></span>
+        <span class="footer-twinkle footer-twinkle-small"></span>
+      </div>
+      <div class="landing-section-inner landing-footer-row">
+        <div class="landing-footer-brand">
+          <p class="font-garamond text-xl text-celestial">CTHONICA SOFTWARE</p>
+          <p class="mt-2 text-app-subtle">Astrolabe captures. Orrery analyzes.</p>
+        </div>
+        <div class="landing-footer-links">
+          <a href="/pricing">Pricing</a>
+          <a href="https://github.com/cthonicasoftware">GitHub</a>
+          <a href="/#outcomes">Outcomes</a>
+        </div>
+      </div>
+      <div class="landing-section-inner mt-6 text-app-subtle text-xs"><p>&copy; <span id="year"></span> Cthonica Software. All rights reserved.</p></div>
+    </footer>
   </div>
+{% endblock %}
 
-  <!-- FEATURE COMPARISON TABLE -->
-  <section class="relative px-6 md:px-10 lg:px-16 py-24 border-t border-celestial/30">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="font-garamond text-5xl font-bold text-app">Compare All Features</h2>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table class="w-full border-collapse">
-          <thead>
-            <tr class="border-b-2 border-celestial/30">
-              <th class="text-left p-4 font-garamond text-lg text-app min-w-[200px]">Feature</th>
-              <th class="text-center p-4 font-garamond text-lg text-celestial">Basic</th>
-              <th class="text-center p-4 font-garamond text-lg text-celestial">Professional</th>
-              <th class="text-center p-4 font-garamond text-lg text-starlight">Enterprise</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 font-garamond text-app font-semibold" colspan="4">Data Collection</td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Projects</td>
-              <td class="text-center p-4 text-app-muted">1</td>
-              <td class="text-center p-4 text-app-muted">Unlimited</td>
-              <td class="text-center p-4 text-app-muted">Unlimited</td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Cloud Storage</td>
-              <td class="text-center p-4 text-app-muted">10 GB</td>
-              <td class="text-center p-4 text-app-muted">100 GB</td>
-              <td class="text-center p-4 text-app-muted">Unlimited</td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Data retention</td>
-              <td class="text-center p-4 text-app-muted">30 days</td>
-              <td class="text-center p-4 text-app-muted">1 year</td>
-              <td class="text-center p-4 text-app-muted">Custom</td>
-            </tr>
-
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 font-garamond text-app font-semibold" colspan="4">Intelligence & Analysis</td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Basic analytics</td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Advanced analytics</td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Custom reports</td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 font-garamond text-app font-semibold" colspan="4">Collaboration</td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Team members</td>
-              <td class="text-center p-4 text-app-muted">1</td>
-              <td class="text-center p-4 text-app-muted">5</td>
-              <td class="text-center p-4 text-app-muted">Unlimited</td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Role-based access</td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Audit logs</td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 font-garamond text-app font-semibold" colspan="4">Integration</td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">API access</td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Custom integrations</td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">White-label</td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 font-garamond text-app font-semibold" colspan="4">Support</td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Email support</td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Priority support</td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">Dedicated support</td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-            <tr class="border-b border-celestial/20 hover:bg-parchment/5 transition">
-              <td class="p-4 text-app-muted">SLA guarantee</td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-app-muted">—</span></td>
-              <td class="text-center p-4"><span class="text-celestial text-xl">☉</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="relative px-6 md:px-12 lg:px-16 py-24 bg-parchment/7 backdrop-blur-sm border-t border-b border-celestial/30 text-center">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="font-garamond text-4xl font-bold text-app mb-4">Need a custom constellation?</h2>
-      <p class="text-app-muted text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-        We'll craft a pricing plan that aligns with your specific requirements. Whether you need specialized features,
-        custom integrations, or unique deployment options, we're here to help.
-      </p>
-      <a href="#" id="emailLinkCTA"
-        class="px-8 py-4 border-2 border-celestial bg-celestial/10 text-celestial hover:bg-celestial hover:text-obsidian transition duration-300 font-garamond text-lg inline-block">
-        Contact Our Team
-      </a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="relative py-12 px-6 border-t border-celestial/20">
-    <div class="max-w-6xl mx-auto text-center">
-      <p class="font-garamond text-xl text-celestial mb-4">CTHONICA SOFTWARE</p>
-      <p class="text-celestial/60 text-sm italic">Where measurement meets meaning</p>
-
-      <div class="mt-8 flex justify-center gap-8 text-celestial text-sm">
-        <a href="/pricing" class="hover:text-celestial transition-colors cursor-pointer">Pricing</a>
-        <a href="https://github.com/cthonicasoftware" class="hover:text-celestial transition-colors cursor-pointer">GitHub</a>
-      </div>
-
-      <div class="mt-8 text-app-subtle text-xs">
-        <p>© <span id="year"></span> Cthonica Software. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
+{% block extra_scripts %}
+  {{ block.super }}
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const navBtn = document.getElementById('navBtn');
     const mobileNav = document.getElementById('mobileNav');
-    navBtn?.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+    navBtn?.addEventListener('click', () => {
+      mobileNav.classList.toggle('is-open');
+      navBtn.setAttribute('aria-expanded', String(mobileNav.classList.contains('is-open')));
+    });
 
     const monthlyBtn = document.getElementById('monthly-btn');
     const annualBtn = document.getElementById('annual-btn');
     const priceElements = document.querySelectorAll('[data-monthly]');
+    const pricingPage = document.body;
 
     function togglePricing(isAnnual) {
-      priceElements.forEach(el => {
+      priceElements.forEach((el) => {
         const monthly = el.getAttribute('data-monthly');
         const annual = el.getAttribute('data-annual');
         el.textContent = isAnnual ? annual : monthly;
       });
 
       if (isAnnual) {
-        monthlyBtn.classList.remove('border-2', 'border-celestial', 'bg-celestial/10', 'text-celestial');
-        monthlyBtn.classList.add('border', 'border-celestial/30', 'text-app-muted');
-        annualBtn.classList.remove('border', 'border-celestial/30', 'text-app-muted');
-        annualBtn.classList.add('border-2', 'border-celestial', 'bg-celestial/10', 'text-celestial');
+        pricingPage?.setAttribute('data-billing', 'annual');
+        monthlyBtn.classList.remove('is-active');
+        annualBtn.classList.add('is-active');
+        monthlyBtn.setAttribute('aria-pressed', 'false');
+        annualBtn.setAttribute('aria-pressed', 'true');
       } else {
-        annualBtn.classList.remove('border-2', 'border-celestial', 'bg-celestial/10', 'text-celestial');
-        annualBtn.classList.add('border', 'border-celestial/30', 'text-app-muted');
-        monthlyBtn.classList.remove('border', 'border-celestial/30', 'text-app-muted');
-        monthlyBtn.classList.add('border-2', 'border-celestial', 'bg-celestial/10', 'text-celestial');
+        pricingPage?.setAttribute('data-billing', 'monthly');
+        annualBtn.classList.remove('is-active');
+        monthlyBtn.classList.add('is-active');
+        annualBtn.setAttribute('aria-pressed', 'false');
+        monthlyBtn.setAttribute('aria-pressed', 'true');
       }
     }
 
@@ -463,30 +310,22 @@
     annualBtn?.addEventListener('click', () => togglePricing(true));
 
     const emailLinkCTA = document.getElementById('emailLinkCTA');
-    const handleEmailClick = (e) => {
+    emailLinkCTA?.addEventListener('click', (e) => {
       e.preventDefault();
-      const em = 'contact' + '@' + 'cthonica.software';
-      window.location.href = 'mailto:' + em;
-    };
+      window.location.href = 'mailto:contact@cthonica.software';
+    });
 
-    emailLinkCTA?.addEventListener('click', handleEmailClick);
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          const mobileNavEl = document.getElementById('mobileNav');
-          if (mobileNavEl && !mobileNavEl.classList.contains('hidden')) {
-            mobileNavEl.classList.add('hidden');
-          }
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (!target) {
+          return;
         }
+        e.preventDefault();
+        mobileNav?.classList.remove('is-open');
+        navBtn?.setAttribute('aria-expanded', 'false');
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
   </script>
-
-  <!-- Theme toggle logic -->
-  <script src="{% static 'js/light-dark-mode.js' %}"></script>
-</body>
-</html>
+{% endblock %}

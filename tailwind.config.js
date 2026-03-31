@@ -1,8 +1,14 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} **/
 module.exports = {
   content: ["./templates/**/*.html", "./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {
+        screens: {
+            ...defaultTheme.screens,
+            desk: '900px',
+        },
         colors: {
             // Original colors
             'black': '#0B0B0C',
@@ -13,7 +19,7 @@ module.exports = {
             'obsidian': '#0a0a0a',
             'parchment': '#f5e6d3',
             'starlight': '#e8d5b7',
-            'celestial': '#c9a874',
+            'celestial': '#c6a664',
             'verdigris': '#43b3ae',
         },
         boxShadow: {

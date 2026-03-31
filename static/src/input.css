@@ -7,6 +7,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --font-garamond: "EB Garamond", Georgia, serif;
+  --font-mono: "Cascadia Code", "Caskadyia Cove Nerd Font", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", monospace;
 
   --color-black: #0B0B0C;
   --color-gray: #1F2125;
@@ -291,6 +293,55 @@
   .star:nth-child(5n) {
     animation-delay: 1.5s;
     animation-duration: 2.5s;
+  }
+
+  /* ── Button system ───────────────────────────────────────────────────────── */
+  /*
+   * Base: .btn          — shared shape, typography, and transition
+   * Variants:
+   *   .btn-celestial    — gold border / fill on hover
+   *   .btn-verdigris    — teal border / fill on hover
+   *
+   * Add new product variants here as the suite grows.
+   */
+
+  .btn {
+    @apply inline-flex items-center justify-center;
+    @apply px-8 py-4;
+    @apply font-garamond text-lg tracking-wide;
+    @apply border-2 no-underline;
+    @apply transition duration-300;
+    @apply cursor-pointer;
+  }
+
+  .btn-celestial {
+    border-color: var(--color-celestial);
+    color: var(--color-celestial);
+  }
+
+  .btn-celestial:hover {
+    background-color: var(--color-celestial);
+    color: var(--color-obsidian);
+  }
+
+  .btn-verdigris {
+    border-color: var(--color-verdigris);
+    color: var(--color-celestial);
+  }
+
+  .btn-verdigris:hover {
+    background-color: var(--color-verdigris);
+    color: var(--color-obsidian);
+  }
+
+  .btn-ghost {
+    border-color: color-mix(in srgb, var(--color-celestial) 30%, transparent);
+    color: rgb(var(--fg) / 0.8);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-celestial);
+    color: var(--color-celestial);
   }
 }
 

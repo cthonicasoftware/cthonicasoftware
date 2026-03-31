@@ -1,0 +1,631 @@
+.pricing-page .hero-stage {
+  min-height: calc(100svh - 1rem);
+  padding-bottom: 5.5rem;
+}
+
+.pricing-page .hero-grid {
+  align-items: center;
+}
+
+.pricing-meta {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+  max-width: 38rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(198, 166, 100, 0.16);
+}
+
+.pricing-meta-row {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pricing-meta-row strong {
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.pricing-meta-row span {
+  color: rgb(var(--fg) / 0.72);
+  line-height: 1.7;
+}
+
+.pricing-poster {
+  position: relative;
+  display: grid;
+  gap: 1.5rem;
+  min-height: 34rem;
+  padding: 1.25rem;
+  background:
+    radial-gradient(circle at top, rgba(198, 166, 100, 0.12), transparent 34%),
+    linear-gradient(160deg, rgba(16, 11, 4, 0.97), rgba(10, 7, 3, 0.78));
+  border: 1px solid rgba(198, 166, 100, 0.18);
+  box-shadow: var(--landing-shadow), var(--landing-shadow-warm);
+  overflow: hidden;
+}
+
+.pricing-poster::before {
+  content: "";
+  position: absolute;
+  inset: 0.75rem;
+  border: 1px solid rgba(198, 166, 100, 0.08);
+  pointer-events: none;
+}
+
+.pricing-poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(198, 166, 100, 0.16), transparent 18%),
+    radial-gradient(circle at 82% 22%, rgba(94, 133, 112, 0.14), transparent 18%),
+    radial-gradient(circle at 50% 78%, rgba(127, 164, 181, 0.09), transparent 22%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.pricing-poster-head,
+.pricing-poster-grid,
+.pricing-poster-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-poster-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  color: rgb(var(--fg) / 0.62);
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.pricing-poster-mark {
+  color: var(--gold);
+}
+
+.pricing-poster-grid {
+  display: grid;
+  gap: 1.2rem;
+  align-content: space-between;
+  flex: 1 1 auto;
+}
+
+.pricing-orbit-field {
+  position: relative;
+  min-height: 17rem;
+  border: 1px solid rgba(198, 166, 100, 0.12);
+  background:
+    linear-gradient(rgba(198, 166, 100, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(198, 166, 100, 0.04) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
+  overflow: hidden;
+}
+
+.pricing-orbit {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  border: 1px solid rgba(198, 166, 100, 0.18);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+}
+
+.pricing-orbit.is-one {
+  width: 12rem;
+  height: 12rem;
+}
+
+.pricing-orbit.is-two {
+  width: 18rem;
+  height: 18rem;
+  border-color: rgba(94, 133, 112, 0.16);
+}
+
+.pricing-orbit.is-three {
+  width: 24rem;
+  height: 24rem;
+  border-color: rgba(127, 164, 181, 0.13);
+}
+
+.pricing-axis-x,
+.pricing-axis-y {
+  position: absolute;
+  background: rgba(198, 166, 100, 0.14);
+}
+
+.pricing-axis-x {
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  height: 1px;
+}
+
+.pricing-axis-y {
+  top: 8%;
+  bottom: 8%;
+  left: 50%;
+  width: 1px;
+}
+
+.pricing-node {
+  position: absolute;
+  display: grid;
+  gap: 0.3rem;
+  max-width: 11rem;
+}
+
+.pricing-node-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: 0 0 1.2rem rgba(198, 166, 100, 0.45);
+}
+
+.pricing-node strong {
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 1.4rem;
+  color: rgb(var(--fg));
+}
+
+.pricing-node span {
+  color: rgb(var(--fg) / 0.62);
+  line-height: 1.6;
+  font-size: 0.88rem;
+}
+
+.pricing-node.is-basic {
+  left: 12%;
+  top: 18%;
+}
+
+.pricing-node.is-professional {
+  right: 12%;
+  top: 12%;
+  text-align: right;
+  justify-items: end;
+}
+
+.pricing-node.is-enterprise {
+  left: 20%;
+  bottom: 12%;
+}
+
+.pricing-poster-footer {
+  display: grid;
+  gap: 0.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(198, 166, 100, 0.12);
+}
+
+.pricing-poster-footer p {
+  margin: 0;
+  color: rgb(var(--fg) / 0.7);
+  line-height: 1.7;
+}
+
+.pricing-poster-ledger {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: "Cascadia Code", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: rgb(var(--fg) / 0.45);
+  text-transform: uppercase;
+}
+
+.pricing-band {
+  position: relative;
+  padding: 6rem 0;
+}
+
+.pricing-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--texture-hatch);
+  pointer-events: none;
+}
+
+.pricing-band > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-band.is-dark {
+  background: linear-gradient(180deg, rgba(10, 7, 3, 0.54), rgba(14, 9, 4, 0.84) 50%, rgba(10, 7, 3, 0.54));
+  border-top: 1px solid var(--gold-line);
+  border-bottom: 1px solid var(--gold-line);
+}
+
+.pricing-layout {
+  display: grid;
+  gap: 3rem;
+}
+
+.pricing-sidebar {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+.pricing-toggle {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.35rem;
+  border: 1px solid rgba(198, 166, 100, 0.2);
+  background: rgba(11, 8, 3, 0.54);
+  border-radius: 999px;
+}
+
+.pricing-toggle button {
+  border: 0;
+  background: transparent;
+  color: rgb(var(--fg) / 0.56);
+  padding: 0.7rem 1.15rem;
+  border-radius: 999px;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.pricing-toggle button.is-active {
+  background: rgba(198, 166, 100, 0.14);
+  color: var(--gold);
+  box-shadow: inset 0 0 0 1px rgba(198, 166, 100, 0.24);
+}
+
+.pricing-footnote {
+  max-width: 22rem;
+  color: rgb(var(--fg) / 0.56);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.pricing-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.pricing-column {
+  position: relative;
+  display: grid;
+  gap: 1.4rem;
+  align-content: start;
+  min-height: 100%;
+  padding: 1.5rem 1.3rem 1.4rem;
+  border: 1px solid rgba(198, 166, 100, 0.12);
+  background: linear-gradient(180deg, rgba(12, 8, 3, 0.72), rgba(12, 8, 3, 0.4));
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.pricing-column:hover {
+  transform: translateY(-4px);
+  border-color: rgba(198, 166, 100, 0.28);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.24);
+}
+
+.pricing-column.is-featured {
+  background:
+    radial-gradient(circle at top, rgba(198, 166, 100, 0.16), transparent 36%),
+    linear-gradient(180deg, rgba(198, 166, 100, 0.1), rgba(12, 8, 3, 0.58));
+  border-color: rgba(198, 166, 100, 0.34);
+  box-shadow: 0 24px 56px rgba(198, 166, 100, 0.08);
+}
+
+.pricing-badge {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid rgba(198, 166, 100, 0.2);
+  color: var(--gold);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.pricing-tier-head {
+  display: grid;
+  gap: 0.55rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(198, 166, 100, 0.12);
+}
+
+.pricing-tier-head h3 {
+  margin: 0;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: clamp(2.2rem, 4vw, 3.3rem);
+  line-height: 0.94;
+}
+
+.pricing-tier-head p {
+  margin: 0;
+  color: rgb(var(--fg) / 0.68);
+  line-height: 1.7;
+}
+
+.pricing-price {
+  display: flex;
+  align-items: end;
+  gap: 0.45rem;
+  margin-top: 0.4rem;
+  line-height: 1;
+}
+
+.pricing-price .currency {
+  font-size: 1.2rem;
+  color: rgb(var(--fg) / 0.56);
+  padding-bottom: 0.85rem;
+}
+
+.pricing-price .amount {
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: clamp(3.6rem, 7vw, 5.4rem);
+  color: rgb(var(--fg));
+}
+
+.pricing-price .period {
+  font-size: 0.95rem;
+  color: rgb(var(--fg) / 0.62);
+  padding-bottom: 0.7rem;
+}
+
+.pricing-caption {
+  font-family: "Cascadia Code", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--verdigris);
+}
+
+.pricing-list {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pricing-list li {
+  display: grid;
+  gap: 0.3rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(198, 166, 100, 0.08);
+}
+
+.pricing-list strong {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.pricing-list span {
+  color: rgb(var(--fg) / 0.72);
+  line-height: 1.65;
+}
+
+.pricing-rail {
+  display: grid;
+  gap: 1px;
+  background: rgba(198, 166, 100, 0.09);
+}
+
+.pricing-rail-item {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1.4rem 1.2rem;
+  background: rgba(12, 8, 3, 0.48);
+}
+
+.pricing-rail-item strong {
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.pricing-rail-item h3 {
+  margin: 0;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 2rem;
+  color: rgb(var(--fg));
+}
+
+.pricing-rail-item p,
+.pricing-rail-item ul {
+  margin: 0;
+  color: rgb(var(--fg) / 0.7);
+  line-height: 1.7;
+}
+
+.pricing-rail-item ul {
+  padding-left: 1rem;
+}
+
+.pricing-side-note {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  padding: 1.6rem;
+  border: 1px solid rgba(94, 133, 112, 0.18);
+  background: linear-gradient(180deg, rgba(94, 133, 112, 0.12), rgba(12, 8, 3, 0.26));
+}
+
+.pricing-side-note p {
+  margin: 0;
+  color: rgb(var(--fg) / 0.72);
+  line-height: 1.7;
+}
+
+.pricing-quote {
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 2rem;
+  line-height: 1.1;
+  color: rgb(var(--fg));
+}
+
+.pricing-table-wrap {
+  overflow-x: auto;
+  border: 1px solid rgba(198, 166, 100, 0.16);
+  background: linear-gradient(180deg, rgba(12, 8, 3, 0.4), rgba(12, 8, 3, 0.24));
+  box-shadow: var(--landing-shadow-warm);
+}
+
+.pricing-table {
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.pricing-table th,
+.pricing-table td {
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid rgba(198, 166, 100, 0.08);
+  text-align: left;
+  vertical-align: top;
+}
+
+.pricing-table thead th {
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 1.2rem;
+  color: rgb(var(--fg));
+  background: rgba(198, 166, 100, 0.06);
+}
+
+.pricing-table thead th:not(:first-child),
+.pricing-table td:not(:first-child) {
+  text-align: center;
+}
+
+.pricing-table tbody tr.group-row td {
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 1.25rem;
+  color: rgb(var(--fg));
+  background: rgba(198, 166, 100, 0.05);
+}
+
+.pricing-table tbody td {
+  color: rgb(var(--fg) / 0.72);
+  line-height: 1.6;
+}
+
+.pricing-table .is-yes {
+  color: var(--gold);
+}
+
+.pricing-closing {
+  position: relative;
+  overflow: hidden;
+  padding: 2.4rem;
+  border: 1px solid rgba(198, 166, 100, 0.2);
+  background:
+    radial-gradient(circle at right top, rgba(198, 166, 100, 0.16), transparent 24%),
+    linear-gradient(140deg, rgba(198, 166, 100, 0.08), rgba(94, 133, 112, 0.08));
+}
+
+.pricing-closing-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: end;
+}
+
+.pricing-checklist {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pricing-checklist li {
+  padding-left: 1.1rem;
+  border-left: 1px solid rgba(198, 166, 100, 0.16);
+  color: rgb(var(--fg) / 0.72);
+  line-height: 1.6;
+}
+
+.pricing-page [data-plan-period="annual"] {
+  display: none;
+}
+
+.pricing-page[data-billing="annual"] [data-plan-period="monthly"] {
+  display: none;
+}
+
+.pricing-page[data-billing="annual"] [data-plan-period="annual"] {
+  display: inline;
+}
+
+html:not(.dark) .pricing-poster,
+html:not(.dark) .pricing-column,
+html:not(.dark) .pricing-rail-item,
+html:not(.dark) .pricing-table-wrap {
+  background: linear-gradient(180deg, rgba(248, 240, 222, 0.98), rgba(241, 230, 208, 0.84));
+  border-color: rgba(120, 86, 28, 0.18);
+  box-shadow: var(--landing-shadow);
+}
+
+html:not(.dark) .pricing-band.is-dark {
+  background: linear-gradient(180deg, rgba(222, 207, 180, 0.46), rgba(213, 197, 168, 0.76) 50%, rgba(222, 207, 180, 0.46));
+}
+
+html:not(.dark) .pricing-toggle {
+  background: rgba(246, 237, 218, 0.72);
+  border-color: rgba(120, 86, 28, 0.22);
+}
+
+html:not(.dark) .pricing-toggle button.is-active {
+  background: rgba(198, 166, 100, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(120, 86, 28, 0.24);
+}
+
+html:not(.dark) .pricing-side-note,
+html:not(.dark) .pricing-closing {
+  border-color: rgba(120, 86, 28, 0.18);
+  background:
+    radial-gradient(circle at right top, rgba(198, 166, 100, 0.18), transparent 24%),
+    linear-gradient(140deg, rgba(248, 238, 218, 0.92), rgba(235, 226, 208, 0.92));
+}
+
+@media (min-width: 960px) {
+  .pricing-layout,
+  .pricing-closing-grid {
+    grid-template-columns: minmax(18rem, 23rem) minmax(0, 1fr);
+  }
+
+  .pricing-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pricing-band-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 959px) {
+  .pricing-poster {
+    min-height: auto;
+  }
+
+  .pricing-orbit.is-two {
+    width: 15rem;
+    height: 15rem;
+  }
+
+  .pricing-orbit.is-three {
+    width: 20rem;
+    height: 20rem;
+  }
+}

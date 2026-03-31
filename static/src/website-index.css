@@ -271,66 +271,6 @@ body.app-website {
 
 /* ── CTAs ──────────────────────────────────────────────────────────────────── */
 
-.cta-primary,
-.cta-secondary,
-.cta-tertiary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 3.2rem;
-  padding: 0.85rem 1.55rem;
-  text-decoration: none;
-  font-family: "EB Garamond", Georgia, serif;
-  font-size: 1rem;
-  letter-spacing: 0.06em;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease,
-    color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.cta-primary {
-  border: 1px solid var(--gold-border);
-  background: var(--gold-subtle);
-  color: var(--gold);
-}
-
-.cta-primary:hover {
-  border-color: rgba(198, 166, 100, 0.5);
-  background: rgba(198, 166, 100, 0.15);
-  box-shadow: 0 4px 22px rgba(198, 166, 100, 0.12), inset 0 1px 0 rgba(198, 166, 100, 0.10);
-}
-
-.cta-secondary {
-  border: 1px solid var(--verdigris-border);
-  color: var(--verdigris);
-  background: var(--verdigris-subtle);
-}
-
-.cta-secondary:hover {
-  border-color: rgba(94, 133, 112, 0.48);
-  background: rgba(94, 133, 112, 0.15);
-  box-shadow: 0 4px 22px rgba(94, 133, 112, 0.10);
-}
-
-.cta-tertiary {
-  border: 1px solid var(--gold-line);
-  color: rgb(var(--fg) / 0.78);
-  background: transparent;
-}
-
-.cta-tertiary:hover {
-  color: var(--gold);
-  border-color: var(--gold-border);
-}
-
-.cta-primary:hover,
-.cta-secondary:hover,
-.cta-tertiary:hover {
-  transform: translateY(-1px);
-}
 
 .hero-note {
   margin-top: 1rem;
@@ -1566,26 +1506,6 @@ html:not(.dark) .product-pane::before {
   );
 }
 
-/* CTA buttons — adjust border visibility */
-html:not(.dark) .cta-primary {
-  border-color: rgba(120, 86, 28, 0.38);
-  background: rgba(198, 166, 100, 0.15);
-}
-
-html:not(.dark) .cta-primary:hover {
-  border-color: rgba(120, 86, 28, 0.56);
-  background: rgba(198, 166, 100, 0.22);
-}
-
-html:not(.dark) .cta-secondary {
-  border-color: rgba(52, 88, 65, 0.38);
-  background: rgba(94, 133, 112, 0.12);
-}
-
-html:not(.dark) .cta-secondary:hover {
-  border-color: rgba(52, 88, 65, 0.54);
-  background: rgba(94, 133, 112, 0.20);
-}
 
 /* Final CTA section */
 html:not(.dark) .final-cta {
