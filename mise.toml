@@ -3,9 +3,6 @@ python = "3.13.7"
 uv = 'latest'
 node = 'latest'
 
-# NPM packages to be installed globally
-"npm:prettier" = 'latest'
-
 [env]
 PYTHONPATH = "{{config_root}}"
 _.path = ["{{config_root}}/.venv/bin"]
