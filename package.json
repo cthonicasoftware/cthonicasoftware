@@ -5,6 +5,10 @@
     "build:django": "npm run build && python manage.py collectstatic --noinput"
   },
 
+  "devDependencies": {
+    "prettier": "latest"
+  },
+
   "dependencies": {
     "@tailwindcss/cli": "^4.1.16",
     "flowbite": "^3.1.2",
