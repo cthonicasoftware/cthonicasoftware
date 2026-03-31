@@ -69,8 +69,7 @@ body.app-website {
   );
 }
 
-.landing-header-inner,
-.landing-section-inner {
+.landing-header-inner {
   width: min(1200px, calc(100% - 3rem));
   margin: 0 auto;
 }
@@ -366,10 +365,6 @@ body.app-website {
 
 /* ── Section bands ─────────────────────────────────────────────────────────── */
 
-.section-band {
-  position: relative;
-  padding: 6rem 0;
-}
 
 /* Etched hatching — subtle manuscript quality */
 .section-band::before {
@@ -397,11 +392,6 @@ body.app-website {
   border-bottom: 1px solid var(--gold-line);
 }
 
-.section-head {
-  display: grid;
-  gap: 1rem;
-  margin-bottom: 3rem;
-}
 
 /* Ornamental top stroke — alchemical ruling line */
 .section-head::before {
@@ -419,11 +409,24 @@ body.app-website {
   max-width: 14ch;
 }
 
-.section-summary {
-  max-width: 38rem;
-  font-size: 1.02rem;
-  line-height: 1.8;
-  color: rgb(var(--fg) / 0.70);
+.instruments-head .section-title,
+.instruments-intro {
+  max-width: none;
+}
+
+.instruments-head {
+  justify-items: center;
+  text-align: center;
+}
+
+.workflow-head .section-title,
+.workflow-intro {
+  max-width: none;
+}
+
+.workflow-head {
+  justify-items: center;
+  text-align: center;
 }
 
 /* ── Support / Workflow ────────────────────────────────────────────────────── */
@@ -437,25 +440,6 @@ body.app-website {
 .support-rail {
   display: grid;
   gap: 0;
-}
-
-.support-line {
-  display: grid;
-  gap: 0.4rem;
-  padding: 1.1rem 0;
-  border-top: 1px solid var(--landing-line);
-}
-
-.support-line strong {
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.support-line p {
-  color: rgb(var(--fg) / 0.70);
-  line-height: 1.74;
 }
 
 .support-visual {
@@ -581,11 +565,6 @@ body.app-website {
 .story-list {
   display: grid;
   gap: 0;
-}
-
-.story-step {
-  padding: 1.75rem 0;
-  border-top: 1px solid var(--landing-line);
 }
 
 .story-step span {
@@ -873,38 +852,6 @@ body.app-website {
   max-width: 28rem;
 }
 
-.landing-footer .landing-section-inner {
-  position: relative;
-  z-index: 1;
-}
-
-.landing-footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  align-items: center;
-  justify-content: center;
-}
-
-.landing-footer-links a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  text-decoration: none;
-  transition: color 180ms ease;
-}
-
-.landing-footer-links svg {
-  width: 0.95rem;
-  height: 0.95rem;
-  flex-shrink: 0;
-}
-
-.landing-footer-links a:hover {
-  color: var(--gold);
-}
-
 /* ── Mobile nav ────────────────────────────────────────────────────────────── */
 
 .mobile-nav-toggle {
@@ -1022,56 +969,6 @@ body.app-website {
   }
 }
 
-@media (min-width: 900px) {
-  .landing-nav {
-    display: inline-flex;
-  }
-
-  .mobile-nav-toggle,
-  .mobile-nav-panel {
-    display: none !important;
-  }
-
-  .hero-grid,
-  .support-grid,
-  .product-grid,
-  .story-layout {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .hero-grid {
-    gap: 4rem;
-  }
-
-  .support-grid {
-    grid-template-columns: minmax(18rem, 25rem) minmax(0, 1fr);
-  }
-
-  .story-layout {
-    grid-template-columns: minmax(18rem, 26rem) minmax(0, 1fr);
-  }
-
-  .landing-footer-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: center;
-  }
-
-  .landing-footer-brand {
-    grid-column: 1;
-    justify-self: start;
-  }
-
-  .landing-footer-links {
-    grid-column: 2;
-    justify-content: center;
-  }
-
-  .final-cta-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 899px) {
   .hero-copy {
     padding-top: 3.8rem;
@@ -1079,10 +976,6 @@ body.app-website {
 
   .hero-title {
     max-width: 12ch;
-  }
-
-  .landing-footer-links {
-    justify-content: center;
   }
 
   .footer-twinkle-gold {
@@ -1608,4 +1501,41 @@ html:not(.dark) .instr-xfer-dot {
 
 html:not(.dark) .instr-xfer-label {
   color: rgba(100, 68, 18, 0.58);
+}
+
+@media (min-width: 900px) {
+  .landing-nav {
+    display: inline-flex;
+  }
+
+  .mobile-nav-toggle,
+  .mobile-nav-panel {
+    display: none !important;
+  }
+
+  .hero-grid,
+  .support-grid,
+  .product-grid,
+  .story-layout,
+  .final-cta-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-grid {
+    gap: 4rem;
+  }
+
+  .support-grid {
+    grid-template-columns: minmax(18rem, 25rem) minmax(0, 1fr);
+  }
+
+  .story-layout {
+    grid-template-columns: minmax(18rem, 26rem) minmax(0, 1fr);
+  }
+
+  .landing-footer-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+  }
 }
