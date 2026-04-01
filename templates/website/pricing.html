@@ -200,12 +200,14 @@
       </section>
 
       <section id="compare" class="pricing-band is-dark px-6 md:px-10 lg:px-16">
-        <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px]">
-          <div class="mb-12 max-w-3xl">
-            <span class="section-kicker">Comparison</span>
-            <h2 class="section-title mt-4">Compare plan details.</h2>
-            <p class="mt-4 max-w-[38rem] text-[1.02rem] leading-[1.8] text-app-muted">Review included capabilities, review features, and governance controls by tier.</p>
+        <div style="width: 100%; margin: 0 0 3rem; text-align: center;">
+          <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <span class="section-kicker" style="justify-content: center;">Comparison</span>
+            <h2 class="section-title mt-4" style="max-width: none; width: auto; white-space: nowrap; text-align: center;">Compare plan details.</h2>
+            <p class="mt-4 text-[1.02rem] leading-[1.8] text-app-muted" style="max-width: 38rem; margin-left: auto; margin-right: auto; text-align: center;">Review included capabilities, review features, and governance controls by tier.</p>
           </div>
+        </div>
+        <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px]">
           <div class="pricing-table-wrap">
             <table class="pricing-table">
               <thead><tr><th>Capability</th><th>Basic</th><th>Professional</th><th>Enterprise</th></tr></thead>
@@ -228,17 +230,26 @@
         </div>
       </section>
 
-      <section id="custom" class="pricing-band px-6 md:px-10 lg:px-16">
-        <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px] pricing-closing">
-          <div class="pricing-closing-grid">
-            <div>
-              <span class="section-kicker">Final CTA</span>
-              <h2 class="section-title mt-4">Need a plan that shoots the moon?</h2>
-              <p class="mt-4 max-w-3xl text-lg leading-relaxed text-app-muted">We can scope storage, deployment, security review, and support to match your program.</p>
-              <div class="mt-4 flex flex-wrap gap-4">
-                <a href="#" id="emailLinkCTA" class="btn btn-celestial">Contact the Team</a>
-                <a href="/orrery" class="btn btn-verdigris">See Orrery First</a>
-              </div>
+      <section id="custom" class="section-band relative py-24 px-6 md:px-10 lg:px-16">
+        <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px]">
+          <div class="final-cta final-cta-head relative grid gap-4 px-6 py-12 border border-celestial/20">
+            <h2 class="section-title w-full">Need a plan that shoots the moon?</h2>
+            <p class="final-cta-intro text-lg text-app-muted leading-relaxed">We can scope storage, deployment, security review, and support to match your program.</p>
+            <div class="final-cta-grid desk:grid-cols-2">
+              <article class="final-cta-path is-orrery grid gap-3 p-6 border border-celestial/30 transition-all duration-300">
+                <span class="inline-block text-xs tracking-[0.2em] uppercase text-app-subtle">Enterprise</span>
+                <h3 class="font-garamond text-4xl leading-tight">Contact the Team</h3>
+                <p class="text-app-muted leading-relaxed">Custom storage, deployment, security review, and support terms shaped to your program.</p>
+                <span class="inline-flex items-center gap-2 text-sm text-app-muted"><span class="final-cta-dot"></span>Custom scope and commercial terms</span>
+                <div class="mt-1"><a href="#" id="emailLinkCTA" class="btn btn-celestial">Contact the Team</a></div>
+              </article>
+              <article class="final-cta-path is-astrolabe grid gap-3 p-6 border border-verdigris/30 transition-all duration-300">
+                <span class="inline-block text-xs tracking-[0.2em] uppercase text-app-subtle">Managed review surface</span>
+                <h3 class="font-garamond text-4xl leading-tight">See Orrery First</h3>
+                <p class="text-app-muted leading-relaxed">Explore the analysis and review platform before committing to a plan.</p>
+                <span class="inline-flex items-center gap-2 text-sm text-app-muted"><span class="final-cta-dot is-verdigris"></span>Project-scoped review and validation</span>
+                <div class="mt-1"><a href="/orrery" class="btn btn-verdigris">See Orrery in action</a></div>
+              </article>
             </div>
           </div>
         </div>
@@ -355,6 +366,53 @@
       node.addEventListener('focus',      () => constellationFig?.setAttribute('data-hover', plan));
       node.addEventListener('mouseleave', () => constellationFig?.removeAttribute('data-hover'));
       node.addEventListener('blur',       () => constellationFig?.removeAttribute('data-hover'));
+    });
+
+    document.querySelectorAll('.final-cta-path').forEach((card) => {
+      let rafId = null;
+      let targetX = 50;
+      let targetY = 50;
+      let currentX = 50;
+      let currentY = 50;
+      let isHovering = false;
+
+      function animate() {
+        const dx = targetX - currentX;
+        const dy = targetY - currentY;
+        currentX += dx * 0.18;
+        currentY += dy * 0.18;
+
+        card.style.setProperty('--pointer-x', `${currentX}%`);
+        card.style.setProperty('--pointer-y', `${currentY}%`);
+
+        if (isHovering || Math.abs(dx) + Math.abs(dy) > 0.03) {
+          rafId = requestAnimationFrame(animate);
+        } else {
+          rafId = null;
+        }
+      }
+
+      function queueAnimation() {
+        if (rafId === null) {
+          rafId = requestAnimationFrame(animate);
+        }
+      }
+
+      function updateTarget(event) {
+        const rect = card.getBoundingClientRect();
+        targetX = ((event.clientX - rect.left) / rect.width) * 100;
+        targetY = ((event.clientY - rect.top) / rect.height) * 100;
+        queueAnimation();
+      }
+
+      card.addEventListener('mouseenter', updateTarget);
+      card.addEventListener('mousemove', updateTarget);
+      card.addEventListener('mouseleave', () => {
+        isHovering = false;
+      });
+      card.addEventListener('mouseenter', () => {
+        isHovering = true;
+      });
     });
 
     // Background star field for the full pricing stage
