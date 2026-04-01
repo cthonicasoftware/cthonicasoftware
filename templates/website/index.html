@@ -6,6 +6,7 @@
 
 {% block extra_head_css %}
   <link rel="stylesheet" href="{% static 'src/website-index.css' %}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css" />
 {% endblock %}
 
 {% block body_content %}
@@ -70,64 +71,17 @@
           <div class="hero-visual" aria-hidden="true">
             <div class="hero-orbit"></div>
             <div class="hero-visual-frame">
-              <div class="instr-panel">
-                <div class="instr-section">
-                  <div class="instr-titlebar">
-                    <div class="instr-dots">
-                      <span class="instr-dot instr-dot-r"></span>
-                      <span class="instr-dot instr-dot-y"></span>
-                      <span class="instr-dot instr-dot-g"></span>
-                    </div>
-                    <span class="instr-title-text">astrolabe capture</span>
+              <div class="hero-terminal-shell">
+                <div class="hero-terminal-header">
+                  <div class="hero-terminal-dots">
+                    <span class="hero-terminal-dot hero-terminal-dot-r"></span>
+                    <span class="hero-terminal-dot hero-terminal-dot-y"></span>
+                    <span class="hero-terminal-dot hero-terminal-dot-g"></span>
                   </div>
-                  <div class="instr-body">
-                    <div class="instr-row" data-demo-step="capture-meta">
-                      <span class="instr-prompt">$</span>
-                      <span class="instr-cmd is-typing" data-typed-text="astrolabe capture --port /dev/ttyUSB0" data-typed-delay="1400" aria-label="astrolabe capture --port /dev/ttyUSB0"><span class="hero-title-typed" aria-hidden="true"></span><span class="typed-caret" aria-hidden="true"></span></span>
-                    </div>
-                    <div class="instr-row" data-demo-step="capture-meta">
-                      <span class="instr-key">run_id</span>
-                      <span class="instr-val">01J8KX3P7Q9M4VSBW02PC…</span>
-                    </div>
-                    <div class="instr-row">
-                      <span class="instr-key">source</span>
-                      <span class="instr-val">/dev/ttyUSB0 · 115200 baud</span>
-                    </div>
-                    <div class="instr-prog-row" data-demo-step="capture-progress">
-                      <div class="instr-prog"><div class="instr-prog-fill" data-progress-target="100"></div></div>
-                      <span class="instr-prog-note" data-rows-target="12847" data-progress-target="100">0 rows · 0%</span>
-                    </div>
-                    <div class="instr-tags" data-demo-step="capture-tags">
-                      <span class="instr-tag instr-tag-v">automated capture</span>
-                      <span class="instr-tag instr-tag-v">local artifacts</span>
-                    </div>
-                  </div>
+                  <span class="hero-terminal-title">astrolabe capture</span>
                 </div>
-
-                <div class="instr-xfer" data-demo-step="upload">
-                  <div class="instr-xfer-dots">
-                    <span class="instr-xfer-dot"></span>
-                    <span class="instr-xfer-dot"></span>
-                    <span class="instr-xfer-dot"></span>
-                  </div>
-                  <span class="instr-xfer-label">uploading to orrery · retry-safe · idempotent</span>
-                </div>
-
-                <div class="instr-section instr-orrery">
-                  <div class="instr-titlebar">
-                    <span class="instr-title-text">orrery · run analysis</span>
-                    <span class="instr-pass" data-demo-step="analysis-pass">PASS</span>
-                  </div>
-                  <div class="instr-body">
-                    <div class="instr-check-row" data-demo-step="analysis-1"><span class="instr-check">✓</span><span>Normalized · 12,847 rows · schema v3</span></div>
-                    <div class="instr-check-row" data-demo-step="analysis-2"><span class="instr-check">✓</span><span>AI analysis complete · 4 insights surfaced</span></div>
-                    <div class="instr-check-row" data-demo-step="analysis-3"><span class="instr-check">✓</span><span>3 validation rules passed</span></div>
-                    <div class="instr-tags" data-demo-step="analysis-tags">
-                      <span class="instr-tag instr-tag-c">queryable</span>
-                      <span class="instr-tag instr-tag-c">traceable</span>
-                      <span class="instr-tag instr-tag-c">defensible</span>
-                    </div>
-                  </div>
+                <div class="hero-terminal-body">
+                  <div id="heroTerminal" class="hero-terminal-mount"></div>
                 </div>
               </div>
             </div>
@@ -146,10 +100,10 @@
 
       <section id="workflow" class="section-band section-band-dark relative py-24">
         <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px]">
-          <div class="section-head mb-12 grid gap-4">
+          <div class="section-head workflow-head mb-12 grid gap-4">
             <span class="section-kicker">Workflow</span>
             <h2 class="section-title">One stack, two responsibilities, no handoff gap.</h2>
-            <p class="max-w-[38rem] text-[1.02rem] leading-[1.8] text-app-muted">Astrolabe captures test data safely. Orrery exposes them to make releasing products with confidence easy.</p>
+            <p class="workflow-intro text-[1.02rem] leading-[1.8] text-app-muted">Astrolabe captures test data safely. Orrery exposes them to make releasing products with confidence easy.</p>
           </div>
           <div class="support-grid desk:grid-cols-[minmax(18rem,25rem)_minmax(0,1fr)]">
             <div class="support-rail">
@@ -174,10 +128,10 @@
 
       <section id="instruments" class="section-band relative py-24">
         <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px]">
-          <div class="section-head mb-12 grid gap-4">
+          <div class="section-head instruments-head mb-12 grid gap-4">
             <span class="section-kicker">Detail</span>
             <h2 class="section-title">Use the right instrument at the right moment.</h2>
-            <p class="max-w-[38rem] text-[1.02rem] leading-[1.8] text-app-muted">Each has one clear job. Together they replace folder sprawl and fragile release judgment with a traceable system.</p>
+            <p class="instruments-intro text-[1.02rem] leading-[1.8] text-app-muted">Each has one clear job. Together they replace folder sprawl and fragile release judgment with a traceable system.</p>
           </div>
           <div class="product-grid desk:grid-cols-2">
             <article class="product-pane">
@@ -224,7 +178,7 @@
           </div>
           <div class="story-list">
             <article class="story-step border-t border-celestial/16 py-7"><span>01</span><h3>Offline capture still counts.</h3><p>Runs are recorded first and delivered later. The data survives the environment it came from.</p></article>
-            <article class="story-step border-t border-celestial/16 py-7"><span>02</span><h3>Every run becomes queryable.</h3><p>Filter by project, compare runs, inspect validation output — instead of reconstructing context from shared drives.</p></article>
+            <article class="story-step border-t border-celestial/16 py-7"><span>02</span><h3>Every run becomes queryable.</h3><p>Filter by project, compare runs, inspect validation output instead of reconstructing context from shared drives.</p></article>
             <article class="story-step border-t border-celestial/16 py-7"><span>03</span><h3>Release decisions stay traceable.</h3><p>Every decision ties back to the exact manifest, artifacts, and rule set that produced it.</p></article>
           </div>
         </div>
@@ -232,9 +186,9 @@
 
       <section class="section-band relative py-24">
         <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px]">
-          <div class="final-cta relative grid gap-4 px-6 py-12 border border-celestial/20">
+          <div class="final-cta final-cta-head relative grid gap-4 px-6 py-12 border border-celestial/20">
             <h2 class="section-title w-full">Choose your first instrument.</h2>
-            <p class="max-w-3xl text-lg text-app-muted leading-relaxed">Capture first, or govern what you already have.</p>
+            <p class="final-cta-intro text-lg text-app-muted leading-relaxed">Capture first, or govern what you already have.</p>
             <div class="final-cta-grid desk:grid-cols-2">
               <article class="final-cta-path is-astrolabe grid gap-3 p-6 border border-verdigris/30 transition-all duration-300">
                 <span class="inline-block text-xs tracking-[0.2em] uppercase text-app-subtle">Free entry point</span>
@@ -279,6 +233,8 @@
 {% endblock %}
 
 {% block extra_scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.min.js"></script>
   <script src="{% static 'js/website-index.js' %}"></script>
   {{ block.super }}
 {% endblock %}

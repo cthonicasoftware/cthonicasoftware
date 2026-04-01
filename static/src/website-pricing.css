@@ -1,36 +1,151 @@
-.pricing-page .hero-stage {
-  min-height: calc(100svh - 1rem);
-  padding-bottom: 5.5rem;
+/* ── Unified Pricing Stage ─────────────────────────────── */
+.pricing-stage {
+  position: relative;
+  padding: 7rem 0 5rem;
 }
 
-.pricing-page .hero-grid {
+.pricing-stage > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-stage-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.pricing-stage-star {
+  position: absolute;
+  width: var(--star-size, 2px);
+  height: var(--star-size, 2px);
+  background: rgba(198, 166, 100, 0.6);
+  border-radius: 50%;
+  animation: stageTwinkle var(--star-dur, 4s) ease-in-out var(--star-delay, 0s) infinite;
+}
+
+@keyframes stageTwinkle {
+  0%, 100% { opacity: 0.05; transform: scale(1); }
+  50%       { opacity: var(--star-peak, 0.55); transform: scale(1.5); }
+}
+
+.pricing-masthead {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.pricing-masthead .hero-brand {
+  margin-bottom: 1rem;
+}
+
+.pricing-masthead .hero-title {
+  max-width: none;
+  font-size: clamp(2.6rem, 5.5vw, 5.8rem);
+  line-height: 0.92;
+  text-wrap: nowrap;
+}
+
+.pricing-masthead-aside {
+  display: grid;
+  gap: 0.65rem;
+  align-content: end;
+  flex-shrink: 0;
+}
+
+/* Unified panel: constellation map + plan detail in one frame */
+.pricing-frame {
+  position: relative;
+  background:
+    radial-gradient(circle at top center, rgba(198, 166, 100, 0.10), transparent 28%),
+    linear-gradient(160deg, rgba(16, 11, 4, 0.97), rgba(10, 7, 3, 0.80));
+  border: 1px solid rgba(198, 166, 100, 0.18);
+  box-shadow: var(--landing-shadow), var(--landing-shadow-warm);
+  overflow: visible;
+}
+
+.pricing-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0.75rem;
+  border: 1px solid rgba(198, 166, 100, 0.06);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pricing-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(198, 166, 100, 0.13), transparent 15%),
+    radial-gradient(circle at 88% 15%, rgba(94, 133, 112, 0.10), transparent 15%),
+    radial-gradient(circle at 50% 68%, rgba(127, 164, 181, 0.07), transparent 18%);
+  opacity: 0.65;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Constellation within the frame */
+.pricing-frame-map {
+  border: none;
+  border-bottom: 1px solid rgba(198, 166, 100, 0.12);
+  min-height: 22rem;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* Plan detail panel within the frame */
+.pricing-frame-detail {
+  padding: 1.5rem 1.25rem 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-detail-billing {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(198, 166, 100, 0.1);
 }
 
 .pricing-meta {
-  display: grid;
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
   margin-top: 2rem;
-  max-width: 38rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(198, 166, 100, 0.16);
 }
 
-.pricing-meta-row {
-  display: grid;
-  gap: 0.5rem;
-}
-
-.pricing-meta-row strong {
-  font-size: 0.74rem;
-  letter-spacing: 0.22em;
+.pricing-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgba(198, 166, 100, 0.14);
+  color: rgb(var(--fg) / 0.7);
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold);
 }
 
-.pricing-meta-row span {
-  color: rgb(var(--fg) / 0.72);
-  line-height: 1.7;
+.pricing-meta span::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: 0 0 0.8rem rgba(198, 166, 100, 0.38);
 }
 
 .pricing-poster {
@@ -89,16 +204,10 @@
   color: var(--gold);
 }
 
-.pricing-poster-grid {
-  display: grid;
-  gap: 1.2rem;
-  align-content: space-between;
-  flex: 1 1 auto;
-}
-
-.pricing-orbit-field {
+.pricing-constellation {
   position: relative;
-  min-height: 17rem;
+  min-height: 26rem;
+  margin: 0;
   border: 1px solid rgba(198, 166, 100, 0.12);
   background:
     linear-gradient(rgba(198, 166, 100, 0.04) 1px, transparent 1px),
@@ -107,64 +216,46 @@
   overflow: hidden;
 }
 
-.pricing-orbit {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  border: 1px solid rgba(198, 166, 100, 0.18);
-  border-radius: 999px;
-  transform: translate(-50%, -50%);
-}
-
-.pricing-orbit.is-one {
-  width: 12rem;
-  height: 12rem;
-}
-
-.pricing-orbit.is-two {
-  width: 18rem;
-  height: 18rem;
-  border-color: rgba(94, 133, 112, 0.16);
-}
-
-.pricing-orbit.is-three {
-  width: 24rem;
-  height: 24rem;
-  border-color: rgba(127, 164, 181, 0.13);
-}
-
-.pricing-axis-x,
-.pricing-axis-y {
-  position: absolute;
-  background: rgba(198, 166, 100, 0.14);
-}
-
-.pricing-axis-x {
-  left: 10%;
-  right: 10%;
-  top: 50%;
-  height: 1px;
-}
-
-.pricing-axis-y {
-  top: 8%;
-  bottom: 8%;
-  left: 50%;
-  width: 1px;
-}
 
 .pricing-node {
   position: absolute;
   display: grid;
-  gap: 0.3rem;
-  max-width: 11rem;
+  gap: 0.35rem;
+  max-width: 10rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 180ms ease, filter 180ms ease;
+  z-index: 2;
+}
+
+.pricing-node:hover,
+.pricing-node:focus-visible,
+.pricing-node.is-active {
+  transform: translate3d(0, -0.2rem, 0);
+}
+
+.pricing-node:focus-visible {
+  outline: 1px solid rgba(198, 166, 100, 0.4);
+  outline-offset: 0.35rem;
 }
 
 .pricing-node-dot {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 0.9rem;
+  height: 0.9rem;
   border-radius: 999px;
   background: var(--gold);
   box-shadow: 0 0 1.2rem rgba(198, 166, 100, 0.45);
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.pricing-node:hover .pricing-node-dot,
+.pricing-node:focus-visible .pricing-node-dot,
+.pricing-node.is-active .pricing-node-dot {
+  transform: scale(1.15);
+  box-shadow: 0 0 1.8rem rgba(198, 166, 100, 0.68);
 }
 
 .pricing-node strong {
@@ -173,27 +264,56 @@
   color: rgb(var(--fg));
 }
 
-.pricing-node span {
-  color: rgb(var(--fg) / 0.62);
-  line-height: 1.6;
-  font-size: 0.88rem;
+.pricing-node em {
+  color: rgb(var(--fg) / 0.64);
+  font-size: 0.76rem;
+  font-style: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.pricing-node-action {
+  text-decoration: none;
+  max-width: 8rem;
+}
+
+.pricing-node-action strong {
+  font-size: 1rem;
+}
+
+.pricing-node-action em {
+  font-size: 0.64rem;
 }
 
 .pricing-node.is-basic {
-  left: 12%;
-  top: 18%;
+  left: 15%;
+  top: 14%;
 }
 
 .pricing-node.is-professional {
-  right: 12%;
-  top: 12%;
+  left: 46%;
+  top: 10%;
+  justify-items: center;
+  text-align: center;
+}
+
+.pricing-node.is-enterprise {
+  left: 23%;
+  top: 54%;
+}
+
+.pricing-node.is-review-link {
+  right: 23%;
+  top: 56%;
   text-align: right;
   justify-items: end;
 }
 
-.pricing-node.is-enterprise {
-  left: 20%;
-  bottom: 12%;
+.pricing-node.is-quote-link {
+  right: 12%;
+  top: 11%;
+  text-align: right;
+  justify-items: end;
 }
 
 .pricing-poster-footer {
@@ -206,7 +326,28 @@
 .pricing-poster-footer p {
   margin: 0;
   color: rgb(var(--fg) / 0.7);
-  line-height: 1.7;
+  line-height: 1.5;
+  max-width: 24rem;
+}
+
+.pricing-poster-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.8rem 1rem;
+}
+
+.pricing-poster-summary strong {
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+  color: rgb(var(--fg));
+}
+
+.pricing-poster-summary span {
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.76rem;
 }
 
 .pricing-poster-ledger {
@@ -290,35 +431,54 @@
   font-size: 0.95rem;
 }
 
-.pricing-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-.pricing-column {
+.pricing-focus {
   position: relative;
   display: grid;
   gap: 1.4rem;
   align-content: start;
+}
+
+.pricing-detail {
+  display: grid;
+  gap: 1.6rem;
   min-height: 100%;
-  padding: 1.5rem 1.3rem 1.4rem;
+  padding: 1.7rem 1.5rem 1.5rem;
   border: 1px solid rgba(198, 166, 100, 0.12);
   background: linear-gradient(180deg, rgba(12, 8, 3, 0.72), rgba(12, 8, 3, 0.4));
-  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  box-shadow: var(--landing-shadow-warm);
 }
 
-.pricing-column:hover {
-  transform: translateY(-4px);
-  border-color: rgba(198, 166, 100, 0.28);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.24);
-}
-
-.pricing-column.is-featured {
+.pricing-detail.is-active {
   background:
     radial-gradient(circle at top, rgba(198, 166, 100, 0.16), transparent 36%),
     linear-gradient(180deg, rgba(198, 166, 100, 0.1), rgba(12, 8, 3, 0.58));
   border-color: rgba(198, 166, 100, 0.34);
   box-shadow: 0 24px 56px rgba(198, 166, 100, 0.08);
+}
+
+.pricing-detail-head {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 1px solid rgba(198, 166, 100, 0.12);
+}
+
+.pricing-detail-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.pricing-detail-column {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.pricing-detail-note {
+  margin: 0;
+  max-width: 28rem;
+  color: rgb(var(--fg) / 0.72);
+  line-height: 1.72;
 }
 
 .pricing-badge {
@@ -417,8 +577,7 @@
 
 .pricing-rail {
   display: grid;
-  gap: 1px;
-  background: rgba(198, 166, 100, 0.09);
+  gap: 1.5rem;
 }
 
 .pricing-rail-item {
@@ -426,6 +585,7 @@
   gap: 0.55rem;
   padding: 1.4rem 1.2rem;
   background: rgba(12, 8, 3, 0.48);
+  border: 1px solid rgba(198, 166, 100, 0.09);
 }
 
 .pricing-rail-item strong {
@@ -442,15 +602,44 @@
   color: rgb(var(--fg));
 }
 
-.pricing-rail-item p,
-.pricing-rail-item ul {
-  margin: 0;
-  color: rgb(var(--fg) / 0.7);
-  line-height: 1.7;
+.pricing-rail-steps {
+  display: grid;
+  gap: 1rem;
 }
 
-.pricing-rail-item ul {
-  padding-left: 1rem;
+.pricing-step {
+  position: relative;
+  display: grid;
+  gap: 0.55rem;
+  padding: 1.15rem 1.2rem 1.15rem 2.4rem;
+  border-top: 1px solid rgba(198, 166, 100, 0.14);
+}
+
+.pricing-step::before {
+  content: "";
+  position: absolute;
+  left: 0.95rem;
+  top: 1.45rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: 0 0 1rem rgba(198, 166, 100, 0.35);
+}
+
+.pricing-step strong {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.pricing-step p {
+  margin: 0;
+  color: rgb(var(--fg) / 0.76);
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
+  line-height: 1.05;
 }
 
 .pricing-side-note {
@@ -566,13 +755,17 @@
   display: inline;
 }
 
-html:not(.dark) .pricing-poster,
-html:not(.dark) .pricing-column,
+html:not(.dark) .pricing-frame,
+html:not(.dark) .pricing-detail,
 html:not(.dark) .pricing-rail-item,
 html:not(.dark) .pricing-table-wrap {
   background: linear-gradient(180deg, rgba(248, 240, 222, 0.98), rgba(241, 230, 208, 0.84));
   border-color: rgba(120, 86, 28, 0.18);
   box-shadow: var(--landing-shadow);
+}
+
+html:not(.dark) .pricing-frame-map {
+  border-bottom-color: rgba(120, 86, 28, 0.14);
 }
 
 html:not(.dark) .pricing-band.is-dark {
@@ -603,8 +796,10 @@ html:not(.dark) .pricing-closing {
     grid-template-columns: minmax(18rem, 23rem) minmax(0, 1fr);
   }
 
-  .pricing-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .pricing-detail-head,
+  .pricing-detail-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+    align-items: start;
   }
 
   .pricing-band-grid {
@@ -612,20 +807,89 @@ html:not(.dark) .pricing-closing {
     grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
     gap: 2rem;
   }
+
+  .pricing-rail-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    border: 1px solid rgba(198, 166, 100, 0.09);
+    background: rgba(12, 8, 3, 0.34);
+  }
+
+  .pricing-step {
+    min-height: 10rem;
+    align-content: end;
+    border-top: 0;
+  }
+
+  .pricing-step + .pricing-step {
+    border-left: 1px solid rgba(198, 166, 100, 0.09);
+  }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   Constellation Interactive Enhancements
+═══════════════════════════════════════════════════════════ */
+
+/* ── Ambient star particles ───────────────────────────── */
+.pricing-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.pricing-star {
+  position: absolute;
+  width: var(--star-size, 2px);
+  height: var(--star-size, 2px);
+  background: rgba(198, 166, 100, 0.55);
+  border-radius: 50%;
+  animation: starTwinkle var(--star-dur, 3s) ease-in-out var(--star-delay, 0s) infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.08; transform: scale(1); }
+  50%       { opacity: 0.42; transform: scale(1.4); }
+}
+
+/* ── Node dot enhancements ────────────────────────────── */
+.pricing-node-dot {
+  position: relative;
+}
+
+@keyframes dotPulse {
+  0%, 100% { box-shadow: 0 0 1.2rem rgba(198, 166, 100, 0.45); }
+  50%       { box-shadow: 0 0 2.6rem rgba(198, 166, 100, 0.82), 0 0 5rem rgba(198, 166, 100, 0.26); }
+}
+
+.pricing-node.is-active .pricing-node-dot {
+  animation: dotPulse 2.8s ease-in-out infinite;
+}
+
+
 @media (max-width: 959px) {
-  .pricing-poster {
-    min-height: auto;
+  .pricing-masthead .hero-title {
+    font-size: clamp(2.2rem, 11vw, 4.5rem);
+    text-wrap: balance;
   }
 
-  .pricing-orbit.is-two {
-    width: 15rem;
-    height: 15rem;
+  .pricing-node.is-professional {
+    left: 44%;
+    top: 11%;
   }
 
-  .pricing-orbit.is-three {
-    width: 20rem;
-    height: 20rem;
+  .pricing-node.is-enterprise {
+    left: 17%;
+    top: 58%;
+  }
+
+  .pricing-node.is-review-link {
+    right: 12%;
+    top: 60%;
+  }
+
+  .pricing-node.is-quote-link {
+    top: 12%;
   }
 }
