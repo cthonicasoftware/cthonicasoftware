@@ -192,6 +192,104 @@
 
 /* 3) Grid + Shine with automatic light/dark tint */
 @layer components {
+  .landing-footer {
+    position: relative;
+    padding: 2.5rem 0 3rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-celestial) 16%, transparent);
+    color: rgb(var(--fg) / 0.58);
+    overflow: clip;
+  }
+
+  .landing-footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 130%, color-mix(in srgb, var(--color-celestial) 8%, transparent), transparent 34%),
+      radial-gradient(circle at 86% 8%, color-mix(in srgb, var(--color-verdigris) 8%, transparent), transparent 22%);
+    pointer-events: none;
+  }
+
+  .landing-footer-ornaments {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .footer-twinkle {
+    position: absolute;
+    width: 0.5rem;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-celestial) 85%, white);
+    color: color-mix(in srgb, var(--color-celestial) 90%, white);
+    opacity: 0.24;
+    filter: blur(0.02rem);
+    box-shadow:
+      0 0 0.95rem color-mix(in srgb, var(--color-celestial) 36%, transparent),
+      0 0 0 1px rgba(255, 247, 227, 0.08);
+    animation: footer-twinkle 7.2s ease-in-out infinite;
+  }
+
+  .footer-twinkle::before,
+  .footer-twinkle::after {
+    content: "";
+    position: absolute;
+    inset: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    opacity: 0.72;
+  }
+
+  .footer-twinkle::before {
+    width: 2rem;
+    height: 1px;
+  }
+
+  .footer-twinkle::after {
+    width: 1px;
+    height: 2rem;
+  }
+
+  .footer-twinkle-gold {
+    top: 34%;
+    left: 37%;
+  }
+
+  .footer-twinkle-verdigris {
+    top: 18%;
+    right: 14%;
+    width: 0.42rem;
+    background: color-mix(in srgb, var(--color-verdigris) 92%, white);
+    color: color-mix(in srgb, var(--color-verdigris) 92%, white);
+    box-shadow:
+      0 0 0.8rem color-mix(in srgb, var(--color-verdigris) 34%, transparent),
+      0 0 0 1px rgba(205, 236, 223, 0.08);
+    animation-delay: 1.8s;
+    animation-duration: 8.4s;
+  }
+
+  .footer-twinkle-small {
+    right: 26%;
+    bottom: 14%;
+    width: 0.28rem;
+    opacity: 0.16;
+    animation-delay: 4.1s;
+    animation-duration: 6.4s;
+  }
+
+  .landing-footer-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .landing-footer-brand {
+    max-width: 28rem;
+  }
+
   .grid-shine {
     background:
       linear-gradient(135deg,
@@ -431,5 +529,62 @@
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes footer-twinkle {
+
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.16;
+  }
+
+  18% {
+    transform: scale(1);
+    opacity: 0.22;
+  }
+
+  24% {
+    transform: scale(1.34);
+    opacity: 0.72;
+  }
+
+  30% {
+    transform: scale(1);
+    opacity: 0.24;
+  }
+
+  68% {
+    transform: scale(0.96);
+    opacity: 0.2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-twinkle {
+    animation: none;
+    opacity: 0.18;
+  }
+}
+
+@media (min-width: 900px) {
+  .landing-footer-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+  }
+}
+
+@media (max-width: 899px) {
+  .footer-twinkle-gold {
+    left: auto;
+    right: 18%;
+    top: 24%;
+  }
+
+  .footer-twinkle-verdigris {
+    right: 10%;
+    top: 14%;
   }
 }
