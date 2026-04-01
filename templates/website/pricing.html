@@ -256,25 +256,7 @@
       </section>
     </main>
 
-    <footer class="landing-footer">
-      <div class="landing-footer-ornaments" aria-hidden="true">
-        <span class="footer-twinkle footer-twinkle-gold"></span>
-        <span class="footer-twinkle footer-twinkle-verdigris"></span>
-        <span class="footer-twinkle footer-twinkle-small"></span>
-      </div>
-      <div class="landing-footer-row relative z-[1] mx-auto w-[calc(100%-3rem)] max-w-[1200px] desk:grid desk:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] desk:items-center">
-        <div class="landing-footer-brand desk:col-start-1 desk:justify-self-start">
-          <p class="font-garamond text-xl text-celestial">CTHONICA SOFTWARE</p>
-          <p class="mt-2 text-app-subtle">Astrolabe captures. Orrery analyzes.</p>
-        </div>
-        <div class="flex flex-wrap items-center justify-center gap-6 desk:col-start-2 desk:justify-center [&_a]:inline-flex [&_a]:items-center [&_a]:justify-center [&_a]:gap-[0.45rem] [&_a]:no-underline [&_a]:transition-colors [&_a:hover]:text-celestial">
-          <a href="/pricing">Pricing</a>
-          <a href="https://github.com/cthonicasoftware">GitHub</a>
-          <a href="/#outcomes">Outcomes</a>
-        </div>
-      </div>
-      <div class="relative z-[1] mx-auto mt-6 w-[calc(100%-3rem)] max-w-[1200px] text-xs text-app-subtle"><p>&copy; <span id="year"></span> Cthonica Software. All rights reserved.</p></div>
-    </footer>
+    {% include 'includes/site-footer.html' %}
   </div>
 {% endblock %}
 
