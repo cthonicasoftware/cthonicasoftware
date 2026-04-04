@@ -291,7 +291,7 @@
 }
 
 .pricing-node.is-professional {
-  left: 46%;
+  left: 50%;
   top: 10%;
   justify-items: center;
   text-align: center;
@@ -830,6 +830,51 @@ html:not(.dark) .pricing-closing {
    Constellation Interactive Enhancements
 ═══════════════════════════════════════════════════════════ */
 
+/* ── Connecting lines SVG ─────────────────────────────── */
+.pricing-constellation-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.constellation-line {
+  stroke: rgba(198, 166, 100, 0.16);
+  stroke-width: 1;
+  stroke-dasharray: 3 8;
+  transition: stroke 300ms ease, stroke-width 300ms ease;
+}
+
+.constellation-line.is-highlighted {
+  stroke: rgba(198, 166, 100, 0.62);
+  stroke-width: 1.5;
+  stroke-dasharray: none;
+  animation: lineShimmer 2.4s ease-in-out infinite;
+}
+
+@keyframes lineShimmer {
+  0%, 100% { stroke-opacity: 0.62; }
+  50%       { stroke-opacity: 0.92; }
+}
+
+html:not(.dark) .constellation-line {
+  stroke: rgba(120, 86, 28, 0.2);
+}
+
+html:not(.dark) .constellation-line.is-highlighted {
+  stroke: rgba(120, 86, 28, 0.55);
+}
+
+html:not(.dark) .pricing-constellation {
+  background:
+    linear-gradient(rgba(120, 86, 28, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 86, 28, 0.05) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
+}
+
 /* ── Ambient star particles ───────────────────────────── */
 .pricing-stars {
   position: absolute;
@@ -874,22 +919,35 @@ html:not(.dark) .pricing-closing {
     text-wrap: balance;
   }
 
+  /* More vertical room so nodes don't stack */
+  .pricing-constellation {
+    min-height: 30rem;
+  }
+
+  /* Pentagon layout: Professional at apex, Basic/Quote flanking mid,
+     Enterprise/Compare at base — avoids the three-nodes-in-one-row problem */
+  .pricing-node.is-basic {
+    left: 7%;
+    top: 30%;
+  }
+
   .pricing-node.is-professional {
-    left: 44%;
-    top: 11%;
+    left: 42%;
+    top: 7%;
   }
 
   .pricing-node.is-enterprise {
-    left: 17%;
-    top: 58%;
+    left: 9%;
+    top: 65%;
   }
 
   .pricing-node.is-review-link {
-    right: 12%;
-    top: 60%;
+    right: 9%;
+    top: 63%;
   }
 
   .pricing-node.is-quote-link {
-    top: 12%;
+    right: 7%;
+    top: 28%;
   }
 }
