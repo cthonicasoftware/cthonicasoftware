@@ -68,27 +68,22 @@
               <button type="button" class="pricing-node is-basic" data-pricing-node data-plan="basic" aria-pressed="false">
                 <span class="pricing-node-dot"></span>
                 <strong>Basic</strong>
-                <em>Solo capture</em>
               </button>
               <button type="button" class="pricing-node is-professional is-active" data-pricing-node data-plan="professional" aria-pressed="true">
                 <span class="pricing-node-dot"></span>
                 <strong>Professional</strong>
-                <em>Shared review</em>
               </button>
               <button type="button" class="pricing-node is-enterprise" data-pricing-node data-plan="enterprise" aria-pressed="false">
                 <span class="pricing-node-dot"></span>
                 <strong>Enterprise</strong>
-                <em>Program controls</em>
               </button>
               <a href="#compare" class="pricing-node pricing-node-action is-review-link" data-plan="review">
                 <span class="pricing-node-dot"></span>
                 <strong>Compare</strong>
-                <em>See all features</em>
               </a>
               <a href="#custom" class="pricing-node pricing-node-action is-quote-link" data-plan="quote">
                 <span class="pricing-node-dot"></span>
                 <strong>Quote</strong>
-                <em>Custom scope</em>
               </a>
             </figure>
 
@@ -346,9 +341,90 @@
       const plan = node.getAttribute('data-plan');
       node.addEventListener('mouseenter', () => constellationFig?.setAttribute('data-hover', plan));
       node.addEventListener('focus',      () => constellationFig?.setAttribute('data-hover', plan));
-      node.addEventListener('mouseleave', () => constellationFig?.removeAttribute('data-hover'));
-      node.addEventListener('blur',       () => constellationFig?.removeAttribute('data-hover'));
+      node.addEventListener('mouseleave', () => constellationFig?.setAttribute('data-hover', activePlan));
+      node.addEventListener('blur',       () => constellationFig?.setAttribute('data-hover', activePlan));
+      node.addEventListener('click',      () => constellationFig?.setAttribute('data-hover', plan));
     });
+    // Show active plan's lines on load and after touch taps
+    constellationFig?.setAttribute('data-hover', activePlan);
+
+    // Constellation connecting lines — drawn from real DOM positions so
+    // they stay accurate across viewport sizes without hardcoding coordinates.
+    (function () {
+      const fig = document.querySelector('.pricing-constellation');
+      if (!fig) return;
+
+      const edges = [
+        ['basic',        'professional'],
+        ['professional', 'enterprise'],
+        ['professional', 'review'],
+        ['professional', 'quote'],
+        ['basic',        'enterprise'],
+        ['enterprise',   'review'],
+        ['quote',        'review'],
+      ];
+
+      const ns = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('aria-hidden', 'true');
+      svg.classList.add('pricing-constellation-lines');
+      fig.prepend(svg);
+
+      function dotCenter(plan) {
+        const node = fig.querySelector('[data-plan="' + plan + '"]');
+        if (!node) return null;
+        const dot = node.querySelector('.pricing-node-dot') || node;
+        const fr = fig.getBoundingClientRect();
+        const dr = dot.getBoundingClientRect();
+        return {
+          x: dr.left + dr.width  / 2 - fr.left,
+          y: dr.top  + dr.height / 2 - fr.top,
+        };
+      }
+
+      function clearSvg() {
+        while (svg.firstChild) { svg.removeChild(svg.firstChild); }
+      }
+
+      function redraw() {
+        const fr = fig.getBoundingClientRect();
+        svg.setAttribute('viewBox', '0 0 ' + fr.width + ' ' + fr.height);
+        svg.setAttribute('width',   fr.width);
+        svg.setAttribute('height',  fr.height);
+        clearSvg();
+
+        edges.forEach(function (pair) {
+          const pa = dotCenter(pair[0]);
+          const pb = dotCenter(pair[1]);
+          if (!pa || !pb) return;
+          const line = document.createElementNS(ns, 'line');
+          line.setAttribute('x1', pa.x);
+          line.setAttribute('y1', pa.y);
+          line.setAttribute('x2', pb.x);
+          line.setAttribute('y2', pb.y);
+          line.setAttribute('data-connects', pair[0] + ' ' + pair[1]);
+          line.classList.add('constellation-line');
+          svg.appendChild(line);
+        });
+      }
+
+      redraw();
+
+      let rafId;
+      window.addEventListener('resize', function () {
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(redraw);
+      });
+
+      // Sync highlights with data-hover set by the hover handlers above
+      new MutationObserver(function () {
+        const hover = fig.getAttribute('data-hover');
+        svg.querySelectorAll('.constellation-line').forEach(function (line) {
+          const connects = line.getAttribute('data-connects').split(' ');
+          line.classList.toggle('is-highlighted', !!hover && connects.includes(hover));
+        });
+      }).observe(fig, { attributes: true, attributeFilter: ['data-hover'] });
+    })();
 
     document.querySelectorAll('.final-cta-path').forEach((card) => {
       let rafId = null;
