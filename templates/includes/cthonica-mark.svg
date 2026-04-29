@@ -1,0 +1,29 @@
+<svg viewBox="0 0 64 64" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="cthonica-mark-clip">
+      <circle cx="32" cy="32" r="26"/>
+    </clipPath>
+  </defs>
+  <circle cx="32" cy="32" r="29" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+  <circle cx="32" cy="32" r="26" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+  <g clip-path="url(#cthonica-mark-clip)" opacity="0.18">
+    <line x1="6" y1="24" x2="58" y2="24" stroke="currentColor" stroke-width="0.4"/>
+    <line x1="6" y1="32" x2="58" y2="32" stroke="currentColor" stroke-width="0.6"/>
+    <line x1="6" y1="40" x2="58" y2="40" stroke="currentColor" stroke-width="0.4"/>
+    <line x1="20" y1="6" x2="20" y2="58" stroke="currentColor" stroke-width="0.4"/>
+    <line x1="32" y1="6" x2="32" y2="58" stroke="currentColor" stroke-width="0.6"/>
+    <line x1="44" y1="6" x2="44" y2="58" stroke="currentColor" stroke-width="0.4"/>
+    <line x1="26" y1="30.5" x2="26" y2="33.5" stroke="currentColor" stroke-width="0.4"/>
+    <line x1="38" y1="30.5" x2="38" y2="33.5" stroke="currentColor" stroke-width="0.4"/>
+  </g>
+  <g clip-path="url(#cthonica-mark-clip)">
+    <path d="M6 32 C10 32 10 18 14 18 C18 18 18 46 22 46 C26 46 26 18 30 18 C34 18 34 46 38 46 C42 46 42 18 46 18 C50 18 50 46 54 46 C58 46 58 32 62 32"
+      stroke="currentColor" stroke-width="4" opacity="0.07" fill="none"/>
+    <path d="M6 32 C10 32 10 18 14 18 C18 18 18 46 22 46 C26 46 26 18 30 18 C34 18 34 46 38 46 C42 46 42 18 46 18 C50 18 50 46 54 46 C58 46 58 32 62 32"
+      stroke="currentColor" stroke-width="1.2" opacity="0.9" fill="none" stroke-linecap="round"/>
+    <path d="M6 32 C10 32 10 18 14 18 C18 18 18 46 22 46 C26 46 26 18 30 18 C34 18 34 46 38 46 C42 46 42 18 46 18 C50 18 50 46 54 46 C58 46 58 32 62 32"
+      stroke="#ffffff" stroke-width="0.4" opacity="0.35" fill="none" stroke-linecap="round"/>
+  </g>
+  <circle cx="38" cy="46" r="2" fill="currentColor" opacity="0.9"/>
+  <circle cx="38" cy="46" r="3.5" stroke="currentColor" stroke-width="0.6" opacity="0.35" fill="none"/>
+</svg>
