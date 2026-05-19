@@ -1,0 +1,367 @@
+/* ──────────────────────────────────────────────────────────────────────────────
+   Orrery landing page — instrument-panel aesthetic
+   Concrete deliverables, dense data, no metaphor fluff.
+   Tokens inherit from website-index.css; light-mode overrides via html:not(.dark)
+   ──────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --orrery-gold:        var(--color-celestial, #c6a664);
+  --orrery-gold-dim:    rgba(198, 166, 100, 0.62);
+  --orrery-gold-glow:   rgba(198, 166, 100, 0.20);
+  --orrery-gold-subtle: rgba(198, 166, 100, 0.10);
+  --orrery-gold-line:   rgba(198, 166, 100, 0.16);
+  --orrery-gold-border: rgba(198, 166, 100, 0.28);
+
+  --orrery-verdigris:        #5e8570;
+  --orrery-verdigris-border: rgba(94, 133, 112, 0.30);
+  --orrery-iron:             #8b3e2f;
+  --orrery-starlight:        #7fa4b5;
+
+  --orrery-bg:        #0f0d0d;
+  --orrery-fg:        #f2e9de;
+  --orrery-fg-muted:  rgba(242, 233, 222, 0.72);
+  --orrery-fg-subtle: rgba(242, 233, 222, 0.48);
+  --orrery-panel:     rgba(14, 10, 4, 0.82);
+  --orrery-panel-2:   rgba(11, 8, 3, 0.92);
+  --orrery-rule:      rgba(242, 233, 222, 0.08);
+}
+
+html:not(.dark) {
+  --orrery-bg:        #f2e9de;
+  --orrery-fg:        #1a1610;
+  --orrery-fg-muted:  rgba(26, 22, 16, 0.72);
+  --orrery-fg-subtle: rgba(26, 22, 16, 0.50);
+  --orrery-panel:     rgba(242, 233, 222, 0.6);
+  --orrery-panel-2:   rgba(232, 220, 200, 0.7);
+  --orrery-rule:      rgba(26, 22, 16, 0.10);
+}
+
+.orrery { color: var(--orrery-fg); }
+.orrery .shell { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+@media (max-width: 720px) { .orrery .shell { padding: 0 20px; } }
+
+/* ── Common ──────────────────────────────────────────────────────────────── */
+.orrery .kicker {
+  font-family: "Cascadia Code", monospace;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--orrery-gold);
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.orrery .kicker::before, .orrery .kicker::after {
+  content: ""; height: 1px; width: 36px;
+  background: linear-gradient(90deg, transparent, var(--orrery-gold-dim), transparent);
+}
+.orrery .kicker.start::before { display: none; }
+.orrery .kicker.start { gap: 0; }
+
+.orrery .h-display { font-size: clamp(2.4rem, 4.8vw, 4rem); line-height: 1.02; letter-spacing: -0.01em; font-weight: 500; margin: 0; font-family: "EB Garamond", serif; }
+.orrery .h-section { font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: -0.005em; font-weight: 500; margin: 0; font-family: "EB Garamond", serif; }
+.orrery .lede { font-size: 1.15rem; color: var(--orrery-fg-muted); max-width: 56ch; line-height: 1.65; font-family: "EB Garamond", serif; }
+
+.orrery .section { padding: 88px 0; position: relative; }
+.orrery .section + .section { border-top: 1px solid var(--orrery-gold-line); }
+
+/* ── Buttons (scoped — site already has .btn) ───────────────────────────── */
+.orrery .obtn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 22px;
+  font-family: "EB Garamond", serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+  border: 1px solid var(--orrery-gold-border);
+  color: var(--orrery-fg);
+  background: transparent;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+.orrery .obtn-primary { background: var(--orrery-gold); color: #0f0d0d; border-color: var(--orrery-gold); }
+.orrery .obtn-primary:hover { filter: brightness(1.1); }
+.orrery .obtn-ghost:hover { background: var(--orrery-gold-subtle); border-color: var(--orrery-gold); color: var(--orrery-gold); }
+.orrery .obtn-verdigris { border-color: var(--orrery-verdigris-border); color: var(--orrery-fg); }
+.orrery .obtn-verdigris:hover { background: var(--orrery-verdigris); color: #0f0d0d; border-color: var(--orrery-verdigris); }
+
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+.orrery .hero { padding: 96px 0 80px; }
+.orrery .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: center; }
+@media (max-width: 980px) { .orrery .hero-grid { grid-template-columns: 1fr; gap: 48px; } }
+.orrery .hero h1 { margin-top: 18px; }
+.orrery .hero .lede { margin-top: 22px; }
+.orrery .hero-actions { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
+.orrery .hero-meta {
+  display: flex; gap: 28px; margin-top: 40px; padding-top: 28px;
+  border-top: 1px solid var(--orrery-rule); flex-wrap: wrap;
+  font-family: "Cascadia Code", monospace; font-size: 12px; color: var(--orrery-fg-subtle);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.orrery .hero-meta b { color: var(--orrery-fg); font-weight: 500; letter-spacing: 0; text-transform: none; font-family: "EB Garamond", serif; font-size: 14px; }
+
+/* ── Instrument panel ────────────────────────────────────────────────────── */
+.orrery .instrument {
+  border: 1px solid var(--orrery-gold-border);
+  background: var(--orrery-panel);
+  position: relative;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
+}
+.orrery .instrument::before {
+  content: ""; position: absolute; inset: 6px; border: 1px solid var(--orrery-gold-line); pointer-events: none;
+}
+.orrery .inst-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 18px; border-bottom: 1px solid var(--orrery-gold-line);
+  font-family: "Cascadia Code", monospace; font-size: 11px; color: var(--orrery-fg-subtle);
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+.orrery .inst-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--orrery-gold); box-shadow: 0 0 8px var(--orrery-gold-glow); margin-right: 8px; }
+.orrery .inst-body { padding: 22px; }
+
+.orrery .kpi-strip { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--orrery-gold-line); }
+.orrery .kpi { padding: 14px 16px; border-right: 1px solid var(--orrery-gold-line); }
+.orrery .kpi:last-child { border-right: none; }
+.orrery .kpi-label { font-family: "Cascadia Code", monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orrery-fg-subtle); }
+.orrery .kpi-value { font-family: "EB Garamond", serif; font-size: 1.7rem; font-weight: 500; line-height: 1; margin-top: 6px; display: flex; align-items: baseline; gap: 4px; }
+.orrery .kpi-unit { font-size: 0.9rem; color: var(--orrery-fg-subtle); }
+.orrery .kpi-delta { font-family: "Cascadia Code", monospace; font-size: 10px; color: var(--orrery-verdigris); margin-top: 6px; }
+.orrery .kpi-delta.down { color: var(--orrery-iron); }
+
+.orrery .run-list { margin-top: 18px; }
+.orrery .run-row {
+  display: grid; grid-template-columns: auto 1fr auto;
+  gap: 14px; align-items: center;
+  padding: 11px 0; border-bottom: 1px solid var(--orrery-rule);
+  font-family: "Cascadia Code", monospace; font-size: 12px;
+}
+.orrery .run-row:last-child { border-bottom: none; }
+.orrery .run-id { color: var(--orrery-fg); font-weight: 500; }
+.orrery .run-meta { color: var(--orrery-fg-subtle); font-size: 11px; }
+
+.orrery .badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 9px; border: 1px solid; border-radius: 999px;
+  font-family: "Cascadia Code", monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.orrery .badge .dot { width: 5px; height: 5px; border-radius: 50%; }
+.orrery .badge.done    { border-color: rgba(94, 133, 112, 0.5); color: var(--orrery-verdigris); background: rgba(94, 133, 112, 0.10); }
+.orrery .badge.done .dot { background: var(--orrery-verdigris); }
+.orrery .badge.failed  { border-color: rgba(139, 62, 47, 0.5); color: #d97757; background: rgba(139, 62, 47, 0.10); }
+.orrery .badge.failed .dot { background: #d97757; }
+.orrery .badge.processing { border-color: rgba(198, 166, 100, 0.5); color: var(--orrery-gold); background: rgba(198, 166, 100, 0.10); }
+.orrery .badge.processing .dot { background: var(--orrery-gold); }
+
+/* ── Feature grid ────────────────────────────────────────────────────────── */
+.orrery .features { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--orrery-gold-line); margin-top: 56px; }
+@media (max-width: 900px) { .orrery .features { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .orrery .features { grid-template-columns: 1fr; } }
+.orrery .feature {
+  padding: 32px 28px;
+  border-right: 1px solid var(--orrery-gold-line);
+  border-bottom: 1px solid var(--orrery-gold-line);
+  background: var(--orrery-panel);
+  display: flex; flex-direction: column; gap: 14px;
+  transition: background 200ms ease;
+}
+.orrery .feature:hover { background: color-mix(in oklab, var(--orrery-gold-subtle) 50%, var(--orrery-panel)); }
+.orrery .feature:nth-child(3n) { border-right: none; }
+@media (max-width: 900px) {
+  .orrery .feature:nth-child(3n) { border-right: 1px solid var(--orrery-gold-line); }
+  .orrery .feature:nth-child(2n) { border-right: none; }
+}
+@media (max-width: 600px) { .orrery .feature { border-right: none; } }
+
+.orrery .feature-sym { font-family: "Cascadia Code", monospace; color: var(--orrery-gold); font-size: 1.4rem; line-height: 1; }
+.orrery .feature-name { font-family: "EB Garamond", serif; font-size: 1.4rem; font-weight: 500; line-height: 1.1; margin: 0; }
+.orrery .feature-body { color: var(--orrery-fg-muted); font-size: 0.98rem; line-height: 1.6; margin: 0; }
+.orrery .feature-code {
+  margin-top: auto;
+  padding: 8px 10px;
+  background: #0f0d0d;
+  border: 1px solid var(--orrery-gold-line);
+  color: var(--orrery-gold-dim);
+  font-family: "Cascadia Code", monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+html:not(.dark) .orrery .feature-code { background: rgba(0,0,0,0.04); color: rgba(26,22,16,0.7); }
+
+/* ── Dashboard preview ───────────────────────────────────────────────────── */
+.orrery .dash {
+  margin-top: 56px;
+  border: 1px solid var(--orrery-gold-border);
+  background: var(--orrery-panel-2);
+  position: relative;
+}
+.orrery .dash::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--orrery-gold-line); pointer-events: none; }
+.orrery .dash-chrome {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 22px; border-bottom: 1px solid var(--orrery-gold-line);
+  font-family: "Cascadia Code", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--orrery-fg-subtle);
+}
+.orrery .dash-tabs { display: flex; gap: 24px; flex-wrap: wrap; }
+.orrery .dash-tabs span { padding: 4px 0; }
+.orrery .dash-tabs .on { color: var(--orrery-gold); border-bottom: 1px solid var(--orrery-gold); }
+
+.orrery .dash-body { padding: 28px; display: grid; grid-template-columns: 2fr 1fr; gap: 28px; }
+@media (max-width: 900px) { .orrery .dash-body { grid-template-columns: 1fr; } }
+
+.orrery .dash-panel { border: 1px solid var(--orrery-gold-line); padding: 20px; background: rgba(0,0,0,0.18); }
+html:not(.dark) .orrery .dash-panel { background: rgba(255,255,255,0.4); }
+.orrery .dash-panel-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+.orrery .dash-panel-head h4 { font-family: "EB Garamond", serif; font-size: 1.15rem; margin: 0; font-weight: 500; }
+.orrery .dash-panel-head .more { font-family: "Cascadia Code", monospace; font-size: 11px; color: var(--orrery-gold); letter-spacing: 0.1em; }
+
+.orrery table.runs { width: 100%; border-collapse: collapse; font-family: "Cascadia Code", monospace; font-size: 12px; }
+.orrery table.runs th {
+  text-align: left; padding: 8px 12px;
+  color: var(--orrery-fg-subtle); font-weight: 400;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  border-bottom: 1px solid var(--orrery-rule);
+}
+.orrery table.runs td { padding: 12px; border-bottom: 1px solid var(--orrery-rule); color: var(--orrery-fg-muted); }
+.orrery table.runs td.id { color: var(--orrery-fg); }
+.orrery table.runs tr:last-child td { border-bottom: none; }
+
+.orrery .ruling { display: grid; gap: 12px; }
+.orrery .ruling-item {
+  padding: 12px 14px;
+  border: 1px solid var(--orrery-rule);
+  background: rgba(0,0,0,0.18);
+  font-family: "Cascadia Code", monospace; font-size: 11.5px;
+}
+html:not(.dark) .orrery .ruling-item { background: rgba(255,255,255,0.5); }
+.orrery .ruling-item .name { color: var(--orrery-fg); }
+.orrery .ruling-item .meta { color: var(--orrery-fg-subtle); margin-top: 4px; }
+.orrery .ruling-item .sev { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
+.orrery .ruling-item .sev.crit { color: #d97757; }
+.orrery .ruling-item .sev.warn { color: var(--orrery-gold); }
+.orrery .ruling-item .sev.info { color: var(--orrery-starlight); }
+
+/* ── Data model ──────────────────────────────────────────────────────────── */
+.orrery .schema { margin-top: 48px; display: grid; grid-template-columns: 200px 1fr; border: 1px solid var(--orrery-gold-line); }
+@media (max-width: 720px) { .orrery .schema { grid-template-columns: 1fr; } }
+.orrery .schema-row { display: contents; }
+.orrery .schema-name {
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--orrery-gold-line);
+  border-right: 1px solid var(--orrery-gold-line);
+  background: var(--orrery-panel);
+  font-family: "EB Garamond", serif;
+  font-size: 1.25rem;
+  color: var(--orrery-fg);
+  display: flex; align-items: center; gap: 10px;
+}
+.orrery .schema-name .glyph { color: var(--orrery-gold); font-family: "Cascadia Code", monospace; font-size: 1.1rem; }
+.orrery .schema-fields {
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--orrery-gold-line);
+  font-family: "Cascadia Code", monospace;
+  font-size: 12.5px;
+  color: var(--orrery-fg-muted);
+  display: flex; flex-wrap: wrap; gap: 8px 18px;
+  align-items: center; line-height: 1.7;
+}
+.orrery .schema-fields .f { display: inline-flex; gap: 6px; align-items: baseline; }
+.orrery .schema-fields .f .k { color: var(--orrery-fg); }
+.orrery .schema-fields .f .t { color: var(--orrery-gold-dim); font-size: 11px; }
+.orrery .schema-row:last-child .schema-name,
+.orrery .schema-row:last-child .schema-fields { border-bottom: none; }
+@media (max-width: 720px) {
+  .orrery .schema-name { border-right: none; padding-bottom: 8px; border-bottom: none; }
+  .orrery .schema-fields { padding-top: 8px; }
+}
+
+/* ── Rules + AI ──────────────────────────────────────────────────────────── */
+.orrery .ra-grid { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--orrery-gold-line); }
+@media (max-width: 880px) { .orrery .ra-grid { grid-template-columns: 1fr; } }
+.orrery .ra-pane {
+  background: var(--orrery-panel);
+  padding: 28px;
+  border-right: 1px solid var(--orrery-gold-line);
+  display: flex; flex-direction: column; gap: 16px;
+}
+.orrery .ra-pane:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .orrery .ra-pane { border-right: none; border-bottom: 1px solid var(--orrery-gold-line); }
+  .orrery .ra-pane:last-child { border-bottom: none; }
+}
+.orrery .ra-label {
+  font-family: "Cascadia Code", monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--orrery-gold); display: flex; gap: 10px; align-items: center;
+}
+.orrery .ra-label::before { content: ""; width: 24px; height: 1px; background: var(--orrery-gold-dim); }
+.orrery .ra-title { font-family: "EB Garamond", serif; font-size: 1.6rem; line-height: 1.15; font-weight: 500; }
+
+.orrery pre.code {
+  margin: 0;
+  background: #0f0d0d;
+  border: 1px solid var(--orrery-gold-line);
+  padding: 16px 18px;
+  font-family: "Cascadia Code", monospace;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--orrery-fg-muted);
+  overflow-x: auto;
+  white-space: pre;
+}
+html:not(.dark) .orrery pre.code { background: rgba(0,0,0,0.05); border-color: var(--orrery-rule); color: var(--orrery-fg); }
+.orrery .code .k { color: var(--orrery-gold); }
+.orrery .code .s { color: var(--orrery-verdigris); }
+.orrery .code .n { color: var(--orrery-starlight); }
+.orrery .code .c { color: var(--orrery-fg-subtle); font-style: italic; }
+.orrery .code .p { color: var(--orrery-fg-subtle); }
+
+/* ── API ─────────────────────────────────────────────────────────────────── */
+.orrery .api-grid { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--orrery-gold-line); }
+@media (max-width: 980px) { .orrery .api-grid { grid-template-columns: 1fr; } }
+.orrery .api-card {
+  padding: 24px;
+  background: var(--orrery-panel);
+  border-right: 1px solid var(--orrery-gold-line);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.orrery .api-card:last-child { border-right: none; }
+@media (max-width: 980px) {
+  .orrery .api-card { border-right: none; border-bottom: 1px solid var(--orrery-gold-line); }
+  .orrery .api-card:last-child { border-bottom: none; }
+}
+.orrery .api-method { display: inline-flex; align-items: center; gap: 8px; font-family: "Cascadia Code", monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
+.orrery .api-method.post { color: var(--orrery-gold); }
+.orrery .api-method.get  { color: var(--orrery-verdigris); }
+.orrery .api-method.hook { color: var(--orrery-starlight); }
+.orrery .api-path { font-family: "Cascadia Code", monospace; font-size: 14px; color: var(--orrery-fg); }
+.orrery .api-desc { color: var(--orrery-fg-muted); font-size: 0.96rem; line-height: 1.55; margin: 0; }
+.orrery .api-card pre.code { font-size: 11.5px; }
+
+/* ── Compare ─────────────────────────────────────────────────────────────── */
+.orrery .compare { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--orrery-gold-line); }
+@media (max-width: 760px) { .orrery .compare { grid-template-columns: 1fr; } }
+.orrery .compare-col { padding: 28px 30px; background: var(--orrery-panel); }
+.orrery .compare-col + .compare-col { border-left: 1px solid var(--orrery-gold-line); }
+@media (max-width: 760px) {
+  .orrery .compare-col + .compare-col { border-left: none; border-top: 1px solid var(--orrery-gold-line); }
+}
+.orrery .compare-head { font-family: "Cascadia Code", monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orrery-fg-subtle); margin-bottom: 6px; }
+.orrery .compare-title { font-family: "EB Garamond", serif; font-size: 1.5rem; margin-bottom: 18px; font-weight: 500; }
+.orrery .compare ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.orrery .compare li {
+  color: var(--orrery-fg-muted);
+  padding-left: 22px;
+  position: relative;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+.orrery .compare .before li::before { content: "—"; position: absolute; left: 0; top: 0; color: var(--orrery-iron); }
+.orrery .compare .after  li::before { content: "▹"; position: absolute; left: 0; top: 0; color: var(--orrery-gold); }
+
+/* ── Final CTA ───────────────────────────────────────────────────────────── */
+.orrery .cta {
+  margin-top: 56px; padding: 56px 48px;
+  border: 1px solid var(--orrery-gold-border);
+  background: linear-gradient(180deg, var(--orrery-panel), var(--orrery-panel-2));
+  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+}
+@media (max-width: 760px) { .orrery .cta { grid-template-columns: 1fr; } }
+.orrery .cta h3 { font-family: "EB Garamond", serif; font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 8px 0; font-weight: 500; }
+.orrery .cta p { margin: 0; color: var(--orrery-fg-muted); max-width: 50ch; }
+.orrery .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
