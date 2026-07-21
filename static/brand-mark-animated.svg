@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&amp;family=Inter:wght@400;600&amp;display=swap');
+      text { font-family: 'EB Garamond', serif; }
+      .mono { font-family: 'Cascadia Code', 'JetBrains Mono', monospace; }
+    </style>
+
+    <clipPath id="screen">
+      <circle cx="400" cy="300" r="208"/>
+    </clipPath>
+
+    <filter id="glow-gold" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#c6a664" flood-opacity="0.45"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="glow-soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8"/>
+      <feFlood flood-color="#c6a664" flood-opacity="0.3"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="glow-beam" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#fff5d6" flood-opacity="0.9"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <path id="trace" pathLength="1000" d="M176,300 C208,300 208,188 240,188 C272,188 272,412 304,412 C336,412 336,188 368,188 C400,188 400,412 432,412 C464,412 464,188 496,188 C528,188 528,412 560,412 C592,412 592,300 624,300">
+      <animate attributeName="d" begin="6s" dur="9.4s" repeatCount="indefinite"
+        keyTimes="0; 0.21; 0.27; 0.62; 0.69; 1"
+        calcMode="spline"
+        keySplines="0 0 1 1; 0.78 0 0.22 1; 0 0 1 1; 0.62 0 0.38 1; 0 0 1 1"
+        values="M176,300 C208,300 208,188 240,188 C272,188 272,412 304,412 C336,412 336,188 368,188 C400,188 400,412 432,412 C464,412 464,188 496,188 C528,188 528,412 560,412 C592,412 592,300 624,300;
+                M176,300 C208,300 208,188 240,188 C272,188 272,412 304,412 C336,412 336,188 368,188 C400,188 400,412 432,412 C464,412 464,188 496,188 C528,188 528,412 560,412 C592,412 592,300 624,300;
+                M176,300 C240,300 240,300 240,188 C304,188 304,188 304,412 C368,412 368,412 368,188 C432,188 432,188 432,412 C496,412 496,412 496,188 C560,188 560,188 560,412 C624,412 624,412 624,300;
+                M176,300 C240,300 240,300 240,188 C304,188 304,188 304,412 C368,412 368,412 368,188 C432,188 432,188 432,412 C496,412 496,412 496,188 C560,188 560,188 560,412 C624,412 624,412 624,300;
+                M176,300 C208,300 208,188 240,188 C272,188 272,412 304,412 C336,412 336,188 368,188 C400,188 400,412 432,412 C464,412 464,188 496,188 C528,188 528,412 560,412 C592,412 592,300 624,300;
+                M176,300 C208,300 208,188 240,188 C272,188 272,412 304,412 C336,412 336,188 368,188 C400,188 400,412 432,412 C464,412 464,188 496,188 C528,188 528,412 560,412 C592,412 592,300 624,300"/>
+    </path>
+
+    <path id="kicker-arc" d="M 154,300 A 246,246 0 0 1 646,300"/>
+    <path id="wordmark-arc" d="M 128,300 A 272,272 0 0 0 672,300"/>
+
+    <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0"    stop-color="#c6a664" stop-opacity="0"/>
+      <stop offset="0.4"  stop-color="#c6a664" stop-opacity="0"/>
+      <stop offset="0.5"  stop-color="#fff5d6" stop-opacity="0.55"/>
+      <stop offset="0.6"  stop-color="#c6a664" stop-opacity="0"/>
+      <stop offset="1"    stop-color="#c6a664" stop-opacity="0"/>
+    </linearGradient>
+
+    <radialGradient id="vignette" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0.55" stop-color="#0f0d0d" stop-opacity="0"/>
+      <stop offset="0.85" stop-color="#0f0d0d" stop-opacity="0.35"/>
+      <stop offset="1"    stop-color="#0f0d0d" stop-opacity="0.75"/>
+    </radialGradient>
+
+    <pattern id="scanlines" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+      <rect width="3" height="3" fill="transparent"/>
+      <line x1="0" y1="0" x2="3" y2="0" stroke="#000" stroke-opacity="0.5" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="600" fill="#0f0d0d"/>
+
+  <!-- ambient atmosphere -->
+  <circle cx="400" cy="300" r="280" fill="#c6a664" fill-opacity="0" >
+    <animate attributeName="fill-opacity" values="0;0.04" dur="1.2s" begin="0.2s" fill="freeze"/>
+    <animate attributeName="fill-opacity" values="0.04;0.07;0.04" dur="6s" begin="6s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- outer ring : stroke-draw entrance -->
+  <circle cx="400" cy="300" r="232" fill="none" stroke="#c6a664" stroke-width="1.4" opacity="0.7"
+          stroke-dasharray="1458" stroke-dashoffset="1458" filter="url(#glow-soft)">
+    <animate attributeName="stroke-dashoffset" from="1458" to="0" dur="1.0s" begin="0.1s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
+  </circle>
+
+  <!-- inner screen ring : fade-in -->
+  <circle cx="400" cy="300" r="208" fill="none" stroke="#c6a664" stroke-width="0.8" opacity="0">
+    <animate attributeName="opacity" from="0" to="0.35" dur="0.6s" begin="0.8s" fill="freeze"/>
+  </circle>
+
+  <!-- graticule grid : fade-in clipped to inner ring -->
+  <g clip-path="url(#screen)" opacity="0">
+    <animate attributeName="opacity" from="0" to="0.22" dur="0.8s" begin="0.9s" fill="freeze"/>
+    <line x1="192" y1="256" x2="608" y2="256" stroke="#c6a664" stroke-width="0.6"/>
+    <line x1="192" y1="300" x2="608" y2="300" stroke="#c6a664" stroke-width="1"/>
+    <line x1="192" y1="344" x2="608" y2="344" stroke="#c6a664" stroke-width="0.6"/>
+    <line x1="288" y1="192" x2="288" y2="408" stroke="#c6a664" stroke-width="0.6"/>
+    <line x1="400" y1="192" x2="400" y2="408" stroke="#c6a664" stroke-width="1"/>
+    <line x1="512" y1="192" x2="512" y2="408" stroke="#c6a664" stroke-width="0.6"/>
+    <line x1="352" y1="288" x2="352" y2="312" stroke="#c6a664" stroke-width="0.6"/>
+    <line x1="448" y1="288" x2="448" y2="312" stroke="#c6a664" stroke-width="0.6"/>
+  </g>
+
+  <!-- retro subdivision ticks : iconic ruler marks on center axes -->
+  <g clip-path="url(#screen)" opacity="0" stroke="#c6a664" stroke-width="0.7" fill="none">
+    <animate attributeName="opacity" from="0" to="0.55" dur="0.6s" begin="1.0s" fill="freeze"/>
+    <!-- horizontal center axis : 11px tick spacing -->
+    <path d="M200,298v4 M211,298v4 M222,298v4 M233,298v4 M244,298v4 M255,298v4 M266,298v4 M277,298v4 M288,296v8 M299,298v4 M310,298v4 M321,298v4 M332,298v4 M343,298v4 M354,298v4 M365,298v4 M376,298v4 M387,298v4 M409,298v4 M420,298v4 M431,298v4 M442,298v4 M453,298v4 M464,298v4 M475,298v4 M486,298v4 M497,298v4 M508,298v4 M512,296v8 M519,298v4 M530,298v4 M541,298v4 M552,298v4 M563,298v4 M574,298v4 M585,298v4 M596,298v4"/>
+    <!-- vertical center axis : 11px tick spacing -->
+    <path d="M398,211h4 M398,222h4 M398,233h4 M398,244h4 M396,256h8 M398,267h4 M398,278h4 M398,289h4 M398,311h4 M398,322h4 M398,333h4 M396,344h8 M398,355h4 M398,366h4 M398,377h4 M398,388h4"/>
+    <!-- 10% / 90% rise-time reference dashes -->
+    <line x1="288" y1="210" x2="512" y2="210" stroke-dasharray="3 4" opacity="0.55"/>
+    <line x1="288" y1="390" x2="512" y2="390" stroke-dasharray="3 4" opacity="0.55"/>
+  </g>
+
+  <!-- sine trace : draw-in via stroke-dashoffset -->
+  <g clip-path="url(#screen)">
+   <g>
+    <!-- subtle scope jitter on the trace position -->
+    <animateTransform attributeName="transform" type="translate" additive="sum"
+      values="0,0; 0.7,-0.4; -0.5,0.6; 0.3,0.2; -0.6,-0.3; 0.4,0.5; -0.3,-0.6; 0.6,0.1; -0.2,0.4; 0,0"
+      keyTimes="0; 0.09; 0.21; 0.33; 0.46; 0.58; 0.71; 0.83; 0.93; 1"
+      dur="3.7s" begin="4s" repeatCount="indefinite"/>
+    <!-- phosphor halo (wide, dim) -->
+    <use href="#trace" stroke="#c6a664" stroke-width="22" opacity="0" fill="none">
+      <animate attributeName="opacity" from="0" to="0.10" dur="0.8s" begin="1.4s" fill="freeze"/>
+      <animate attributeName="opacity" values="0.10;0.18;0.10" dur="3.5s" begin="6s" repeatCount="indefinite"/>
+    </use>
+    <!-- core trace -->
+    <use href="#trace" stroke="#c6a664" stroke-width="2.4" stroke-linecap="round" fill="none"
+         stroke-dasharray="1000 1000" stroke-dashoffset="1000" filter="url(#glow-gold)">
+      <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="1.8s" begin="1.6s" fill="freeze"
+               calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
+    </use>
+    <!-- bright highlight : full waveform, draws in from left -->
+    <use href="#trace" stroke="#fff5d6" stroke-width="1.4" stroke-linecap="round" fill="none"
+         stroke-dasharray="1000 1000" stroke-dashoffset="1000" opacity="0.85">
+      <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="1.6s" begin="2.0s" fill="freeze"
+               calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
+    </use>
+   </g>
+  </g>
+
+  <!-- scanning beam : bright moving segment painting the trace -->
+  <g clip-path="url(#screen)">
+    <!-- phosphor afterglow trailing the beam -->
+    <use href="#trace" stroke="#c6a664" stroke-width="3" stroke-linecap="round" fill="none"
+         stroke-dasharray="80 920" opacity="0">
+      <animate attributeName="opacity" from="0" to="0.55" dur="0.4s" begin="4.0s" fill="freeze"/>
+      <animate attributeName="stroke-dashoffset" values="80;-920" dur="2.6s" begin="4.0s" repeatCount="indefinite"/>
+    </use>
+    <!-- bright beam head -->
+    <use href="#trace" stroke="#fff5d6" stroke-width="3.4" stroke-linecap="round" fill="none"
+         stroke-dasharray="4 996" opacity="0" filter="url(#glow-beam)">
+      <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="4.0s" fill="freeze"/>
+      <animate attributeName="stroke-dashoffset" values="0;-1000" dur="2.6s" begin="4.0s" repeatCount="indefinite"/>
+    </use>
+  </g>
+
+  <!-- shimmer sweep across the screen -->
+  <g clip-path="url(#screen)" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" dur="0.05s" begin="4.6s" fill="freeze"/>
+    <animate attributeName="opacity" from="1" to="0" dur="0.4s" begin="5.6s" fill="freeze"/>
+    <rect x="-200" y="92" width="400" height="416" fill="url(#sweep)">
+      <animateTransform attributeName="transform" type="translate"
+        from="0,0" to="900,0" dur="1.0s" begin="4.6s" fill="freeze"
+        calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1"/>
+    </rect>
+  </g>
+
+  <!-- CRT scanlines overlay -->
+  <circle cx="400" cy="300" r="208" fill="url(#scanlines)" opacity="0" pointer-events="none">
+    <animate attributeName="opacity" from="0" to="0.18" dur="0.8s" begin="2.6s" fill="freeze"/>
+    <animate attributeName="opacity" values="0.18;0.14;0.18" dur="0.18s" begin="6s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- CRT vignette (darkened edges) -->
+  <circle cx="400" cy="300" r="208" fill="url(#vignette)" opacity="0" pointer-events="none">
+    <animate attributeName="opacity" from="0" to="1" dur="0.8s" begin="2.4s" fill="freeze"/>
+  </circle>
+
+  <!-- trigger level marker on left edge of screen -->
+  <polygon points="190,294 198,300 190,306" fill="#c6a664" opacity="0">
+    <animate attributeName="opacity" from="0" to="0.85" dur="0.4s" begin="3.4s" fill="freeze"/>
+  </polygon>
+
+  <!-- wordmark -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" dur="0.8s" begin="4.8s" fill="freeze"
+             calcMode="spline" keySplines="0 0 0.2 1" keyTimes="0;1"/>
+    <text fill="#c6a664" font-size="36" font-weight="600" letter-spacing="6">
+      <textPath href="#wordmark-arc" startOffset="50%" text-anchor="middle">CTHONICA</textPath>
+    </text>
+  </g>
+
+  <!-- kicker label : wrapped along the outer ring -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" dur="0.8s" begin="5.0s" fill="freeze"/>
+    <text class="mono" fill="#c6a664" fill-opacity="0.7" font-size="11" letter-spacing="3.2">
+      <textPath href="#kicker-arc" startOffset="50%" text-anchor="middle">SIGNAL · TRACE · TRUTH</textPath>
+    </text>
+  </g>
+</svg>

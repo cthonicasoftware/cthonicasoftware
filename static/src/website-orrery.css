@@ -272,6 +272,14 @@ html:not(.dark) .orrery .ruling-item { background: rgba(255,255,255,0.5); }
 }
 
 /* ── Rules + AI ──────────────────────────────────────────────────────────── */
+.orrery .ra-flow { display: block; width: 100%; max-width: 760px; height: auto; margin: 44px auto 0; }
+.orrery .ra-flow text { font-family: "Cascadia Code", monospace; fill: var(--orrery-fg); }
+.orrery .ra-flow .serif { font-family: "EB Garamond", serif; }
+.orrery .ra-flow .card { fill: rgba(11, 8, 3, 0.55); }
+.orrery .ra-flow .plot-fill { fill: rgba(11, 8, 3, 0.32); }
+.orrery .ra-flow .ink-line { stroke: var(--orrery-fg); }
+html:not(.dark) .orrery .ra-flow .card { fill: rgba(255, 255, 255, 0.5); }
+html:not(.dark) .orrery .ra-flow .plot-fill { fill: rgba(255, 255, 255, 0.35); }
 .orrery .ra-grid { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--orrery-gold-line); }
 @media (max-width: 880px) { .orrery .ra-grid { grid-template-columns: 1fr; } }
 .orrery .ra-pane {
