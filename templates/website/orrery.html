@@ -1,21 +1,28 @@
 {% extends 'base/product.html' %}
+{% load static %}
 
-{% block meta_description %}Orrery | Celestial orchestration platform for harmonizing QA intelligence, telemetry, and analysis.{% endblock %}
+{% block meta_description %}Orrery | Hardware QA analysis backend. Ingest test runs from Astrolabe, validate against versioned YAML rules, analyze with Claude Sonnet, ship signed release reports.{% endblock %}
 {% block page_title %}Cthonica | Orrery{% endblock %}
-{% block color_celestial %}#c9a874{% endblock %}
+{% block color_celestial %}#c6a664{% endblock %}
 {% block header_border_class %}border-celestial/30{% endblock %}
 {% block nav_icon_class %}text-celestial{% endblock %}
 {% block mobile_button_border_class %}border-celestial/30{% endblock %}
 {% block mobile_nav_border_class %}border-celestial/30{% endblock %}
 {% block footer_border_class %}border-celestial/30{% endblock %}
-{% block nav_icon %}🌚{% endblock %}
+{% block nav_icon %}🜨{% endblock %}
 {% block product_name %}ORRERY{% endblock %}
-{% block product_tagline %}Celestial Intelligence{% endblock %}
+{% block product_tagline %}Analysis Backend{% endblock %}
+
+{% block product_extra_head_css %}
+  <link rel="stylesheet" href="{% static 'src/website-orrery.css' %}" />
+{% endblock %}
+
 {% block nav_links %}
-  <a href="#overview" class="text-app-muted hover:text-celestial transition">Overview</a>
-  <a href="#telemetry" class="text-app-muted hover:text-celestial transition">Telemetry</a>
-  <a href="#architecture" class="text-app-muted hover:text-celestial transition">Architecture</a>
-  <a href="#integration" class="text-app-muted hover:text-celestial transition">Integration</a>
+  <a href="#features" class="text-app-muted hover:text-celestial transition">Features</a>
+  <a href="#preview" class="text-app-muted hover:text-celestial transition">Dashboard</a>
+  <a href="#schema" class="text-app-muted hover:text-celestial transition">Data model</a>
+  <a href="#rules" class="text-app-muted hover:text-celestial transition">Rules &amp; AI</a>
+  <a href="#api" class="text-app-muted hover:text-celestial transition">API</a>
 {% endblock %}
 {% block nav_cta %}
   <a href="/astrolabe" class="hidden md:inline-flex items-center gap-2 text-sm text-app-muted hover:text-celestial transition">
@@ -24,83 +31,533 @@
   </a>
 {% endblock %}
 {% block mobile_nav_links %}
-  <a href="#overview" class="py-2 text-parchment/80 hover:text-celestial">Overview</a>
-  <a href="#telemetry" class="py-2 text-parchment/80 hover:text-celestial">Telemetry</a>
-  <a href="#architecture" class="py-2 text-parchment/80 hover:text-celestial">Architecture</a>
-  <a href="#integration" class="py-2 text-parchment/80 hover:text-celestial">Integration</a>
+  <a href="#features" class="py-2 text-parchment/80 hover:text-celestial">Features</a>
+  <a href="#preview" class="py-2 text-parchment/80 hover:text-celestial">Dashboard</a>
+  <a href="#schema" class="py-2 text-parchment/80 hover:text-celestial">Data model</a>
+  <a href="#rules" class="py-2 text-parchment/80 hover:text-celestial">Rules &amp; AI</a>
+  <a href="#api" class="py-2 text-parchment/80 hover:text-celestial">API</a>
   <a href="/astrolabe" class="py-2 text-parchment/80 hover:text-celestial">Astrolabe</a>
 {% endblock %}
+
 {% block footer_name %}CTHONICA SOFTWARE{% endblock %}
-{% block footer_tagline %}Mapping the mind of the cosmos{% endblock %}
+{% block footer_tagline %}Instruments of understanding{% endblock %}
 {% block footer_links %}
   <a href="/" class="hover:text-celestial transition-colors cursor-pointer">Home</a>
   <a href="/astrolabe" class="hover:text-celestial transition-colors cursor-pointer">Astrolabe</a>
-  <a href="#integration" class="hover:text-celestial transition-colors cursor-pointer">Integration</a>
+  <a href="#features" class="hover:text-celestial transition-colors cursor-pointer">Features</a>
+  <a href="#api" class="hover:text-celestial transition-colors cursor-pointer">API</a>
 {% endblock %}
 {% block footer_note %}{% endblock %}
+
 {% block main %}
-  <section id="overview" class="relative min-h-[70vh] flex items-center">
-    <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-32 text-center">
-      <div class="inline-flex items-center gap-3 px-5 py-2 border border-celestial/30 bg-celestial/10 text-celestial uppercase tracking-[0.3em] text-xs"><span class="text-app-subtle">●</span><span>Orrery Platform · Intelligence Orchestration</span><span class="text-app-subtle">●</span></div>
-      <h1 class="font-garamond text-6xl md:text-7xl font-bold text-app leading-tight">Celestial coordination for every QA system.</h1>
-      <p class="mt-6 max-w-3xl mx-auto text-lg text-app-muted leading-relaxed font-garamond">Orrery synchronizes telemetry, analysis, and historical knowledge into a single celestial map—helping teams identify patterns, automate responses, and surface insights at the moment they matter.</p>
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a href="#architecture" class="btn btn-celestial">Explore Architecture</a>
-        <a href="#integration" class="btn btn-verdigris">Align With Astrolabe</a>
-      </div>
-    </div>
-  </section>
-  <section id="telemetry" class="relative px-6 md:px-12 lg:px-16 py-24 border-t border-celestial/30">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="font-garamond text-5xl text-app">Telemetry constellation</h2>
-        <p class="mt-4 text-app-muted">Every signal—structured or ad-hoc—joins a unified orbit. Orrery’s telemetry fabric normalizes incoming data streams, scores confidence, and illuminates anomaly clusters in real time.</p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-card border-2 border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Ingestion</h3><p class="text-app-muted leading-relaxed">Harmonize serial, TCP, and laboratory instrumentation feeds with semantic tags, schema inference, and manifest lineage.</p></div>
-        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Correlation</h3><p class="text-app-muted leading-relaxed">Orbiting analyses compute cross-run deltas, trend regressions, and resonance alerts powered by configurable rulesets.</p></div>
-        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Visualization</h3><p class="text-app-muted leading-relaxed">Celestial dashboards project system health—constellation overlays, temporal clusters, and expedition timelines ready for review.</p></div>
-      </div>
-    </div>
-  </section>
-  <section id="architecture" class="relative px-6 md:px-12 lg:px-16 py-24 bg-parchment/5 backdrop-blur-sm border border-celestial">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="font-garamond text-5xl font-bold text-app">Architecture orbits</h2>
-        <p class="mt-4 text-app-muted max-w-3xl mx-auto">Built on modular epicycles that keep data resilient and analysis reproducible. Each orbit layers purpose-built services tuned for observability and craft.</p>
-      </div>
-      <div class="grid gap-10 md:grid-cols-2">
-        <div class="bg-card border border-celestial p-8 backdrop-blur">
-          <span class="text-app-subtle uppercase tracking-[0.3em] text-xs">Core Orbits</span>
-          <ul class="mt-4 space-y-4 text-app-muted">
-            <li class="flex gap-3"><span class="text-celestial mt-1">☉</span><div><h3 class="font-garamond text-2xl text-app">Ephemeris Store</h3><p>Immutable record of QA runs, astronomical metadata, and derived artifacts with vector search for resonance.</p></div></li>
-            <li class="flex gap-3"><span class="text-celestial mt-1">♀</span><div><h3 class="font-garamond text-2xl text-app">Orchestration Engine</h3><p>Schedules calibrations, applies corrective recipes, and invokes Astrolabe agents when instrumentation drifts.</p></div></li>
-            <li class="flex gap-3"><span class="text-celestial mt-1">♄</span><div><h3 class="font-garamond text-2xl text-app">Insight Foundry</h3><p>Maps repeating anomalies, predicts emergent faults, and shares playbooks with QA, engineering, and operators.</p></div></li>
-          </ul>
+<div class="orrery">
+
+  <!-- ── HERO ───────────────────────────────────────────────────────────── -->
+  <section class="section hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <span class="kicker start">Orrery · Hardware QA backend</span>
+        <h1 class="h-display">Every test run, in one queryable record.</h1>
+        <p class="lede">
+          Orrery is the analysis backend for Cthonica. It receives runs from Astrolabe, validates them against
+          rules you define, and turns months of bench output into a project-scoped record your QA, engineering,
+          and release teams can interrogate &mdash; not a folder full of CSVs nobody owns.
+        </p>
+        <div class="hero-actions">
+          <a class="obtn obtn-primary" href="#preview">See it in action</a>
+          <a class="obtn obtn-ghost" href="#api">Read the API</a>
         </div>
-        <div class="bg-card border border-celestial p-8 backdrop-blur">
-          <span class="text-app-subtle uppercase tracking-[0.3em] text-xs">Supporting Spheres</span>
-          <ul class="mt-4 space-y-4 text-app-muted">
-            <li class="flex gap-3"><span class="text-celestial mt-1">☿</span><div><h3 class="font-garamond text-2xl text-app">Gateway Relay</h3><p>Bridges remote labs, applies zero-trust policies, and ensures artifacts arrive intact even when expeditions go offline.</p></div></li>
-            <li class="flex gap-3"><span class="text-celestial mt-1">♀</span><div><h3 class="font-garamond text-2xl text-app">Celestial Graph</h3><p>Relational overlay linking specimens, runs, and instruments to trace provenance across missions.</p></div></li>
-            <li class="flex gap-3"><span class="text-celestial mt-1">⊕</span><div><h3 class="font-garamond text-2xl text-app">Renaissance UI</h3><p>Humanist interface that pairs EB Garamond elegance with analytic precision—designed for clarity in dim labs.</p></div></li>
-          </ul>
+        <div class="hero-meta">
+          <span><b>SaaS</b> · single-tenant available</span>
+          <span><b>Claude Sonnet</b> for analysis</span>
+          <span><b>S3 + Postgres</b> storage</span>
         </div>
       </div>
-    </div>
-  </section>
-  <section id="integration" class="relative px-6 md:px-12 lg:px-16 py-24 border-b border-celestial/30">
-    <div class="max-w-5xl mx-auto text-center">
-      <div class="inline-flex items-center gap-3 px-5 py-2 border border-celestial/30 bg-celestial/10 text-celestial uppercase tracking-[0.3em] text-xs"><span class="text-app-subtle">●</span><span>Alignment With Astrolabe</span><span class="text-app-subtle">●</span></div>
-      <h2 class="font-garamond text-5xl font-bold text-app mt-10">Synchronization cadence</h2>
-      <p class="mt-6 text-app-muted leading-relaxed">Astrolabe captures. Orrery orchestrates. Together they maintain a living archive of measurement and meaning.</p>
-      <div class="mt-12 grid md:grid-cols-2 gap-8 text-left">
-        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Tethered workflows</h3><p class="text-app-muted">Manifest uploads stream into Orrery, triggering automated validation, golden-run comparisons, and dashboard refreshes.</p></div>
-        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Event symphony</h3><p class="text-app-muted">Webhooks and run web sockets broadcast state changes so labs, analysts, and instrumentation remain in phase.</p></div>
-        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">Knowledge exchange</h3><p class="text-app-muted">Insights feed back into Astrolabe playbooks, guiding explorers with suggested capture presets and anomaly annotations.</p></div>
-        <div class="bg-card border border-celestial p-6"><h3 class="font-garamond text-2xl text-app mb-2">APIs for artisans</h3><p class="text-app-muted">GraphQL and REST endpoints expose telemetry catalogs, scored events, and orchestration commands for custom tooling.</p></div>
+
+      <div class="instrument" aria-hidden="true">
+        <div class="inst-head">
+          <span><span class="inst-dot"></span>orrery.cthonica.io / dashboard</span>
+          <span>prod-validation</span>
+        </div>
+        <div class="inst-body">
+          <div class="kpi-strip">
+            <div class="kpi">
+              <div class="kpi-label">Pass rate · 7d</div>
+              <div class="kpi-value">92<span class="kpi-unit">%</span></div>
+              <div class="kpi-delta">+3.1</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Failed · 24h</div>
+              <div class="kpi-value" style="color:#d97757;">3</div>
+              <div class="kpi-delta down">+2</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Median runtime</div>
+              <div class="kpi-value">14<span class="kpi-unit">:22</span></div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Reports · 7d</div>
+              <div class="kpi-value" style="color:var(--orrery-gold);">58</div>
+            </div>
+          </div>
+
+          <div class="run-list">
+            <div class="run-row">
+              <span class="badge done"><span class="dot"></span>done</span>
+              <div>
+                <div class="run-id">run-20251014-143022</div>
+                <div class="run-meta">DEV-00847 · fw v2.3.1 · 14:22</div>
+              </div>
+              <span style="color:var(--orrery-gold-dim); font-family:'Cascadia Code',monospace; font-size:11px;">VIEW →</span>
+            </div>
+            <div class="run-row">
+              <span class="badge failed"><span class="dot"></span>failed</span>
+              <div>
+                <div class="run-id">run-20251014-140311</div>
+                <div class="run-meta">DEV-00391 · fw v2.3.1 · 14:03 · 2 rules fired</div>
+              </div>
+              <span style="color:var(--orrery-gold-dim); font-family:'Cascadia Code',monospace; font-size:11px;">VIEW →</span>
+            </div>
+            <div class="run-row">
+              <span class="badge processing"><span class="dot"></span>analyzing</span>
+              <div>
+                <div class="run-id">run-20251014-133812</div>
+                <div class="run-meta">DEV-00512 · fw v2.2.9 · 13:38</div>
+              </div>
+              <span style="color:var(--orrery-gold-dim); font-family:'Cascadia Code',monospace; font-size:11px;">VIEW →</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="mt-12"><a href="#" class="btn btn-celestial">Schedule a constellation tour</a></div>
     </div>
   </section>
+
+  <!-- ── FEATURES ───────────────────────────────────────────────────────── -->
+  <section class="section" id="features">
+    <div class="shell">
+      <span class="kicker">What it does</span>
+      <h2 class="h-section" style="margin-top:14px;">Six concrete jobs, one backend.</h2>
+      <p class="lede" style="margin-top:16px;">
+        No telemetry constellations. No insight foundries. The actual surface area, in the order you'll meet it.
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          <span class="feature-sym">☉</span>
+          <h3 class="feature-name">Ingest</h3>
+          <p class="feature-body">Accept run manifests and NDJSON artifacts from Astrolabe via presigned URLs. Idempotent by <code>run_id</code>; resumes partial uploads; verifies SHA-256 checksums end-to-end.</p>
+          <div class="feature-code">POST /api/v1/runs/upload</div>
+        </div>
+        <div class="feature">
+          <span class="feature-sym">♀</span>
+          <h3 class="feature-name">Validate</h3>
+          <p class="feature-body">Rules in YAML, versioned with your test plan. Threshold, regression, schema, and shape checks. Three severities. Pinned to the plan that ran them so old runs stay reproducible.</p>
+          <div class="feature-code">rules/temp_drift.yaml · severity: critical</div>
+        </div>
+        <div class="feature">
+          <span class="feature-sym">♃</span>
+          <h3 class="feature-name">Analyze</h3>
+          <p class="feature-body">Claude Sonnet inspects every run against a golden baseline. Surfaces likely root cause, which rule fired, and what changed since the last good run. Output is grounded in the actual artifacts.</p>
+          <div class="feature-code">analysis.json · cites artifact line:column</div>
+        </div>
+        <div class="feature">
+          <span class="feature-sym">☿</span>
+          <h3 class="feature-name">Query</h3>
+          <p class="feature-body">Filter by project, device, firmware, status, rule fired, plan version, or any manifest field. Save the view; share the URL. Export the result set as CSV or JSONL without leaving the page.</p>
+          <div class="feature-code">?project=prod&amp;fw=v2.3.*&amp;rule=temp_drift</div>
+        </div>
+        <div class="feature">
+          <span class="feature-sym">⊕</span>
+          <h3 class="feature-name">Devices</h3>
+          <p class="feature-body">Every serial number gets a record. Firmware history, calibration events, every run it has ever produced. Open one device and see its lifetime pass rate alongside its current state.</p>
+          <div class="feature-code">DEV-00847 · 412 runs · last: 9m ago</div>
+        </div>
+        <div class="feature">
+          <span class="feature-sym">♄</span>
+          <h3 class="feature-name">Report</h3>
+          <p class="feature-body">Sign and freeze a release record. PDF and JSON; immutable; permalinked back to the exact manifests, artifacts, and rules that produced it. Re-run the analysis at any time &mdash; the record will not move.</p>
+          <div class="feature-code">release-2.3.1.pdf · sha256 verified</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DASHBOARD PREVIEW ──────────────────────────────────────────────── -->
+  <section class="section" id="preview">
+    <div class="shell">
+      <span class="kicker">Inside the dashboard</span>
+      <h2 class="h-section" style="margin-top:14px;">A real surface, not a constellation.</h2>
+      <p class="lede" style="margin-top:16px;">
+        What you see when you open a project: the runs that landed today, the rules that fired, the analysis Claude
+        produced for each failure. Three panes, one source of truth.
+      </p>
+
+      <div class="dash">
+        <div class="dash-chrome">
+          <div class="dash-tabs">
+            <span class="on">Dashboard</span>
+            <span>Runs · 1,247</span>
+            <span>Reports</span>
+            <span>Test plans</span>
+            <span>Rules</span>
+            <span>Devices · 312</span>
+          </div>
+          <span>project · prod-validation</span>
+        </div>
+
+        <div class="dash-body">
+          <div class="dash-panel" style="grid-row: span 2;">
+            <div class="dash-panel-head">
+              <h4>Recent runs</h4>
+              <span class="more">last 24h →</span>
+            </div>
+            <table class="runs">
+              <thead>
+                <tr><th>Run</th><th>Device</th><th>FW</th><th>Plan</th><th style="text-align:right;">Status</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="id">run-20251014-143022</td><td>DEV-00847</td><td>v2.3.1</td><td>plan-thermal-v4</td>
+                  <td style="text-align:right;"><span class="badge done"><span class="dot"></span>done</span></td>
+                </tr>
+                <tr>
+                  <td class="id" style="color:#d97757;">run-20251014-140311</td><td>DEV-00391</td><td>v2.3.1</td><td>plan-thermal-v4</td>
+                  <td style="text-align:right;"><span class="badge failed"><span class="dot"></span>failed</span></td>
+                </tr>
+                <tr>
+                  <td class="id">run-20251014-133812</td><td>DEV-00512</td><td>v2.2.9</td><td>plan-power-v2</td>
+                  <td style="text-align:right;"><span class="badge processing"><span class="dot"></span>analyzing</span></td>
+                </tr>
+                <tr>
+                  <td class="id">run-20251013-174501</td><td>DEV-00847</td><td>v2.2.9</td><td>plan-thermal-v4</td>
+                  <td style="text-align:right;"><span class="badge done"><span class="dot"></span>done</span></td>
+                </tr>
+                <tr>
+                  <td class="id">run-20251013-163200</td><td>DEV-00110</td><td>v2.2.8</td><td>plan-power-v2</td>
+                  <td style="text-align:right;"><span class="badge done"><span class="dot"></span>done</span></td>
+                </tr>
+                <tr>
+                  <td class="id">run-20251013-141822</td><td>DEV-00391</td><td>v2.2.8</td><td>plan-thermal-v4</td>
+                  <td style="text-align:right;"><span class="badge done"><span class="dot"></span>done</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="dash-panel">
+            <div class="dash-panel-head">
+              <h4>Rules fired today</h4>
+              <span class="more">3</span>
+            </div>
+            <div class="ruling">
+              <div class="ruling-item">
+                <div class="sev crit">CRITICAL</div>
+                <div class="name">temp_drift_exceeds_2σ</div>
+                <div class="meta">DEV-00391 · run-…140311 · channel 3 · Δ +4.2°C</div>
+              </div>
+              <div class="ruling-item">
+                <div class="sev warn">WARNING</div>
+                <div class="name">stall_recovery_slow</div>
+                <div class="meta">DEV-00391 · run-…140311 · 312ms vs 180ms baseline</div>
+              </div>
+              <div class="ruling-item">
+                <div class="sev info">INFO</div>
+                <div class="name">new_firmware_observed</div>
+                <div class="meta">DEV-00847 · fw v2.3.1 first seen 14:22</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-panel">
+            <div class="dash-panel-head">
+              <h4>Analysis · run-…140311</h4>
+              <span class="more" style="color:var(--orrery-starlight);">claude sonnet</span>
+            </div>
+            <p style="font-size: 0.95rem; font-family: 'EB Garamond', serif; margin: 0 0 10px 0; color: var(--orrery-fg-muted); line-height: 1.6;">
+              Channel 3 thermal sensor crossed +4.2°C above the plan-thermal-v4 golden baseline at t=812s, well outside the 2σ band. Stall recovery on the same device ran 1.7× slower than the last good run of the same firmware. The two events are likely correlated: thermal protection appears to be throttling the recovery loop.
+            </p>
+            <div style="font-family: 'Cascadia Code', monospace; font-size: 11px; color: var(--orrery-fg-subtle); letter-spacing: 0.06em;">
+              evidence: artifact://channels.ndjson L8,144–8,210 · L9,002
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DATA MODEL ─────────────────────────────────────────────────────── -->
+  <section class="section" id="schema">
+    <div class="shell">
+      <span class="kicker">Data model</span>
+      <h2 class="h-section" style="margin-top:14px;">What Orrery stores, plainly.</h2>
+      <p class="lede" style="margin-top:16px;">
+        Seven entities. Every screen, every API call, every report is a view over them.
+      </p>
+
+      <div class="schema">
+        <div class="schema-row">
+          <div class="schema-name"><span class="glyph">☉</span>Run</div>
+          <div class="schema-fields">
+            <span class="f"><span class="k">id</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">project</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">device_id</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">firmware</span> <span class="t">semver</span></span>
+            <span class="f"><span class="k">plan_id</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">status</span> <span class="t">enum</span></span>
+            <span class="f"><span class="k">started_at</span> <span class="t">ts</span></span>
+            <span class="f"><span class="k">finished_at</span> <span class="t">ts</span></span>
+            <span class="f"><span class="k">manifest_sha256</span> <span class="t">hex</span></span>
+          </div>
+        </div>
+        <div class="schema-row">
+          <div class="schema-name"><span class="glyph">☽</span>Manifest</div>
+          <div class="schema-fields">
+            <span class="f"><span class="k">run_id</span> <span class="t">fk</span></span>
+            <span class="f"><span class="k">env</span> <span class="t">json</span></span>
+            <span class="f"><span class="k">inputs</span> <span class="t">json</span></span>
+            <span class="f"><span class="k">capture_source</span> <span class="t">enum</span></span>
+            <span class="f"><span class="k">astrolabe_version</span> <span class="t">semver</span></span>
+            <span class="f"><span class="k">schema_version</span> <span class="t">int</span></span>
+          </div>
+        </div>
+        <div class="schema-row">
+          <div class="schema-name"><span class="glyph">⊕</span>Artifact</div>
+          <div class="schema-fields">
+            <span class="f"><span class="k">run_id</span> <span class="t">fk</span></span>
+            <span class="f"><span class="k">kind</span> <span class="t">enum</span></span>
+            <span class="f"><span class="k">s3_uri</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">sha256</span> <span class="t">hex</span></span>
+            <span class="f"><span class="k">bytes</span> <span class="t">int</span></span>
+            <span class="f"><span class="k">rows</span> <span class="t">int?</span></span>
+          </div>
+        </div>
+        <div class="schema-row">
+          <div class="schema-name"><span class="glyph">♂</span>Device</div>
+          <div class="schema-fields">
+            <span class="f"><span class="k">id</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">serial</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">model</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">firmware_history</span> <span class="t">[semver]</span></span>
+            <span class="f"><span class="k">first_seen</span> <span class="t">ts</span></span>
+            <span class="f"><span class="k">runs_total</span> <span class="t">int</span></span>
+          </div>
+        </div>
+        <div class="schema-row">
+          <div class="schema-name"><span class="glyph">♃</span>Plan</div>
+          <div class="schema-fields">
+            <span class="f"><span class="k">id</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">version</span> <span class="t">semver</span></span>
+            <span class="f"><span class="k">rules</span> <span class="t">[fk]</span></span>
+            <span class="f"><span class="k">golden_run</span> <span class="t">fk?</span></span>
+            <span class="f"><span class="k">channels</span> <span class="t">[str]</span></span>
+          </div>
+        </div>
+        <div class="schema-row">
+          <div class="schema-name"><span class="glyph">♀</span>Rule</div>
+          <div class="schema-fields">
+            <span class="f"><span class="k">id</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">kind</span> <span class="t">enum</span></span>
+            <span class="f"><span class="k">severity</span> <span class="t">enum</span></span>
+            <span class="f"><span class="k">spec</span> <span class="t">yaml</span></span>
+            <span class="f"><span class="k">plan_version</span> <span class="t">semver</span></span>
+          </div>
+        </div>
+        <div class="schema-row">
+          <div class="schema-name"><span class="glyph">♄</span>Report</div>
+          <div class="schema-fields">
+            <span class="f"><span class="k">id</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">scope</span> <span class="t">enum</span></span>
+            <span class="f"><span class="k">runs</span> <span class="t">[fk]</span></span>
+            <span class="f"><span class="k">signed_by</span> <span class="t">str</span></span>
+            <span class="f"><span class="k">signed_at</span> <span class="t">ts</span></span>
+            <span class="f"><span class="k">pdf_sha256</span> <span class="t">hex</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RULES + AI ─────────────────────────────────────────────────────── -->
+  <section class="section" id="rules">
+    <div class="shell">
+      <span class="kicker">Rules &amp; analysis</span>
+      <h2 class="h-section" style="margin-top:14px;">A rule fires. An analysis lands. The audit trail writes itself.</h2>
+      <p class="lede" style="margin-top:16px;">
+        Rules are declarative YAML, versioned with your test plan. When one fires, Claude reads the actual artifact
+        rows and explains what changed &mdash; in plain language, citing the data.
+      </p>
+
+      <div class="ra-grid">
+        <div class="ra-pane">
+          <div class="ra-label">The rule</div>
+          <div class="ra-title">rules/thermal/temp_drift.yaml</div>
+<pre class="code"><span class="c"># Critical: channel temperature must not drift</span>
+<span class="c"># more than 2σ above the plan's golden run.</span>
+<span class="k">id</span>:        <span class="s">temp_drift_exceeds_2σ</span>
+<span class="k">kind</span>:      <span class="s">regression</span>
+<span class="k">severity</span>:  <span class="s">critical</span>
+<span class="k">plan</span>:      <span class="s">plan-thermal-v4</span>
+
+<span class="k">match</span>:
+  <span class="k">channel</span>:    <span class="s">"channels.ndjson:temp_c"</span>
+  <span class="k">where</span>:      <span class="s">"phase == 'soak'"</span>
+
+<span class="k">assert</span>:
+  <span class="k">type</span>:       <span class="s">band</span>
+  <span class="k">baseline</span>:   <span class="s">plan.golden_run</span>
+  <span class="k">tolerance</span>:  <span class="n">2</span>     <span class="c"># σ</span>
+  <span class="k">duration_ms</span>: <span class="n">500</span>
+
+<span class="k">explain</span>: <span class="s">|
+  Sensor drift on this channel during soak phase
+  usually indicates thermal protection or sensor aging.
+  Cross-check stall_recovery_slow on the same run.</span></pre>
+        </div>
+
+        <div class="ra-pane">
+          <div class="ra-label">The analysis</div>
+          <div class="ra-title">runs/run-…140311/analysis.json</div>
+<pre class="code">{
+  <span class="k">"run_id"</span><span class="p">:</span> <span class="s">"run-20251014-140311"</span><span class="p">,</span>
+  <span class="k">"verdict"</span><span class="p">:</span> <span class="s">"failed"</span><span class="p">,</span>
+  <span class="k">"rules_fired"</span><span class="p">:</span> [
+    <span class="s">"temp_drift_exceeds_2σ"</span><span class="p">,</span>
+    <span class="s">"stall_recovery_slow"</span>
+  ]<span class="p">,</span>
+  <span class="k">"summary"</span><span class="p">:</span> <span class="s">"Channel 3 crossed +4.2°C above
+    golden baseline at t=812s, outside the 2σ band.
+    Stall recovery ran 1.7× slower on the same run."</span><span class="p">,</span>
+  <span class="k">"likely_cause"</span><span class="p">:</span> <span class="s">"thermal throttling cascading
+    into the recovery loop"</span><span class="p">,</span>
+  <span class="k">"evidence"</span><span class="p">:</span> [
+    {
+      <span class="k">"artifact"</span><span class="p">:</span> <span class="s">"channels.ndjson"</span><span class="p">,</span>
+      <span class="k">"lines"</span><span class="p">:</span> <span class="s">"8144-8210"</span><span class="p">,</span>
+      <span class="k">"value"</span><span class="p">:</span> <span class="n">74.2</span>
+    }<span class="p">,</span>
+    {
+      <span class="k">"artifact"</span><span class="p">:</span> <span class="s">"channels.ndjson"</span><span class="p">,</span>
+      <span class="k">"line"</span><span class="p">:</span> <span class="n">9002</span><span class="p">,</span>
+      <span class="k">"metric"</span><span class="p">:</span> <span class="s">"stall_recovery_ms"</span><span class="p">,</span>
+      <span class="k">"value"</span><span class="p">:</span> <span class="n">312</span>
+    }
+  ]<span class="p">,</span>
+  <span class="k">"compared_to"</span><span class="p">:</span> <span class="s">"run-20251013-174501"</span><span class="p">,</span>
+  <span class="k">"signed_at"</span><span class="p">:</span> <span class="s">"2025-10-14T14:04:11Z"</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── API ────────────────────────────────────────────────────────────── -->
+  <section class="section" id="api">
+    <div class="shell">
+      <span class="kicker">Integration</span>
+      <h2 class="h-section" style="margin-top:14px;">Three endpoints carry the whole product.</h2>
+      <p class="lede" style="margin-top:16px;">
+        Astrolabe talks to these so you don't have to. They're documented because everything else in Orrery sits
+        on top of them &mdash; the dashboard, the rules engine, the reports.
+      </p>
+
+      <div class="api-grid">
+        <div class="api-card">
+          <div class="api-method post"><span style="width:8px;height:8px;background:currentColor;border-radius:50%;"></span>POST</div>
+          <div class="api-path">/api/v1/runs/upload</div>
+          <p class="api-desc">Astrolabe requests a presigned URL, then streams the manifest and NDJSON artifacts directly to S3. Idempotent on <code>run_id</code>.</p>
+<pre class="code"><span class="p">→</span> <span class="k">POST</span> /api/v1/runs/upload
+{
+  <span class="k">"run_id"</span><span class="p">:</span> <span class="s">"run-20251014-143022"</span><span class="p">,</span>
+  <span class="k">"project"</span><span class="p">:</span> <span class="s">"prod-validation"</span><span class="p">,</span>
+  <span class="k">"plan"</span><span class="p">:</span> <span class="s">"plan-thermal-v4"</span><span class="p">,</span>
+  <span class="k">"manifest_sha256"</span><span class="p">:</span> <span class="s">"a7b3…"</span>
+}
+
+<span class="p">←</span> <span class="n">200</span>
+{
+  <span class="k">"upload_urls"</span><span class="p">:</span> { <span class="k">"manifest"</span><span class="p">:</span> <span class="s">"…"</span><span class="p">,</span>
+                    <span class="k">"channels.ndjson"</span><span class="p">:</span> <span class="s">"…"</span> }
+}</pre>
+        </div>
+
+        <div class="api-card">
+          <div class="api-method get"><span style="width:8px;height:8px;background:currentColor;border-radius:50%;"></span>GET</div>
+          <div class="api-path">/api/v1/runs</div>
+          <p class="api-desc">Query by any combination of manifest fields. Pagination via cursor. Same filter grammar as the URL on the dashboard.</p>
+<pre class="code"><span class="p">→</span> <span class="k">GET</span> /api/v1/runs?
+    project=prod-validation&amp;
+    fw=v2.3.*&amp;
+    rule=temp_drift_exceeds_2σ&amp;
+    status=failed
+
+<span class="p">←</span> <span class="n">200</span>
+{
+  <span class="k">"results"</span><span class="p">:</span> [ { <span class="k">"id"</span><span class="p">:</span> <span class="s">"run-…140311"</span><span class="p">,</span> … } ]<span class="p">,</span>
+  <span class="k">"cursor"</span><span class="p">:</span> <span class="s">"eyJyIjoxMjQ3fQ=="</span>
+}</pre>
+        </div>
+
+        <div class="api-card">
+          <div class="api-method hook"><span style="width:8px;height:8px;background:currentColor;border-radius:50%;"></span>WEBHOOK</div>
+          <div class="api-path">run.analyzed</div>
+          <p class="api-desc">Fires after analysis lands &mdash; downstream CI, Slack, or release scripts can branch on the verdict without polling.</p>
+<pre class="code">{
+  <span class="k">"event"</span><span class="p">:</span> <span class="s">"run.analyzed"</span><span class="p">,</span>
+  <span class="k">"run_id"</span><span class="p">:</span> <span class="s">"run-20251014-140311"</span><span class="p">,</span>
+  <span class="k">"verdict"</span><span class="p">:</span> <span class="s">"failed"</span><span class="p">,</span>
+  <span class="k">"rules_fired"</span><span class="p">:</span> [
+    <span class="s">"temp_drift_exceeds_2σ"</span><span class="p">,</span>
+    <span class="s">"stall_recovery_slow"</span>
+  ]<span class="p">,</span>
+  <span class="k">"permalink"</span><span class="p">:</span> <span class="s">"https://orrery…/r/…140311"</span><span class="p">,</span>
+  <span class="k">"signed_at"</span><span class="p">:</span> <span class="s">"2025-10-14T14:04:11Z"</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMPARE + CTA ──────────────────────────────────────────────────── -->
+  <section class="section" id="compare">
+    <div class="shell">
+      <span class="kicker">What changes</span>
+      <h2 class="h-section" style="margin-top:14px;">Before and after a shared backend.</h2>
+
+      <div class="compare">
+        <div class="compare-col before">
+          <div class="compare-head">Before</div>
+          <div class="compare-title">Shared drives and tribal knowledge.</div>
+          <ul>
+            <li>Each engineer ships their own folder layout; the schema lives in someone's head.</li>
+            <li>A failed run is a screenshot in Slack and a CSV nobody can find a week later.</li>
+            <li>Regressions get caught when a customer files a ticket, not when the bench produces them.</li>
+            <li>Release sign-off is a meeting; the evidence is whatever was on screen at the time.</li>
+          </ul>
+        </div>
+        <div class="compare-col after">
+          <div class="compare-head">With Orrery</div>
+          <div class="compare-title">One backend, one schema, one URL per run.</div>
+          <ul>
+            <li>Every run lands with manifest, checksums, and plan version. The schema is enforced at ingest.</li>
+            <li>A failed run has a permalink, the artifacts, the rules that fired, and a written analysis.</li>
+            <li>Regressions surface the moment the rule fires; the webhook tells CI before the engineer notices.</li>
+            <li>Release sign-off is a signed report. The evidence ties back to the exact bytes that produced it.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cta">
+        <div>
+          <h3>Tour Orrery in your own project.</h3>
+          <p>A 30-minute walkthrough with your test data, your devices, and one of your plans wired up. No deck.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="obtn obtn-primary" href="#">Book a tour</a>
+          <a class="obtn obtn-verdigris" href="/astrolabe">Start with Astrolabe →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
 {% endblock %}
