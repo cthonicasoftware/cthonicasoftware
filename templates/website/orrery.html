@@ -12,6 +12,7 @@
 {% block nav_icon %}🜨{% endblock %}
 {% block product_name %}ORRERY{% endblock %}
 {% block product_tagline %}Analysis Backend{% endblock %}
+{% block body_class %} orrery-page{% endblock %}
 
 {% block product_extra_head_css %}
   <link rel="stylesheet" href="{% static 'src/website-orrery.css' %}" />
@@ -51,6 +52,33 @@
 
 {% block main %}
 <div class="orrery">
+
+  <!-- ── AMBIENT ORRERY (scroll-wound, sits behind all content) ──────────── -->
+  <div class="orrery-sky" aria-hidden="true">
+    <div class="orrery-field">
+      <div class="orrery-core"></div>
+      <div class="orbit" style="--r:330px; --is:5.4; --ws:0.072; --ro:0.17;">
+        <span class="ring"></span>
+        <span class="body b-gold" style="--a0:18deg;  --sz:10px;"></span>
+        <span class="body b-star" style="--a0:206deg; --sz:7px;"></span>
+      </div>
+      <div class="orbit" style="--r:520px; --is:3.5; --ws:0.05; --ro:0.13;">
+        <span class="ring"></span>
+        <span class="body b-verd"     style="--a0:104deg; --sz:9px;"></span>
+        <span class="body b-gold-dim" style="--a0:298deg; --sz:7px;"></span>
+      </div>
+      <div class="orbit" style="--r:748px; --is:2.3; --ws:0.034; --ro:0.09;">
+        <span class="ring"></span>
+        <span class="body b-iron" style="--a0:58deg;  --sz:9px;"></span>
+        <span class="body b-star" style="--a0:244deg; --sz:6px;"></span>
+      </div>
+      <div class="orbit" style="--r:1024px; --is:1.5; --ws:0.022; --ro:0.06;">
+        <span class="ring"></span>
+        <span class="body b-verd"     style="--a0:158deg; --sz:8px;"></span>
+        <span class="body b-gold-dim" style="--a0:12deg;  --sz:6px;"></span>
+      </div>
+    </div>
+  </div>
 
   <!-- ── HERO ───────────────────────────────────────────────────────────── -->
   <section class="section hero">
@@ -593,6 +621,73 @@
       }, { threshold: 0.35 });
 
       io.observe(svg);
+    })();
+
+    // ── Ambient orrery + scroll reveals ─────────────────────────────────────
+    (function () {
+      const orrery = document.querySelector('.orrery');
+      if (!orrery) return;
+      const reduce = window.matchMedia
+        && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Tag section blocks for reveal, staggered in document order per section.
+      orrery.classList.add('reveal-ready');
+      document.querySelectorAll('.orrery .section .shell').forEach((shell) => {
+        Array.prototype.forEach.call(shell.children, (el, i) => {
+          el.classList.add('reveal');
+          el.style.setProperty('--rd', (i * 90) + 'ms');
+        });
+      });
+
+      const reveals = document.querySelectorAll('.orrery .reveal');
+      if (!reduce && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+        reveals.forEach((el) => io.observe(el));
+        // Reveal whatever is already in view synchronously so above-the-fold
+        // content never waits on an async callback (e.g. a backgrounded tab
+        // where IntersectionObserver is suspended until the tab is shown).
+        const revealInView = () => {
+          let remaining = 0;
+          reveals.forEach((el) => {
+            if (el.classList.contains('in')) return;
+            const r = el.getBoundingClientRect();
+            if (r.top < window.innerHeight * 0.92 && r.bottom > 0) el.classList.add('in');
+            else remaining++;
+          });
+          if (!remaining) {
+            window.removeEventListener('scroll', revealInView);
+            document.removeEventListener('visibilitychange', onShow);
+          }
+        };
+        const onShow = () => { if (document.visibilityState === 'visible') revealInView(); };
+        revealInView();
+        window.addEventListener('scroll', revealInView, { passive: true });
+        document.addEventListener('visibilitychange', onShow);
+      } else {
+        reveals.forEach((el) => el.classList.add('in'));
+      }
+
+      // Wind the ambient orrery: idle drift (--orrery-t) + scroll (--orrery-scroll).
+      const sky = document.querySelector('.orrery-sky');
+      if (!sky || reduce) return;
+      const root = document.documentElement;
+      let scroll = window.scrollY || 0;
+      let started = null;
+      window.addEventListener('scroll', () => { scroll = window.scrollY || 0; }, { passive: true });
+      function frame(ts) {
+        if (started === null) started = ts;
+        root.style.setProperty('--orrery-t', ((ts - started) / 1000).toFixed(3));
+        root.style.setProperty('--orrery-scroll', scroll.toFixed(1));
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
     })();
   </script>
 {% endblock %}
