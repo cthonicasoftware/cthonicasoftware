@@ -6,14 +6,14 @@
 
 :root {
   /* Brand palette — accurate to brief */
-  --gold:             #c6a664;
+  --gold:             var(--color-celestial);
   --gold-dim:         rgba(198, 166, 100, 0.62);
   --gold-glow:        rgba(198, 166, 100, 0.20);
   --gold-subtle:      rgba(198, 166, 100, 0.10);
   --gold-line:        rgba(198, 166, 100, 0.16);
   --gold-border:      rgba(198, 166, 100, 0.28);
 
-  --verdigris:        #5e8570;
+  --verdigris:        var(--color-verdigris);
   --verdigris-glow:   rgba(94, 133, 112, 0.20);
   --verdigris-subtle: rgba(94, 133, 112, 0.09);
   --verdigris-border: rgba(94, 133, 112, 0.30);
@@ -21,7 +21,7 @@
   --iron:             #8b3e2f;
   --iron-subtle:      rgba(139, 62, 47, 0.10);
 
-  --starlight:        #7fa4b5;
+  --starlight:        var(--color-starlight);
 
   /* Structural */
   --landing-shadow:      0 32px 80px rgba(0, 0, 0, 0.52);
@@ -958,15 +958,13 @@ body.app-website {
   cursor: pointer;
 }
 
+/* Visibility is owned by Flowbite Collapse, which toggles the `hidden`
+   utility. That utility lives in @layer utilities and so outranks this rule. */
 .mobile-nav-panel {
-  display: none;
+  display: block;
   border-top: 1px solid rgba(198, 166, 100, 0.13);
   background: rgba(12, 8, 3, 0.96);
   backdrop-filter: blur(24px);
-}
-
-.mobile-nav-panel.is-open {
-  display: block;
 }
 
 .mobile-nav-panel a {
@@ -1621,39 +1619,8 @@ html:not(.dark) .instr-xfer-label {
   color: rgba(100, 68, 18, 0.58);
 }
 
-@media (min-width: 900px) {
-  .landing-nav {
-    display: inline-flex;
-  }
-
-  .mobile-nav-toggle,
-  .mobile-nav-panel {
-    display: none !important;
-  }
-
-  .hero-grid,
-  .support-grid,
-  .product-grid,
-  .story-layout,
-  .final-cta-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .hero-grid {
-    gap: 4rem;
-  }
-
-  .support-grid {
-    grid-template-columns: minmax(18rem, 25rem) minmax(0, 1fr);
-  }
-
-  .story-layout {
-    grid-template-columns: minmax(18rem, 26rem) minmax(0, 1fr);
-  }
-
-  .landing-footer-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: center;
-  }
-}
+/* The 900px breakpoint used to be hand-written here because `desk:` utilities
+   compiled to nothing (--breakpoint-desk lived only in the dead tailwind.config.js).
+   With the breakpoint in @theme and this file inside @layer components, the
+   `desk:` utilities in the templates handle it and outrank these rules by layer
+   order. The shim is gone. */

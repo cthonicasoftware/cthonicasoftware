@@ -6,11 +6,6 @@
 {% block body_class %} pricing-page{% endblock %}
 {% block body_attributes %}data-billing="monthly"{% endblock %}
 
-{% block extra_head_css %}
-  <link rel="stylesheet" href="{% static 'src/website-index.css' %}" />
-  <link rel="stylesheet" href="{% static 'src/website-pricing.css' %}" />
-{% endblock %}
-
 {% block body_content %}
   <div class="landing-shell">
     <header class="landing-header">
@@ -30,7 +25,7 @@
           </nav>
           <div class="flex items-center gap-3">
             {% include 'includes/theme-toggle-button.html' %}
-            <button id="navBtn" class="mobile-nav-toggle desk:!hidden" aria-expanded="false" aria-controls="mobileNav">
+            <button data-collapse-toggle="mobileNav" type="button" class="mobile-nav-toggle desk:!hidden" aria-expanded="false" aria-controls="mobileNav">
               <span class="sr-only">Menu</span>
               <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true">
                 <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
@@ -39,7 +34,7 @@
           </div>
         </div>
       </div>
-      <div id="mobileNav" class="mobile-nav-panel desk:!hidden">
+      <div id="mobileNav" class="mobile-nav-panel hidden desk:!hidden">
         <a href="#plans">Plans</a>
         <a href="#compare">Compare</a>
         <a href="#custom">Custom</a>
@@ -58,16 +53,23 @@
           </div>
 
           <div class="pricing-frame">
-            <figure class="pricing-constellation pricing-frame-map">
-              <button type="button" class="pricing-node is-basic" data-pricing-node data-plan="basic" aria-pressed="false">
+            <figure
+              class="pricing-constellation pricing-frame-map"
+              role="tablist"
+              aria-label="Pricing plans"
+              data-tabs-toggle="#pricing-focus"
+              data-tabs-active-classes="is-active"
+              data-tabs-inactive-classes="is-inactive"
+            >
+              <button type="button" role="tab" id="plan-basic-tab" class="pricing-node is-basic" data-tabs-target="#plan-basic" aria-controls="plan-basic" data-plan="basic" aria-selected="false">
                 <span class="pricing-node-dot"></span>
                 <strong>Basic</strong>
               </button>
-              <button type="button" class="pricing-node is-professional is-active" data-pricing-node data-plan="professional" aria-pressed="true">
+              <button type="button" role="tab" id="plan-professional-tab" class="pricing-node is-professional is-active" data-tabs-target="#plan-professional" aria-controls="plan-professional" data-plan="professional" aria-selected="true">
                 <span class="pricing-node-dot"></span>
                 <strong>Professional</strong>
               </button>
-              <button type="button" class="pricing-node is-enterprise" data-pricing-node data-plan="enterprise" aria-pressed="false">
+              <button type="button" role="tab" id="plan-enterprise-tab" class="pricing-node is-enterprise" data-tabs-target="#plan-enterprise" aria-controls="plan-enterprise" data-plan="enterprise" aria-selected="false">
                 <span class="pricing-node-dot"></span>
                 <strong>Enterprise</strong>
               </button>
@@ -83,17 +85,17 @@
 
             <div class="pricing-frame-detail">
               <div class="pricing-detail-billing">
-                <div class="pricing-toggle" role="tablist" aria-label="Billing frequency">
+                <div class="pricing-toggle" role="group" aria-label="Billing frequency">
                   <button id="monthly-btn" type="button" class="is-active" aria-pressed="true">Monthly</button>
                   <button id="annual-btn" type="button" aria-pressed="false">Annual</button>
                 </div>
                 <p class="pricing-footnote">Annual billing reduces listed rates by 20%.</p>
               </div>
-              <div class="pricing-focus">
-                <article class="pricing-detail is-active" data-pricing-detail="professional">
+              <div class="pricing-focus" id="pricing-focus">
+                <article class="pricing-detail" id="plan-professional" role="tabpanel" aria-labelledby="plan-professional-tab" data-plan="professional">
                   <div class="pricing-detail-head">
                     <div>
-                      <span class="pricing-badge">Recommended</span>
+                      <span class="badge badge-lg">Recommended</span>
                       <h3>Professional</h3>
                       <p>Shared review, validation, and analysis for teams working from the same record.</p>
                     </div>
@@ -122,10 +124,10 @@
                   </div>
                 </article>
 
-                <article class="pricing-detail" data-pricing-detail="basic" hidden>
+                <article class="pricing-detail hidden" id="plan-basic" role="tabpanel" aria-labelledby="plan-basic-tab" data-plan="basic">
                   <div class="pricing-detail-head">
                     <div>
-                      <span class="pricing-badge">Entry Tier</span>
+                      <span class="badge badge-lg">Entry Tier</span>
                       <h3>Basic</h3>
                       <p>Durable capture for individual workflows starting with a disciplined record.</p>
                     </div>
@@ -154,10 +156,10 @@
                   </div>
                 </article>
 
-                <article class="pricing-detail" data-pricing-detail="enterprise" hidden>
+                <article class="pricing-detail hidden" id="plan-enterprise" role="tabpanel" aria-labelledby="plan-enterprise-tab" data-plan="enterprise">
                   <div class="pricing-detail-head">
                     <div>
-                      <span class="pricing-badge">Program Tier</span>
+                      <span class="badge badge-lg">Program Tier</span>
                       <h3>Enterprise</h3>
                       <p>Governance, flexible deployment, and custom commercial terms for program-scale work.</p>
                     </div>
@@ -252,95 +254,52 @@
 {% block extra_scripts %}
   {{ block.super }}
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // The mobile nav is a Flowbite Collapse, the plan selector a Flowbite Tabs
+    // instance (see data-collapse-toggle / data-tabs-toggle above), and the
+    // footer year and anchor scrolling live in site-nav.js. Only what Flowbite
+    // has no component for is wired up here.
 
-    const navBtn = document.getElementById('navBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    navBtn?.addEventListener('click', () => {
-      mobileNav.classList.toggle('is-open');
-      navBtn.setAttribute('aria-expanded', String(mobileNav.classList.contains('is-open')));
-    });
-
+    // ── Billing frequency ────────────────────────────────────────────────────
     const monthlyBtn = document.getElementById('monthly-btn');
     const annualBtn = document.getElementById('annual-btn');
     const priceElements = document.querySelectorAll('[data-monthly]');
-    const pricingPage = document.body;
-    const planNodes = document.querySelectorAll('[data-pricing-node]');
-    const detailPanels = document.querySelectorAll('[data-pricing-detail]');
-    const validPlans = new Set(['basic', 'professional', 'enterprise']);
-    let activePlan = 'professional';
 
     function togglePricing(isAnnual) {
       priceElements.forEach((el) => {
-        const monthly = el.getAttribute('data-monthly');
-        const annual = el.getAttribute('data-annual');
-        el.textContent = isAnnual ? annual : monthly;
+        el.textContent = el.getAttribute(isAnnual ? 'data-annual' : 'data-monthly');
       });
-
-      if (isAnnual) {
-        pricingPage?.setAttribute('data-billing', 'annual');
-        monthlyBtn.classList.remove('is-active');
-        annualBtn.classList.add('is-active');
-        monthlyBtn.setAttribute('aria-pressed', 'false');
-        annualBtn.setAttribute('aria-pressed', 'true');
-      } else {
-        pricingPage?.setAttribute('data-billing', 'monthly');
-        annualBtn.classList.remove('is-active');
-        monthlyBtn.classList.add('is-active');
-        annualBtn.setAttribute('aria-pressed', 'false');
-        monthlyBtn.setAttribute('aria-pressed', 'true');
-      }
-
-    }
-
-    function setActivePlan(plan, pinned = false) {
-      if (!validPlans.has(plan)) {
-        return;
-      }
-
-      planNodes.forEach((node) => {
-        const isMatch = node.getAttribute('data-plan') === plan;
-        node.classList.toggle('is-active', isMatch);
-        node.setAttribute('aria-pressed', String(isMatch));
+      document.body.setAttribute('data-billing', isAnnual ? 'annual' : 'monthly');
+      [[monthlyBtn, !isAnnual], [annualBtn, isAnnual]].forEach(([btn, on]) => {
+        btn?.classList.toggle('is-active', on);
+        btn?.setAttribute('aria-pressed', String(on));
       });
-
-      detailPanels.forEach((panel) => {
-        const isMatch = panel.getAttribute('data-pricing-detail') === plan;
-        panel.classList.toggle('is-active', isMatch);
-        panel.hidden = !isMatch;
-      });
-
-      if (pinned) {
-        activePlan = plan;
-      }
     }
 
     monthlyBtn?.addEventListener('click', () => togglePricing(false));
     annualBtn?.addEventListener('click', () => togglePricing(true));
 
-    planNodes.forEach((node) => {
-      const plan = node.getAttribute('data-plan');
-      node.addEventListener('mouseenter', () => setActivePlan(plan));
-      node.addEventListener('focus', () => setActivePlan(plan));
-      node.addEventListener('mouseleave', () => setActivePlan(activePlan));
-      node.addEventListener('blur', () => setActivePlan(activePlan));
-      node.addEventListener('click', () => setActivePlan(plan, true));
-    });
-
-    setActivePlan(activePlan, true);
-
-    // Constellation hover: highlight connected lines via data-hover attribute
+    // ── Constellation highlight ──────────────────────────────────────────────
+    // Flowbite Tabs owns which panel is shown. This only previews the
+    // connecting lines on hover and falls back to whichever tab is selected.
     const constellationFig = document.querySelector('.pricing-constellation');
+
+    const selectedPlan = () =>
+      constellationFig
+        ?.querySelector('[role="tab"][aria-selected="true"]')
+        ?.getAttribute('data-plan') || 'professional';
+
+    const highlight = (plan) => constellationFig?.setAttribute('data-hover', plan);
+
     document.querySelectorAll('.pricing-node[data-plan]').forEach((node) => {
       const plan = node.getAttribute('data-plan');
-      node.addEventListener('mouseenter', () => constellationFig?.setAttribute('data-hover', plan));
-      node.addEventListener('focus',      () => constellationFig?.setAttribute('data-hover', plan));
-      node.addEventListener('mouseleave', () => constellationFig?.setAttribute('data-hover', activePlan));
-      node.addEventListener('blur',       () => constellationFig?.setAttribute('data-hover', activePlan));
-      node.addEventListener('click',      () => constellationFig?.setAttribute('data-hover', plan));
+      node.addEventListener('mouseenter', () => highlight(plan));
+      node.addEventListener('focus', () => highlight(plan));
+      node.addEventListener('click', () => highlight(plan));
+      node.addEventListener('mouseleave', () => highlight(selectedPlan()));
+      node.addEventListener('blur', () => highlight(selectedPlan()));
     });
-    // Show active plan's lines on load and after touch taps
-    constellationFig?.setAttribute('data-hover', activePlan);
+
+    highlight(selectedPlan());
 
     // Constellation connecting lines — drawn from real DOM positions so
     // they stay accurate across viewport sizes without hardcoding coordinates.
@@ -527,17 +486,5 @@
       window.location.href = 'mailto:contact@cthonica.software';
     });
 
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', function (e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (!target) {
-          return;
-        }
-        e.preventDefault();
-        mobileNav?.classList.remove('is-open');
-        navBtn?.setAttribute('aria-expanded', 'false');
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
   </script>
 {% endblock %}

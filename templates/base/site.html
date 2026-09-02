@@ -8,16 +8,16 @@
   <title>{% block page_title %}{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'src/styles.css' %}" />
   {% block extra_head_css %}{% endblock %}
+  {% comment %}
+    Theme must be resolved before first paint, so this one stays inline and
+    blocking. Everything else about the toggle lives in theme-toggle.js.
+  {% endcomment %}
   <script>
     (function () {
-      const key = 'app-theme';
-      const stored = localStorage.getItem(key);
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (stored === 'dark' || (!stored && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      var stored = localStorage.getItem('app-theme');
+      var dark = stored === 'dark'
+        || (!stored && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.classList.toggle('dark', dark);
     })();
   </script>
 </head>
@@ -28,7 +28,9 @@
 >
   {% include 'includes/index-background.svg' %}
   {% block body_content %}{% endblock %}
-  <script src="{% static 'js/light-dark-mode.js' %}"></script>
+  <script src="{% static 'js/vendor/flowbite.min.js' %}"></script>
+  <script src="{% static 'js/theme-toggle.js' %}"></script>
+  <script src="{% static 'js/site-nav.js' %}"></script>
   {% block extra_scripts %}{% endblock %}
 </body>
 </html>

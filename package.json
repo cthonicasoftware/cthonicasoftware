@@ -1,14 +1,13 @@
 {
   "scripts": {
-    "dev": "npx tailwindcss -i ./static/src/input.css -o ./static/src/styles.css --watch",
-    "build": "npx tailwindcss -i ./static/src/input.css -o ./static/src/styles.css --minify",
+    "vendor:flowbite": "node -e \"require('fs').mkdirSync('static/js/vendor',{recursive:true});require('fs').copyFileSync('node_modules/flowbite/dist/flowbite.min.js','static/js/vendor/flowbite.min.js')\"",
+    "dev": "npm run vendor:flowbite && npx tailwindcss -i ./static/src/input.css -o ./static/src/styles.css --watch",
+    "build": "npm run vendor:flowbite && npx tailwindcss -i ./static/src/input.css -o ./static/src/styles.css --minify",
     "build:django": "npm run build && python manage.py collectstatic --noinput"
   },
-
   "devDependencies": {
     "prettier": "latest"
   },
-
   "dependencies": {
     "@tailwindcss/cli": "^4.1.16",
     "flowbite": "^3.1.2",

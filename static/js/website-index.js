@@ -2,35 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const year = document.getElementById('year');
-  if (year) {
-    year.textContent = String(new Date().getFullYear());
-  }
-
-  const navBtn = document.getElementById('navBtn');
-  const mobileNav = document.getElementById('mobileNav');
-
-  navBtn?.addEventListener('click', () => {
-    const next = !mobileNav?.classList.contains('is-open');
-    mobileNav?.classList.toggle('is-open', next);
-    navBtn.setAttribute('aria-expanded', String(next));
-  });
-
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (event) => {
-      event.preventDefault();
-      const href = anchor.getAttribute('href');
-      const target = href ? document.querySelector(href) : null;
-      if (!target) {
-        return;
-      }
-
-      mobileNav?.classList.remove('is-open');
-      navBtn?.setAttribute('aria-expanded', 'false');
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-
   document.querySelectorAll('.final-cta-path').forEach((card) => {
     let rafId = null;
     let targetX = 50;

@@ -5,20 +5,20 @@
    ──────────────────────────────────────────────────────────────────────────── */
 
 :root {
-  --orrery-gold:        var(--color-celestial, #c6a664);
+  --orrery-gold:        var(--color-celestial);
   --orrery-gold-dim:    rgba(198, 166, 100, 0.62);
   --orrery-gold-glow:   rgba(198, 166, 100, 0.20);
   --orrery-gold-subtle: rgba(198, 166, 100, 0.10);
   --orrery-gold-line:   rgba(198, 166, 100, 0.16);
   --orrery-gold-border: rgba(198, 166, 100, 0.28);
 
-  --orrery-verdigris:        #5e8570;
+  --orrery-verdigris:        var(--color-verdigris);
   --orrery-verdigris-border: rgba(94, 133, 112, 0.30);
   --orrery-iron:             #8b3e2f;
-  --orrery-starlight:        #7fa4b5;
+  --orrery-starlight:        var(--color-starlight);
 
-  --orrery-bg:        #0f0d0d;
-  --orrery-fg:        #f2e9de;
+  --orrery-bg:        var(--color-obsidian);
+  --orrery-fg:        var(--color-parchment);
   --orrery-fg-muted:  rgba(242, 233, 222, 0.72);
   --orrery-fg-subtle: rgba(242, 233, 222, 0.48);
   --orrery-panel:     rgba(14, 10, 4, 0.82);
@@ -27,7 +27,7 @@
 }
 
 html:not(.dark) {
-  --orrery-bg:        #f2e9de;
+  --orrery-bg:        var(--color-parchment);
   --orrery-fg:        #1a1610;
   --orrery-fg-muted:  rgba(26, 22, 16, 0.72);
   --orrery-fg-subtle: rgba(26, 22, 16, 0.50);
@@ -165,24 +165,7 @@ html:not(.dark) .orrery-core {
 .orrery .section { padding: 88px 0; position: relative; }
 .orrery .section + .section { border-top: 1px solid var(--orrery-gold-line); }
 
-/* ── Buttons (scoped — site already has .btn) ───────────────────────────── */
-.orrery .obtn {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 22px;
-  font-family: "EB Garamond", serif;
-  font-size: 1.05rem;
-  letter-spacing: 0.03em;
-  border: 1px solid var(--orrery-gold-border);
-  color: var(--orrery-fg);
-  background: transparent;
-  cursor: pointer;
-  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
-}
-.orrery .obtn-primary { background: var(--orrery-gold); color: #0f0d0d; border-color: var(--orrery-gold); }
-.orrery .obtn-primary:hover { filter: brightness(1.1); }
-.orrery .obtn-ghost:hover { background: var(--orrery-gold-subtle); border-color: var(--orrery-gold); color: var(--orrery-gold); }
-.orrery .obtn-verdigris { border-color: var(--orrery-verdigris-border); color: var(--orrery-fg); }
-.orrery .obtn-verdigris:hover { background: var(--orrery-verdigris); color: #0f0d0d; border-color: var(--orrery-verdigris); }
+/* Buttons now come from the unified `.btn` system in input.css. */
 
 /* ── Hero ────────────────────────────────────────────────────────────────── */
 .orrery .hero { padding: 96px 0 80px; }
@@ -238,18 +221,7 @@ html:not(.dark) .orrery-core {
 .orrery .run-id { color: var(--orrery-fg); font-weight: 500; }
 .orrery .run-meta { color: var(--orrery-fg-subtle); font-size: 11px; }
 
-.orrery .badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 3px 9px; border: 1px solid; border-radius: 999px;
-  font-family: "Cascadia Code", monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
-}
-.orrery .badge .dot { width: 5px; height: 5px; border-radius: 50%; }
-.orrery .badge.done    { border-color: rgba(94, 133, 112, 0.5); color: var(--orrery-verdigris); background: rgba(94, 133, 112, 0.10); }
-.orrery .badge.done .dot { background: var(--orrery-verdigris); }
-.orrery .badge.failed  { border-color: rgba(139, 62, 47, 0.5); color: #d97757; background: rgba(139, 62, 47, 0.10); }
-.orrery .badge.failed .dot { background: #d97757; }
-.orrery .badge.processing { border-color: rgba(198, 166, 100, 0.5); color: var(--orrery-gold); background: rgba(198, 166, 100, 0.10); }
-.orrery .badge.processing .dot { background: var(--orrery-gold); }
+/* Badges now come from the unified `.badge` system in input.css. */
 
 /* ── Feature grid ────────────────────────────────────────────────────────── */
 .orrery .features { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--orrery-gold-line); margin-top: 56px; }

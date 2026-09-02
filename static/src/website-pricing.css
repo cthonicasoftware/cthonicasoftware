@@ -448,7 +448,9 @@
   box-shadow: var(--landing-shadow-warm);
 }
 
-.pricing-detail.is-active {
+/* Flowbite Tabs shows exactly one panel at a time, so the panel that is in the
+   document is always the active one — there is no `.is-active` state to track. */
+.pricing-detail {
   background:
     radial-gradient(circle at top, rgba(198, 166, 100, 0.16), transparent 36%),
     linear-gradient(180deg, rgba(198, 166, 100, 0.1), rgba(12, 8, 3, 0.58));
@@ -481,18 +483,7 @@
   line-height: 1.72;
 }
 
-.pricing-badge {
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.4rem 0.7rem;
-  border: 1px solid rgba(198, 166, 100, 0.2);
-  color: var(--gold);
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
+/* Pricing badges now use the unified `.badge .badge-lg` in input.css. */
 
 .pricing-tier-head {
   display: grid;
