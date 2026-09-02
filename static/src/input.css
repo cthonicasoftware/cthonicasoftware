@@ -1,12 +1,44 @@
+/* ──────────────────────────────────────────────────────────────────────────────
+   Cthonica — single styling entry point.
+
+   Everything the browser loads is built from this file: Tailwind, Flowbite,
+   the design tokens, and the three brand set-piece stylesheets. Nothing is
+   linked directly from a template any more, so there is exactly one cascade
+   and exactly one definition of every token.
+   ──────────────────────────────────────────────────────────────────────────── */
+
 /* Import primary typeface */
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
 
 @import "tailwindcss";
-@tailwind utilities;
+@import "flowbite/src/themes/default";
+
+/* Brand set pieces enter the build inside the components layer, so that every
+   `desk:` (and any other) utility outranks them by layer order rather than by
+   hand-split media queries. */
+@import "./website-index.css" layer(components);
+@import "./website-pricing.css" layer(components);
+@import "./website-orrery.css" layer(components);
+
+/* Flowbite's plugin turns on charts, datatables and a wysiwyg theme by default.
+   None of them apply to a marketing site, and together they cost ~17KB of the
+   minified bundle. `forms` and `tooltips` stay on — flip any of these back the
+   day a page needs them. */
+@plugin "flowbite/plugin" {
+  charts: false;
+  datatables: false;
+  wysiwyg: false;
+}
+@source "../../node_modules/flowbite";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
+/* `static` is required: Tailwind v4 tree-shakes unused theme variables out of
+   :root, and the set-piece stylesheets above read tokens the template scanner
+   cannot see (e.g. --color-starlight). */
+@theme static {
+  --breakpoint-desk: 900px;
+
   --font-garamond: "EB Garamond", Georgia, serif;
   --font-mono: "Cascadia Code", "Caskadyia Cove Nerd Font", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", monospace;
 
@@ -21,6 +53,31 @@
   --color-celestial: #c6a664;
   --color-verdigris: #5e8570;
 
+  /* Flowbite addresses colour as primary-* / secondary-*. Without these it
+     renders its components in stock Flowbite blue, so the brand palette is
+     mapped onto those scales here and every Flowbite component inherits it. */
+  --color-primary-50:  #fdf9f0;
+  --color-primary-100: #f8efd9;
+  --color-primary-200: #f0dfb4;
+  --color-primary-300: #e3c98a;
+  --color-primary-400: #d5b675;
+  --color-primary-500: #c6a664; /* celestial */
+  --color-primary-600: #a8873f;
+  --color-primary-700: #866a2f;
+  --color-primary-800: #634e23;
+  --color-primary-900: #43351a;
+
+  --color-secondary-50:  #f1f6f2;
+  --color-secondary-100: #dde9e1;
+  --color-secondary-200: #bdd3c5;
+  --color-secondary-300: #94b7a1;
+  --color-secondary-400: #779c85;
+  --color-secondary-500: #5e8570; /* verdigris */
+  --color-secondary-600: #4a6b59;
+  --color-secondary-700: #3a5445;
+  --color-secondary-800: #2b3e33;
+  --color-secondary-900: #1d2a23;
+
   --color-ink: #071013;
   --color-brand: #23B5D3;
   --color-brand2: #75ABBC;
@@ -29,7 +86,8 @@
 
 
 
-  --boxShadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --shadow-celestial: 0 0 10px rgba(198, 166, 100, 0.6);
 
   /* Custom animations */
   --animate-float: float 6s ease-in-out infinite;
@@ -393,53 +451,123 @@
     animation-duration: 2.5s;
   }
 
-  /* ── Button system ───────────────────────────────────────────────────────── */
-  /*
-   * Base: .btn          — shared shape, typography, and transition
-   * Variants:
-   *   .btn-celestial    — gold border / fill on hover
-   *   .btn-verdigris    — teal border / fill on hover
+  /* ── Buttons ─────────────────────────────────────────────────────────────
+   * Flowbite's button recipe (focus ring, radius, weight, transition) themed
+   * from the brand scales above. One system for the whole site: the separate
+   * `.obtn*` set that used to live in website-orrery.css folds in here.
    *
-   * Add new product variants here as the suite grows.
+   * Base:      .btn            shared shape and typography
+   * Size:      .btn-sm         denser variant for instrument-panel surfaces
+   * Variants:  .btn-primary    solid gold
+   *            .btn-celestial  gold outline, fills on hover
+   *            .btn-verdigris  teal outline, fills on hover
+   *            .btn-ghost      low-emphasis outline
    */
 
   .btn {
-    @apply inline-flex items-center justify-center;
+    @apply inline-flex items-center justify-center gap-2;
     @apply px-8 py-4;
     @apply font-garamond text-lg tracking-wide;
-    @apply border-2 no-underline;
+    @apply border-2 rounded-lg no-underline;
     @apply transition duration-300;
     @apply cursor-pointer;
+    @apply focus:outline-none focus:ring-4;
+  }
+
+  .btn-sm {
+    @apply px-5 py-3 text-base rounded-md;
+  }
+
+  .btn-primary {
+    @apply border-primary-500 bg-primary-500 text-obsidian;
+    @apply hover:border-primary-600 hover:bg-primary-600;
+    @apply focus:ring-primary-300;
   }
 
   .btn-celestial {
-    border-color: var(--color-celestial);
-    color: var(--color-celestial);
-  }
-
-  .btn-celestial:hover {
-    background-color: var(--color-celestial);
-    color: var(--color-obsidian);
+    @apply border-primary-500 text-primary-500;
+    @apply hover:bg-primary-500 hover:text-obsidian;
+    @apply focus:ring-primary-300;
   }
 
   .btn-verdigris {
-    border-color: var(--color-verdigris);
-    color: var(--color-celestial);
-  }
-
-  .btn-verdigris:hover {
-    background-color: var(--color-verdigris);
-    color: var(--color-obsidian);
+    @apply border-secondary-500 text-primary-500;
+    @apply hover:bg-secondary-500 hover:text-obsidian;
+    @apply focus:ring-secondary-300;
   }
 
   .btn-ghost {
-    border-color: color-mix(in srgb, var(--color-celestial) 30%, transparent);
+    @apply border-primary-500/30;
+    @apply hover:border-primary-500 hover:text-primary-500;
+    @apply focus:ring-primary-300;
     color: rgb(var(--fg) / 0.8);
   }
 
-  .btn-ghost:hover {
-    border-color: var(--color-celestial);
+  /* ── Badges ──────────────────────────────────────────────────────────────
+   * Flowbite's badge recipe, themed. Replaces the two parallel badge systems
+   * that used to live in website-orrery.css (.badge) and website-pricing.css
+   * (.pricing-badge).
+   */
+
+  .badge {
+    @apply inline-flex w-fit items-center gap-1.5;
+    @apply px-2.5 py-[3px] rounded-full;
+    @apply font-mono text-[10px] uppercase tracking-[0.08em];
+    @apply border;
+    border-color: color-mix(in srgb, var(--color-celestial) 50%, transparent);
     color: var(--color-celestial);
+    background-color: color-mix(in srgb, var(--color-celestial) 10%, transparent);
+  }
+
+  .badge .dot {
+    @apply w-[5px] h-[5px] rounded-full;
+    background: currentColor;
+  }
+
+  .badge.done {
+    border-color: color-mix(in srgb, var(--color-verdigris) 50%, transparent);
+    color: var(--color-verdigris);
+    background-color: color-mix(in srgb, var(--color-verdigris) 10%, transparent);
+  }
+
+  .badge.failed {
+    border-color: color-mix(in srgb, #8b3e2f 50%, transparent);
+    color: #d97757;
+    background-color: color-mix(in srgb, #8b3e2f 10%, transparent);
+  }
+
+  .badge.processing {
+    border-color: color-mix(in srgb, var(--color-celestial) 50%, transparent);
+    color: var(--color-celestial);
+    background-color: color-mix(in srgb, var(--color-celestial) 10%, transparent);
+  }
+
+  /* Larger editorial variant used on the pricing plan cards. */
+  .badge-lg {
+    @apply px-2.5 py-1.5 rounded-none;
+    @apply font-garamond text-[0.7rem] tracking-[0.18em];
+    border-color: color-mix(in srgb, var(--color-celestial) 20%, transparent);
+  }
+
+  /* ── Cards ───────────────────────────────────────────────────────────────
+   * Flowbite's card recipe, themed. Used for the API panels on Orrery and the
+   * capability cards on the landing page.
+   */
+
+  .card {
+    @apply p-6 rounded-lg border backdrop-blur-sm;
+    @apply transition-all duration-300;
+    background-color: rgb(var(--card));
+    border-color: color-mix(in srgb, var(--color-celestial) 28%, transparent);
+  }
+
+  .card-verdigris {
+    border-color: color-mix(in srgb, var(--color-verdigris) 40%, transparent);
+  }
+
+  .card-verdigris:hover {
+    border-color: var(--color-verdigris);
+    @apply -translate-y-2;
   }
 }
 
@@ -568,13 +696,6 @@
   }
 }
 
-@media (min-width: 900px) {
-  .landing-footer-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: center;
-  }
-}
 
 @media (max-width: 899px) {
   .footer-twinkle-gold {

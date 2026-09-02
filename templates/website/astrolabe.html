@@ -73,22 +73,22 @@
         <div class="w-24 h-px bg-verdigris/50"></div>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-        <div class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
+        <div class="card card-verdigris p-8">
           <div class="text-4xl text-celestial mb-4">🔭</div>
           <h3 class="font-garamond text-2xl text-app mb-3">Standardized capture</h3>
           <p class="text-app-muted leading-relaxed">Connect serial ports and TCP sockets with <code>astrolabe capture</code>. Every run uses consistent sampling and timestamping, so results are comparable across engineers, sessions, and devices.</p>
         </div>
-        <div class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
+        <div class="card card-verdigris p-8">
           <div class="text-4xl text-celestial mb-4">🛰️</div>
           <h3 class="font-garamond text-2xl text-app mb-3">Structured records</h3>
           <p class="text-app-muted leading-relaxed">Every run is stored with a manifest, SHA-256 checksums, and schema version. NDJSON output is ready for automated analysis, CI replay, or direct handoff to the Orrery platform.</p>
         </div>
-        <div class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
+        <div class="card card-verdigris p-8">
           <div class="text-4xl text-celestial mb-4">🌌</div>
           <h3 class="font-garamond text-2xl text-app mb-3">Resilient delivery</h3>
           <p class="text-app-muted leading-relaxed">Runs are cached locally before upload, so captures succeed even without network. <code>astrolabe upload</code> retries automatically, resumes partial transfers, and never double-submits a run that already landed.</p>
         </div>
-        <div class="bg-card border-2 border-verdigris/40 backdrop-blur-sm p-8 transition-all duration-300 hover:border-verdigris hover:-translate-y-2">
+        <div class="card card-verdigris p-8">
           <div class="text-4xl text-celestial mb-4">☉</div>
           <h3 class="font-garamond text-2xl text-app mb-3">File ingestion</h3>
           <p class="text-app-muted leading-relaxed">Import existing CSV, JSONL, and raw log files into the same normalized run format with <code>astrolabe capture file</code>. Bring your existing test data with you — no recapture required.</p>
