@@ -569,6 +569,125 @@
     border-color: var(--color-verdigris);
     @apply -translate-y-2;
   }
+
+  /* ── Chrome: shell, header, brand mark, nav ─────────────────────────────
+   * Shared by every page. Used to live in website-index.css (the index
+   * page's own set-piece file) even though astrolabe/orrery/pricing all
+   * depend on it too.
+   */
+
+  .landing-shell {
+    position: relative;
+    z-index: 1;
+  }
+
+  .landing-header {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--gold-line);
+    backdrop-filter: blur(20px) saturate(1.3);
+    background: linear-gradient(
+      180deg,
+      rgba(15, 10, 4, 0.90),
+      rgba(15, 10, 4, 0.14)
+    );
+  }
+
+  .landing-header-inner {
+    width: min(1200px, calc(100% - 3rem));
+    margin: 0 auto;
+  }
+
+  .landing-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    text-decoration: none;
+  }
+
+  .landing-mark svg {
+    width: 2.35rem;
+    height: 2.35rem;
+    color: var(--gold);
+  }
+
+  .landing-nav {
+    display: none;
+    gap: 2rem;
+    align-items: center;
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .landing-nav a {
+    color: rgb(var(--fg) / 0.68);
+    text-decoration: none;
+    position: relative;
+    transition: color 200ms ease;
+  }
+
+  .landing-nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 200ms ease;
+  }
+
+  .landing-nav a:hover {
+    color: var(--gold);
+  }
+
+  .landing-nav a:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* ── Chrome: mobile nav ──────────────────────────────────────────────── */
+
+  .mobile-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba(198, 166, 100, 0.22);
+    color: var(--gold);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  /* Visibility is owned by Flowbite Collapse, which toggles the `hidden`
+     utility. That utility lives in @layer utilities and so outranks this rule. */
+  .mobile-nav-panel {
+    display: block;
+    border-top: 1px solid rgba(198, 166, 100, 0.13);
+    background: rgba(12, 8, 3, 0.96);
+    backdrop-filter: blur(24px);
+  }
+
+  .mobile-nav-panel a {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: rgb(var(--fg) / 0.76);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(198, 166, 100, 0.06);
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    transition: color 180ms ease, background 180ms ease;
+  }
+
+  .mobile-nav-panel a:hover {
+    color: var(--gold);
+    background: rgba(198, 166, 100, 0.04);
+  }
 }
 
 /* Keyframes for custom animations */
