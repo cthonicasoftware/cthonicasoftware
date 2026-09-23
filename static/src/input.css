@@ -621,34 +621,6 @@
     letter-spacing: 0.03em;
   }
 
-  .landing-nav a {
-    color: rgb(var(--fg) / 0.68);
-    text-decoration: none;
-    position: relative;
-    transition: color 200ms ease;
-  }
-
-  .landing-nav a::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 200ms ease;
-  }
-
-  .landing-nav a:hover {
-    color: var(--gold);
-  }
-
-  .landing-nav a:hover::after {
-    transform: scaleX(1);
-  }
-
   /* ── Chrome: mobile nav ──────────────────────────────────────────────── */
 
   .mobile-nav-toggle {

@@ -1,30 +1,4 @@
-{% extends 'base/product.html' %}
-
-{% block meta_description %}Astrolabe | Go CLI/TUI for standardized data capture, normalization, and upload across QA instrumentation.{% endblock %}
-{% block page_title %}Cthonica | Astrolabe{% endblock %}
-{% block nav_icon %}☽{% endblock %}
-{% block product_name %}ASTROLABE{% endblock %}
-{% block product_tagline %}Field Data Capture{% endblock %}
-
-{% block nav_links %}
-  <a href="#capabilities" class="text-app-muted hover:text-celestial transition">Capabilities</a>
-  <a href="#workflow" class="text-app-muted hover:text-celestial transition">Workflow</a>
-  <a href="#integration" class="text-app-muted hover:text-celestial transition">Integration</a>
-{% endblock %}
-
-{% block nav_cta %}
-  <a href="/orrery" class="hidden md:inline-flex items-center gap-2 text-sm text-app-muted hover:text-celestial transition">
-    <span>Visit Orrery</span>
-    <span class="text-celestial text-lg">↗</span>
-  </a>
-{% endblock %}
-
-{% block mobile_nav_links %}
-  <a href="#capabilities" class="py-2 text-parchment/80 hover:text-celestial">Capabilities</a>
-  <a href="#workflow" class="py-2 text-parchment/80 hover:text-celestial">Workflow</a>
-  <a href="#integration" class="py-2 text-parchment/80 hover:text-celestial">Integration</a>
-  <a href="/orrery" class="py-2 text-parchment/80 hover:text-celestial">Orrery</a>
-{% endblock %}
+{% extends 'chrome/page.html' %}
 
 {% block main %}
   <section class="relative min-h-[70vh] flex items-center">
@@ -116,7 +90,7 @@
   </section>
 {% endblock %}
 
-{% block product_extra_scripts %}
+{% block extra_scripts %}
   <script>
     const lazySVGs = document.querySelectorAll('svg.lazy-svg');
     lazySVGs.forEach((svg) => svg.pauseAnimations());

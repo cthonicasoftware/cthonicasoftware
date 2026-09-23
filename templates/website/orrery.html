@@ -1,36 +1,4 @@
-{% extends 'base/product.html' %}
-{% load static %}
-
-{% block meta_description %}Orrery | Hardware QA analysis backend. Ingest test runs from Astrolabe, validate against versioned YAML rules, analyze with Claude Sonnet, ship signed release reports.{% endblock %}
-{% block page_title %}Cthonica | Orrery{% endblock %}
-{% block color_celestial %}#c6a664{% endblock %}
-{% block nav_icon_class %}text-celestial{% endblock %}
-{% block nav_icon %}🜨{% endblock %}
-{% block product_name %}ORRERY{% endblock %}
-{% block product_tagline %}Analysis Backend{% endblock %}
-{% block body_class %} orrery-page{% endblock %}
-
-{% block nav_links %}
-  <a href="#features" class="text-app-muted hover:text-celestial transition">Features</a>
-  <a href="#preview" class="text-app-muted hover:text-celestial transition">Dashboard</a>
-  <a href="#schema" class="text-app-muted hover:text-celestial transition">Data model</a>
-  <a href="#rules" class="text-app-muted hover:text-celestial transition">Rules &amp; AI</a>
-  <a href="#api" class="text-app-muted hover:text-celestial transition">API</a>
-{% endblock %}
-{% block nav_cta %}
-  <a href="/astrolabe" class="hidden md:inline-flex items-center gap-2 text-sm text-app-muted hover:text-celestial transition">
-    <span>Visit Astrolabe</span>
-    <span class="text-celestial text-lg">↗</span>
-  </a>
-{% endblock %}
-{% block mobile_nav_links %}
-  <a href="#features" class="py-2 text-parchment/80 hover:text-celestial">Features</a>
-  <a href="#preview" class="py-2 text-parchment/80 hover:text-celestial">Dashboard</a>
-  <a href="#schema" class="py-2 text-parchment/80 hover:text-celestial">Data model</a>
-  <a href="#rules" class="py-2 text-parchment/80 hover:text-celestial">Rules &amp; AI</a>
-  <a href="#api" class="py-2 text-parchment/80 hover:text-celestial">API</a>
-  <a href="/astrolabe" class="py-2 text-parchment/80 hover:text-celestial">Astrolabe</a>
-{% endblock %}
+{% extends 'chrome/page.html' %}
 
 {% block main %}
 <div class="orrery">
@@ -574,7 +542,7 @@
 </div>
 {% endblock %}
 
-{% block product_extra_scripts %}
+{% block extra_scripts %}
   <script>
     (function () {
       const svg = document.getElementById('raFlow');
