@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="{% block meta_description %}{% endblock %}" />
-  <title>{% block page_title %}{% endblock %}</title>
+  <meta name="description" content="{{ page.description }}" />
+  <title>{{ page.title }}</title>
   <link rel="stylesheet" href="{% static 'src/styles.css' %}" />
   {% block extra_head_css %}{% endblock %}
   {% comment %}
@@ -22,12 +22,16 @@
   </script>
 </head>
 <body
-  class="app app-website min-h-screen bg-app text-app overflow-x-hidden{% block body_class %}{% endblock %}"
-  style="--color-celestial: {% block color_celestial %}#c6a664{% endblock %}; --color-verdigris: {% block color_verdigris %}#5e8570{% endblock %};"
-  {% block body_attributes %}{% endblock %}
+  class="app app-website min-h-screen bg-app text-app overflow-x-hidden {{ page.scope }}"
+  style="{{ page.accent.as_style }}"
+  {% for key, value in page.body_data.items %}data-{{ key }}="{{ value }}" {% endfor %}
 >
   {% include 'includes/index-background.svg' %}
-  {% block body_content %}{% endblock %}
+  <div class="landing-shell">
+    {% include 'chrome/_header.html' %}
+    <main class="relative z-40">{% block main %}{% endblock %}</main>
+    {% include 'includes/site-footer.html' %}
+  </div>
   <script src="{% static 'js/vendor/flowbite.min.js' %}"></script>
   <script src="{% static 'js/theme-toggle.js' %}"></script>
   <script src="{% static 'js/site-nav.js' %}"></script>
