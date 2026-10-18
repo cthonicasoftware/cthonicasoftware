@@ -228,7 +228,7 @@ body.app-website {
 /* Manuscript double-ruled frame */
 .hero-visual-frame {
   position: relative;
-  width: min(36rem, 92%);
+  width: 100%;
   padding: 1rem;
   background: linear-gradient(
     168deg,
@@ -283,28 +283,13 @@ body.app-website {
 .hero-terminal-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.7rem;
   min-height: 2.6rem;
   padding: 0.7rem 0.9rem;
   border-bottom: 1px solid rgba(198, 166, 100, 0.12);
   background: linear-gradient(180deg, rgba(198, 166, 100, 0.08), rgba(198, 166, 100, 0.03));
 }
-
-.hero-terminal-dots {
-  display: flex;
-  gap: 0.35rem;
-  flex-shrink: 0;
-}
-
-.hero-terminal-dot {
-  width: 0.48rem;
-  height: 0.48rem;
-  border-radius: 999px;
-}
-
-.hero-terminal-dot-r { background: rgba(255, 95, 87, 0.75); }
-.hero-terminal-dot-y { background: rgba(255, 189, 46, 0.72); }
-.hero-terminal-dot-g { background: rgba(40, 200, 64, 0.72); }
 
 .hero-terminal-title,
 .hero-terminal-mount,
@@ -318,9 +303,48 @@ body.app-website {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: rgba(198, 166, 100, 0.72);
+}
+
+.hero-terminal-replay {
+  flex-shrink: 0;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid rgba(198, 166, 100, 0.28);
+  font-family: "Cascadia Code", "Caskaydia Cove Nerd Font", monospace;
+  font-size: 0.72rem;
+  color: rgba(198, 166, 100, 0.85);
+  transition: background-color 0.15s ease;
+}
+
+.hero-terminal-replay:hover {
+  background: rgba(198, 166, 100, 0.12);
+}
+
+.hero-terminal-replay:focus-visible {
+  outline: 2px solid rgba(94, 133, 112, 0.9);
+  outline-offset: 2px;
+}
+
+html:not(.dark) .hero-terminal-replay {
+  border-color: rgba(120, 86, 28, 0.32);
+  color: rgba(120, 86, 28, 0.9);
+}
+
+.cap-snippet {
+  margin-top: 1.25rem;
+  padding: 0.7rem 0.9rem;
+  overflow-x: auto;
+  border-left: 2px solid rgba(94, 133, 112, 0.6);
+  background: rgba(94, 133, 112, 0.08);
+  font-family: "Cascadia Code", "Caskaydia Cove Nerd Font", monospace;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: rgb(var(--fg) / 0.85);
+}
+
+.cap-prompt {
+  color: rgb(94, 133, 112);
 }
 
 .hero-terminal-body {
@@ -1407,3 +1431,92 @@ html:not(.dark) .instr-xfer-label {
    With the breakpoint in @theme and this file inside @layer components, the
    `desk:` utilities in the templates handle it and outrank these rules by layer
    order. The shim is gone. */
+
+/* Armillary sphere background: nested rings spun in CSS 3D */
+.armillary {
+  --arm-size: min(92vmin, 56rem);
+  --arm-gold: rgba(198, 166, 100, 0.34);
+  --arm-green: rgba(94, 133, 112, 0.38);
+  --arm-faint: rgba(94, 133, 112, 0.2);
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  perspective: 1400px;
+  overflow: hidden;
+}
+
+html:not(.dark) .armillary {
+  --arm-gold: rgba(120, 86, 28, 0.3);
+  --arm-green: rgba(52, 88, 65, 0.32);
+  --arm-faint: rgba(52, 88, 65, 0.16);
+}
+
+.armillary-tilt,
+.armillary-spin {
+  position: relative;
+  width: var(--arm-size);
+  height: var(--arm-size);
+  transform-style: preserve-3d;
+}
+
+.armillary-tilt {
+  transform: rotateX(-16deg) rotateZ(12deg);
+}
+
+.armillary-spin {
+  animation: arm-spin 120s linear infinite;
+}
+
+.arm-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--arm-faint);
+  border-radius: 50%;
+}
+
+.arm-equator  { border-color: var(--arm-gold);  transform: rotateX(90deg); }
+.arm-ecliptic { border-color: var(--arm-green); transform: rotateZ(-23.4deg) rotateX(90deg); }
+.arm-colure-a { transform: rotateY(0deg); }
+.arm-colure-b { transform: rotateY(60deg); }
+.arm-colure-c { transform: rotateY(120deg); }
+
+/* Tropics sit at 23.4 degrees latitude: radius scales by cos, height by sin */
+.arm-tropic {
+  inset: 4.2%;
+  transform: translateY(calc(var(--arm-size) * -0.3971)) rotateX(90deg);
+}
+.arm-tropic-s {
+  transform: translateY(calc(var(--arm-size) * 0.3971)) rotateX(90deg);
+}
+
+.arm-axis {
+  position: absolute;
+  left: 50%;
+  top: -4%;
+  width: 1px;
+  height: 108%;
+  background: linear-gradient(var(--arm-gold), var(--arm-faint) 50%, var(--arm-gold));
+}
+
+.arm-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: -0.3rem 0 0 -0.3rem;
+  border-radius: 50%;
+  background: var(--arm-gold);
+  box-shadow: 0 0 1.5rem var(--arm-gold);
+}
+
+@keyframes arm-spin {
+  to { transform: rotateY(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .armillary-spin { animation: none; }
+}

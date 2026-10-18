@@ -1,10 +1,6 @@
 {% extends 'chrome/page.html' %}
 {% load static %}
 
-{% block extra_head_css %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css" />
-{% endblock %}
-
 {% block main %}
       <section class="hero-stage">
         <div class="hero-grid desk:grid-cols-2 desk:gap-16">
@@ -22,21 +18,6 @@
 
           <div class="hero-visual" aria-hidden="true">
             <div class="hero-orbit"></div>
-            <div class="hero-visual-frame">
-              <div class="hero-terminal-shell">
-                <div class="hero-terminal-header">
-                  <div class="hero-terminal-dots">
-                    <span class="hero-terminal-dot hero-terminal-dot-r"></span>
-                    <span class="hero-terminal-dot hero-terminal-dot-y"></span>
-                    <span class="hero-terminal-dot hero-terminal-dot-g"></span>
-                  </div>
-                  <span class="hero-terminal-title">astrolabe capture</span>
-                </div>
-                <div class="hero-terminal-body">
-                  <div id="heroTerminal" class="hero-terminal-mount"></div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -163,7 +144,5 @@
 {% endblock %}
 
 {% block extra_scripts %}
-  <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.min.js"></script>
   <script src="{% static 'js/website-index.js' %}"></script>
 {% endblock %}

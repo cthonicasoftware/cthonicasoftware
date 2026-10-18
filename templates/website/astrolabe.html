@@ -1,57 +1,68 @@
 {% extends 'chrome/page.html' %}
+{% load static %}
+
+{% block extra_head_css %}
+  <link rel="stylesheet" href="{% static 'js/vendor/xterm/xterm.css' %}" />
+{% endblock %}
 
 {% block main %}
-  <section class="relative min-h-[70vh] flex items-center">
-    <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-32 text-center">
-      <h1 class="font-garamond text-6xl md:text-7xl font-bold text-app leading-tight">
-        Every engineer has their own system. That's the problem.
-      </h1>
-      <p class="mt-6 max-w-3xl mx-auto text-lg text-app-muted leading-relaxed font-garamond">
-        Astrolabe replaces ad-hoc test scripts with a single capture workflow, normalized to a structured format with metadata. Test runs are stored locally first,
-        so field sessions work offline, and nothing gets lost before it reaches the backend.
-      </p>
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a href="#capabilities" class="btn btn-verdigris">Review Capabilities</a>
-        <a href="#workflow" class="btn btn-celestial">See Workflow</a>
+  <section class="relative flex items-center">
+    <div class="max-w-6xl mx-auto w-full px-6 md:px-10 lg:px-16 pt-28 pb-24 grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-12 lg:gap-14 items-center">
+      <div>
+        <h1 class="font-garamond text-5xl md:text-6xl font-bold text-app leading-tight">
+          Every engineer has their own system. That's the problem.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-app-muted leading-relaxed font-garamond">
+          Astrolabe replaces ad-hoc test scripts with a single capture workflow, normalized to a structured format with metadata. Test runs are stored locally first,
+          so field sessions work offline, and nothing gets lost before it reaches the backend.
+        </p>
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <a href="#capabilities" class="btn btn-verdigris">Review Capabilities</a>
+          <a href="#workflow" class="btn btn-celestial">See Workflow</a>
+        </div>
       </div>
-      <div class="mt-16 dark:text-parchment/50 text-obsidian/50 text-sm animate-pulse">
-        <div class="text-2xl">↓</div>
-        <div class="font-garamond italic">Scroll to explore</div>
+      <div class="hero-visual-frame">
+        <div class="hero-terminal-shell">
+          <div class="hero-terminal-header">
+            <span class="hero-terminal-title">astrolabe capture</span>
+            <button type="button" id="heroTerminalReplay" class="hero-terminal-replay">Replay</button>
+          </div>
+          <div class="hero-terminal-body" role="img" aria-label="Terminal demo: astrolabe validates a captured run, then uploads it to Orrery.">
+            <div id="heroTerminal" class="hero-terminal-mount" aria-hidden="true"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="capabilities" class="relative px-6 md:px-12 lg:px-16 py-32 border-t border-verdigris/30">
+  <section id="capabilities" class="relative px-6 md:px-12 lg:px-16 py-28 border-t border-verdigris/30">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
+      <div class="max-w-2xl mb-14">
         <h2 class="font-garamond text-5xl font-bold text-app">Capabilities</h2>
-        <p class="mt-4 text-app-muted max-w-2xl mx-auto">Built for engineers who need dependable acquisition, structured records, and seamless handoffs.</p>
+        <p class="mt-4 text-app-muted">Built for engineers who need dependable acquisition, structured records, and seamless handoffs.</p>
       </div>
-      <div class="flex items-center justify-center gap-6 my-8">
-        <div class="w-24 h-px bg-verdigris/50"></div>
-        <div class="text-celestial text-xl">⚖</div>
-        <div class="w-24 h-px bg-verdigris/50"></div>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="grid md:grid-cols-2 gap-8">
         <div class="card card-verdigris p-8">
-          <div class="text-4xl text-celestial mb-4">🔭</div>
           <h3 class="font-garamond text-2xl text-app mb-3">Standardized capture</h3>
           <p class="text-app-muted leading-relaxed">Connect serial ports and TCP sockets with <code>astrolabe capture</code>. Every run uses consistent sampling and timestamping, so results are comparable across engineers, sessions, and devices.</p>
+          <pre class="cap-snippet" aria-label="Example command"><code><span class="cap-prompt">$</span> astrolabe capture</code></pre>
         </div>
         <div class="card card-verdigris p-8">
-          <div class="text-4xl text-celestial mb-4">🛰️</div>
           <h3 class="font-garamond text-2xl text-app mb-3">Structured records</h3>
           <p class="text-app-muted leading-relaxed">Every run is stored with a manifest, SHA-256 checksums, and schema version. NDJSON output is ready for automated analysis, CI replay, or direct handoff to the Orrery platform.</p>
+          <pre class="cap-snippet" aria-label="Example run directory"><code>~/.astrolabe/runs/01KJRMFPC9SFXW/
+  manifest.json
+  data.ndjson</code></pre>
         </div>
         <div class="card card-verdigris p-8">
-          <div class="text-4xl text-celestial mb-4">🌌</div>
           <h3 class="font-garamond text-2xl text-app mb-3">Resilient delivery</h3>
           <p class="text-app-muted leading-relaxed">Runs are cached locally before upload, so captures succeed even without network. <code>astrolabe upload</code> retries automatically, resumes partial transfers, and never double-submits a run that already landed.</p>
+          <pre class="cap-snippet" aria-label="Example command"><code><span class="cap-prompt">$</span> astrolabe upload --run-id 01KJRMFPC9SFXW</code></pre>
         </div>
         <div class="card card-verdigris p-8">
-          <div class="text-4xl text-celestial mb-4">☉</div>
           <h3 class="font-garamond text-2xl text-app mb-3">File ingestion</h3>
           <p class="text-app-muted leading-relaxed">Import existing CSV, JSONL, and raw log files into the same normalized run format with <code>astrolabe capture file</code>. Bring your existing test data with you — no recapture required.</p>
+          <pre class="cap-snippet" aria-label="Example command"><code><span class="cap-prompt">$</span> astrolabe capture file</code></pre>
         </div>
       </div>
     </div>
@@ -62,11 +73,6 @@
       <div class="text-center mb-16">
         <h2 class="font-garamond text-5xl text-app">Operational workflow</h2>
         <p class="mt-4 text-app-muted">A predictable sequence from configuration through upload keeps bench sessions traceable and auditable.</p>
-      </div>
-      <div class="flex items-center justify-center gap-6 my-8">
-        <div class="w-24 h-px bg-verdigris/50"></div>
-        <div class="text-celestial text-xl">☏</div>
-        <div class="w-24 h-px bg-verdigris/50"></div>
       </div>
       {% include 'includes/astrolabe-workflow.svg' %}
     </div>
@@ -91,6 +97,9 @@
 {% endblock %}
 
 {% block extra_scripts %}
+  <script src="{% static 'js/vendor/xterm/xterm.min.js' %}"></script>
+  <script src="{% static 'js/vendor/xterm/addon-fit.min.js' %}"></script>
+  <script src="{% static 'js/astrolabe-terminal.js' %}"></script>
   <script>
     const lazySVGs = document.querySelectorAll('svg.lazy-svg');
     lazySVGs.forEach((svg) => svg.pauseAnimations());
