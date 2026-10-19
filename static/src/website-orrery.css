@@ -1,7 +1,12 @@
 /* ──────────────────────────────────────────────────────────────────────────────
-   Orrery landing page — instrument-panel aesthetic
-   Concrete deliverables, dense data, no metaphor fluff.
-   Tokens inherit from website-index.css; light-mode overrides via html:not(.dark)
+   Orrery landing page: the case file of one run.
+   The page follows a single failing run (run-20251014-140311) from the bench
+   to a signed release report. The hero trace plot is the one bold element;
+   everything after it is a quiet, almanac-style record of what happened.
+
+   Type: EB Garamond carries the voice (italic for margin notes); Cascadia
+   Code appears only where the content is real data. No all-caps labels.
+   Scale (px): 12 · 13 · 16 · 18 · 21 · 24 · 36–48 · 48–72.
    ──────────────────────────────────────────────────────────────────────────── */
 
 :root {
@@ -9,447 +14,476 @@
   --orrery-gold-dim:    rgba(198, 166, 100, 0.62);
   --orrery-gold-glow:   rgba(198, 166, 100, 0.20);
   --orrery-gold-subtle: rgba(198, 166, 100, 0.10);
-  --orrery-gold-line:   rgba(198, 166, 100, 0.16);
-  --orrery-gold-border: rgba(198, 166, 100, 0.28);
+  --orrery-gold-line:   rgba(198, 166, 100, 0.18);
+  --orrery-gold-border: rgba(198, 166, 100, 0.30);
 
-  --orrery-verdigris:        var(--color-verdigris);
-  --orrery-verdigris-border: rgba(94, 133, 112, 0.30);
-  --orrery-iron:             #8b3e2f;
-  --orrery-starlight:        var(--color-starlight);
+  --orrery-verdigris:   var(--color-verdigris);
+  --orrery-starlight:   var(--color-starlight);
+  --orrery-iron:        #c05a3f;
 
-  --orrery-bg:        var(--color-obsidian);
-  --orrery-fg:        var(--color-parchment);
-  --orrery-fg-muted:  rgba(242, 233, 222, 0.72);
-  --orrery-fg-subtle: rgba(242, 233, 222, 0.48);
-  --orrery-panel:     rgba(14, 10, 4, 0.82);
-  --orrery-panel-2:   rgba(11, 8, 3, 0.92);
-  --orrery-rule:      rgba(242, 233, 222, 0.08);
+  --orrery-fg:          var(--color-parchment);
+  --orrery-fg-muted:    rgba(242, 233, 222, 0.74);
+  --orrery-fg-subtle:   rgba(242, 233, 222, 0.50);
+  --orrery-rule:        rgba(242, 233, 222, 0.09);
+  --orrery-panel:       rgba(15, 13, 13, 0.80);
+  --orrery-code-bg:     rgba(0, 0, 0, 0.34);
+
+  --orrery-serif: "EB Garamond", Georgia, serif;
+  --orrery-mono:  "Cascadia Code", "CaskaydiaCove Nerd Font", ui-monospace, monospace;
 }
 
 html:not(.dark) {
-  --orrery-bg:        var(--color-parchment);
-  --orrery-fg:        #1a1610;
-  --orrery-fg-muted:  rgba(26, 22, 16, 0.72);
-  --orrery-fg-subtle: rgba(26, 22, 16, 0.50);
-  --orrery-panel:     rgba(242, 233, 222, 0.6);
-  --orrery-panel-2:   rgba(232, 220, 200, 0.7);
-  --orrery-rule:      rgba(26, 22, 16, 0.10);
+  --orrery-gold:        #8a6a2c;   /* celestial darkened for text on parchment */
+  --orrery-gold-dim:    rgba(138, 106, 44, 0.70);
+  --orrery-gold-line:   rgba(138, 106, 44, 0.22);
+  --orrery-gold-border: rgba(138, 106, 44, 0.36);
+  --orrery-gold-subtle: rgba(198, 166, 100, 0.16);
+  --orrery-iron:        #9c3f28;
+  --orrery-verdigris:   #3f6652;
+  --orrery-starlight:   #4b7487;
+
+  --orrery-fg:          #1a1610;
+  --orrery-fg-muted:    rgba(26, 22, 16, 0.76);
+  --orrery-fg-subtle:   rgba(26, 22, 16, 0.56);
+  --orrery-rule:        rgba(26, 22, 16, 0.12);
+  --orrery-panel:       rgba(242, 233, 222, 0.82);
+  --orrery-code-bg:     rgba(26, 22, 16, 0.045);
 }
 
-.orrery { color: var(--orrery-fg); position: relative; }
+.orrery { color: var(--orrery-fg); position: relative; font-family: var(--orrery-serif); }
 .orrery .shell { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
-@media (max-width: 720px) { .orrery .shell { padding: 0 20px; } }
+@media (max-width: 720px) { .orrery .shell { padding: 0 16px; } }
 
-/* ── Ambient orrery ──────────────────────────────────────────────────────────
-   The whole page is mounted on a working orrery: concentric brass tracks
-   carrying status-coloured bodies (runs), wound forward by scroll and drifting
-   on their own. Sits behind all content; sections lift above it via z-index.
-   Motion is driven from JS via --orrery-t (idle seconds) and --orrery-scroll
-   (scrollY), composed here in calc() so each track keeps its own cadence.
-   ──────────────────────────────────────────────────────────────────────── */
+.orrery code,
+.orrery .mono { font-family: var(--orrery-mono); font-size: 0.8em; }
+
+/* The site's shared background is a faint idle orrery; this page runs without it. */
 .orrery .section { z-index: 1; }
-
-/* The site's shared background is itself a faint idle orrery. On this page we
-   retire it so the scroll-wound orrery below is the single, coherent statement. */
 .orrery-page .page-bg-svg { display: none; }
 
-.orrery-sky {
-  position: fixed; inset: 0; overflow: hidden;
-  pointer-events: none; z-index: 0;
-  contain: strict;
-  -webkit-mask: radial-gradient(120% 110% at 46% 50%, #000 48%, transparent 96%);
-          mask: radial-gradient(120% 110% at 46% 50%, #000 48%, transparent 96%);
+/* ── Shared type ─────────────────────────────────────────────────────────── */
+.orrery .h-display {
+  font-family: var(--orrery-serif);
+  font-size: clamp(3rem, 7.2vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.018em;
+  font-weight: 500;
+  margin: 0;
+  max-width: 12ch;
+  text-wrap: balance;
 }
-.orrery-field { position: absolute; top: 50%; left: 46%; width: 0; height: 0; }
-@media (max-width: 980px) { .orrery-field { left: 60%; top: 42%; } }
-
-.orrery-core {
-  position: absolute; top: 0; left: 0;
-  width: 560px; height: 560px; margin: -280px 0 0 -280px;
-  border-radius: 50%;
-  background: radial-gradient(circle,
-    var(--orrery-gold-glow) 0%,
-    rgba(198,166,100,0.05) 38%,
-    transparent 68%);
+.orrery .h-section {
+  font-family: var(--orrery-serif);
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+  margin: 0;
+  text-wrap: balance;
 }
-.orrery-core::after {
-  content: ""; position: absolute; inset: 50% auto auto 50%;
-  width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%;
-  background: var(--orrery-gold);
-  box-shadow: 0 0 16px 3px var(--orrery-gold-glow);
-  animation: orreryPulse 6s ease-in-out infinite;
-}
-
-.orrery .orbit {
-  position: absolute; top: 0; left: 0; width: 0; height: 0;
-  transform: rotate(calc((var(--orrery-t, 0) * var(--is, 0)
-                        + var(--orrery-scroll, 0) * var(--ws, 0)) * 1deg));
-  will-change: transform;
-}
-.orrery .orbit .ring {
-  position: absolute; top: 0; left: 0;
-  width: calc(var(--r) * 2); height: calc(var(--r) * 2);
-  margin: calc(var(--r) * -1) 0 0 calc(var(--r) * -1);
-  border: 1px dashed rgba(198, 166, 100, var(--ro, 0.13));
-  border-radius: 50%;
-}
-.orrery .orbit .body {
-  position: absolute; top: 0; left: 0;
-  width: var(--sz, 9px); height: var(--sz, 9px);
-  margin: calc(var(--sz, 9px) / -2) 0 0 calc(var(--sz, 9px) / -2);
-  border-radius: 50%;
-  background: var(--c);
-  box-shadow: 0 0 14px 1px var(--c);
-  opacity: 0.72;
-  transform: rotate(var(--a0)) translateY(calc(var(--r) * -1));
-}
-.orrery .b-gold     { --c: #c6a664; }
-.orrery .b-star     { --c: #7fa4b5; }
-.orrery .b-verd     { --c: #5e8570; }
-.orrery .b-iron     { --c: #c05a3f; }
-.orrery .b-gold-dim { --c: rgba(198,166,100,0.55); opacity: 0.5; }
-html:not(.dark) .orrery .orbit .body { opacity: 0.8; }
-html:not(.dark) .orrery-core::after { box-shadow: 0 0 12px 2px rgba(198,166,100,0.5); }
-/* Gold is darker than parchment, so rings read as ink hairlines in light mode —
-   warm them toward aged brass and dial the alpha back so they stay faint. */
-html:not(.dark) .orrery .orbit .ring {
-  border-color: rgba(150, 116, 58, calc(var(--ro, 0.13) * 0.42));
-}
-html:not(.dark) .orrery-core {
-  background: radial-gradient(circle,
-    rgba(198,166,100,0.16) 0%,
-    rgba(198,166,100,0.05) 40%,
-    transparent 70%);
-}
-
-@keyframes orreryPulse {
-  0%, 100% { transform: scale(1);   opacity: 0.9; }
-  50%      { transform: scale(1.5); opacity: 0.5; }
-}
-
-/* ── Scroll reveal ───────────────────────────────────────────────────────── */
-.orrery.reveal-ready .reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: var(--rd, 0ms);
-}
-.orrery.reveal-ready .reveal.in { opacity: 1; transform: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .orrery.reveal-ready .reveal { opacity: 1; transform: none; transition: none; }
-  .orrery-core::after { animation: none; }
-}
-
-/* ── Common ──────────────────────────────────────────────────────────────── */
-.orrery .kicker {
-  font-family: "Cascadia Code", monospace;
-  font-size: 11px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--orrery-gold);
-  display: inline-flex; align-items: center; gap: 14px;
-}
-.orrery .kicker::before, .orrery .kicker::after {
-  content: ""; height: 1px; width: 36px;
-  background: linear-gradient(90deg, transparent, var(--orrery-gold-dim), transparent);
-}
-.orrery .kicker.start::before { display: none; }
-.orrery .kicker.start { gap: 0; }
-
-.orrery .h-display { font-size: clamp(2.4rem, 4.8vw, 4rem); line-height: 1.02; letter-spacing: -0.01em; font-weight: 500; margin: 0; font-family: "EB Garamond", serif; }
-.orrery .h-section { font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: -0.005em; font-weight: 500; margin: 0; font-family: "EB Garamond", serif; }
-.orrery .lede { font-size: 1.15rem; color: var(--orrery-fg-muted); max-width: 56ch; line-height: 1.65; font-family: "EB Garamond", serif; }
-
-.orrery .section { padding: 88px 0; position: relative; }
-.orrery .section + .section { border-top: 1px solid var(--orrery-gold-line); }
-
-/* Buttons now come from the unified `.btn` system in input.css. */
-
-/* ── Hero ────────────────────────────────────────────────────────────────── */
-.orrery .hero { padding: 96px 0 80px; }
-.orrery .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: center; }
-@media (max-width: 980px) { .orrery .hero-grid { grid-template-columns: 1fr; gap: 48px; } }
-.orrery .hero h1 { margin-top: 18px; }
-.orrery .hero .lede { margin-top: 22px; }
-.orrery .hero-actions { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
-.orrery .hero-meta {
-  display: flex; gap: 28px; margin-top: 40px; padding-top: 28px;
-  border-top: 1px solid var(--orrery-rule); flex-wrap: wrap;
-  font-family: "Cascadia Code", monospace; font-size: 12px; color: var(--orrery-fg-subtle);
-  letter-spacing: 0.06em; text-transform: uppercase;
-}
-.orrery .hero-meta b { color: var(--orrery-fg); font-weight: 500; letter-spacing: 0; text-transform: none; font-family: "EB Garamond", serif; font-size: 14px; }
-
-/* ── Instrument panel ────────────────────────────────────────────────────── */
-.orrery .instrument {
-  border: 1px solid var(--orrery-gold-border);
-  background: var(--orrery-panel);
-  position: relative;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
-}
-.orrery .instrument::before {
-  content: ""; position: absolute; inset: 6px; border: 1px solid var(--orrery-gold-line); pointer-events: none;
-}
-.orrery .inst-head {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 14px 18px; border-bottom: 1px solid var(--orrery-gold-line);
-  font-family: "Cascadia Code", monospace; font-size: 11px; color: var(--orrery-fg-subtle);
-  letter-spacing: 0.18em; text-transform: uppercase;
-}
-.orrery .inst-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--orrery-gold); box-shadow: 0 0 8px var(--orrery-gold-glow); margin-right: 8px; }
-.orrery .inst-body { padding: 22px; }
-
-.orrery .kpi-strip { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--orrery-gold-line); }
-.orrery .kpi { padding: 14px 16px; border-right: 1px solid var(--orrery-gold-line); }
-.orrery .kpi:last-child { border-right: none; }
-.orrery .kpi-label { font-family: "Cascadia Code", monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orrery-fg-subtle); }
-.orrery .kpi-value { font-family: "EB Garamond", serif; font-size: 1.7rem; font-weight: 500; line-height: 1; margin-top: 6px; display: flex; align-items: baseline; gap: 4px; }
-.orrery .kpi-unit { font-size: 0.9rem; color: var(--orrery-fg-subtle); }
-.orrery .kpi-delta { font-family: "Cascadia Code", monospace; font-size: 10px; color: var(--orrery-verdigris); margin-top: 6px; }
-.orrery .kpi-delta.down { color: var(--orrery-iron); }
-
-.orrery .run-list { margin-top: 18px; }
-.orrery .run-row {
-  display: grid; grid-template-columns: auto 1fr auto;
-  gap: 14px; align-items: center;
-  padding: 11px 0; border-bottom: 1px solid var(--orrery-rule);
-  font-family: "Cascadia Code", monospace; font-size: 12px;
-}
-.orrery .run-row:last-child { border-bottom: none; }
-.orrery .run-id { color: var(--orrery-fg); font-weight: 500; }
-.orrery .run-meta { color: var(--orrery-fg-subtle); font-size: 11px; }
-
-/* Badges now come from the unified `.badge` system in input.css. */
-
-/* ── Feature grid ────────────────────────────────────────────────────────── */
-.orrery .features { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--orrery-gold-line); margin-top: 56px; }
-@media (max-width: 900px) { .orrery .features { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .orrery .features { grid-template-columns: 1fr; } }
-.orrery .feature {
-  padding: 32px 28px;
-  border-right: 1px solid var(--orrery-gold-line);
-  border-bottom: 1px solid var(--orrery-gold-line);
-  background: var(--orrery-panel);
-  display: flex; flex-direction: column; gap: 14px;
-  transition: background 200ms ease;
-}
-.orrery .feature:hover { background: color-mix(in oklab, var(--orrery-gold-subtle) 50%, var(--orrery-panel)); }
-.orrery .feature:nth-child(3n) { border-right: none; }
-@media (max-width: 900px) {
-  .orrery .feature:nth-child(3n) { border-right: 1px solid var(--orrery-gold-line); }
-  .orrery .feature:nth-child(2n) { border-right: none; }
-}
-@media (max-width: 600px) { .orrery .feature { border-right: none; } }
-
-.orrery .feature-sym { font-family: "Cascadia Code", monospace; color: var(--orrery-gold); font-size: 1.4rem; line-height: 1; }
-.orrery .feature-name { font-family: "EB Garamond", serif; font-size: 1.4rem; font-weight: 500; line-height: 1.1; margin: 0; }
-.orrery .feature-body { color: var(--orrery-fg-muted); font-size: 0.98rem; line-height: 1.6; margin: 0; }
-.orrery .feature-code {
-  margin-top: auto;
-  padding: 8px 10px;
-  background: #0f0d0d;
-  border: 1px solid var(--orrery-gold-line);
-  color: var(--orrery-gold-dim);
-  font-family: "Cascadia Code", monospace;
-  font-size: 11px;
-  letter-spacing: 0.02em;
-}
-html:not(.dark) .orrery .feature-code { background: rgba(0,0,0,0.04); color: rgba(26,22,16,0.7); }
-
-/* ── Dashboard preview ───────────────────────────────────────────────────── */
-.orrery .dash {
-  margin-top: 56px;
-  border: 1px solid var(--orrery-gold-border);
-  background: var(--orrery-panel-2);
-  position: relative;
-}
-.orrery .dash::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--orrery-gold-line); pointer-events: none; }
-.orrery .dash-chrome {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 22px; border-bottom: 1px solid var(--orrery-gold-line);
-  font-family: "Cascadia Code", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--orrery-fg-subtle);
-}
-.orrery .dash-tabs { display: flex; gap: 24px; flex-wrap: wrap; }
-.orrery .dash-tabs span { padding: 4px 0; }
-.orrery .dash-tabs .on { color: var(--orrery-gold); border-bottom: 1px solid var(--orrery-gold); }
-
-.orrery .dash-body { padding: 28px; display: grid; grid-template-columns: 2fr 1fr; gap: 28px; }
-@media (max-width: 900px) { .orrery .dash-body { grid-template-columns: 1fr; } }
-@media (max-width: 720px) {
-  .orrery .dash-body { padding: 16px; gap: 16px; }
-  .orrery .dash-panel { padding: 14px; overflow-x: auto; }
-  .orrery table.runs { font-size: 11px; }
-  .orrery table.runs th, .orrery table.runs td { padding: 8px 6px; white-space: nowrap; }
-}
-
-.orrery .dash-panel { border: 1px solid var(--orrery-gold-line); padding: 20px; background: rgba(0,0,0,0.18); }
-html:not(.dark) .orrery .dash-panel { background: rgba(255,255,255,0.4); }
-.orrery .dash-panel-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
-.orrery .dash-panel-head h4 { font-family: "EB Garamond", serif; font-size: 1.15rem; margin: 0; font-weight: 500; }
-.orrery .dash-panel-head .more { font-family: "Cascadia Code", monospace; font-size: 11px; color: var(--orrery-gold); letter-spacing: 0.1em; }
-
-.orrery table.runs { width: 100%; border-collapse: collapse; font-family: "Cascadia Code", monospace; font-size: 12px; }
-.orrery table.runs th {
-  text-align: left; padding: 8px 12px;
-  color: var(--orrery-fg-subtle); font-weight: 400;
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  border-bottom: 1px solid var(--orrery-rule);
-}
-.orrery table.runs td { padding: 12px; border-bottom: 1px solid var(--orrery-rule); color: var(--orrery-fg-muted); }
-.orrery table.runs td.id { color: var(--orrery-fg); }
-.orrery table.runs tr:last-child td { border-bottom: none; }
-
-.orrery .ruling { display: grid; gap: 12px; }
-.orrery .ruling-item {
-  padding: 12px 14px;
-  border: 1px solid var(--orrery-rule);
-  background: rgba(0,0,0,0.18);
-  font-family: "Cascadia Code", monospace; font-size: 11.5px;
-}
-html:not(.dark) .orrery .ruling-item { background: rgba(255,255,255,0.5); }
-.orrery .ruling-item .name { color: var(--orrery-fg); }
-.orrery .ruling-item .meta { color: var(--orrery-fg-subtle); margin-top: 4px; }
-.orrery .ruling-item .sev { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
-.orrery .ruling-item .sev.crit { color: #d97757; }
-.orrery .ruling-item .sev.warn { color: var(--orrery-gold); }
-.orrery .ruling-item .sev.info { color: var(--orrery-starlight); }
-
-/* ── Data model ──────────────────────────────────────────────────────────── */
-.orrery .schema { margin-top: 48px; display: grid; grid-template-columns: 200px 1fr; border: 1px solid var(--orrery-gold-line); }
-@media (max-width: 720px) { .orrery .schema { grid-template-columns: 1fr; } }
-.orrery .schema-row { display: contents; }
-.orrery .schema-name {
-  padding: 22px 24px;
-  border-bottom: 1px solid var(--orrery-gold-line);
-  border-right: 1px solid var(--orrery-gold-line);
-  background: var(--orrery-panel);
-  font-family: "EB Garamond", serif;
-  font-size: 1.25rem;
-  color: var(--orrery-fg);
-  display: flex; align-items: center; gap: 10px;
-}
-.orrery .schema-name .glyph { color: var(--orrery-gold); font-family: "Cascadia Code", monospace; font-size: 1.1rem; }
-.orrery .schema-fields {
-  padding: 22px 24px;
-  border-bottom: 1px solid var(--orrery-gold-line);
-  font-family: "Cascadia Code", monospace;
-  font-size: 12.5px;
+.orrery .lede {
+  font-size: 1.3125rem;
+  line-height: 1.55;
   color: var(--orrery-fg-muted);
-  display: flex; flex-wrap: wrap; gap: 8px 18px;
-  align-items: center; line-height: 1.7;
-}
-.orrery .schema-fields .f { display: inline-flex; gap: 6px; align-items: baseline; }
-.orrery .schema-fields .f .k { color: var(--orrery-fg); }
-.orrery .schema-fields .f .t { color: var(--orrery-gold-dim); font-size: 11px; }
-.orrery .schema-row:last-child .schema-name,
-.orrery .schema-row:last-child .schema-fields { border-bottom: none; }
-@media (max-width: 720px) {
-  .orrery .schema-name { border-right: none; padding-bottom: 8px; border-bottom: none; }
-  .orrery .schema-fields { padding-top: 8px; }
+  max-width: 34em;
+  margin: 0;
 }
 
-/* ── Rules + AI ──────────────────────────────────────────────────────────── */
-.orrery .ra-flow { display: block; width: 100%; max-width: 760px; height: auto; margin: 44px auto 0; }
-.orrery .ra-flow text { font-family: "Cascadia Code", monospace; fill: var(--orrery-fg); }
-.orrery .ra-flow .serif { font-family: "EB Garamond", serif; }
-.orrery .ra-flow .card { fill: rgba(11, 8, 3, 0.55); }
-.orrery .ra-flow .plot-fill { fill: rgba(11, 8, 3, 0.32); }
-.orrery .ra-flow .ink-line { stroke: var(--orrery-fg); }
-html:not(.dark) .orrery .ra-flow .card { fill: rgba(255, 255, 255, 0.5); }
-html:not(.dark) .orrery .ra-flow .plot-fill { fill: rgba(255, 255, 255, 0.35); }
-.orrery .ra-grid { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--orrery-gold-line); }
-@media (max-width: 880px) { .orrery .ra-grid { grid-template-columns: 1fr; } }
-.orrery .ra-pane {
-  background: var(--orrery-panel);
-  padding: 28px;
-  border-right: 1px solid var(--orrery-gold-line);
-  display: flex; flex-direction: column; gap: 16px;
-}
-.orrery .ra-pane:last-child { border-right: none; }
-@media (max-width: 880px) {
-  .orrery .ra-pane { border-right: none; border-bottom: 1px solid var(--orrery-gold-line); }
-  .orrery .ra-pane:last-child { border-bottom: none; }
-}
-.orrery .ra-label {
-  font-family: "Cascadia Code", monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--orrery-gold); display: flex; gap: 10px; align-items: center;
-}
-.orrery .ra-label::before { content: ""; width: 24px; height: 1px; background: var(--orrery-gold-dim); }
-.orrery .ra-title { font-family: "EB Garamond", serif; font-size: 1.6rem; line-height: 1.15; font-weight: 500; }
+.orrery .section { padding: 112px 0; position: relative; }
+.orrery .section + .section { border-top: 1px solid var(--orrery-gold-line); }
+@media (max-width: 720px) { .orrery .section { padding: 72px 0; } }
+
+.orrery .section-head { max-width: 46rem; margin-bottom: 64px; }
+.orrery .section-head .lede { margin-top: 18px; }
+@media (max-width: 720px) { .orrery .section-head { margin-bottom: 40px; } }
 
 .orrery pre.code {
   margin: 0;
-  background: #0f0d0d;
-  border: 1px solid var(--orrery-gold-line);
-  padding: 16px 18px;
-  font-family: "Cascadia Code", monospace;
-  font-size: 12.5px;
+  background: var(--orrery-code-bg);
+  border: 1px solid var(--orrery-rule);
+  border-left: 2px solid var(--orrery-gold-line);
+  padding: 18px 20px;
+  font-family: var(--orrery-mono);
+  font-size: 13px;
   line-height: 1.65;
   color: var(--orrery-fg-muted);
   overflow-x: auto;
   white-space: pre;
 }
-html:not(.dark) .orrery pre.code { background: rgba(0,0,0,0.05); border-color: var(--orrery-rule); color: var(--orrery-fg); }
 .orrery .code .k { color: var(--orrery-gold); }
 .orrery .code .s { color: var(--orrery-verdigris); }
 .orrery .code .n { color: var(--orrery-starlight); }
 .orrery .code .c { color: var(--orrery-fg-subtle); font-style: italic; }
 .orrery .code .p { color: var(--orrery-fg-subtle); }
 
-/* ── API ─────────────────────────────────────────────────────────────────── */
-.orrery .api-grid { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--orrery-gold-line); }
-@media (max-width: 980px) { .orrery .api-grid { grid-template-columns: 1fr; } }
-.orrery .api-card {
-  padding: 24px;
-  background: var(--orrery-panel);
-  border-right: 1px solid var(--orrery-gold-line);
-  display: flex; flex-direction: column; gap: 14px;
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+.orrery .hero { padding: 160px 0 96px; }  /* header overlays the page at ~97px */
+@media (max-width: 720px) { .orrery .hero { padding-top: 128px; } }
+.orrery .hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: 28px 64px;
+  align-items: end;
 }
-.orrery .api-card:last-child { border-right: none; }
+@media (max-width: 980px) { .orrery .hero-grid { grid-template-columns: 1fr; } }
+.orrery .hero .h-display { max-width: none; }
+.orrery .hero-side .lede { font-size: 1.1875rem; }
+.orrery .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 24px; }
+
+/* Trace figure: the plot, with margin notes in the right column. */
+.orrery .trace {
+  margin: 56px 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 17rem;
+  gap: 40px;
+  align-items: start;
+}
 @media (max-width: 980px) {
-  .orrery .api-card { border-right: none; border-bottom: 1px solid var(--orrery-gold-line); }
-  .orrery .api-card:last-child { border-bottom: none; }
+  .orrery .trace { grid-template-columns: 1fr; gap: 28px; margin-top: 48px; }
 }
-.orrery .api-method { display: inline-flex; align-items: center; gap: 8px; font-family: "Cascadia Code", monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
-.orrery .api-method.post { color: var(--orrery-gold); }
-.orrery .api-method.get  { color: var(--orrery-verdigris); }
-.orrery .api-method.hook { color: var(--orrery-starlight); }
-.orrery .api-path { font-family: "Cascadia Code", monospace; font-size: 14px; color: var(--orrery-fg); }
-.orrery .api-desc { color: var(--orrery-fg-muted); font-size: 0.96rem; line-height: 1.55; margin: 0; }
-.orrery .api-card pre.code { font-size: 11.5px; }
+.orrery .trace-plot {
+  border-top: 1px solid var(--orrery-gold-line);
+  border-bottom: 1px solid var(--orrery-gold-line);
+  padding: 20px 0 12px;
+}
+.orrery .run-trace { display: block; width: 100%; height: auto; overflow: visible; }
+
+.orrery .run-trace .t-grid line { stroke: var(--orrery-rule); stroke-width: 1; }
+.orrery .run-trace .t-axis      { stroke: var(--orrery-fg-subtle); stroke-width: 1; }
+.orrery .run-trace .t-tick text {
+  font-family: var(--orrery-mono); font-size: 13px; fill: var(--orrery-fg-subtle);
+}
+.orrery .run-trace .t-band   { fill: var(--orrery-gold-subtle); }
+.orrery .run-trace .t-golden { fill: none; stroke: var(--orrery-gold); stroke-width: 1.5; stroke-dasharray: 6 5; opacity: 0.85; }
+.orrery .run-trace .t-run {
+  fill: none; stroke: var(--orrery-fg); stroke-width: 2;
+  stroke-linejoin: round; stroke-linecap: round;
+}
+.orrery .run-trace .t-label {
+  font-family: var(--orrery-serif); font-style: italic; font-size: 18px;
+}
+.orrery .run-trace .t-label-gold { fill: var(--orrery-gold); }
+.orrery .run-trace .t-label-iron { fill: var(--orrery-iron); }
+.orrery .run-trace .t-breach line { stroke: var(--orrery-iron); stroke-width: 1; stroke-dasharray: 3 4; }
+.orrery .run-trace .t-breach-dot  { fill: var(--orrery-iron); }
+.orrery .run-trace .t-breach-ring { fill: none; stroke: var(--orrery-iron); stroke-width: 1.25; opacity: 0.6; }
+
+/* The page's one orchestrated moment: the run draws itself, then the breach lands. */
+@media (prefers-reduced-motion: no-preference) {
+  .orrery .run-trace .t-run {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: traceDraw 2.8s cubic-bezier(0.45, 0, 0.25, 1) 0.3s forwards;
+  }
+  .orrery .run-trace .t-breach {
+    opacity: 0;
+    animation: breachIn 0.5s ease-out 3s forwards;
+  }
+  .orrery .run-trace .t-breach-ring {
+    transform-box: fill-box; transform-origin: center;
+    animation: breachRing 1.2s ease-out 3s both;
+  }
+  .orrery .trace-notes .note-breach {
+    animation: noteIn 0.6s ease-out 3.1s both;
+  }
+}
+@keyframes traceDraw  { to { stroke-dashoffset: 0; } }
+@keyframes breachIn   { to { opacity: 1; } }
+@keyframes breachRing { from { transform: scale(0.3); opacity: 1; } to { transform: scale(1); opacity: 0.6; } }
+@keyframes noteIn     { from { opacity: 0.25; } to { opacity: 1; } }
+
+/* Labels inside the SVG are unreadable once it scales below ~640px;
+   the margin notes carry the same information there. */
+@media (max-width: 640px) {
+  .orrery .run-trace .t-label,
+  .orrery .run-trace .t-tick { display: none; }
+}
+
+.orrery .trace-caption {
+  margin: 0 0 22px;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--orrery-fg-subtle);
+}
+.orrery .trace-caption .mono { font-style: normal; }
+.orrery .trace-notes dl { margin: 0; display: grid; gap: 20px; }
+.orrery .trace-notes dt {
+  font-style: italic; font-size: 1.125rem; color: var(--orrery-gold);
+}
+.orrery .trace-notes .note-breach dt { color: var(--orrery-iron); }
+.orrery .trace-notes dd {
+  margin: 4px 0 0; font-size: 1rem; line-height: 1.5; color: var(--orrery-fg-muted);
+}
+@media (max-width: 980px) {
+  .orrery .trace-notes dl { grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+}
+
+/* ── The record (timeline of one run) ────────────────────────────────────── */
+.orrery .record { list-style: none; margin: 0; padding: 0; }
+.orrery .step {
+  --dot: var(--orrery-gold);
+  position: relative;
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 26rem) minmax(0, 1fr);
+  gap: 0 48px;
+  padding-bottom: 72px;
+}
+.orrery .step:last-child { padding-bottom: 0; }
+
+/* The rail: a hairline down the time column, with a body at each event. */
+.orrery .step::before {
+  content: ""; position: absolute;
+  left: calc(7.5rem + 24px); top: 10px; bottom: -10px;
+  border-left: 1px solid var(--orrery-gold-line);
+}
+.orrery .step:last-child::before { display: none; }
+.orrery .step::after {
+  content: ""; position: absolute;
+  left: calc(7.5rem + 24px - 5px); top: 6px;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--dot);
+  box-shadow: 0 0 0 4px var(--orrery-panel), 0 0 14px var(--dot);
+}
+.orrery .step-fail     { --dot: var(--orrery-iron); }
+.orrery .step-analysis { --dot: var(--orrery-starlight); }
+.orrery .step-signed   { --dot: var(--orrery-verdigris); }
+
+.orrery .step-time {
+  font-family: var(--orrery-mono);
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--orrery-fg-muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.orrery .step-fail .step-time { color: var(--orrery-iron); }
+.orrery .step-copy { padding-left: 24px; }
+.orrery .step-copy h3 {
+  margin: 0;
+  font-size: 1.5rem; line-height: 1.2; font-weight: 500;
+}
+.orrery .step-copy p {
+  margin: 12px 0 0;
+  font-size: 1.125rem; line-height: 1.6;
+  color: var(--orrery-fg-muted);
+}
+.orrery .step-artifact { align-self: start; }
+
+/* The three moments that change the run's status carry their status colour
+   onto the artifact's spine and the heading. */
+.orrery .step-fail .step-copy h3     { color: var(--orrery-iron); }
+.orrery .step-fail .step-artifact     { border-left-color: var(--orrery-iron); }
+.orrery .step-analysis .step-artifact { border-left-color: var(--orrery-starlight); }
+.orrery .step-signed .step-artifact   { border-left-color: var(--orrery-verdigris); }
+
+@media (max-width: 1080px) {
+  .orrery .step { grid-template-columns: 6rem minmax(0, 1fr); gap: 0 32px; }
+  .orrery .step::before { left: calc(6rem + 16px); }
+  .orrery .step::after  { left: calc(6rem + 16px - 5px); }
+  .orrery .step-copy { padding-left: 16px; }
+  .orrery .step-artifact { grid-column: 2; margin: 24px 0 0 16px; }
+}
+@media (max-width: 640px) {
+  .orrery .step { grid-template-columns: minmax(0, 1fr); padding: 0 0 56px 28px; }
+  .orrery .step::before { left: 5px; }
+  .orrery .step::after  { left: 0; }
+  .orrery .step-time { text-align: left; }
+  .orrery .step-copy { padding-left: 0; margin-top: 4px; }
+  .orrery .step-artifact { grid-column: 1; margin: 20px 0 0; }
+}
+
+/* Artifacts that are tables or fact lists rather than code. */
+.orrery .ledger {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--orrery-mono);
+  font-size: 13px;
+  background: var(--orrery-code-bg);
+  border: 1px solid var(--orrery-rule);
+  border-left: 2px solid var(--orrery-gold-line);
+}
+.orrery .ledger th {
+  text-align: left; font-weight: 400;
+  font-family: var(--orrery-serif); font-style: italic; font-size: 15px;
+  color: var(--orrery-fg-subtle);
+  padding: 12px 16px 8px;
+}
+.orrery .ledger td { padding: 8px 16px; border-top: 1px solid var(--orrery-rule); color: var(--orrery-fg-muted); }
+.orrery .ledger td:first-child { color: var(--orrery-fg); }
+.orrery .ledger td.ok { color: var(--orrery-verdigris); }
+.orrery .ledger td.ok::before { content: "✓ "; }
+
+.orrery .facts {
+  margin: 0;
+  background: var(--orrery-code-bg);
+  border: 1px solid var(--orrery-rule);
+  border-left: 2px solid var(--orrery-gold-line);
+  padding: 6px 16px;
+}
+.orrery .facts > div {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  padding: 9px 0;
+}
+.orrery .facts > div + div { border-top: 1px solid var(--orrery-rule); }
+.orrery .facts dt { font-style: italic; font-size: 15px; color: var(--orrery-fg-subtle); }
+.orrery .facts dd {
+  margin: 0; text-align: right;
+  font-family: var(--orrery-mono); font-size: 13px; color: var(--orrery-fg);
+}
+
+/* ── Dashboard ───────────────────────────────────────────────────────────── */
+.orrery .dash {
+  border: 1px solid var(--orrery-gold-border);
+  background: var(--orrery-panel);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.6);
+}
+html:not(.dark) .orrery .dash { box-shadow: 0 40px 90px -50px rgba(60, 40, 10, 0.35); }
+.orrery .dash-chrome {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--orrery-gold-line);
+}
+.orrery .dash-tabs { display: flex; gap: 28px; overflow-x: auto; font-size: 1rem; color: var(--orrery-fg-subtle); }
+.orrery .dash-tabs span { padding: 16px 0 14px; white-space: nowrap; border-bottom: 1px solid transparent; }
+.orrery .dash-tabs em { font-style: normal; font-family: var(--orrery-mono); font-size: 12px; margin-left: 4px; }
+.orrery .dash-tabs .on { color: var(--orrery-fg); border-bottom-color: var(--orrery-gold); }
+.orrery .dash-project { font-family: var(--orrery-mono); font-size: 12px; color: var(--orrery-gold); white-space: nowrap; }
+@media (max-width: 720px) { .orrery .dash-project { display: none; } }
+
+.orrery .dash-body {
+  display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+@media (max-width: 980px) { .orrery .dash-body { grid-template-columns: 1fr; } }
+.orrery .dash-panel { padding: 24px; }
+.orrery .dash-panel + .dash-panel { border-left: 1px solid var(--orrery-gold-line); }
+@media (max-width: 980px) {
+  .orrery .dash-panel + .dash-panel { border-left: none; border-top: 1px solid var(--orrery-gold-line); }
+}
+.orrery .dash-panel h4 { margin: 0 0 14px; font-size: 1.25rem; font-weight: 500; }
+.orrery .dash-scroll { overflow-x: auto; }
+
+.orrery table.runs { width: 100%; border-collapse: collapse; font-family: var(--orrery-mono); font-size: 12.5px; }
+.orrery table.runs th {
+  text-align: left; font-weight: 400;
+  font-family: var(--orrery-serif); font-style: italic; font-size: 15px;
+  color: var(--orrery-fg-subtle);
+  padding: 6px 12px 10px 0;
+  border-bottom: 1px solid var(--orrery-rule);
+}
+.orrery table.runs td {
+  padding: 11px 12px 11px 0;
+  border-bottom: 1px solid var(--orrery-rule);
+  color: var(--orrery-fg-muted);
+  white-space: nowrap;
+}
+.orrery table.runs td:first-child { color: var(--orrery-fg); }
+.orrery table.runs tr:last-child td { border-bottom: none; }
+.orrery table.runs tr.is-fail td:first-child { color: var(--orrery-iron); }
+
+.orrery .st { display: inline-flex; align-items: center; gap: 7px; }
+.orrery .st::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.orrery .st-pass { color: var(--orrery-verdigris); }
+.orrery .st-fail { color: var(--orrery-iron); }
+.orrery .st-busy { color: var(--orrery-gold); }
+.orrery .st-busy::before { background: transparent; border: 1px solid currentColor; }
+
+.orrery .fired { list-style: none; margin: 0; padding: 0; }
+.orrery .fired li {
+  display: grid; gap: 2px;
+  padding: 12px 0 12px 14px;
+  border-left: 2px solid var(--sev);
+}
+.orrery .fired li + li { margin-top: 10px; }
+.orrery .fired .sev  { font-style: italic; font-size: 15px; color: var(--sev); }
+.orrery .fired .name { font-family: var(--orrery-mono); font-size: 13px; color: var(--orrery-fg); }
+.orrery .fired .meta { font-size: 15px; color: var(--orrery-fg-subtle); }
+.orrery .sev-crit { --sev: var(--orrery-iron); }
+.orrery .sev-warn { --sev: var(--orrery-gold); }
+.orrery .sev-info { --sev: var(--orrery-starlight); }
+
+/* ── Data model ──────────────────────────────────────────────────────────── */
+.orrery .schema { margin: 0; border-top: 1px solid var(--orrery-gold-line); }
+.orrery .schema-row {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  gap: 8px 32px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--orrery-gold-line);
+  align-items: baseline;
+}
+@media (max-width: 640px) { .orrery .schema-row { grid-template-columns: 1fr; } }
+.orrery .schema dt { font-size: 1.3125rem; }
+.orrery .schema dd {
+  margin: 0;
+  display: flex; flex-wrap: wrap; gap: 6px 22px;
+  font-family: var(--orrery-mono); font-size: 13px;
+  color: var(--orrery-fg-muted);
+}
+
+/* ── API ─────────────────────────────────────────────────────────────────── */
+.orrery .endpoints { width: 100%; border-collapse: collapse; }
+.orrery .endpoints th {
+  text-align: left; font-weight: 400; font-style: italic; font-size: 15px;
+  color: var(--orrery-fg-subtle);
+  padding: 0 24px 12px 0;
+  border-bottom: 1px solid var(--orrery-gold-line);
+}
+.orrery .endpoints td {
+  padding: 20px 24px 20px 0;
+  border-bottom: 1px solid var(--orrery-gold-line);
+  font-size: 1.125rem; line-height: 1.5;
+  color: var(--orrery-fg-muted);
+  vertical-align: baseline;
+}
+.orrery .endpoints td.m { font-family: var(--orrery-mono); font-size: 13px; white-space: nowrap; }
+.orrery .endpoints td.path { font-family: var(--orrery-mono); font-size: 14px; color: var(--orrery-fg); white-space: nowrap; }
+.orrery .endpoints .m-post { color: var(--orrery-gold); }
+.orrery .endpoints .m-get  { color: var(--orrery-verdigris); }
+.orrery .endpoints .m-hook { color: var(--orrery-starlight); }
+@media (max-width: 720px) {
+  .orrery .endpoints thead { display: none; }
+  .orrery .endpoints tr { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; padding: 18px 0; border-bottom: 1px solid var(--orrery-gold-line); }
+  .orrery .endpoints td { display: block; padding: 0; border: none; }
+  .orrery .endpoints td:last-child { grid-column: 1 / -1; }
+}
 
 /* ── Compare ─────────────────────────────────────────────────────────────── */
-.orrery .compare { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--orrery-gold-line); }
-@media (max-width: 760px) { .orrery .compare { grid-template-columns: 1fr; } }
-.orrery .compare-col { padding: 28px 30px; background: var(--orrery-panel); }
-.orrery .compare-col + .compare-col { border-left: 1px solid var(--orrery-gold-line); }
-@media (max-width: 760px) {
-  .orrery .compare-col + .compare-col { border-left: none; border-top: 1px solid var(--orrery-gold-line); }
-}
-.orrery .compare-head { font-family: "Cascadia Code", monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orrery-fg-subtle); margin-bottom: 6px; }
-.orrery .compare-title { font-family: "EB Garamond", serif; font-size: 1.5rem; margin-bottom: 18px; font-weight: 500; }
-.orrery .compare ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.orrery .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+@media (max-width: 760px) { .orrery .compare { grid-template-columns: 1fr; gap: 40px; } }
+.orrery .compare h3 { margin: 0 0 20px; font-size: 1.5rem; font-weight: 500; line-height: 1.2; }
+.orrery .compare .before h3 { color: var(--orrery-fg-muted); }
+.orrery .compare ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .orrery .compare li {
-  color: var(--orrery-fg-muted);
-  padding-left: 22px;
-  position: relative;
-  font-size: 0.98rem;
-  line-height: 1.55;
+  position: relative; padding-left: 24px;
+  font-size: 1.125rem; line-height: 1.55; color: var(--orrery-fg-muted);
 }
-.orrery .compare .before li::before { content: "—"; position: absolute; left: 0; top: 0; color: var(--orrery-iron); }
-.orrery .compare .after  li::before { content: "▹"; position: absolute; left: 0; top: 0; color: var(--orrery-gold); }
+.orrery .compare li::before {
+  content: ""; position: absolute; left: 2px; top: 0.6em;
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.orrery .compare .before li::before { border: 1px solid var(--orrery-iron); }
+.orrery .compare .after  li::before { background: var(--orrery-verdigris); }
 
 /* ── Final CTA ───────────────────────────────────────────────────────────── */
 .orrery .cta {
-  margin-top: 56px; padding: 56px 48px;
+  margin-top: 96px; padding: 48px;
   border: 1px solid var(--orrery-gold-border);
-  background: linear-gradient(180deg, var(--orrery-panel), var(--orrery-panel-2));
-  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+  background: var(--orrery-panel);
+  display: grid; grid-template-columns: 1fr auto; gap: 24px 40px; align-items: center;
 }
-@media (max-width: 760px) { .orrery .cta { grid-template-columns: 1fr; } }
-.orrery .cta h3 { font-family: "EB Garamond", serif; font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 8px 0; font-weight: 500; }
-.orrery .cta p { margin: 0; color: var(--orrery-fg-muted); max-width: 50ch; }
+@media (max-width: 760px) { .orrery .cta { grid-template-columns: 1fr; padding: 32px 24px; } }
+.orrery .cta h3 { margin: 0 0 8px; font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 500; line-height: 1.1; }
+.orrery .cta p { margin: 0; font-size: 1.125rem; color: var(--orrery-fg-muted); max-width: 40em; }
 .orrery .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.orrery .cta .cta-fine {
+  grid-column: 1 / -1;
+  padding-top: 20px; border-top: 1px solid var(--orrery-rule);
+  font-style: italic; font-size: 1rem; color: var(--orrery-fg-subtle);
+}
+
+/* Keyboard focus, visible on every surface of this page. */
+.orrery a:focus-visible {
+  outline: 2px solid var(--orrery-gold);
+  outline-offset: 3px;
+}
