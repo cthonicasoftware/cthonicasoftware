@@ -269,69 +269,201 @@
     </div>
   </section>
 
-  <!-- ── DASHBOARD ─────────────────────────────────────────────────────────── -->
+  <!-- ── DASHBOARD: a working mockup ───────────────────────────────────────── -->
   <section class="section" id="dashboard">
     <div class="shell">
       <header class="section-head">
         <h2 class="h-section">What your team opens each morning</h2>
         <p class="lede">
-          One project: the runs that landed, the rules that fired, and links to each analysis.
+          One project: the runs that landed, the rules that fired, and links to each analysis. Open a run or filter
+          the list. The line above the tabs is the link you would share, and it uses the same filters as the API.
         </p>
       </header>
 
-      <div class="dash" aria-label="Example Orrery dashboard" role="img">
+      <div class="dash" id="dash" role="region" aria-label="Example Orrery dashboard you can use">
+        <p class="dash-address">
+          <span class="dash-address-label">Link to this view</span>
+          <output class="dash-url" id="dash-url" for="dash-tabs">/dashboard?project=prod-validation</output>
+        </p>
+
         <div class="dash-chrome">
-          <div class="dash-tabs">
-            <span class="on">Dashboard</span>
-            <span>Runs <em>1,247</em></span>
-            <span>Reports</span>
-            <span>Test plans</span>
-            <span>Rules</span>
-            <span>Devices <em>312</em></span>
+          <div class="dash-tabs" id="dash-tabs" role="tablist" aria-label="Orrery sections"
+               data-tabs-toggle="#dash-views"
+               data-tabs-active-classes="on"
+               data-tabs-inactive-classes="off">
+            <button type="button" role="tab" id="tab-dashboard" data-view="dashboard" data-tabs-target="#view-dashboard" aria-controls="view-dashboard" aria-selected="true">Dashboard</button>
+            <button type="button" role="tab" id="tab-runs" data-view="runs" data-tabs-target="#view-runs" aria-controls="view-runs" aria-selected="false">Runs <em>1,247</em></button>
+            <button type="button" role="tab" id="tab-reports" data-view="reports" data-tabs-target="#view-reports" aria-controls="view-reports" aria-selected="false">Reports</button>
+            <button type="button" role="tab" id="tab-plans" data-view="plans" data-tabs-target="#view-plans" aria-controls="view-plans" aria-selected="false">Test plans</button>
+            <button type="button" role="tab" id="tab-rules" data-view="rules" data-tabs-target="#view-rules" aria-controls="view-rules" aria-selected="false">Rules</button>
+            <button type="button" role="tab" id="tab-devices" data-view="devices" data-tabs-target="#view-devices" aria-controls="view-devices" aria-selected="false">Devices <em>312</em></button>
           </div>
           <span class="dash-project">prod-validation</span>
         </div>
 
-        <div class="dash-body">
-          <div class="dash-panel">
-            <h4>Recent runs</h4>
-            <div class="dash-scroll">
-              <table class="runs">
-                <thead>
-                  <tr><th>Run</th><th>Device</th><th>Firmware</th><th>Plan</th><th>Status</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td>run-20251014-143022</td><td>DEV-00847</td><td>v2.3.1</td><td>plan-thermal-v4</td><td><span class="st st-pass">passed</span></td></tr>
-                  <tr class="is-fail"><td>run-20251014-140311</td><td>DEV-00391</td><td>v2.3.1</td><td>plan-thermal-v4</td><td><span class="st st-fail">failed</span></td></tr>
-                  <tr><td>run-20251014-133812</td><td>DEV-00512</td><td>v2.2.9</td><td>plan-power-v2</td><td><span class="st st-busy">analyzing</span></td></tr>
-                  <tr><td>run-20251013-174501</td><td>DEV-00847</td><td>v2.2.9</td><td>plan-thermal-v4</td><td><span class="st st-pass">passed</span></td></tr>
-                  <tr><td>run-20251013-163200</td><td>DEV-00110</td><td>v2.2.8</td><td>plan-power-v2</td><td><span class="st st-pass">passed</span></td></tr>
-                  <tr><td>run-20251013-141822</td><td>DEV-00391</td><td>v2.2.8</td><td>plan-thermal-v4</td><td><span class="st st-pass">passed</span></td></tr>
-                </tbody>
-              </table>
+        <div class="dash-stage">
+          <div id="dash-views">
+
+            <!-- Dashboard -->
+            <div class="dash-body" id="view-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+              <div class="dash-panel">
+                <h4>Recent runs</h4>
+                <div class="dash-scroll">
+                  <table class="runs">
+                    <thead>
+                      <tr><th scope="col">Run</th><th scope="col">Device</th><th scope="col">Firmware</th><th scope="col">Plan</th><th scope="col">Status</th></tr>
+                    </thead>
+                    <tbody data-runs="recent"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="dash-panel">
+                <h4>Rules fired today</h4>
+                <ul class="fired">
+                  <li class="sev-crit">
+                    <span class="sev">Critical</span>
+                    <button type="button" class="name dash-link" data-filter-rule="temp_drift_exceeds_2σ">temp_drift_exceeds_2σ</button>
+                    <span class="meta">DEV-00391, channel 3, +4.2&nbsp;°C</span>
+                  </li>
+                  <li class="sev-warn">
+                    <span class="sev">Warning</span>
+                    <button type="button" class="name dash-link" data-filter-rule="stall_recovery_slow">stall_recovery_slow</button>
+                    <span class="meta">DEV-00391, 312&nbsp;ms against 180&nbsp;ms</span>
+                  </li>
+                  <li class="sev-info">
+                    <span class="sev">Info</span>
+                    <button type="button" class="name dash-link" data-filter-rule="new_firmware_observed">new_firmware_observed</button>
+                    <span class="meta">DEV-00847, v2.3.1 first seen at 14:30</span>
+                  </li>
+                </ul>
+                <p class="dash-hint">Pick a rule to see every recent run it fired on.</p>
+              </div>
+            </div>
+
+            <!-- Runs -->
+            <div class="dash-panel hidden" id="view-runs" role="tabpanel" aria-labelledby="tab-runs">
+              <form class="dash-filters" id="dash-filters" aria-label="Filter runs">
+                <fieldset class="dash-seg">
+                  <legend class="sr-only">Status</legend>
+                  <label><input type="radio" name="status" value="" checked><span>Any status</span></label>
+                  <label><input type="radio" name="status" value="failed"><span>Failed</span></label>
+                  <label><input type="radio" name="status" value="passed"><span>Passed</span></label>
+                  <label><input type="radio" name="status" value="analyzing"><span>Analyzing</span></label>
+                </fieldset>
+                <div class="dash-selects">
+                  <label>Firmware
+                    <select name="fw">
+                      <option value="">Any</option>
+                      <option value="v2.3.*">v2.3.*</option>
+                      <option value="v2.2.9">v2.2.9</option>
+                      <option value="v2.2.8">v2.2.8</option>
+                    </select>
+                  </label>
+                  <label>Device
+                    <select name="device">
+                      <option value="">Any</option>
+                      <option>DEV-00110</option>
+                      <option>DEV-00205</option>
+                      <option>DEV-00391</option>
+                      <option>DEV-00512</option>
+                      <option>DEV-00847</option>
+                    </select>
+                  </label>
+                  <label>Rule
+                    <select name="rule">
+                      <option value="">Any</option>
+                      <option>temp_drift_exceeds_2σ</option>
+                      <option>stall_recovery_slow</option>
+                      <option>new_firmware_observed</option>
+                    </select>
+                  </label>
+                  <button type="reset" class="dash-link dash-clear">Clear filters</button>
+                </div>
+              </form>
+              <p class="dash-count" id="dash-count" aria-live="polite">The 10 most recent of 1,247 runs</p>
+              <div class="dash-scroll">
+                <table class="runs">
+                  <thead>
+                    <tr><th scope="col">Run</th><th scope="col">Device</th><th scope="col">Firmware</th><th scope="col">Plan</th><th scope="col">Rules fired</th><th scope="col">Status</th></tr>
+                  </thead>
+                  <tbody data-runs="all"></tbody>
+                </table>
+              </div>
+              <p class="dash-empty" id="dash-empty" hidden>No recent run matches all of these filters. Clear one to widen the search.</p>
+            </div>
+
+            <!-- Reports -->
+            <div class="dash-panel hidden" id="view-reports" role="tabpanel" aria-labelledby="tab-reports">
+              <div class="dash-scroll">
+                <table class="runs">
+                  <thead><tr><th scope="col">Report</th><th scope="col">Scope</th><th scope="col">Runs</th><th scope="col">State</th></tr></thead>
+                  <tbody>
+                    <tr><td>release-2.3.1</td><td>firmware v2.3.1</td><td>186 so far</td><td><span class="st st-busy">collecting runs</span></td></tr>
+                    <tr><td>release-2.2.9</td><td>firmware v2.2.9</td><td>201</td><td><span class="st st-pass">signed by QA lead</span></td></tr>
+                    <tr><td>release-2.2.8</td><td>firmware v2.2.8</td><td>177</td><td><span class="st st-pass">signed by QA lead</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="dash-hint">A signed report can&rsquo;t be edited, and re-running analysis won&rsquo;t change it.</p>
+            </div>
+
+            <!-- Test plans -->
+            <div class="dash-panel hidden" id="view-plans" role="tabpanel" aria-labelledby="tab-plans">
+              <div class="dash-scroll">
+                <table class="runs">
+                  <thead><tr><th scope="col">Plan</th><th scope="col">Golden run</th><th scope="col">Rules</th><th scope="col">Channels</th></tr></thead>
+                  <tbody>
+                    <tr><td>plan-thermal-v4</td><td>run-20251013-174501</td><td>temp_drift_exceeds_2σ, stall_recovery_slow</td><td>temp_c, stall_recovery_ms</td></tr>
+                    <tr><td>plan-power-v2</td><td>run-20251011-152230</td><td>new_firmware_observed</td><td>rail_v, current_a</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Rules -->
+            <div class="dash-panel hidden" id="view-rules" role="tabpanel" aria-labelledby="tab-rules">
+              <div class="dash-scroll">
+                <table class="runs">
+                  <thead><tr><th scope="col">Rule</th><th scope="col">Kind</th><th scope="col">Severity</th><th scope="col">Plan</th></tr></thead>
+                  <tbody>
+                    <tr><td><button type="button" class="dash-link" data-filter-rule="temp_drift_exceeds_2σ">temp_drift_exceeds_2σ</button></td><td>regression</td><td class="sev-crit"><span class="sev-text">critical</span></td><td>plan-thermal-v4</td></tr>
+                    <tr><td><button type="button" class="dash-link" data-filter-rule="stall_recovery_slow">stall_recovery_slow</button></td><td>threshold</td><td class="sev-warn"><span class="sev-text">warning</span></td><td>plan-thermal-v4</td></tr>
+                    <tr><td><button type="button" class="dash-link" data-filter-rule="new_firmware_observed">new_firmware_observed</button></td><td>schema</td><td class="sev-info"><span class="sev-text">info</span></td><td>all plans</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="dash-hint">Pick a rule to see the runs it fired on.</p>
+            </div>
+
+            <!-- Devices -->
+            <div class="dash-panel hidden" id="view-devices" role="tabpanel" aria-labelledby="tab-devices">
+              <div class="dash-scroll">
+                <table class="runs">
+                  <thead><tr><th scope="col">Device</th><th scope="col">Firmware</th><th scope="col">Runs</th><th scope="col">Lifetime pass rate</th><th scope="col">Last calibrated</th></tr></thead>
+                  <tbody>
+                    <tr><td><button type="button" class="dash-link" data-filter-device="DEV-00847">DEV-00847</button></td><td>v2.3.1</td><td>412</td><td>98.3%</td><td>2025-10-02</td></tr>
+                    <tr class="is-fail"><td><button type="button" class="dash-link" data-filter-device="DEV-00391">DEV-00391</button></td><td>v2.3.1</td><td>238</td><td>94.1%</td><td>2025-09-30</td></tr>
+                    <tr><td><button type="button" class="dash-link" data-filter-device="DEV-00512">DEV-00512</button></td><td>v2.2.9</td><td>167</td><td>97.6%</td><td>2025-09-18</td></tr>
+                    <tr><td><button type="button" class="dash-link" data-filter-device="DEV-00205">DEV-00205</button></td><td>v2.3.0</td><td>91</td><td>92.3%</td><td>2025-08-27</td></tr>
+                    <tr><td><button type="button" class="dash-link" data-filter-device="DEV-00110">DEV-00110</button></td><td>v2.2.8</td><td>305</td><td>99.0%</td><td>2025-09-11</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="dash-hint">The five most active of 312 devices. Pick one to see its recent runs.</p>
             </div>
           </div>
 
-          <div class="dash-panel">
-            <h4>Rules fired today</h4>
-            <ul class="fired">
-              <li class="sev-crit">
-                <span class="sev">Critical</span>
-                <span class="name">temp_drift_exceeds_2σ</span>
-                <span class="meta">DEV-00391, channel 3, +4.2&nbsp;°C</span>
-              </li>
-              <li class="sev-warn">
-                <span class="sev">Warning</span>
-                <span class="name">stall_recovery_slow</span>
-                <span class="meta">DEV-00391, 312&nbsp;ms against 180&nbsp;ms</span>
-              </li>
-              <li class="sev-info">
-                <span class="sev">Info</span>
-                <span class="name">new_firmware_observed</span>
-                <span class="meta">DEV-00847, v2.3.1 first seen at 14:30</span>
-              </li>
-            </ul>
-          </div>
+          <!-- Run detail, opened from any run row -->
+          <aside class="dash-drawer" id="dash-run" aria-labelledby="dash-run-title" tabindex="-1" hidden>
+            <header class="dash-drawer-head">
+              <h4 id="dash-run-title" class="mono"></h4>
+              <button type="button" class="dash-link" id="dash-run-close">Close</button>
+            </header>
+            <p class="dash-verdict" id="dash-run-verdict"></p>
+            <dl class="facts" id="dash-run-facts"></dl>
+            <div id="dash-run-body"></div>
+          </aside>
         </div>
       </div>
     </div>
@@ -459,3 +591,270 @@
 </div>
 {% endblock %}
 
+{% block extra_scripts %}
+  <script>
+    // Dashboard mockup. The tabs are a Flowbite Tabs instance (data-tabs-toggle
+    // above). This script only does what Flowbite has no component for: the
+    // example data, run filtering, the run detail panel, and the link line.
+    (function () {
+      const dash = document.getElementById('dash');
+      if (!dash) return;
+
+      const PROJECT = 'prod-validation';
+      const RULES = {
+        'temp_drift_exceeds_2σ': 'crit',
+        'stall_recovery_slow':   'warn',
+        'new_firmware_observed': 'info',
+      };
+      const SEV_NAME = { crit: 'Critical', warn: 'Warning', info: 'Info' };
+
+      // Newest first. Three v2.3 runs trip the drift rule, matching the query
+      // in "Someone finds it again" above.
+      const RUNS = [
+        { id: 'run-20251014-143022', device: 'DEV-00847', fw: 'v2.3.1', plan: 'plan-thermal-v4', status: 'passed',
+          rules: ['new_firmware_observed'],
+          notes: 'First run of v2.3.1 on this device. Channel 3 stays inside the band for the whole soak.' },
+        { id: 'run-20251014-140311', device: 'DEV-00391', fw: 'v2.3.1', plan: 'plan-thermal-v4', status: 'failed',
+          rules: ['temp_drift_exceeds_2σ', 'stall_recovery_slow'],
+          cause: 'Thermal protection is throttling the stall recovery loop.',
+          evidence: [['channels.ndjson', 'lines 8144–8210', '74.1 °C'], ['channels.ndjson', 'line 9002', '312 ms recovery']] },
+        { id: 'run-20251014-133812', device: 'DEV-00512', fw: 'v2.2.9', plan: 'plan-power-v2', status: 'analyzing', rules: [] },
+        { id: 'run-20251013-174501', device: 'DEV-00847', fw: 'v2.2.9', plan: 'plan-thermal-v4', status: 'passed', rules: [],
+          notes: 'Golden run for plan-thermal-v4. Other thermal runs are compared against it.' },
+        { id: 'run-20251013-163200', device: 'DEV-00110', fw: 'v2.2.8', plan: 'plan-power-v2', status: 'passed', rules: [] },
+        { id: 'run-20251013-141822', device: 'DEV-00391', fw: 'v2.2.8', plan: 'plan-thermal-v4', status: 'passed', rules: [] },
+        { id: 'run-20251012-110947', device: 'DEV-00205', fw: 'v2.3.0', plan: 'plan-thermal-v4', status: 'failed',
+          rules: ['temp_drift_exceeds_2σ'],
+          cause: 'Channel 3 climbs out of the band late in the soak, the same shape as the 11 Oct failure.',
+          evidence: [['channels.ndjson', 'lines 8390–8455', '73.6 °C']] },
+        { id: 'run-20251011-152230', device: 'DEV-00512', fw: 'v2.2.9', plan: 'plan-power-v2', status: 'passed', rules: [],
+          notes: 'Golden run for plan-power-v2.' },
+        { id: 'run-20251011-093415', device: 'DEV-00205', fw: 'v2.3.0', plan: 'plan-thermal-v4', status: 'failed',
+          rules: ['temp_drift_exceeds_2σ', 'stall_recovery_slow'],
+          cause: 'Thermal protection is throttling the stall recovery loop.',
+          evidence: [['channels.ndjson', 'lines 8201–8260', '74.4 °C'], ['channels.ndjson', 'line 9117', '298 ms recovery']] },
+        { id: 'run-20251010-161505', device: 'DEV-00110', fw: 'v2.2.8', plan: 'plan-thermal-v4', status: 'passed', rules: [] },
+      ];
+      const byId = Object.fromEntries(RUNS.map((r) => [r.id, r]));
+
+      const urlOut   = document.getElementById('dash-url');
+      const form     = document.getElementById('dash-filters');
+      const count    = document.getElementById('dash-count');
+      const empty    = document.getElementById('dash-empty');
+      const drawer   = document.getElementById('dash-run');
+      const stage    = dash.querySelector('.dash-stage');
+      const allBody  = dash.querySelector('[data-runs="all"]');
+      const recentBody = dash.querySelector('[data-runs="recent"]');
+      let view = 'dashboard';
+      let openRun = null;
+      let returnFocus = null;
+
+      const el = (tag, cls, text) => {
+        const n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text != null) n.textContent = text;
+        return n;
+      };
+
+      function row(run, withRules) {
+        const tr = el('tr');
+        tr.dataset.run = run.id;
+        if (run.status === 'failed') tr.classList.add('is-fail');
+        const first = el('td');
+        const btn = el('button', 'dash-link', run.id);
+        btn.type = 'button';
+        btn.dataset.openRun = run.id;
+        btn.setAttribute('aria-label', 'Open ' + run.id);
+        first.append(btn);
+        tr.append(first, el('td', '', run.device), el('td', '', run.fw), el('td', '', run.plan));
+        if (withRules) tr.append(el('td', 'rules-cell', run.rules.length ? run.rules.join(', ') : '—'));
+        const st = el('td');
+        st.append(el('span', 'st st-' + ({ passed: 'pass', failed: 'fail', analyzing: 'busy' })[run.status], run.status));
+        tr.append(st);
+        return tr;
+      }
+
+      RUNS.slice(0, 6).forEach((r) => recentBody.append(row(r, false)));
+      RUNS.forEach((r) => allBody.append(row(r, true)));
+
+      // ── Filters ──────────────────────────────────────────────────────────
+      function filters() {
+        const d = new FormData(form);
+        return { device: d.get('device') || '', fw: d.get('fw') || '', rule: d.get('rule') || '', status: d.get('status') || '' };
+      }
+      function matches(run, f) {
+        if (f.status && run.status !== f.status) return false;
+        if (f.device && run.device !== f.device) return false;
+        if (f.rule && !run.rules.includes(f.rule)) return false;
+        if (f.fw) {
+          const fwOk = f.fw.endsWith('*') ? run.fw.startsWith(f.fw.slice(0, -1)) : run.fw === f.fw;
+          if (!fwOk) return false;
+        }
+        return true;
+      }
+      function applyFilters() {
+        const f = filters();
+        let n = 0;
+        allBody.querySelectorAll('tr').forEach((tr) => {
+          const show = matches(byId[tr.dataset.run], f);
+          tr.hidden = !show;
+          if (show) n++;
+        });
+        const any = Object.values(f).some(Boolean);
+        count.textContent = !any ? 'The 10 most recent of 1,247 runs'
+          : n === 1 ? '1 run, newest first' : n + ' runs, newest first';
+        empty.hidden = n !== 0;
+        updateUrl();
+      }
+      form.addEventListener('change', applyFilters);
+      form.addEventListener('reset', () => setTimeout(applyFilters));
+
+      function setFilters(next) {
+        form.reset();
+        Object.entries(next).forEach(([k, v]) => {
+          const field = form.elements[k];
+          if (field instanceof RadioNodeList) {
+            field.forEach((r) => { r.checked = r.value === v; });
+          } else if (field) field.value = v;
+        });
+        applyFilters();
+      }
+
+      // ── Link line ────────────────────────────────────────────────────────
+      function updateUrl() {
+        let path;
+        if (openRun) {
+          path = '/runs/' + openRun;
+        } else if (view === 'runs') {
+          const f = filters();
+          const q = ['project=' + PROJECT];
+          ['device', 'fw', 'rule', 'status'].forEach((k) => { if (f[k]) q.push(k + '=' + f[k]); });
+          path = '/runs?' + q.join('&');
+        } else {
+          path = '/' + view + '?project=' + PROJECT;
+        }
+        urlOut.textContent = path;
+      }
+
+      // ── Tabs (Flowbite switches the panels; this tracks which one) ──────
+      const tabFor = (name) => document.getElementById('tab-' + name);
+      dash.querySelectorAll('[role="tab"]').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          view = tab.dataset.view;
+          closeRun(false);
+          updateUrl();
+        });
+      });
+      function showView(name) {
+        const tab = tabFor(name);
+        if (tab.getAttribute('aria-selected') !== 'true') tab.click();
+        view = name;
+      }
+
+      // ── Run detail ───────────────────────────────────────────────────────
+      function renderRun(run) {
+        document.getElementById('dash-run-title').textContent = run.id;
+        const verdict = document.getElementById('dash-run-verdict');
+        verdict.replaceChildren(el('span', 'st st-' + ({ passed: 'pass', failed: 'fail', analyzing: 'busy' })[run.status], run.status));
+
+        const facts = document.getElementById('dash-run-facts');
+        facts.replaceChildren();
+        [['Device', run.device], ['Firmware', run.fw], ['Plan', run.plan]].forEach(([k, v]) => {
+          const d = el('div'); d.append(el('dt', '', k), el('dd', '', v)); facts.append(d);
+        });
+
+        const body = document.getElementById('dash-run-body');
+        body.replaceChildren();
+        if (run.status === 'analyzing') {
+          body.append(el('p', 'dash-note', 'Claude is reading the artifacts now. The verdict will appear here, and the run.analyzed webhook will tell CI.'));
+          return;
+        }
+        if (run.rules.length) {
+          body.append(el('h5', '', 'Rules fired'));
+          const ul = el('ul', 'fired');
+          run.rules.forEach((id) => {
+            const li = el('li', 'sev-' + RULES[id]);
+            li.append(el('span', 'sev', SEV_NAME[RULES[id]]), el('span', 'name', id));
+            ul.append(li);
+          });
+          body.append(ul);
+        } else {
+          body.append(el('h5', '', 'Rules fired'), el('p', 'dash-note', 'None. Every rule in ' + run.plan + ' passed.'));
+        }
+        if (run.cause) {
+          body.append(el('h5', '', 'Likely cause'), el('p', 'dash-note', run.cause));
+        }
+        if (run.notes) body.append(el('p', 'dash-note', run.notes));
+        if (run.evidence) {
+          body.append(el('h5', '', 'Evidence'));
+          const ul = el('ul', 'dash-evidence');
+          run.evidence.forEach(([file, where, value]) => {
+            const li = el('li');
+            li.append(el('span', 'mono', file + ', ' + where), el('span', '', value));
+            ul.append(li);
+          });
+          body.append(ul);
+        }
+      }
+
+      function markSelected() {
+        dash.querySelectorAll('tr[data-run]').forEach((tr) => {
+          tr.classList.toggle('is-selected', tr.dataset.run === openRun);
+        });
+      }
+
+      function openRunPanel(id, trigger) {
+        openRun = id;
+        returnFocus = trigger || null;
+        renderRun(byId[id]);
+        drawer.hidden = false;
+        // Grow the stage so the whole analysis is readable without an inner scroll.
+        stage.style.minHeight = '';
+        stage.style.minHeight = Math.max(stage.offsetHeight, drawer.scrollHeight) + 'px';
+        dash.classList.add('has-run');
+        markSelected();
+        updateUrl();
+        drawer.focus({ preventScroll: true });
+      }
+      function closeRun(restore = true) {
+        if (!openRun) return;
+        openRun = null;
+        drawer.hidden = true;
+        stage.style.minHeight = '';
+        dash.classList.remove('has-run');
+        markSelected();
+        updateUrl();
+        if (restore && returnFocus && document.contains(returnFocus)) returnFocus.focus({ preventScroll: true });
+        returnFocus = null;
+      }
+      document.getElementById('dash-run-close').addEventListener('click', () => closeRun());
+      dash.addEventListener('keydown', (e) => { if (e.key === 'Escape' && openRun) closeRun(); });
+
+      // One delegated handler for every link inside the mockup.
+      dash.addEventListener('click', (e) => {
+        const runBtn = e.target.closest('[data-open-run]');
+        if (runBtn) {
+          openRun === runBtn.dataset.openRun ? closeRun() : openRunPanel(runBtn.dataset.openRun, runBtn);
+          return;
+        }
+        // A click anywhere else on a run row opens it too.
+        const tr = e.target.closest('tr[data-run]');
+        if (tr && !e.target.closest('button, a')) {
+          openRunPanel(tr.dataset.run, tr.querySelector('[data-open-run]'));
+          return;
+        }
+        const ruleBtn = e.target.closest('[data-filter-rule]');
+        const devBtn = e.target.closest('[data-filter-device]');
+        if (ruleBtn || devBtn) {
+          closeRun(false);
+          setFilters(ruleBtn ? { rule: ruleBtn.dataset.filterRule } : { device: devBtn.dataset.filterDevice });
+          showView('runs');
+          updateUrl();
+          tabFor('runs').focus({ preventScroll: true });
+        }
+      });
+
+      applyFilters();
+    })();
+  </script>
+{% endblock %}
