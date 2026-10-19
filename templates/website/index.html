@@ -1,106 +1,136 @@
 {% extends 'chrome/page.html' %}
-{% load static %}
 
 {% block main %}
-      <section class="hero-stage">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <h1 class="hero-title">Every test run, on the record.</h1>
-            <p class="hero-subtitle">Scattered data, unified image.</p>
-            <div class="hero-actions">
+      <section class="home-hero">
+        <div class="home-warp" aria-hidden="true">
+          <span class="animate-warp motion-reduce:hidden" style="--rot:11deg"></span>
+          <span class="animate-warp motion-reduce:hidden [animation-delay:0.3s]" style="--rot:37deg"></span>
+          <span class="animate-warp motion-reduce:hidden [animation-delay:0.6s]" style="--rot:-23deg"></span>
+        </div>
+        <div class="home-wrap home-hero-grid">
+          <div class="home-hero-copy">
+            <h1 class="home-hero-title animate-focus-in motion-reduce:animate-none">Every test run,<br> on the record.</h1>
+            <p class="home-hero-lede animate-rise [animation-delay:1.5s] motion-reduce:animate-none">Astrolabe captures hardware test data where the test happens. Orrery keeps every run in one record your release decisions can point back to.</p>
+            <div class="home-hero-actions animate-rise [animation-delay:1.7s] motion-reduce:animate-none">
               <a href="/astrolabe" class="btn btn-primary">Start with Astrolabe</a>
               <a href="/orrery" class="btn btn-ghost">See Orrery</a>
             </div>
           </div>
-        </div>
-      </section>
 
-      <div class="section-rule" aria-hidden="true">
-        <svg viewBox="0 0 280 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="0" y1="10" x2="122" y2="10" stroke="currentColor" stroke-width="0.6" opacity="0.28"/>
-          <path d="M140 3 L144 10 L140 17 L136 10 Z" stroke="currentColor" stroke-width="0.6" opacity="0.42" fill="none"/>
-          <circle cx="140" cy="10" r="2" fill="currentColor" opacity="0.35"/>
-          <line x1="158" y1="10" x2="280" y2="10" stroke="currentColor" stroke-width="0.6" opacity="0.28"/>
-        </svg>
-      </div>
-
-      <section id="workflow" class="relative py-24">
-        <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px]">
-          <div class="section-head workflow-head mb-12 grid gap-4">
-            <span class="section-kicker">Workflow</span>
-            <h2 class="section-title">One stack, two responsibilities, no handoff gap.</h2>
-            <p class="workflow-intro text-[1.02rem] leading-[1.8] text-app-muted">Astrolabe captures test data safely. Orrery exposes them to make releasing products with confidence easy.</p>
-          </div>
-          <div class="support-grid desk:grid-cols-[minmax(18rem,25rem)_minmax(0,1fr)]">
-            <div class="support-rail">
-              <div class="grid gap-1.5 border-t border-celestial/16 py-4 [&>p]:leading-[1.74] [&>p]:text-app-muted [&>strong]:font-mono [&>strong]:text-[0.8rem] [&>strong]:uppercase [&>strong]:tracking-[0.18em] [&>strong]:text-celestial"><strong>Capture</strong><p>Astrolabe stores runs locally first, so the test succeeds even when the network does not.</p></div>
-              <div class="grid gap-1.5 border-t border-celestial/16 py-4 [&>p]:leading-[1.74] [&>p]:text-app-muted [&>strong]:font-mono [&>strong]:text-[0.8rem] [&>strong]:uppercase [&>strong]:tracking-[0.18em] [&>strong]:text-celestial"><strong>Transfer</strong><p>Uploads resume, retry, and deduplicate automatically, so delivery stays reliable.</p></div>
-              <div class="grid gap-1.5 border-t border-celestial/16 py-4 [&>p]:leading-[1.74] [&>p]:text-app-muted [&>strong]:font-mono [&>strong]:text-[0.8rem] [&>strong]:uppercase [&>strong]:tracking-[0.18em] [&>strong]:text-celestial"><strong>Analyze</strong><p>Orrery becomes the source of truth for manifests, artifacts, and validation output.</p></div>
-              <div class="grid gap-1.5 border-t border-celestial/16 py-4 [&>p]:leading-[1.74] [&>p]:text-app-muted [&>strong]:font-mono [&>strong]:text-[0.8rem] [&>strong]:uppercase [&>strong]:tracking-[0.18em] [&>strong]:text-celestial"><strong>Ship</strong><p>Every release decision ties back to the exact run record that produced it. Traceable, trusted, simple.</p></div>
+          <figure class="home-plate animate-rise [animation-delay:0.9s] motion-reduce:animate-none" aria-label="Example: six test runs from serial, TCP and file sources gathered into one project record">
+            <div class="home-plate-head">
+              <span class="home-plate-project">PSU-200, revision C</span>
+              <span class="home-plate-count">6 runs</span>
             </div>
-            <div class="support-visual">{% include 'includes/workflow-steps.svg' %}</div>
-          </div>
+            <ol class="home-ledger">
+              <li class="animate-gather motion-reduce:animate-none [animation-delay:calc(1.1s_+_var(--i)_*_110ms)]" style="--i:0; --dx:-9rem; --dy:-5rem; --r:-7deg">
+                <span class="home-run"><code>r-0412</code><em>bench 3</em></span>
+                <span class="home-src">Serial<code>/dev/ttyUSB0</code></span>
+                <span class="home-status is-pass">Passed</span>
+              </li>
+              <li class="animate-gather motion-reduce:animate-none [animation-delay:calc(1.1s_+_var(--i)_*_110ms)]" style="--i:1; --dx:7rem; --dy:-7rem; --r:5deg">
+                <span class="home-run"><code>r-0413</code><em>thermal chamber</em></span>
+                <span class="home-src">TCP<code>10.0.4.17:5025</code></span>
+                <span class="home-status is-fail">Failed</span>
+              </li>
+              <li class="animate-gather motion-reduce:animate-none [animation-delay:calc(1.1s_+_var(--i)_*_110ms)]" style="--i:2; --dx:-5rem; --dy:4rem; --r:4deg">
+                <span class="home-run"><code>r-0414</code><em>bench 3</em></span>
+                <span class="home-src">File<code>burnin_0412.csv</code></span>
+                <span class="home-status is-pass">Passed</span>
+              </li>
+              <li class="animate-gather motion-reduce:animate-none [animation-delay:calc(1.1s_+_var(--i)_*_110ms)]" style="--i:3; --dx:10rem; --dy:2rem; --r:-6deg">
+                <span class="home-run"><code>r-0415</code><em>field kit</em></span>
+                <span class="home-src">Serial<code>COM4</code></span>
+                <span class="home-status is-held">Stored locally</span>
+              </li>
+              <li class="animate-gather motion-reduce:animate-none [animation-delay:calc(1.1s_+_var(--i)_*_110ms)]" style="--i:4; --dx:-11rem; --dy:6rem; --r:-3deg">
+                <span class="home-run"><code>r-0416</code><em>thermal chamber</em></span>
+                <span class="home-src">TCP<code>10.0.4.17:5025</code></span>
+                <span class="home-status is-pass">Passed</span>
+              </li>
+              <li class="animate-gather motion-reduce:animate-none [animation-delay:calc(1.1s_+_var(--i)_*_110ms)]" style="--i:5; --dx:6rem; --dy:8rem; --r:8deg">
+                <span class="home-run"><code>r-0417</code><em>end of line</em></span>
+                <span class="home-src">File<code>results.jsonl</code></span>
+                <span class="home-status is-pass">Passed</span>
+              </li>
+            </ol>
+            <figcaption>Each row opens its manifest, artifacts, and rule results.</figcaption>
+          </figure>
         </div>
       </section>
 
-      <div class="section-rule" aria-hidden="true">
-        <svg viewBox="0 0 280 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="0" y1="10" x2="122" y2="10" stroke="currentColor" stroke-width="0.6" opacity="0.28"/>
-          <path d="M140 3 L144 10 L140 17 L136 10 Z" stroke="currentColor" stroke-width="0.6" opacity="0.42" fill="none"/>
-          <circle cx="140" cy="10" r="2" fill="currentColor" opacity="0.35"/>
-          <line x1="158" y1="10" x2="280" y2="10" stroke="currentColor" stroke-width="0.6" opacity="0.28"/>
-        </svg>
-      </div>
+      <section id="workflow" class="home-section">
+        <div class="home-wrap">
+          <header class="home-head">
+            <h2 class="home-title">How a run gets from the bench to a release.</h2>
+            <p class="home-lede">Astrolabe owns the first half, Orrery the second. Nothing is handed off by email or a shared drive in between.</p>
+          </header>
 
-      <section id="outcomes" class="relative py-24">
-        <div class="story-layout mx-auto w-[calc(100%-3rem)] max-w-[1200px] desk:grid-cols-[minmax(18rem,26rem)_minmax(0,1fr)]">
-          <div class="story-sticky">
-            <span class="section-kicker">Outcomes</span>
-            <h2 class="section-title">What changes when your test data stops fragmenting.</h2>
-            <p class="max-w-[38rem] text-[1.02rem] leading-[1.8] text-app-muted">Fewer missing artifacts, fewer ambiguous failures, fewer meetings, faster, more reliable deployment.</p>
-          </div>
-          <div class="story-list">
-            <article class="story-step border-t border-celestial/16 py-7"><span>01</span><h3>Offline capture still counts.</h3><p>Runs are recorded first and delivered later. The data survives the environment it came from.</p></article>
-            <article class="story-step border-t border-celestial/16 py-7"><span>02</span><h3>Every run becomes queryable.</h3><p>Filter by project, compare runs, inspect validation output instead of reconstructing context from shared drives.</p></article>
-            <article class="story-step border-t border-celestial/16 py-7"><span>03</span><h3>Release decisions stay traceable.</h3><p>Every decision ties back to the exact manifest, artifacts, and rule set that produced it.</p></article>
-          </div>
+          <ol class="home-path">
+            <li style="--at:0%">
+              <span class="home-path-mark" aria-hidden="true">I</span>
+              <h3>Capture</h3>
+              <code class="home-path-cmd">astrolabe capture</code>
+              <p>Reads from serial ports, TCP sockets, or files you already have (CSV, JSONL, raw logs) and stores each run locally first.</p>
+              <p class="home-path-change">A dropped connection doesn’t lose a run.</p>
+            </li>
+            <li style="--at:24%">
+              <span class="home-path-mark" aria-hidden="true">II</span>
+              <h3>Upload</h3>
+              <code class="home-path-cmd">astrolabe upload</code>
+              <p>Sends stored runs to Orrery. Uploads resume where they stopped, retry on failure, and never arrive twice.</p>
+              <p class="home-path-change">Every run captured at the bench reaches the record once.</p>
+            </li>
+            <li style="--at:48%">
+              <span class="home-path-mark" aria-hidden="true">III</span>
+              <h3>Analyze</h3>
+              <span class="home-path-where">In Orrery</span>
+              <p>Checks each run’s manifest and artifacts against your validation rules, with optional AI analysis.</p>
+              <p class="home-path-change">Filter by project and compare runs instead of rebuilding context from folders.</p>
+            </li>
+            <li style="--at:72%">
+              <span class="home-path-mark" aria-hidden="true">IV</span>
+              <h3>Ship</h3>
+              <span class="home-path-where">In Orrery</span>
+              <p>Release decisions cite the exact manifest, artifacts, and rule set behind them.</p>
+              <p class="home-path-change">When someone asks why a build shipped, the answer is already on the record.</p>
+            </li>
+          </ol>
         </div>
       </section>
 
-      <section id="instruments" class="relative py-24">
-        <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px]">
-          <div class="final-cta final-cta-head relative grid gap-4 px-6 py-12 border border-celestial/20">
-            <h2 class="section-title w-full">Use the right instrument at the right moment.</h2>
-            <p class="final-cta-intro text-lg text-app-muted leading-relaxed">Each has one clear job. Together they replace folder sprawl and fragile release judgment with a traceable system.</p>
-            <div class="final-cta-grid desk:grid-cols-2">
-              <article class="final-cta-path is-astrolabe flex flex-col gap-3 p-6 border border-verdigris/30 transition-all duration-300">
-                <span class="inline-block text-xs tracking-[0.2em] uppercase text-app-subtle">The capture tool</span>
-                <h3 class="font-garamond text-4xl leading-tight">Astrolabe</h3>
-                <p class="max-w-3xl text-app-muted leading-relaxed">Built for unstable rigs and intermittent connectivity. Preserves a complete run locally before anything else happens.</p>
-                <ul class="product-list text-left">
-                  <li>Captures hardware test data from serial ports, TCP sockets, or existing files (CSV, JSONL, raw logs).</li>
-                  <li>Stores runs locally first so captures succeed offline.</li>
-                  <li>Uploads to Orrery with automatic retry, resume, and idempotent delivery.</li>
-                </ul>
-                <div class="mt-auto pt-3"><a href="/astrolabe" class="btn btn-verdigris">Use Astrolabe Free</a></div>
-              </article>
-              <article class="final-cta-path is-orrery flex flex-col gap-3 p-6 border border-celestial/30 transition-all duration-300">
-                <span class="inline-block text-xs tracking-[0.2em] uppercase text-app-subtle">The analysis system</span>
-                <h3 class="font-garamond text-4xl leading-tight">Orrery</h3>
-                <p class="max-w-3xl text-app-muted leading-relaxed">Turns Astrolabe runs into a project-scoped record that engineers, QA, and release owners can interrogate.</p>
-                <ul class="product-list text-left">
-                  <li>Receives run manifests and artifacts from Astrolabe, creating one source of truth for all test data.</li>
-                  <li>Processes each test run, optional AI-powered analysis, and user-defined validation rules.</li>
-                  <li>Surfaces results in a queryable dashboard, filterable and scoped by project.</li>
-                </ul>
-                <div class="mt-auto pt-3"><a href="/orrery" class="btn btn-celestial">See Orrery in action</a></div>
-              </article>
-            </div>
+      <section id="instruments" class="home-section">
+        <div class="home-wrap">
+          <header class="home-head">
+            <h2 class="home-title">Two instruments, one record.</h2>
+            <p class="home-lede">Astrolabe works where the test runs. Orrery is where the team reads the results.</p>
+          </header>
+
+          <div class="home-pair">
+            <article class="home-instrument is-astrolabe">
+              <h3>Astrolabe</h3>
+              <p class="home-instrument-role">Capture, at the bench</p>
+              <p>Built for unstable rigs and patchy networks. Stores a complete run locally before anything else happens.</p>
+              <ul>
+                <li>Captures from serial ports, TCP sockets, or existing CSV, JSONL, and raw log files.</li>
+                <li>Keeps captures safe on disk while the network is down.</li>
+                <li>Uploads to Orrery with automatic retry, resume, and no duplicates.</li>
+              </ul>
+              <a href="/astrolabe" class="btn btn-verdigris">Use Astrolabe free</a>
+            </article>
+
+            <article class="home-instrument is-orrery">
+              <h3>Orrery</h3>
+              <p class="home-instrument-role">Analysis, for the team</p>
+              <p>Turns Astrolabe runs into a project record that engineers, QA, and release owners can question.</p>
+              <ul>
+                <li>Receives run manifests and artifacts as one source of truth for test data.</li>
+                <li>Runs your validation rules on each test run, with optional AI analysis.</li>
+                <li>Shows results in a dashboard you can filter and scope by project.</li>
+              </ul>
+              <a href="/orrery" class="btn btn-celestial">See Orrery in action</a>
+            </article>
           </div>
         </div>
       </section>
-{% endblock %}
-
-{% block extra_scripts %}
-  <script src="{% static 'js/website-index.js' %}"></script>
 {% endblock %}

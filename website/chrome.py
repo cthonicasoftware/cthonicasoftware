@@ -100,9 +100,8 @@ PAGES: Mapping[str, Page] = MappingProxyType(
                 svg_partial="includes/cthonica-mark.svg",
             ),
             nav=(
-                Section("instruments", "Instruments"),
                 Section("workflow", "Workflow"),
-                Section("outcomes", "Outcomes"),
+                Section("instruments", "Instruments"),
                 Link("Pricing", route="pricing"),
             ),
         ),

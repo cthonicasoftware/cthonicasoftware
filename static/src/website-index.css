@@ -47,14 +47,526 @@ body.app-website {
   font-family: "EB Garamond", Georgia, serif;
 }
 
-/* ── Hero ──────────────────────────────────────────────────────────────────── */
+/* ── Home ──────────────────────────────────────────────────────────────────────
+   Homepage only. Motion is set in the template with Tailwind animate-* tokens
+   (see @theme in input.css); the scroll-driven voyage lives here because it
+   needs scroll timelines Tailwind has no utilities for.
+   ──────────────────────────────────────────────────────────────────────────── */
 
-.hero-stage {
+.home-wrap {
+  width: min(1200px, 100% - 3rem);
+  margin-inline: auto;
+}
+
+.home-section {
   position: relative;
-  min-height: 100vh;
-  padding: 7rem 0 4rem;
+  padding-block: 7rem;
+}
+
+.home-head {
+  max-width: 46rem;
+}
+
+.home-title {
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.home-lede {
+  margin-top: 1.25rem;
+  max-width: 38rem;
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: rgb(var(--fg) / 0.75);
+}
+
+/* Hero */
+
+.home-hero {
+  --star: 107 63 20;
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  padding-block: 9rem 5rem;
   overflow: clip;
 }
+
+.dark .home-hero {
+  --star: 242 233 222;
+}
+
+.home-hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.home-hero-title {
+  max-width: 8.5em;
+  font-size: clamp(3rem, 6vw, 5.6rem);
+  font-weight: 400;
+  line-height: 0.92;
+  text-wrap: balance;
+  transform-origin: left center;
+  will-change: transform, opacity, filter;
+}
+
+.home-hero-lede {
+  margin-top: 1.75rem;
+  max-width: 34rem;
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  line-height: 1.6;
+  color: rgb(var(--fg) / 0.78);
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2.25rem;
+}
+
+/* Warp: three star layers that rush outward from behind the title. */
+.home-warp {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.home-warp span {
+  position: absolute;
+  inset: -40%;
+  opacity: 0;
+  transform-origin: 30% 45%;
+  /* Rasterize the star tiles once and let the GPU scale them. Without this
+     Chrome re-renders the whole layer at every new size and drops frames. */
+  will-change: transform, opacity;
+  background:
+    radial-gradient(circle, rgb(var(--star) / 0.9) 0 1px, transparent 1.6px) 0 0 / 131px 173px,
+    radial-gradient(circle, rgb(var(--star) / 0.6) 0 0.8px, transparent 1.3px) 41px 87px / 97px 113px,
+    radial-gradient(circle, rgb(198 166 100 / 0.85) 0 1.2px, transparent 1.8px) 60px 35px / 197px 157px,
+    radial-gradient(circle, rgb(94 133 112 / 0.85) 0 1px, transparent 1.6px) 25px 95px / 241px 223px;
+}
+
+/* Run record plate */
+
+.home-plate {
+  position: relative;
+  margin: 0;
+  padding: 1.5rem 1.5rem 1.25rem;
+  background: rgb(var(--card) / 0.9);
+  border: 1px solid var(--gold-border);
+  outline: 1px solid var(--gold-line);
+  outline-offset: 6px;
+}
+
+.home-plate-head {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--gold-line);
+}
+
+/* The record "closes" once every run has landed. */
+.home-plate-head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--gold);
+  transform-origin: left;
+  animation: home-draw 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 2.1s both;
+}
+
+.home-plate-project {
+  font-size: 1.25rem;
+}
+
+.home-plate-count {
+  font-style: italic;
+  color: rgb(var(--fg) / 0.6);
+}
+
+.home-ledger {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.home-ledger li {
+  display: grid;
+  grid-template-areas: "run status" "src src";
+  grid-template-columns: 1fr auto;
+  gap: 0.35rem 1rem;
+  align-items: center;
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--gold-line);
+}
+
+.home-ledger code {
+  display: block;
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.home-run {
+  grid-area: run;
+}
+
+.home-run code {
+  color: rgb(var(--fg) / 0.92);
+}
+
+.home-run em {
+  font-size: 0.9rem;
+  color: rgb(var(--fg) / 0.58);
+}
+
+.home-src {
+  grid-area: src;
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+}
+
+.home-src code {
+  color: rgb(var(--fg) / 0.58);
+}
+
+.home-status {
+  grid-area: status;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  color: rgb(var(--fg) / 0.85);
+}
+
+.home-status::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--verdigris);
+}
+
+.home-status.is-fail::before {
+  background: var(--iron);
+  box-shadow: 0 0 0 1px rgb(var(--fg) / 0.15);
+}
+
+.home-status.is-held::before {
+  background: transparent;
+  border: 1px solid var(--gold);
+}
+
+.home-plate figcaption {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: rgb(var(--fg) / 0.6);
+}
+
+@media (min-width: 560px) {
+  .home-ledger li {
+    grid-template-areas: "run src status";
+    grid-template-columns: 1fr 1.25fr 8.5rem;
+  }
+
+  .home-src {
+    display: block;
+  }
+}
+
+/* Voyage: the four steps a run takes, on one graduated track. A comet
+   travels the track as the section scrolls and lights each step it passes. */
+
+.home-path {
+  --track: 1.05rem;
+  position: relative;
+  list-style: none;
+  margin: 4rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 3rem;
+  view-timeline-name: --voyage;
+}
+
+.home-path::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--track) - 4px);
+  top: 0;
+  bottom: 0;
+  width: 9px;
+  background:
+    linear-gradient(var(--gold-dim), var(--gold-dim)) center / 1px 100% no-repeat,
+    repeating-linear-gradient(180deg, var(--gold-line) 0 1px, transparent 1px 1.5rem);
+}
+
+/* Comet: bright head, fading tail behind it. Hidden until scroll drives it. */
+.home-path::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: calc(var(--track) - 0.3rem);
+  top: 0;
+  width: 0.6rem;
+  height: 100%;
+  transform: translateY(-100%);
+  will-change: transform;
+  background:
+    radial-gradient(circle at center bottom, #fff6dc 0 0.16rem, var(--gold) 0.17rem 0.3rem, transparent 0.32rem),
+    linear-gradient(180deg, transparent, var(--gold-dim)) center bottom 0.3rem / 1px 7rem no-repeat;
+  filter: drop-shadow(0 0 4px var(--gold)) drop-shadow(0 0 14px var(--gold-glow));
+}
+
+.home-path li {
+  --lit-pct: calc(var(--lit) * 100%);
+  position: relative;
+  padding-left: calc(var(--track) * 2 + 1.25rem);
+  opacity: calc(0.5 + 0.5 * var(--lit));
+}
+
+.home-path-mark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--track) * 2);
+  height: calc(var(--track) * 2);
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: rgb(var(--bg));
+  border: 1px solid color-mix(in srgb, var(--gold) var(--lit-pct), var(--gold-border));
+  color: color-mix(in srgb, var(--gold) var(--lit-pct), rgb(var(--fg) / 0.5));
+  box-shadow: 0 0 calc(var(--lit) * 18px) color-mix(in srgb, var(--gold-glow) var(--lit-pct), transparent);
+}
+
+.home-path h3 {
+  font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+  line-height: 1;
+}
+
+.home-path-cmd,
+.home-path-where {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.85rem;
+}
+
+.home-path-cmd {
+  color: var(--verdigris);
+}
+
+.home-path-where {
+  font-size: 1rem;
+  font-style: italic;
+  color: rgb(var(--fg) / 0.6);
+}
+
+.home-path p {
+  margin-top: 0.9rem;
+  line-height: 1.7;
+  color: rgb(var(--fg) / 0.75);
+}
+
+.home-path .home-path-change {
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--gold-line);
+  font-size: 1.08rem;
+  font-style: italic;
+  color: rgb(var(--fg) / 0.92);
+}
+
+@media (min-width: 900px) {
+  .home-path {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+
+  .home-path::before {
+    left: 0;
+    right: 0;
+    top: calc(var(--track) - 4px);
+    bottom: auto;
+    width: auto;
+    height: 9px;
+    background:
+      linear-gradient(var(--gold-dim), var(--gold-dim)) center / 100% 1px no-repeat,
+      repeating-linear-gradient(90deg, var(--gold-line) 0 1px, transparent 1px 1.5rem);
+  }
+
+  .home-path::after {
+    left: 0;
+    top: calc(var(--track) - 0.3rem);
+    width: 100%;
+    height: 0.6rem;
+    transform: translateX(-100%);
+    background:
+      radial-gradient(circle at right center, #fff6dc 0 0.16rem, var(--gold) 0.17rem 0.3rem, transparent 0.32rem),
+      linear-gradient(90deg, transparent, var(--gold-dim)) right 0.3rem center / 8rem 1px no-repeat;
+  }
+
+  .home-path li {
+    padding-left: 0;
+    padding-top: calc(var(--track) * 2 + 1.5rem);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .home-path::after {
+      display: block;
+      animation: home-voyage-y linear both;
+      animation-timeline: --voyage;
+      animation-range: cover 20% cover 70%;
+    }
+
+    .home-path li {
+      animation: home-light linear both;
+      animation-timeline: --voyage;
+      animation-range: cover calc(20% + var(--at) * 0.5) cover calc(25% + var(--at) * 0.5);
+    }
+
+    @media (min-width: 900px) {
+      .home-path::after {
+        animation-name: home-voyage-x;
+      }
+    }
+  }
+}
+
+/* Instruments */
+
+.home-pair {
+  margin-top: 3.5rem;
+  display: grid;
+  gap: 3.5rem;
+}
+
+.home-instrument {
+  --accent: var(--gold);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.home-instrument.is-astrolabe {
+  --accent: var(--verdigris);
+}
+
+.home-instrument h3 {
+  font-size: clamp(2.6rem, 4vw, 3.4rem);
+  line-height: 1;
+}
+
+.home-instrument > p {
+  max-width: 34rem;
+  line-height: 1.7;
+  color: rgb(var(--fg) / 0.78);
+}
+
+.home-instrument > .home-instrument-role {
+  margin-top: -0.5rem;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.home-instrument ul {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.home-instrument li {
+  position: relative;
+  padding-left: 1.2rem;
+  line-height: 1.65;
+  color: rgb(var(--fg) / 0.84);
+}
+
+.home-instrument li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.68em;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.home-instrument .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+@media (min-width: 900px) {
+  .home-hero-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+
+  .home-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .home-instrument.is-astrolabe {
+    padding-right: 3rem;
+  }
+
+  .home-instrument.is-orrery {
+    padding-left: 3rem;
+    border-left: 1px solid var(--gold-line);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-plate-head::after {
+    animation: none;
+  }
+}
+
+@keyframes home-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* The comet layer is as long as the track, with its head at the far end, so
+   sliding it by its own length moves the head from start to finish. */
+@keyframes home-voyage-x {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes home-voyage-y {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes home-light {
+  from { --lit: 0; }
+  to   { --lit: 1; }
+}
+
+/* ── Hero (shared with orrery.html) ───────────────────────────────────────── */
 
 .hero-grid {
   width: min(1380px, 100%);
@@ -124,14 +636,6 @@ body.app-website {
 
 .typed-caret.is-hidden {
   opacity: 0;
-}
-
-.hero-subtitle {
-  margin-top: 1.5rem;
-  max-width: 35rem;
-  font-size: clamp(1.08rem, 1.6vw, 1.3rem);
-  line-height: 1.7;
-  color: rgb(var(--fg) / 0.8);
 }
 
 .hero-actions {
@@ -303,24 +807,7 @@ html:not(.dark) .hero-terminal-replay {
   font-size: 0.82rem;
 }
 
-/* ── Section rule ornament ─────────────────────────────────────────────────── */
-
-.section-rule {
-  display: flex;
-  justify-content: center;
-  padding: 0.25rem 0;
-  color: var(--gold);
-  position: relative;
-  z-index: 1;
-}
-
-.section-rule svg {
-  width: 17.5rem;
-  height: 1.25rem;
-}
-
 /* ── Section bands ─────────────────────────────────────────────────────────── */
-
 
 /* Etched hatching — subtle manuscript quality */
 .section-band::before {
@@ -348,137 +835,11 @@ html:not(.dark) .hero-terminal-replay {
   border-bottom: 1px solid var(--gold-line);
 }
 
-
-/* Ornamental top stroke — alchemical ruling line */
-.section-head::before {
-  content: "";
-  display: block;
-  width: 2.4rem;
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold), transparent);
-}
-
 .section-title {
   font-family: "EB Garamond", Georgia, serif;
   font-size: clamp(2.2rem, 4vw, 4rem);
   line-height: 0.98;
   max-width: 14ch;
-}
-
-.instruments-head .section-title,
-.instruments-intro {
-  max-width: none;
-}
-
-.instruments-head {
-  justify-items: center;
-  text-align: center;
-}
-
-.workflow-head .section-title,
-.workflow-intro {
-  max-width: none;
-}
-
-.workflow-head {
-  justify-items: center;
-  text-align: center;
-}
-
-/* ── Support / Workflow ────────────────────────────────────────────────────── */
-
-.support-grid {
-  display: grid;
-  gap: 2rem;
-  align-items: start;
-}
-
-.support-rail {
-  display: grid;
-  gap: 0;
-}
-
-.support-visual {
-  padding: 1rem;
-  background: linear-gradient(
-    158deg,
-    rgba(15, 10, 4, 0.88),
-    rgba(12, 8, 3, 0.64)
-  );
-  border: 1px solid rgba(198, 166, 100, 0.15);
-  box-shadow: var(--landing-shadow);
-}
-
-/* ── Products / Instruments ────────────────────────────────────────────────── */
-
-.product-list {
-  list-style: none;
-  display: grid;
-  gap: 0.9rem;
-  margin: 0;
-  padding: 0;
-}
-
-.product-list li {
-  padding-top: 0.9rem;
-  padding-left: 1.1rem;
-  border-top: 1px solid var(--landing-line);
-  color: rgb(var(--fg) / 0.84);
-  line-height: 1.72;
-  position: relative;
-}
-
-/* Celestial bullet mark — ✦ as manuscript ornament */
-.product-list li::before {
-  content: "✦";
-  position: absolute;
-  left: 0;
-  top: calc(0.9rem + 0.1em);
-  font-size: 0.48rem;
-  color: var(--gold);
-  opacity: 0.68;
-}
-
-/* ── Story / Outcomes ──────────────────────────────────────────────────────── */
-
-.story-layout {
-  display: grid;
-  gap: 2rem;
-  align-items: start;
-}
-
-.story-sticky {
-  position: sticky;
-  top: 6rem;
-  align-self: start;
-}
-
-.story-list {
-  display: grid;
-  gap: 0;
-}
-
-.story-step span {
-  display: inline-block;
-  margin-bottom: 0.55rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  color: var(--verdigris);
-  font-family: "Cascadia Code", "Caskadyia Cove Nerd Font", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", monospace;
-}
-
-.story-step h3 {
-  font-family: "EB Garamond", Georgia, serif;
-  font-size: clamp(1.8rem, 2.6vw, 2.6rem);
-  line-height: 0.98;
-  margin-bottom: 0.65rem;
-}
-
-.story-step p {
-  max-width: 34rem;
-  color: rgb(var(--fg) / 0.70);
-  line-height: 1.76;
 }
 
 /* ── Final CTA ─────────────────────────────────────────────────────────────── */
@@ -760,10 +1121,6 @@ html:not(.dark) .hero-terminal-replay {
     height: 100%;
   }
 
-  .story-sticky {
-    position: static;
-  }
-
   .final-cta {
     padding: 2rem 1.4rem;
   }
@@ -1030,7 +1387,6 @@ html:not(.dark) .hero-terminal-replay {
   line-height: 1.4;
 }
 
-
 /* ── Light mode ────────────────────────────────────────────────────────────── */
 /* All landing CSS assumes dark; these overrides make the palette readable
    on a warm parchment background. Dark class lives on <html>, not <body>,
@@ -1104,26 +1460,6 @@ html:not(.dark) .section-band::before {
     transparent 1px,
     transparent 9px
   );
-}
-
-/* Section head ornament stroke */
-html:not(.dark) .section-head::before {
-  background: linear-gradient(90deg, rgba(120, 86, 28, 0.55), transparent);
-}
-
-/* Section rule compass ornament */
-html:not(.dark) .section-rule {
-  color: rgba(100, 68, 18, 0.52);
-}
-
-/* Support visual panel */
-html:not(.dark) .support-visual {
-  background: linear-gradient(
-    158deg,
-    rgba(246, 237, 218, 0.94),
-    rgba(240, 229, 207, 0.80)
-  );
-  border-color: rgba(120, 86, 28, 0.18);
 }
 
 /* Product pane ruling */
@@ -1341,46 +1677,4 @@ html:not(.dark) .armillary {
 
 @media (prefers-reduced-motion: reduce) {
   .armillary-spin { animation: none; }
-}
-
-/* ── Homepage hero ─────────────────────────────────────────────────────────
-   Scoped to .hero-stage because .hero-* classes are shared with other pages. */
-
-.hero-stage {
-  padding-top: 6rem;
-}
-
-.hero-stage .hero-grid {
-  align-items: center;
-  min-height: calc(100vh - 10rem);
-}
-
-.hero-stage .hero-copy {
-  max-width: 40rem;
-  padding-top: 0;
-  animation: none;
-}
-
-.hero-stage .hero-title {
-  font-size: clamp(3rem, min(6.4vw, 11vh), 6rem);
-  line-height: 1.02;
-  letter-spacing: -0.01em;
-  max-width: 14ch;
-}
-
-.hero-stage .hero-subtitle {
-  margin-top: clamp(1rem, 3vh, 1.75rem);
-  max-width: 34rem;
-  font-size: clamp(1.15rem, 1.5vw, 1.3rem);
-  line-height: 1.65;
-  color: rgb(var(--fg) / 0.82);
-}
-
-.hero-stage .hero-actions {
-  margin-top: clamp(1.5rem, 4vh, 2.5rem);
-  animation: none;
-}
-
-@media (max-width: 899px) {
-  .hero-stage .hero-grid { min-height: 0; }
 }
