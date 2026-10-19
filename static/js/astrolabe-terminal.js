@@ -1,106 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+  const CANCELLED = Symbol('cancelled');
+  let generation = 0;
+  const wait = (ms) => {
+    const started = generation;
+    return new Promise((resolve) => window.setTimeout(resolve, ms)).then(() => {
+      if (started !== generation) {
+        throw CANCELLED;
+      }
+    });
+  };
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  document.querySelectorAll('.final-cta-path').forEach((card) => {
-    let rafId = null;
-    let targetX = 50;
-    let targetY = 50;
-    let currentX = 50;
-    let currentY = 50;
-    let isHovering = false;
-
-    const animate = () => {
-      const dx = targetX - currentX;
-      const dy = targetY - currentY;
-      currentX += dx * 0.18;
-      currentY += dy * 0.18;
-
-      card.style.setProperty('--pointer-x', `${currentX}%`);
-      card.style.setProperty('--pointer-y', `${currentY}%`);
-
-      if (isHovering || Math.abs(dx) + Math.abs(dy) > 0.03) {
-        rafId = requestAnimationFrame(animate);
-      } else {
-        rafId = null;
-      }
-    };
-
-    const queueAnimation = () => {
-      if (rafId === null) {
-        rafId = requestAnimationFrame(animate);
-      }
-    };
-
-    const updateTarget = (event) => {
-      const rect = card.getBoundingClientRect();
-      targetX = ((event.clientX - rect.left) / rect.width) * 100;
-      targetY = ((event.clientY - rect.top) / rect.height) * 100;
-      queueAnimation();
-    };
-
-    card.addEventListener('mouseenter', updateTarget);
-    card.addEventListener('mousemove', updateTarget);
-    card.addEventListener('mouseleave', () => {
-      isHovering = false;
-    });
-    card.addEventListener('mouseenter', () => {
-      isHovering = true;
-    });
-  });
-
-  const typedAnimations = [];
-
-  document.querySelectorAll('[data-typed-text]').forEach((element) => {
-    const typedText = element.querySelector('.hero-title-typed');
-    const caret = element.querySelector('.hero-title-caret, .typed-caret');
-    const fullText = element.getAttribute('data-typed-text') ?? '';
-    const startDelay = Number(element.getAttribute('data-typed-delay') ?? '300');
-
-    if (!typedText || !caret || !fullText) {
-      return;
-    }
-
-    if (prefersReducedMotion) {
-      typedText.textContent = fullText;
-      caret.classList.add('is-hidden');
-      element.classList.remove('is-typing');
-      element.dispatchEvent(new CustomEvent('typed:complete'));
-      return;
-    }
-
-    const animation = new Promise((resolve) => {
-      typedText.textContent = '';
-      let index = 0;
-
-      const complete = () => {
-        window.setTimeout(() => {
-          caret.classList.add('is-hidden');
-          element.classList.remove('is-typing');
-          element.dispatchEvent(new CustomEvent('typed:complete'));
-          resolve();
-        }, 500);
-      };
-
-      const step = () => {
-        index += 1;
-        typedText.textContent = fullText.slice(0, index);
-
-        if (index < fullText.length) {
-          const currentChar = fullText[index - 1];
-          const delay = currentChar === ',' ? 170 : currentChar === ' ' ? 55 : 85;
-          window.setTimeout(step, delay);
-          return;
-        }
-
-        complete();
-      };
-
-      window.setTimeout(step, startDelay);
-    });
-
-    typedAnimations.push(animation);
-  });
 
   const getTerminalTheme = () => {
     const isDark = document.documentElement.classList.contains('dark');
@@ -277,37 +186,49 @@ document.addEventListener('DOMContentLoaded', () => {
         'upload_state',
       ];
 
-      const validateCommand = 'astrolabe validate ~/.astrolabe/runs/01KJRMFPC9SFXW/';
-      term.write('\x1b[38;2;94;133;112m$ \x1b[0m');
-      await type(validateCommand, 26);
-      term.write('\r\n');
-      await line('\x1b[38;2;94;133;112m$ \x1b[0m Validating run directory: ~/.astrolabe/runs/01KJRMFPC9SFXW/', 220);
+      const play = async () => {
+        const mine = ++generation;
+        term.reset();
+        try {
+          const validateCommand = 'astrolabe validate ~/.astrolabe/runs/01KJRMFPC9SFXW/';
+          term.write('\x1b[38;2;94;133;112m$ \x1b[0m');
+          await type(validateCommand, 26);
+          term.write('\r\n');
+          await line('\x1b[38;2;94;133;112m$ \x1b[0m Validating run directory: ~/.astrolabe/runs/01KJRMFPC9SFXW/', 220);
 
-      for (const item of checks) {
-        await line(`\x1b[38;2;94;133;112m[ok]\x1b[0m ${item}`, 70);
-      }
+          for (const item of checks) {
+            await line(`\x1b[38;2;94;133;112m[ok]\x1b[0m ${item}`, 70);
+          }
 
-      await line('\x1b[38;2;94;133;112m[ok]\x1b[0m Validation passed for run 01KJRMFPC9SFXW', 140);
-      await command('astrolabe upload --run-id 01KJRMFPC9SFXW');
-      await line('\x1b[2m run_id\x1b[0m  01J8KX3P7Q9M4VSB', 90);
-      await line('\x1b[2m capture\x1b[0m  12,847 rows [100%]  \x1b[38;2;94;133;112m[ok]\x1b[0m local artifacts sealed', 100);
-      await progressLine('uploading to Orrery');
-      await line('\x1b[38;2;94;133;112m[pass]\x1b[0m normalized - 12,847 rows - schema v3', 90);
-      await wait(prefersReducedMotion ? 0 : 15000);
-      await line('\x1b[38;2;94;133;112m[pass]\x1b[0m AI analysis complete - 4 insights surfaced', 90);
-      await line('\x1b[38;2;198;166;100mtags\x1b[0m queryable  traceable  defensible');
+          await line('\x1b[38;2;94;133;112m[ok]\x1b[0m Validation passed for run 01KJRMFPC9SFXW', 140);
+          await command('astrolabe upload --run-id 01KJRMFPC9SFXW');
+          await line('\x1b[2m run_id\x1b[0m  01J8KX3P7Q9M4VSB', 90);
+          await line('\x1b[2m capture\x1b[0m  12,847 rows [100%]  \x1b[38;2;94;133;112m[ok]\x1b[0m local artifacts sealed', 100);
+          await progressLine('uploading to Orrery');
+          await line('\x1b[38;2;94;133;112m[pass]\x1b[0m normalized - 12,847 rows - schema v3', 90);
+          await wait(prefersReducedMotion ? 0 : 1500);
+          await line('\x1b[38;2;94;133;112m[pass]\x1b[0m AI analysis complete - 4 insights surfaced', 90);
+          await line('\x1b[38;2;198;166;100mtags\x1b[0m queryable  traceable  defensible');
 
-      term.scrollToBottom();
-      fitTerminal();
+          term.scrollToBottom();
+          fitTerminal();
+        } catch (error) {
+          if (error !== CANCELLED || mine === generation) {
+            throw error;
+          }
+        }
+      };
+
+      document.getElementById('heroTerminalReplay')?.addEventListener('click', () => {
+        play().catch(() => {});
+      });
+
+      await play();
     } catch (error) {
       terminalNode.textContent = 'Terminal demo unavailable.';
       terminalNode.classList.add('is-fallback');
     }
   };
 
-  Promise.all(typedAnimations)
-    .catch(() => {})
-    .finally(() => {
-      initHeroTerminal();
-    });
+  initHeroTerminal();
 });

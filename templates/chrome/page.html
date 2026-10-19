@@ -27,6 +27,7 @@
   {% for key, value in page.body_data.items %}data-{{ key }}="{{ value }}" {% endfor %}
 >
   {% include 'includes/index-background.svg' %}
+  {% include 'includes/armillary-background.html' %}
   <div class="landing-shell">
     {% include 'chrome/_header.html' %}
     <main class="relative z-40">{% block main %}{% endblock %}</main>

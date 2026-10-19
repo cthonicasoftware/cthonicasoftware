@@ -47,40 +47,526 @@ body.app-website {
   font-family: "EB Garamond", Georgia, serif;
 }
 
-/* ── Hero ──────────────────────────────────────────────────────────────────── */
+/* ── Home ──────────────────────────────────────────────────────────────────────
+   Homepage only. Motion is set in the template with Tailwind animate-* tokens
+   (see @theme in input.css); the scroll-driven voyage lives here because it
+   needs scroll timelines Tailwind has no utilities for.
+   ──────────────────────────────────────────────────────────────────────────── */
 
-.hero-stage {
+.home-wrap {
+  width: min(1200px, 100% - 3rem);
+  margin-inline: auto;
+}
+
+.home-section {
   position: relative;
-  min-height: 100vh;
-  padding: 7rem 0 4rem;
+  padding-block: 7rem;
+}
+
+.home-head {
+  max-width: 46rem;
+}
+
+.home-title {
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.home-lede {
+  margin-top: 1.25rem;
+  max-width: 38rem;
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: rgb(var(--fg) / 0.75);
+}
+
+/* Hero */
+
+.home-hero {
+  --star: 107 63 20;
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  padding-block: 9rem 5rem;
   overflow: clip;
 }
 
-/* Warm obsidian atmosphere — amber over copper, iron, verdigris */
-.hero-stage::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 58% 48% at 16% 22%, rgba(198, 166, 100, 0.11), transparent),
-    radial-gradient(ellipse 44% 38% at 76% 26%, rgba(139, 62, 47, 0.07), transparent),
-    radial-gradient(ellipse 40% 36% at 54% 80%, rgba(94, 133, 112, 0.07), transparent),
-    linear-gradient(148deg, rgba(15, 10, 4, 0.98), rgba(22, 14, 6, 0.72) 52%, rgba(12, 8, 3, 0.99));
-  z-index: -2;
+.dark .home-hero {
+  --star: 242 233 222;
 }
 
-/* Kepler diagram cross-hatch grid */
-.hero-stage::after {
-  content: "";
+.home-hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.home-hero-title {
+  max-width: 8.5em;
+  font-size: clamp(3rem, 6vw, 5.6rem);
+  font-weight: 400;
+  line-height: 0.92;
+  text-wrap: balance;
+  transform-origin: left center;
+  will-change: transform, opacity, filter;
+}
+
+.home-hero-lede {
+  margin-top: 1.75rem;
+  max-width: 34rem;
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  line-height: 1.6;
+  color: rgb(var(--fg) / 0.78);
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2.25rem;
+}
+
+/* Warp: three star layers that rush outward from behind the title. */
+.home-warp {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(198, 166, 100, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(198, 166, 100, 0.045) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65), transparent 86%);
-  z-index: -1;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
+
+.home-warp span {
+  position: absolute;
+  inset: -40%;
+  opacity: 0;
+  transform-origin: 30% 45%;
+  /* Rasterize the star tiles once and let the GPU scale them. Without this
+     Chrome re-renders the whole layer at every new size and drops frames. */
+  will-change: transform, opacity;
+  background:
+    radial-gradient(circle, rgb(var(--star) / 0.9) 0 1px, transparent 1.6px) 0 0 / 131px 173px,
+    radial-gradient(circle, rgb(var(--star) / 0.6) 0 0.8px, transparent 1.3px) 41px 87px / 97px 113px,
+    radial-gradient(circle, rgb(198 166 100 / 0.85) 0 1.2px, transparent 1.8px) 60px 35px / 197px 157px,
+    radial-gradient(circle, rgb(94 133 112 / 0.85) 0 1px, transparent 1.6px) 25px 95px / 241px 223px;
+}
+
+/* Run record plate */
+
+.home-plate {
+  position: relative;
+  margin: 0;
+  padding: 1.5rem 1.5rem 1.25rem;
+  background: rgb(var(--card) / 0.9);
+  border: 1px solid var(--gold-border);
+  outline: 1px solid var(--gold-line);
+  outline-offset: 6px;
+}
+
+.home-plate-head {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--gold-line);
+}
+
+/* The record "closes" once every run has landed. */
+.home-plate-head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--gold);
+  transform-origin: left;
+  animation: home-draw 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 2.1s both;
+}
+
+.home-plate-project {
+  font-size: 1.25rem;
+}
+
+.home-plate-count {
+  font-style: italic;
+  color: rgb(var(--fg) / 0.6);
+}
+
+.home-ledger {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.home-ledger li {
+  display: grid;
+  grid-template-areas: "run status" "src src";
+  grid-template-columns: 1fr auto;
+  gap: 0.35rem 1rem;
+  align-items: center;
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--gold-line);
+}
+
+.home-ledger code {
+  display: block;
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.home-run {
+  grid-area: run;
+}
+
+.home-run code {
+  color: rgb(var(--fg) / 0.92);
+}
+
+.home-run em {
+  font-size: 0.9rem;
+  color: rgb(var(--fg) / 0.58);
+}
+
+.home-src {
+  grid-area: src;
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+}
+
+.home-src code {
+  color: rgb(var(--fg) / 0.58);
+}
+
+.home-status {
+  grid-area: status;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  color: rgb(var(--fg) / 0.85);
+}
+
+.home-status::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--verdigris);
+}
+
+.home-status.is-fail::before {
+  background: var(--iron);
+  box-shadow: 0 0 0 1px rgb(var(--fg) / 0.15);
+}
+
+.home-status.is-held::before {
+  background: transparent;
+  border: 1px solid var(--gold);
+}
+
+.home-plate figcaption {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: rgb(var(--fg) / 0.6);
+}
+
+@media (min-width: 560px) {
+  .home-ledger li {
+    grid-template-areas: "run src status";
+    grid-template-columns: 1fr 1.25fr 8.5rem;
+  }
+
+  .home-src {
+    display: block;
+  }
+}
+
+/* Voyage: the four steps a run takes, on one graduated track. A comet
+   travels the track as the section scrolls and lights each step it passes. */
+
+.home-path {
+  --track: 1.05rem;
+  position: relative;
+  list-style: none;
+  margin: 4rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 3rem;
+  view-timeline-name: --voyage;
+}
+
+.home-path::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--track) - 4px);
+  top: 0;
+  bottom: 0;
+  width: 9px;
+  background:
+    linear-gradient(var(--gold-dim), var(--gold-dim)) center / 1px 100% no-repeat,
+    repeating-linear-gradient(180deg, var(--gold-line) 0 1px, transparent 1px 1.5rem);
+}
+
+/* Comet: bright head, fading tail behind it. Hidden until scroll drives it. */
+.home-path::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: calc(var(--track) - 0.3rem);
+  top: 0;
+  width: 0.6rem;
+  height: 100%;
+  transform: translateY(-100%);
+  will-change: transform;
+  background:
+    radial-gradient(circle at center bottom, #fff6dc 0 0.16rem, var(--gold) 0.17rem 0.3rem, transparent 0.32rem),
+    linear-gradient(180deg, transparent, var(--gold-dim)) center bottom 0.3rem / 1px 7rem no-repeat;
+  filter: drop-shadow(0 0 4px var(--gold)) drop-shadow(0 0 14px var(--gold-glow));
+}
+
+.home-path li {
+  --lit-pct: calc(var(--lit) * 100%);
+  position: relative;
+  padding-left: calc(var(--track) * 2 + 1.25rem);
+  opacity: calc(0.5 + 0.5 * var(--lit));
+}
+
+.home-path-mark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--track) * 2);
+  height: calc(var(--track) * 2);
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: rgb(var(--bg));
+  border: 1px solid color-mix(in srgb, var(--gold) var(--lit-pct), var(--gold-border));
+  color: color-mix(in srgb, var(--gold) var(--lit-pct), rgb(var(--fg) / 0.5));
+  box-shadow: 0 0 calc(var(--lit) * 18px) color-mix(in srgb, var(--gold-glow) var(--lit-pct), transparent);
+}
+
+.home-path h3 {
+  font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+  line-height: 1;
+}
+
+.home-path-cmd,
+.home-path-where {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.85rem;
+}
+
+.home-path-cmd {
+  color: var(--verdigris);
+}
+
+.home-path-where {
+  font-size: 1rem;
+  font-style: italic;
+  color: rgb(var(--fg) / 0.6);
+}
+
+.home-path p {
+  margin-top: 0.9rem;
+  line-height: 1.7;
+  color: rgb(var(--fg) / 0.75);
+}
+
+.home-path .home-path-change {
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--gold-line);
+  font-size: 1.08rem;
+  font-style: italic;
+  color: rgb(var(--fg) / 0.92);
+}
+
+@media (min-width: 900px) {
+  .home-path {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+
+  .home-path::before {
+    left: 0;
+    right: 0;
+    top: calc(var(--track) - 4px);
+    bottom: auto;
+    width: auto;
+    height: 9px;
+    background:
+      linear-gradient(var(--gold-dim), var(--gold-dim)) center / 100% 1px no-repeat,
+      repeating-linear-gradient(90deg, var(--gold-line) 0 1px, transparent 1px 1.5rem);
+  }
+
+  .home-path::after {
+    left: 0;
+    top: calc(var(--track) - 0.3rem);
+    width: 100%;
+    height: 0.6rem;
+    transform: translateX(-100%);
+    background:
+      radial-gradient(circle at right center, #fff6dc 0 0.16rem, var(--gold) 0.17rem 0.3rem, transparent 0.32rem),
+      linear-gradient(90deg, transparent, var(--gold-dim)) right 0.3rem center / 8rem 1px no-repeat;
+  }
+
+  .home-path li {
+    padding-left: 0;
+    padding-top: calc(var(--track) * 2 + 1.5rem);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .home-path::after {
+      display: block;
+      animation: home-voyage-y linear both;
+      animation-timeline: --voyage;
+      animation-range: cover 20% cover 70%;
+    }
+
+    .home-path li {
+      animation: home-light linear both;
+      animation-timeline: --voyage;
+      animation-range: cover calc(20% + var(--at) * 0.5) cover calc(25% + var(--at) * 0.5);
+    }
+
+    @media (min-width: 900px) {
+      .home-path::after {
+        animation-name: home-voyage-x;
+      }
+    }
+  }
+}
+
+/* Instruments */
+
+.home-pair {
+  margin-top: 3.5rem;
+  display: grid;
+  gap: 3.5rem;
+}
+
+.home-instrument {
+  --accent: var(--gold);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.home-instrument.is-astrolabe {
+  --accent: var(--verdigris);
+}
+
+.home-instrument h3 {
+  font-size: clamp(2.6rem, 4vw, 3.4rem);
+  line-height: 1;
+}
+
+.home-instrument > p {
+  max-width: 34rem;
+  line-height: 1.7;
+  color: rgb(var(--fg) / 0.78);
+}
+
+.home-instrument > .home-instrument-role {
+  margin-top: -0.5rem;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.home-instrument ul {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.home-instrument li {
+  position: relative;
+  padding-left: 1.2rem;
+  line-height: 1.65;
+  color: rgb(var(--fg) / 0.84);
+}
+
+.home-instrument li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.68em;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.home-instrument .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+@media (min-width: 900px) {
+  .home-hero-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+
+  .home-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .home-instrument.is-astrolabe {
+    padding-right: 3rem;
+  }
+
+  .home-instrument.is-orrery {
+    padding-left: 3rem;
+    border-left: 1px solid var(--gold-line);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-plate-head::after {
+    animation: none;
+  }
+}
+
+@keyframes home-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* The comet layer is as long as the track, with its head at the far end, so
+   sliding it by its own length moves the head from start to finish. */
+@keyframes home-voyage-x {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes home-voyage-y {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes home-light {
+  from { --lit: 0; }
+  to   { --lit: 1; }
+}
+
+/* ── Hero (shared with orrery.html) ───────────────────────────────────────── */
 
 .hero-grid {
   width: min(1380px, 100%);
@@ -138,29 +624,6 @@ body.app-website {
   color: rgb(var(--fg));
 }
 
-.hero-title.is-typing {
-  min-height: calc(0.95em * 3);
-}
-
-.hero-title-typed {
-  display: inline;
-}
-
-.hero-title-caret {
-  display: inline-block;
-  width: 0.08em;
-  height: 0.9em;
-  margin-left: 0.08em;
-  vertical-align: 0.02em;
-  background: currentColor;
-  box-shadow: 0 0 0.55rem rgba(198, 166, 100, 0.45);
-  animation: hero-caret-blink 0.9s steps(1, end) infinite;
-}
-
-.hero-title-caret.is-hidden {
-  opacity: 0;
-}
-
 .typed-caret {
   display: inline-block;
   width: 0.08em;
@@ -175,32 +638,12 @@ body.app-website {
   opacity: 0;
 }
 
-.hero-subtitle {
-  margin-top: 1.5rem;
-  max-width: 35rem;
-  font-size: clamp(1.08rem, 1.6vw, 1.3rem);
-  line-height: 1.7;
-  color: rgb(var(--fg) / 0.8);
-}
-
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
   margin-top: 2.2rem;
   animation: rise-in 880ms ease forwards;
-}
-
-/* ── CTAs ──────────────────────────────────────────────────────────────────── */
-
-
-.hero-note {
-  margin-top: 1rem;
-  max-width: 38rem;
-  font-size: 0.95rem;
-  font-style: italic;
-  color: rgb(var(--fg) / 0.48);
-  animation: rise-in 980ms ease forwards;
 }
 
 /* ── Hero visual ───────────────────────────────────────────────────────────── */
@@ -211,24 +654,12 @@ body.app-website {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  animation: hero-float 16s ease-in-out infinite;
-}
-
-.hero-orbit {
-  position: absolute;
-  inset: 5% 5% 6% 18%;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at 34% 30%, rgba(198, 166, 100, 0.24), transparent 28%),
-    radial-gradient(circle at 66% 22%, rgba(94, 133, 112, 0.16), transparent 24%),
-    radial-gradient(circle at 50% 50%, rgba(255, 240, 200, 0.04), transparent 58%);
-  filter: blur(3px);
 }
 
 /* Manuscript double-ruled frame */
 .hero-visual-frame {
   position: relative;
-  width: min(36rem, 92%);
+  width: 100%;
   padding: 1rem;
   background: linear-gradient(
     168deg,
@@ -283,28 +714,13 @@ body.app-website {
 .hero-terminal-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.7rem;
   min-height: 2.6rem;
   padding: 0.7rem 0.9rem;
   border-bottom: 1px solid rgba(198, 166, 100, 0.12);
   background: linear-gradient(180deg, rgba(198, 166, 100, 0.08), rgba(198, 166, 100, 0.03));
 }
-
-.hero-terminal-dots {
-  display: flex;
-  gap: 0.35rem;
-  flex-shrink: 0;
-}
-
-.hero-terminal-dot {
-  width: 0.48rem;
-  height: 0.48rem;
-  border-radius: 999px;
-}
-
-.hero-terminal-dot-r { background: rgba(255, 95, 87, 0.75); }
-.hero-terminal-dot-y { background: rgba(255, 189, 46, 0.72); }
-.hero-terminal-dot-g { background: rgba(40, 200, 64, 0.72); }
 
 .hero-terminal-title,
 .hero-terminal-mount,
@@ -318,9 +734,48 @@ body.app-website {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: rgba(198, 166, 100, 0.72);
+}
+
+.hero-terminal-replay {
+  flex-shrink: 0;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid rgba(198, 166, 100, 0.28);
+  font-family: "Cascadia Code", "Caskaydia Cove Nerd Font", monospace;
+  font-size: 0.72rem;
+  color: rgba(198, 166, 100, 0.85);
+  transition: background-color 0.15s ease;
+}
+
+.hero-terminal-replay:hover {
+  background: rgba(198, 166, 100, 0.12);
+}
+
+.hero-terminal-replay:focus-visible {
+  outline: 2px solid rgba(94, 133, 112, 0.9);
+  outline-offset: 2px;
+}
+
+html:not(.dark) .hero-terminal-replay {
+  border-color: rgba(120, 86, 28, 0.32);
+  color: rgba(120, 86, 28, 0.9);
+}
+
+.cap-snippet {
+  margin-top: 1.25rem;
+  padding: 0.7rem 0.9rem;
+  overflow-x: auto;
+  border-left: 2px solid rgba(94, 133, 112, 0.6);
+  background: rgba(94, 133, 112, 0.08);
+  font-family: "Cascadia Code", "Caskaydia Cove Nerd Font", monospace;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: rgb(var(--fg) / 0.85);
+}
+
+.cap-prompt {
+  color: rgb(94, 133, 112);
 }
 
 .hero-terminal-body {
@@ -352,24 +807,7 @@ body.app-website {
   font-size: 0.82rem;
 }
 
-/* ── Section rule ornament ─────────────────────────────────────────────────── */
-
-.section-rule {
-  display: flex;
-  justify-content: center;
-  padding: 0.25rem 0;
-  color: var(--gold);
-  position: relative;
-  z-index: 1;
-}
-
-.section-rule svg {
-  width: 17.5rem;
-  height: 1.25rem;
-}
-
 /* ── Section bands ─────────────────────────────────────────────────────────── */
-
 
 /* Etched hatching — subtle manuscript quality */
 .section-band::before {
@@ -397,202 +835,11 @@ body.app-website {
   border-bottom: 1px solid var(--gold-line);
 }
 
-
-/* Ornamental top stroke — alchemical ruling line */
-.section-head::before {
-  content: "";
-  display: block;
-  width: 2.4rem;
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold), transparent);
-}
-
 .section-title {
   font-family: "EB Garamond", Georgia, serif;
   font-size: clamp(2.2rem, 4vw, 4rem);
   line-height: 0.98;
   max-width: 14ch;
-}
-
-.instruments-head .section-title,
-.instruments-intro {
-  max-width: none;
-}
-
-.instruments-head {
-  justify-items: center;
-  text-align: center;
-}
-
-.workflow-head .section-title,
-.workflow-intro {
-  max-width: none;
-}
-
-.workflow-head {
-  justify-items: center;
-  text-align: center;
-}
-
-/* ── Support / Workflow ────────────────────────────────────────────────────── */
-
-.support-grid {
-  display: grid;
-  gap: 2rem;
-  align-items: start;
-}
-
-.support-rail {
-  display: grid;
-  gap: 0;
-}
-
-.support-visual {
-  padding: 1rem;
-  background: linear-gradient(
-    158deg,
-    rgba(15, 10, 4, 0.88),
-    rgba(12, 8, 3, 0.64)
-  );
-  border: 1px solid rgba(198, 166, 100, 0.15);
-  box-shadow: var(--landing-shadow);
-}
-
-/* ── Products / Instruments ────────────────────────────────────────────────── */
-
-.product-grid {
-  display: grid;
-  gap: 3rem;
-}
-
-.product-pane {
-  display: grid;
-  gap: 1.2rem;
-  align-content: start;
-  position: relative;
-  padding-top: 1.5rem;
-}
-
-/* Ornamental top ruling mark */
-.product-pane::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    var(--gold-line),
-    var(--gold-border) 40%,
-    var(--gold-line)
-  );
-}
-
-.product-label {
-  display: inline-block;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgb(var(--fg) / 0.48);
-}
-
-.product-name {
-  font-family: "EB Garamond", Georgia, serif;
-  font-size: clamp(2rem, 3.6vw, 3.2rem);
-  line-height: 0.96;
-}
-
-.product-pane p {
-  max-width: 34rem;
-  color: rgb(var(--fg) / 0.70);
-  line-height: 1.76;
-}
-
-.product-list {
-  list-style: none;
-  display: grid;
-  gap: 0.9rem;
-  margin: 0;
-  padding: 0;
-}
-
-.product-list li {
-  padding-top: 0.9rem;
-  padding-left: 1.1rem;
-  border-top: 1px solid var(--landing-line);
-  color: rgb(var(--fg) / 0.84);
-  line-height: 1.72;
-  position: relative;
-}
-
-/* Celestial bullet mark — ✦ as manuscript ornament */
-.product-list li::before {
-  content: "✦";
-  position: absolute;
-  left: 0;
-  top: calc(0.9rem + 0.1em);
-  font-size: 0.48rem;
-  color: var(--gold);
-  opacity: 0.68;
-}
-
-.product-link {
-  display: inline-flex;
-  gap: 0.5rem;
-  align-items: center;
-  color: rgb(var(--fg) / 0.86);
-  text-decoration: none;
-  font-family: "EB Garamond", Georgia, serif;
-  letter-spacing: 0.04em;
-  transition: color 180ms ease, gap 200ms ease;
-}
-
-.product-link:hover {
-  color: var(--gold);
-  gap: 0.8rem;
-}
-
-/* ── Story / Outcomes ──────────────────────────────────────────────────────── */
-
-.story-layout {
-  display: grid;
-  gap: 2rem;
-  align-items: start;
-}
-
-.story-sticky {
-  position: sticky;
-  top: 6rem;
-  align-self: start;
-}
-
-.story-list {
-  display: grid;
-  gap: 0;
-}
-
-.story-step span {
-  display: inline-block;
-  margin-bottom: 0.55rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  color: var(--verdigris);
-  font-family: "Cascadia Code", "Caskadyia Cove Nerd Font", "Caskaydia Cove Nerd Font", "CaskaydiaCove Nerd Font", monospace;
-}
-
-.story-step h3 {
-  font-family: "EB Garamond", Georgia, serif;
-  font-size: clamp(1.8rem, 2.6vw, 2.6rem);
-  line-height: 0.98;
-  margin-bottom: 0.65rem;
-}
-
-.story-step p {
-  max-width: 34rem;
-  color: rgb(var(--fg) / 0.70);
-  line-height: 1.76;
 }
 
 /* ── Final CTA ─────────────────────────────────────────────────────────────── */
@@ -780,11 +1027,6 @@ body.app-website {
   }
 }
 
-@keyframes hero-float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-10px); }
-}
-
 @keyframes hero-caret-blink {
   0%, 48%   { opacity: 1; }
   50%, 100% { opacity: 0; }
@@ -879,20 +1121,12 @@ body.app-website {
     height: 100%;
   }
 
-  .story-sticky {
-    position: static;
-  }
-
   .final-cta {
     padding: 2rem 1.4rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-title-caret {
-    animation: none;
-  }
-
   .typed-caret,
   .instr-prog-fill::after,
   .instr-xfer-dot {
@@ -1153,7 +1387,6 @@ body.app-website {
   line-height: 1.4;
 }
 
-
 /* ── Light mode ────────────────────────────────────────────────────────────── */
 /* All landing CSS assumes dark; these overrides make the palette readable
    on a warm parchment background. Dark class lives on <html>, not <body>,
@@ -1174,20 +1407,6 @@ html:not(.dark) body.app-website {
 }
 
 /* Hero — warm parchment instead of obsidian */
-html:not(.dark) .hero-stage::before {
-  background:
-    radial-gradient(ellipse 58% 48% at 16% 22%, rgba(198, 166, 100, 0.18), transparent),
-    radial-gradient(ellipse 44% 38% at 76% 26%, rgba(139, 62, 47, 0.09), transparent),
-    radial-gradient(ellipse 40% 36% at 54% 80%, rgba(94, 133, 112, 0.07), transparent),
-    linear-gradient(148deg, rgba(246, 235, 212, 0.97), rgba(239, 225, 198, 0.82) 52%, rgba(249, 240, 220, 0.98));
-}
-
-html:not(.dark) .hero-stage::after {
-  background-image:
-    linear-gradient(rgba(90, 60, 20, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(90, 60, 20, 0.06) 1px, transparent 1px);
-}
-
 /* Header — light parchment glass */
 html:not(.dark) .landing-header {
   background: linear-gradient(
@@ -1196,14 +1415,6 @@ html:not(.dark) .landing-header {
     rgba(242, 228, 202, 0.12)
   );
   border-bottom-color: rgba(120, 86, 28, 0.18);
-}
-
-/* Hero orbit */
-html:not(.dark) .hero-orbit {
-  background:
-    radial-gradient(circle at 34% 30%, rgba(198, 166, 100, 0.26), transparent 28%),
-    radial-gradient(circle at 66% 22%, rgba(94, 133, 112, 0.15), transparent 24%),
-    radial-gradient(circle at 50% 50%, rgba(120, 86, 28, 0.06), transparent 58%);
 }
 
 /* Hero visual frame — parchment panel */
@@ -1251,36 +1462,7 @@ html:not(.dark) .section-band::before {
   );
 }
 
-/* Section head ornament stroke */
-html:not(.dark) .section-head::before {
-  background: linear-gradient(90deg, rgba(120, 86, 28, 0.55), transparent);
-}
-
-/* Section rule compass ornament */
-html:not(.dark) .section-rule {
-  color: rgba(100, 68, 18, 0.52);
-}
-
-/* Support visual panel */
-html:not(.dark) .support-visual {
-  background: linear-gradient(
-    158deg,
-    rgba(246, 237, 218, 0.94),
-    rgba(240, 229, 207, 0.80)
-  );
-  border-color: rgba(120, 86, 28, 0.18);
-}
-
 /* Product pane ruling */
-html:not(.dark) .product-pane::before {
-  background: linear-gradient(
-    90deg,
-    rgba(120, 86, 28, 0.18),
-    rgba(120, 86, 28, 0.34) 40%,
-    rgba(120, 86, 28, 0.18)
-  );
-}
-
 
 /* Final CTA section */
 html:not(.dark) .final-cta {
@@ -1407,3 +1589,92 @@ html:not(.dark) .instr-xfer-label {
    With the breakpoint in @theme and this file inside @layer components, the
    `desk:` utilities in the templates handle it and outrank these rules by layer
    order. The shim is gone. */
+
+/* Armillary sphere background: nested rings spun in CSS 3D */
+.armillary {
+  --arm-size: min(92vmin, 56rem);
+  --arm-gold: rgba(198, 166, 100, 0.34);
+  --arm-green: rgba(94, 133, 112, 0.38);
+  --arm-faint: rgba(94, 133, 112, 0.2);
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  perspective: 1400px;
+  overflow: hidden;
+}
+
+html:not(.dark) .armillary {
+  --arm-gold: rgba(120, 86, 28, 0.3);
+  --arm-green: rgba(52, 88, 65, 0.32);
+  --arm-faint: rgba(52, 88, 65, 0.16);
+}
+
+.armillary-tilt,
+.armillary-spin {
+  position: relative;
+  width: var(--arm-size);
+  height: var(--arm-size);
+  transform-style: preserve-3d;
+}
+
+.armillary-tilt {
+  transform: rotateX(-16deg) rotateZ(12deg);
+}
+
+.armillary-spin {
+  animation: arm-spin 120s linear infinite;
+}
+
+.arm-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--arm-faint);
+  border-radius: 50%;
+}
+
+.arm-equator  { border-color: var(--arm-gold);  transform: rotateX(90deg); }
+.arm-ecliptic { border-color: var(--arm-green); transform: rotateZ(-23.4deg) rotateX(90deg); }
+.arm-colure-a { transform: rotateY(0deg); }
+.arm-colure-b { transform: rotateY(60deg); }
+.arm-colure-c { transform: rotateY(120deg); }
+
+/* Tropics sit at 23.4 degrees latitude: radius scales by cos, height by sin */
+.arm-tropic {
+  inset: 4.2%;
+  transform: translateY(calc(var(--arm-size) * -0.3971)) rotateX(90deg);
+}
+.arm-tropic-s {
+  transform: translateY(calc(var(--arm-size) * 0.3971)) rotateX(90deg);
+}
+
+.arm-axis {
+  position: absolute;
+  left: 50%;
+  top: -4%;
+  width: 1px;
+  height: 108%;
+  background: linear-gradient(var(--arm-gold), var(--arm-faint) 50%, var(--arm-gold));
+}
+
+.arm-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: -0.3rem 0 0 -0.3rem;
+  border-radius: 50%;
+  background: var(--arm-gold);
+  box-shadow: 0 0 1.5rem var(--arm-gold);
+}
+
+@keyframes arm-spin {
+  to { transform: rotateY(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .armillary-spin { animation: none; }
+}

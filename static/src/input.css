@@ -98,6 +98,43 @@
   --animate-orbit-4: orbit-4 120s linear infinite;
   --animate-twinkle: twinkle 3s ease-in-out infinite;
   --animate-rotate-slow: rotate-slow 120s linear infinite;
+
+  /* Homepage arrival: stars rush past, the title comes into focus, the
+     scattered runs settle into one record. Plays once, on load. */
+  --animate-warp: warp 1.9s cubic-bezier(0.55, 0, 0.25, 1) both;
+  --animate-focus-in: focus-in 1.5s cubic-bezier(0.2, 0.7, 0.2, 1) 0.55s both;
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-gather: gather 1.2s cubic-bezier(0.2, 0.75, 0.2, 1) both;
+
+  @keyframes warp {
+    0%   { opacity: 0; transform: scale(0.2) rotate(var(--rot, 0deg)); }
+    30%  { opacity: 1; }
+    100% { opacity: 0; transform: scale(3.4) rotate(var(--rot, 0deg)); }
+  }
+
+  @keyframes focus-in {
+    from { opacity: 0; filter: blur(12px); transform: scale(1.04); }
+    to   { opacity: 1; filter: blur(0); transform: none; }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(0.75rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @keyframes gather {
+    from { opacity: 0; transform: translate(var(--dx, 0), var(--dy, 0)) rotate(var(--r, 0deg)); }
+    to   { opacity: 1; transform: none; }
+  }
+}
+
+/* Scroll-driven progress for the homepage voyage. Registered so it can be
+   animated; initial value 1 means "fully lit" wherever scroll timelines are
+   unsupported or motion is reduced. */
+@property --lit {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
 }
 
 @layer base {
