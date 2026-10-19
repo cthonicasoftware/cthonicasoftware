@@ -120,7 +120,7 @@ class BuildOutputTests(TestCase):
         self.assertEqual(order, sorted(order))
 
     def test_set_pieces_are_inside_the_build(self):
-        for marker in (".hero-grid", ".pricing-node", ".api-card"):
+        for marker in (".hero-grid", ".pricing-node", ".run-trace"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, self.css)
 

@@ -130,10 +130,9 @@ PAGES: Mapping[str, Page] = MappingProxyType(
             ),
             mark=Mark(title="ORRERY", tagline="Analysis Backend", glyph="🜨", glyph_class="text-celestial"),
             nav=(
-                Section("features", "Features"),
-                Section("preview", "Dashboard"),
+                Section("record", "How it works"),
+                Section("dashboard", "Dashboard"),
                 Section("schema", "Data model"),
-                Section("rules", "Rules & AI"),
                 Section("api", "API"),
                 Link("Astrolabe", route="astrolabe"),
             ),
