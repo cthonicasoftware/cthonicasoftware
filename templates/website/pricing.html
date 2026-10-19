@@ -2,205 +2,186 @@
 
 {% block main %}
       <section id="plans" class="pricing-stage px-6 md:px-10 lg:px-16">
-        <div class="mx-auto w-[calc(100%-3rem)] max-w-[1400px]">
+        <div class="mx-auto w-full max-w-[1100px]">
 
-          <div class="pricing-masthead">
-            <div>
-              <span class="hero-brand">Pricing Ledger</span>
-              <h1 class="hero-title">For teams aiming toward the stars.</h1>
-            </div>
-          </div>
+          <header class="pricing-masthead">
+            <span class="hero-brand">Pricing Ledger</span>
+            <h1 class="hero-title">For teams aiming toward the stars.</h1>
+          </header>
 
-          <div class="pricing-frame">
-            <figure
-              class="pricing-constellation pricing-frame-map"
+          {% comment %}
+            Star chart. Each plan is a star whose size tracks its scope; the
+            open ring is Enterprise, whose terms are drawn up per program. The
+            stars are Flowbite Tabs triggers for the detail panel below.
+          {% endcomment %}
+          <div class="pricing-chart">
+            <svg class="pricing-ecliptic" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <path d="M0,50 Q150,-10 300,50" vector-effect="non-scaling-stroke" />
+            </svg>
+
+            <div
+              class="pricing-chart-stars"
               role="tablist"
-              aria-label="Pricing plans"
+              aria-label="Plans"
               data-tabs-toggle="#pricing-focus"
               data-tabs-active-classes="is-active"
               data-tabs-inactive-classes="is-inactive"
             >
-              <button type="button" role="tab" id="plan-basic-tab" class="pricing-node is-basic" data-tabs-target="#plan-basic" aria-controls="plan-basic" data-plan="basic" aria-selected="false">
-                <span class="pricing-node-dot"></span>
-                <strong>Basic</strong>
+              <button type="button" role="tab" id="plan-basic-tab" class="pricing-node is-basic" data-tabs-target="#plan-basic" aria-controls="plan-basic" aria-selected="false">
+                <span class="pricing-star" aria-hidden="true"></span>
+                <span class="pricing-node-name">Basic</span>
+                <span class="pricing-node-price"><span class="currency">$</span><span data-monthly="50" data-annual="40">50</span></span>
+                <span class="pricing-node-per"><span data-plan-period="monthly">a month</span><span data-plan-period="annual">a month, billed yearly</span></span>
+                <span class="pricing-node-fit">One operator, one project</span>
               </button>
-              <button type="button" role="tab" id="plan-professional-tab" class="pricing-node is-professional is-active" data-tabs-target="#plan-professional" aria-controls="plan-professional" data-plan="professional" aria-selected="true">
-                <span class="pricing-node-dot"></span>
-                <strong>Professional</strong>
+
+              <button type="button" role="tab" id="plan-professional-tab" class="pricing-node is-professional" data-tabs-target="#plan-professional" aria-controls="plan-professional" aria-selected="true">
+                <span class="pricing-star" aria-hidden="true"></span>
+                <span class="pricing-node-name">Professional <em>recommended</em></span>
+                <span class="pricing-node-price"><span class="currency">$</span><span data-monthly="250" data-annual="200">250</span></span>
+                <span class="pricing-node-per"><span data-plan-period="monthly">a month</span><span data-plan-period="annual">a month, billed yearly</span></span>
+                <span class="pricing-node-fit">Shared review for a team of five</span>
               </button>
-              <button type="button" role="tab" id="plan-enterprise-tab" class="pricing-node is-enterprise" data-tabs-target="#plan-enterprise" aria-controls="plan-enterprise" data-plan="enterprise" aria-selected="false">
-                <span class="pricing-node-dot"></span>
-                <strong>Enterprise</strong>
+
+              <button type="button" role="tab" id="plan-enterprise-tab" class="pricing-node is-enterprise" data-tabs-target="#plan-enterprise" aria-controls="plan-enterprise" aria-selected="false">
+                <span class="pricing-star" aria-hidden="true"></span>
+                <span class="pricing-node-name">Enterprise</span>
+                <span class="pricing-node-price is-custom">Custom</span>
+                <span class="pricing-node-per">terms per program</span>
+                <span class="pricing-node-fit">Governance, deployment, procurement</span>
               </button>
-              <a href="#compare" class="pricing-node pricing-node-action is-review-link" data-plan="review">
-                <span class="pricing-node-dot"></span>
-                <strong>Compare</strong>
-              </a>
-              <a href="#custom" class="pricing-node pricing-node-action is-quote-link" data-plan="quote">
-                <span class="pricing-node-dot"></span>
-                <strong>Quote</strong>
-              </a>
-            </figure>
-
-            <div class="pricing-frame-detail">
-              <div class="pricing-detail-billing">
-                <div class="pricing-toggle" role="group" aria-label="Billing frequency">
-                  <button id="monthly-btn" type="button" class="is-active" aria-pressed="true">Monthly</button>
-                  <button id="annual-btn" type="button" aria-pressed="false">Annual</button>
-                </div>
-                <p class="pricing-footnote">Annual billing reduces listed rates by 20%.</p>
-              </div>
-              <div class="pricing-focus" id="pricing-focus">
-                <article class="pricing-detail" id="plan-professional" role="tabpanel" aria-labelledby="plan-professional-tab" data-plan="professional">
-                  <div class="pricing-detail-head">
-                    <div>
-                      <span class="badge badge-lg">Recommended</span>
-                      <h3>Professional</h3>
-                      <p>Shared review, validation, and analysis for teams working from the same record.</p>
-                    </div>
-                    <div class="pricing-price">
-                      <span class="currency">$</span>
-                      <span id="professional-price" data-monthly="250" data-annual="200" class="amount">250</span>
-                      <span class="period">
-                        <span data-plan-period="monthly">/ month</span>
-                        <span data-plan-period="annual">/ month billed annually</span>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="pricing-detail-grid">
-                    <div class="pricing-detail-column">
-                      <p class="pricing-caption">Configuration</p>
-                      <ul class="pricing-list">
-                        <li><strong>Scope</strong><span>Unlimited projects, 100 GB managed storage, and five collaborators.</span></li>
-                        <li><strong>Review Surface</strong><span>AI analysis, validation workflows, and queryable run history.</span></li>
-                        <li><strong>Support</strong><span>Priority support for active teams.</span></li>
-                      </ul>
-                    </div>
-                    <div class="pricing-detail-column">
-                      <p class="pricing-caption">Fit</p>
-                      <p class="pricing-detail-note">Use this tier when release review is shared, evidence needs to stay queryable, and a team is working from the same operating record.</p>
-                    </div>
-                  </div>
-                </article>
-
-                <article class="pricing-detail hidden" id="plan-basic" role="tabpanel" aria-labelledby="plan-basic-tab" data-plan="basic">
-                  <div class="pricing-detail-head">
-                    <div>
-                      <span class="badge badge-lg">Entry Tier</span>
-                      <h3>Basic</h3>
-                      <p>Durable capture for individual workflows starting with a disciplined record.</p>
-                    </div>
-                    <div class="pricing-price">
-                      <span class="currency">$</span>
-                      <span id="basic-price" data-monthly="50" data-annual="40" class="amount">50</span>
-                      <span class="period">
-                        <span data-plan-period="monthly">/ month</span>
-                        <span data-plan-period="annual">/ month billed annually</span>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="pricing-detail-grid">
-                    <div class="pricing-detail-column">
-                      <p class="pricing-caption">Configuration</p>
-                      <ul class="pricing-list">
-                        <li><strong>Scope</strong><span>1 project workspace with 10 GB of managed storage.</span></li>
-                        <li><strong>Core Flow</strong><span>Astrolabe capture with local-first durability and shared record upload.</span></li>
-                        <li><strong>Support</strong><span>Email support and API access.</span></li>
-                      </ul>
-                    </div>
-                    <div class="pricing-detail-column">
-                      <p class="pricing-caption">Fit</p>
-                      <p class="pricing-detail-note">Use this tier when the main requirement is reliable capture, storage, and a clean starting point for one operator.</p>
-                    </div>
-                  </div>
-                </article>
-
-                <article class="pricing-detail hidden" id="plan-enterprise" role="tabpanel" aria-labelledby="plan-enterprise-tab" data-plan="enterprise">
-                  <div class="pricing-detail-head">
-                    <div>
-                      <span class="badge badge-lg">Program Tier</span>
-                      <h3>Enterprise</h3>
-                      <p>Governance, flexible deployment, and custom commercial terms for program-scale work.</p>
-                    </div>
-                    <div class="pricing-price">
-                      <span class="amount pricing-price-custom">Custom</span>
-                    </div>
-                  </div>
-                  <div class="pricing-detail-grid">
-                    <div class="pricing-detail-column">
-                      <p class="pricing-caption">Configuration</p>
-                      <ul class="pricing-list">
-                        <li><strong>Scope</strong><span>Unlimited projects and storage with deployment aligned to security and residency requirements.</span></li>
-                        <li><strong>Controls</strong><span>SSO, role controls, audit history, custom integrations, and reporting.</span></li>
-                        <li><strong>Support</strong><span>Dedicated support, SLA options, and procurement support.</span></li>
-                      </ul>
-                    </div>
-                    <div class="pricing-detail-column">
-                      <p class="pricing-caption">Fit</p>
-                      <p class="pricing-detail-note">Use this tier when security review, hosting requirements, or procurement terms exceed a fixed public plan.</p>
-                      <a href="#custom" class="btn btn-ghost">Contact Sales</a>
-                    </div>
-                  </div>
-                </article>
-              </div>
             </div>
+          </div>
+
+          <div class="pricing-billing">
+            <div class="pricing-toggle" role="group" aria-label="Billing frequency">
+              <button id="monthly-btn" type="button" class="is-active" aria-pressed="true">Monthly</button>
+              <button id="annual-btn" type="button" aria-pressed="false">Annual</button>
+            </div>
+            <p class="pricing-footnote">
+              Annual billing takes 20% off.
+            </p>
+          </div>
+
+          <div class="pricing-focus" id="pricing-focus">
+            <article class="pricing-detail" id="plan-professional" role="tabpanel" aria-labelledby="plan-professional-tab">
+              <div class="pricing-detail-main">
+                <h2>Professional</h2>
+                <p class="pricing-detail-lede">Shared review, validation, and analysis for teams working from the same record.</p>
+                <dl class="pricing-includes">
+                  <div><dt>Scope</dt><dd>Unlimited projects, 100 GB managed storage, and five collaborators.</dd></div>
+                  <div><dt>Review</dt><dd>AI analysis, validation workflows, and queryable run history.</dd></div>
+                  <div><dt>Support</dt><dd>Priority support for active teams.</dd></div>
+                </dl>
+              </div>
+              <aside class="pricing-detail-side">
+                <p>Choose Professional when release review is shared, evidence needs to stay queryable, and a team is working from the same operating record.</p>
+                <a href="mailto:contact@cthonica.software?subject=Professional%20plan" class="btn btn-primary btn-sm">Ask about Professional</a>
+              </aside>
+            </article>
+
+            <article class="pricing-detail hidden" id="plan-basic" role="tabpanel" aria-labelledby="plan-basic-tab">
+              <div class="pricing-detail-main">
+                <h2>Basic</h2>
+                <p class="pricing-detail-lede">Durable capture for one engineer starting from a disciplined record.</p>
+                <dl class="pricing-includes">
+                  <div><dt>Scope</dt><dd>One project workspace with 10 GB of managed storage.</dd></div>
+                  <div><dt>Capture</dt><dd>Astrolabe capture with local caching and upload to the shared record.</dd></div>
+                  <div><dt>Support</dt><dd>Email support and API access.</dd></div>
+                </dl>
+              </div>
+              <aside class="pricing-detail-side">
+                <p>Choose Basic when the main need is reliable capture, storage, and a clean starting point for one operator.</p>
+                <a href="mailto:contact@cthonica.software?subject=Basic%20plan" class="btn btn-celestial btn-sm">Ask about Basic</a>
+              </aside>
+            </article>
+
+            <article class="pricing-detail hidden" id="plan-enterprise" role="tabpanel" aria-labelledby="plan-enterprise-tab">
+              <div class="pricing-detail-main">
+                <h2>Enterprise</h2>
+                <p class="pricing-detail-lede">Governance, flexible deployment, and custom commercial terms for program-scale work.</p>
+                <dl class="pricing-includes">
+                  <div><dt>Scope</dt><dd>Unlimited projects and storage, deployed to meet your security and residency requirements.</dd></div>
+                  <div><dt>Controls</dt><dd>SSO, role controls, audit history, custom integrations, and reporting.</dd></div>
+                  <div><dt>Support</dt><dd>Dedicated support, SLA options, and help through procurement.</dd></div>
+                </dl>
+              </div>
+              <aside class="pricing-detail-side">
+                <p>Choose Enterprise when security review, hosting requirements, or procurement terms go beyond a fixed public plan.</p>
+                <a href="#custom" class="btn btn-celestial btn-sm">Request a quote</a>
+              </aside>
+            </article>
           </div>
 
         </div>
       </section>
 
-      <section id="compare" class="pricing-band is-dark px-6 md:px-10 lg:px-16">
-        <div style="width: 100%; margin: 0 0 3rem; text-align: center;">
-          <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-            <span class="section-kicker" style="justify-content: center;">Comparison</span>
-            <h2 class="section-title mt-4" style="max-width: none; width: auto; white-space: nowrap; text-align: center;">Compare plan details.</h2>
-            <p class="mt-4 text-[1.02rem] leading-[1.8] text-app-muted" style="max-width: 38rem; margin-left: auto; margin-right: auto; text-align: center;">Review included capabilities, review features, and governance controls by tier.</p>
-          </div>
-        </div>
-        <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px]">
-          <div class="pricing-table-wrap">
+      <section id="compare" class="pricing-band px-6 md:px-10 lg:px-16">
+        <div class="mx-auto w-full max-w-[1100px]">
+          <header class="pricing-band-head">
+            <h2 class="section-title">Compare plans</h2>
+            <p>Every capability, side by side.</p>
+          </header>
+          <div class="pricing-table-wrap" tabindex="0" role="region" aria-label="Plan comparison">
             <table class="pricing-table">
-              <thead><tr><th>Capability</th><th>Basic</th><th>Professional</th><th>Enterprise</th></tr></thead>
+              <colgroup><col /><col /><col class="is-featured" /><col /></colgroup>
+              <thead>
+                <tr><td></td><th scope="col">Basic</th><th scope="col">Professional</th><th scope="col">Enterprise</th></tr>
+              </thead>
               <tbody>
-                <tr class="group-row"><td colspan="4">Capture and storage</td></tr>
-                <tr><td>Projects</td><td>1</td><td>Unlimited</td><td>Unlimited</td></tr>
-                <tr><td>Managed storage</td><td>10 GB</td><td>100 GB</td><td>Custom / unlimited</td></tr>
-                <tr><td>Local-first capture</td><td class="is-yes">Yes</td><td class="is-yes">Yes</td><td class="is-yes">Yes</td></tr>
-                <tr class="group-row"><td colspan="4">Analysis and review</td></tr>
-                <tr><td>Queryable runs</td><td>Basic</td><td>Advanced</td><td>Advanced</td></tr>
-                <tr><td>Validation workflows</td><td>-</td><td class="is-yes">Yes</td><td class="is-yes">Yes</td></tr>
-                <tr><td>AI-assisted analysis</td><td>-</td><td class="is-yes">Yes</td><td class="is-yes">Yes</td></tr>
-                <tr class="group-row"><td colspan="4">Governance and support</td></tr>
-                <tr><td>Collaborators</td><td>1</td><td>5</td><td>Unlimited</td></tr>
-                <tr><td>Role controls and audit history</td><td>-</td><td>Limited</td><td class="is-yes">Yes</td></tr>
-                <tr><td>Support model</td><td>Email</td><td>Priority</td><td>Dedicated / SLA</td></tr>
+                <tr class="group-row"><th colspan="4" scope="rowgroup">Capture and storage</th></tr>
+                <tr><th scope="row">Projects</th><td>1</td><td>Unlimited</td><td>Unlimited</td></tr>
+                <tr><th scope="row">Managed storage</th><td>10 GB</td><td>100 GB</td><td>Unlimited</td></tr>
+                <tr><th scope="row">Local caching during capture</th><td class="is-yes">Included</td><td class="is-yes">Included</td><td class="is-yes">Included</td></tr>
+              </tbody>
+              <tbody>
+                <tr class="group-row"><th colspan="4" scope="rowgroup">Analysis and review</th></tr>
+                <tr><th scope="row">Queryable runs</th><td>Basic</td><td>Advanced</td><td>Advanced</td></tr>
+                <tr><th scope="row">Validation workflows</th><td class="is-no"><span aria-hidden="true">&mdash;</span><span class="sr-only">Not included</span></td><td class="is-yes">Included</td><td class="is-yes">Included</td></tr>
+                <tr><th scope="row">AI-assisted analysis</th><td class="is-no"><span aria-hidden="true">&mdash;</span><span class="sr-only">Not included</span></td><td class="is-yes">Included</td><td class="is-yes">Included</td></tr>
+              </tbody>
+              <tbody>
+                <tr class="group-row"><th colspan="4" scope="rowgroup">Governance and support</th></tr>
+                <tr><th scope="row">Collaborators</th><td>1</td><td>5</td><td>Unlimited</td></tr>
+                <tr><th scope="row">Role controls and audit history</th><td class="is-no"><span aria-hidden="true">&mdash;</span><span class="sr-only">Not included</span></td><td>Limited</td><td class="is-yes">Included</td></tr>
+                <tr><th scope="row">Support</th><td>Email</td><td>Priority</td><td>Dedicated, with SLA</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </section>
 
-      <section id="custom" class="section-band relative py-24 px-6 md:px-10 lg:px-16">
-        <div class="mx-auto w-[calc(100%-3rem)] max-w-[1200px]">
-          <div class="final-cta final-cta-head relative grid gap-4 px-6 py-12 border border-celestial/20">
-            <h2 class="section-title w-full">Need a plan that shoots the moon?</h2>
-            <p class="final-cta-intro text-lg text-app-muted leading-relaxed">We can scope storage, deployment, security review, and support to match your program.</p>
-            <div class="final-cta-grid desk:grid-cols-2">
-              <article class="final-cta-path is-orrery grid gap-3 p-6 border border-celestial/30 transition-all duration-300">
-                <span class="inline-block text-xs tracking-[0.2em] uppercase text-app-subtle">Enterprise</span>
-                <h3 class="font-garamond text-4xl leading-tight">Contact the Team</h3>
-                <p class="text-app-muted leading-relaxed">Custom storage, deployment, security review, and support terms shaped to your program.</p>
-                <span class="inline-flex items-center gap-2 text-sm text-app-muted"><span class="final-cta-dot"></span>Custom scope and commercial terms</span>
-                <div class="mt-1"><a href="#" id="emailLinkCTA" class="btn btn-celestial">Contact the Team</a></div>
-              </article>
-              <article class="final-cta-path is-astrolabe grid gap-3 p-6 border border-verdigris/30 transition-all duration-300">
-                <span class="inline-block text-xs tracking-[0.2em] uppercase text-app-subtle">Managed review surface</span>
-                <h3 class="font-garamond text-4xl leading-tight">See Orrery First</h3>
-                <p class="text-app-muted leading-relaxed">Explore the analysis and review platform before committing to a plan.</p>
-                <span class="inline-flex items-center gap-2 text-sm text-app-muted"><span class="final-cta-dot is-verdigris"></span>Project-scoped review and validation</span>
-                <div class="mt-1"><a href="/orrery" class="btn btn-verdigris">See Orrery in action</a></div>
-              </article>
-            </div>
+      <section id="custom" class="home-section">
+        <div class="home-wrap">
+          <header class="home-head">
+            <h2 class="home-title">Need a plan that shoots the moon?</h2>
+            <p class="home-lede">We can scope storage, deployment, security review, and support to match your program.</p>
+          </header>
+
+          <div class="home-pair">
+            <article class="home-instrument">
+              <h3>Talk to the team</h3>
+              <p class="home-instrument-role">Custom terms, for programs</p>
+              <p>For work that outgrows a fixed plan. We shape the scope and commercial terms around your program.</p>
+              <ul>
+                <li>Storage and deployment sized to your security and residency requirements.</li>
+                <li>SSO, role controls, and audit history for your review process.</li>
+                <li>Dedicated support, SLA options, and help through procurement.</li>
+              </ul>
+              <a href="mailto:contact@cthonica.software" class="btn btn-primary">Email the team</a>
+            </article>
+
+            <article class="home-instrument is-orrery">
+              <h3>See Orrery first</h3>
+              <p class="home-instrument-role">Look before you choose</p>
+              <p>Explore the analysis and review platform before you commit to a plan.</p>
+              <ul>
+                <li>Browse runs, manifests, and artifacts scoped by project.</li>
+                <li>See validation rules and optional AI analysis on each run.</li>
+                <li>Work out which plan fits how your team reviews releases.</li>
+              </ul>
+              <a href="/orrery" class="btn btn-celestial">See Orrery in action</a>
+            </article>
           </div>
         </div>
       </section>
@@ -231,214 +212,6 @@
 
     monthlyBtn?.addEventListener('click', () => togglePricing(false));
     annualBtn?.addEventListener('click', () => togglePricing(true));
-
-    // ── Constellation highlight ──────────────────────────────────────────────
-    // Flowbite Tabs owns which panel is shown. This only previews the
-    // connecting lines on hover and falls back to whichever tab is selected.
-    const constellationFig = document.querySelector('.pricing-constellation');
-
-    const selectedPlan = () =>
-      constellationFig
-        ?.querySelector('[role="tab"][aria-selected="true"]')
-        ?.getAttribute('data-plan') || 'professional';
-
-    const highlight = (plan) => constellationFig?.setAttribute('data-hover', plan);
-
-    document.querySelectorAll('.pricing-node[data-plan]').forEach((node) => {
-      const plan = node.getAttribute('data-plan');
-      node.addEventListener('mouseenter', () => highlight(plan));
-      node.addEventListener('focus', () => highlight(plan));
-      node.addEventListener('click', () => highlight(plan));
-      node.addEventListener('mouseleave', () => highlight(selectedPlan()));
-      node.addEventListener('blur', () => highlight(selectedPlan()));
-    });
-
-    highlight(selectedPlan());
-
-    // Constellation connecting lines — drawn from real DOM positions so
-    // they stay accurate across viewport sizes without hardcoding coordinates.
-    (function () {
-      const fig = document.querySelector('.pricing-constellation');
-      if (!fig) return;
-
-      const edges = [
-        ['basic',        'professional'],
-        ['professional', 'enterprise'],
-        ['professional', 'review'],
-        ['professional', 'quote'],
-        ['basic',        'enterprise'],
-        ['enterprise',   'review'],
-        ['quote',        'review'],
-      ];
-
-      const ns = 'http://www.w3.org/2000/svg';
-      const svg = document.createElementNS(ns, 'svg');
-      svg.setAttribute('aria-hidden', 'true');
-      svg.classList.add('pricing-constellation-lines');
-      fig.prepend(svg);
-
-      function dotCenter(plan) {
-        const node = fig.querySelector('[data-plan="' + plan + '"]');
-        if (!node) return null;
-        const dot = node.querySelector('.pricing-node-dot') || node;
-        const fr = fig.getBoundingClientRect();
-        const dr = dot.getBoundingClientRect();
-        return {
-          x: dr.left + dr.width  / 2 - fr.left,
-          y: dr.top  + dr.height / 2 - fr.top,
-        };
-      }
-
-      function clearSvg() {
-        while (svg.firstChild) { svg.removeChild(svg.firstChild); }
-      }
-
-      function redraw() {
-        const fr = fig.getBoundingClientRect();
-        svg.setAttribute('viewBox', '0 0 ' + fr.width + ' ' + fr.height);
-        svg.setAttribute('width',   fr.width);
-        svg.setAttribute('height',  fr.height);
-        clearSvg();
-
-        edges.forEach(function (pair) {
-          const pa = dotCenter(pair[0]);
-          const pb = dotCenter(pair[1]);
-          if (!pa || !pb) return;
-          const line = document.createElementNS(ns, 'line');
-          line.setAttribute('x1', pa.x);
-          line.setAttribute('y1', pa.y);
-          line.setAttribute('x2', pb.x);
-          line.setAttribute('y2', pb.y);
-          line.setAttribute('data-connects', pair[0] + ' ' + pair[1]);
-          line.classList.add('constellation-line');
-          svg.appendChild(line);
-        });
-      }
-
-      redraw();
-
-      let rafId;
-      window.addEventListener('resize', function () {
-        cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(redraw);
-      });
-
-      // Sync highlights with data-hover set by the hover handlers above
-      new MutationObserver(function () {
-        const hover = fig.getAttribute('data-hover');
-        svg.querySelectorAll('.constellation-line').forEach(function (line) {
-          const connects = line.getAttribute('data-connects').split(' ');
-          line.classList.toggle('is-highlighted', !!hover && connects.includes(hover));
-        });
-      }).observe(fig, { attributes: true, attributeFilter: ['data-hover'] });
-    })();
-
-    document.querySelectorAll('.final-cta-path').forEach((card) => {
-      let rafId = null;
-      let targetX = 50;
-      let targetY = 50;
-      let currentX = 50;
-      let currentY = 50;
-      let isHovering = false;
-
-      function animate() {
-        const dx = targetX - currentX;
-        const dy = targetY - currentY;
-        currentX += dx * 0.18;
-        currentY += dy * 0.18;
-
-        card.style.setProperty('--pointer-x', `${currentX}%`);
-        card.style.setProperty('--pointer-y', `${currentY}%`);
-
-        if (isHovering || Math.abs(dx) + Math.abs(dy) > 0.03) {
-          rafId = requestAnimationFrame(animate);
-        } else {
-          rafId = null;
-        }
-      }
-
-      function queueAnimation() {
-        if (rafId === null) {
-          rafId = requestAnimationFrame(animate);
-        }
-      }
-
-      function updateTarget(event) {
-        const rect = card.getBoundingClientRect();
-        targetX = ((event.clientX - rect.left) / rect.width) * 100;
-        targetY = ((event.clientY - rect.top) / rect.height) * 100;
-        queueAnimation();
-      }
-
-      card.addEventListener('mouseenter', updateTarget);
-      card.addEventListener('mousemove', updateTarget);
-      card.addEventListener('mouseleave', () => {
-        isHovering = false;
-      });
-      card.addEventListener('mouseenter', () => {
-        isHovering = true;
-      });
-    });
-
-    // Background star field for the full pricing stage
-    (function () {
-      const stage = document.querySelector('.pricing-stage');
-      if (!stage) return;
-      const wrap = document.createElement('div');
-      wrap.className = 'pricing-stage-stars';
-      wrap.setAttribute('aria-hidden', 'true');
-      // Three tiers: distant (1px, dim), mid (2px), bright (3px, rare)
-      const tiers = [
-        { size: 1, peak: 0.35, weight: 10 },
-        { size: 2, peak: 0.55, weight: 6 },
-        { size: 3, peak: 0.75, weight: 2 },
-      ];
-      const pool = tiers.flatMap(t => Array(t.weight).fill(t));
-      for (let i = 0; i < 55; i++) {
-        const tier = pool[Math.floor(Math.random() * pool.length)];
-        const s = document.createElement('span');
-        s.className = 'pricing-stage-star';
-        s.style.cssText =
-          `left:${(Math.random() * 98 + 0.5).toFixed(1)}%;` +
-          `top:${(Math.random() * 98 + 0.5).toFixed(1)}%;` +
-          `--star-size:${tier.size}px;` +
-          `--star-peak:${tier.peak};` +
-          `--star-delay:${(Math.random() * 9).toFixed(2)}s;` +
-          `--star-dur:${(Math.random() * 4 + 3).toFixed(2)}s`;
-        wrap.appendChild(s);
-      }
-      stage.prepend(wrap);
-    })();
-
-    // Ambient star particles — scattered in the open space between nodes
-    (function () {
-      const fig = document.querySelector('.pricing-constellation');
-      if (!fig) return;
-      const wrap = document.createElement('div');
-      wrap.className = 'pricing-stars';
-      wrap.setAttribute('aria-hidden', 'true');
-      // Two size tiers: distant (1px) and near (2px), weighted toward distant
-      const sizes = [1, 1, 1, 1, 2, 2, 2];
-      for (let i = 0; i < 24; i++) {
-        const s = document.createElement('span');
-        s.className = 'pricing-star';
-        const sz = sizes[Math.floor(Math.random() * sizes.length)];
-        s.style.cssText =
-          `left:${(Math.random()*88+5).toFixed(1)}%;` +
-          `top:${(Math.random()*78+10).toFixed(1)}%;` +
-          `--star-size:${sz}px;` +
-          `--star-delay:${(Math.random()*6).toFixed(2)}s;` +
-          `--star-dur:${(Math.random()*3+2.5).toFixed(2)}s`;
-        wrap.appendChild(s);
-      }
-      fig.prepend(wrap);
-    })();
-
-    const emailLinkCTA = document.getElementById('emailLinkCTA');
-    emailLinkCTA?.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.location.href = 'mailto:contact@cthonica.software';
-    });
 
   </script>
 {% endblock %}
