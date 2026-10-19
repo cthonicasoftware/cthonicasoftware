@@ -105,7 +105,7 @@ class BuildOutputTests(TestCase):
         # --breakpoint-desk used to live only in the dead config, so every
         # `desk:` utility in the templates compiled to nothing.
         self.assertIn("--breakpoint-desk:900px", self.css)
-        self.assertIn(r"desk\:grid-cols-2", self.css)
+        self.assertIn(r"desk\:\!inline-flex", self.css)
         self.assertIn(r"desk\:\!hidden", self.css)
 
     def test_layer_order_puts_utilities_after_set_pieces(self):

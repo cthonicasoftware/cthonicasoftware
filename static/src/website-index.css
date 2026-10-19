@@ -528,11 +528,12 @@ body.app-website {
     gap: 0;
   }
 
-  .home-instrument.is-astrolabe {
+  /* Layout follows position, not product, so other pages can reuse the pair. */
+  .home-pair > .home-instrument:first-child {
     padding-right: 3rem;
   }
 
-  .home-instrument.is-orrery {
+  .home-pair > .home-instrument + .home-instrument {
     padding-left: 3rem;
     border-left: 1px solid var(--gold-line);
   }
