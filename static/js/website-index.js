@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   document.querySelectorAll('.final-cta-path').forEach((card) => {
     let rafId = null;
     let targetX = 50;
@@ -46,51 +44,5 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('mouseenter', () => {
       isHovering = true;
     });
-  });
-
-  document.querySelectorAll('[data-typed-text]').forEach((element) => {
-    const typedText = element.querySelector('.hero-title-typed');
-    const caret = element.querySelector('.hero-title-caret, .typed-caret');
-    const fullText = element.getAttribute('data-typed-text') ?? '';
-    const startDelay = Number(element.getAttribute('data-typed-delay') ?? '300');
-
-    if (!typedText || !caret || !fullText) {
-      return;
-    }
-
-    if (prefersReducedMotion) {
-      typedText.textContent = fullText;
-      caret.classList.add('is-hidden');
-      element.classList.remove('is-typing');
-      element.dispatchEvent(new CustomEvent('typed:complete'));
-      return;
-    }
-
-    typedText.textContent = '';
-    let index = 0;
-
-    const complete = () => {
-      window.setTimeout(() => {
-        caret.classList.add('is-hidden');
-        element.classList.remove('is-typing');
-        element.dispatchEvent(new CustomEvent('typed:complete'));
-      }, 500);
-    };
-
-    const step = () => {
-      index += 1;
-      typedText.textContent = fullText.slice(0, index);
-
-      if (index < fullText.length) {
-        const currentChar = fullText[index - 1];
-        const delay = currentChar === ',' ? 170 : currentChar === ' ' ? 55 : 85;
-        window.setTimeout(step, delay);
-        return;
-      }
-
-      complete();
-    };
-
-    window.setTimeout(step, startDelay);
   });
 });

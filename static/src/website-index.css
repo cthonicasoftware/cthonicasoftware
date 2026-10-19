@@ -56,32 +56,6 @@ body.app-website {
   overflow: clip;
 }
 
-/* Warm obsidian atmosphere — amber over copper, iron, verdigris */
-.hero-stage::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 58% 48% at 16% 22%, rgba(198, 166, 100, 0.11), transparent),
-    radial-gradient(ellipse 44% 38% at 76% 26%, rgba(139, 62, 47, 0.07), transparent),
-    radial-gradient(ellipse 40% 36% at 54% 80%, rgba(94, 133, 112, 0.07), transparent),
-    linear-gradient(148deg, rgba(15, 10, 4, 0.98), rgba(22, 14, 6, 0.72) 52%, rgba(12, 8, 3, 0.99));
-  z-index: -2;
-}
-
-/* Kepler diagram cross-hatch grid */
-.hero-stage::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(198, 166, 100, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(198, 166, 100, 0.045) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65), transparent 86%);
-  z-index: -1;
-}
-
 .hero-grid {
   width: min(1380px, 100%);
   margin: 0 auto;
@@ -138,29 +112,6 @@ body.app-website {
   color: rgb(var(--fg));
 }
 
-.hero-title.is-typing {
-  min-height: calc(0.95em * 3);
-}
-
-.hero-title-typed {
-  display: inline;
-}
-
-.hero-title-caret {
-  display: inline-block;
-  width: 0.08em;
-  height: 0.9em;
-  margin-left: 0.08em;
-  vertical-align: 0.02em;
-  background: currentColor;
-  box-shadow: 0 0 0.55rem rgba(198, 166, 100, 0.45);
-  animation: hero-caret-blink 0.9s steps(1, end) infinite;
-}
-
-.hero-title-caret.is-hidden {
-  opacity: 0;
-}
-
 .typed-caret {
   display: inline-block;
   width: 0.08em;
@@ -191,18 +142,6 @@ body.app-website {
   animation: rise-in 880ms ease forwards;
 }
 
-/* ── CTAs ──────────────────────────────────────────────────────────────────── */
-
-
-.hero-note {
-  margin-top: 1rem;
-  max-width: 38rem;
-  font-size: 0.95rem;
-  font-style: italic;
-  color: rgb(var(--fg) / 0.48);
-  animation: rise-in 980ms ease forwards;
-}
-
 /* ── Hero visual ───────────────────────────────────────────────────────────── */
 
 .hero-visual {
@@ -211,18 +150,6 @@ body.app-website {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  animation: hero-float 16s ease-in-out infinite;
-}
-
-.hero-orbit {
-  position: absolute;
-  inset: 5% 5% 6% 18%;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at 34% 30%, rgba(198, 166, 100, 0.24), transparent 28%),
-    radial-gradient(circle at 66% 22%, rgba(94, 133, 112, 0.16), transparent 24%),
-    radial-gradient(circle at 50% 50%, rgba(255, 240, 200, 0.04), transparent 58%);
-  filter: blur(3px);
 }
 
 /* Manuscript double-ruled frame */
@@ -484,55 +411,6 @@ html:not(.dark) .hero-terminal-replay {
 
 /* ── Products / Instruments ────────────────────────────────────────────────── */
 
-.product-grid {
-  display: grid;
-  gap: 3rem;
-}
-
-.product-pane {
-  display: grid;
-  gap: 1.2rem;
-  align-content: start;
-  position: relative;
-  padding-top: 1.5rem;
-}
-
-/* Ornamental top ruling mark */
-.product-pane::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    var(--gold-line),
-    var(--gold-border) 40%,
-    var(--gold-line)
-  );
-}
-
-.product-label {
-  display: inline-block;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgb(var(--fg) / 0.48);
-}
-
-.product-name {
-  font-family: "EB Garamond", Georgia, serif;
-  font-size: clamp(2rem, 3.6vw, 3.2rem);
-  line-height: 0.96;
-}
-
-.product-pane p {
-  max-width: 34rem;
-  color: rgb(var(--fg) / 0.70);
-  line-height: 1.76;
-}
-
 .product-list {
   list-style: none;
   display: grid;
@@ -559,22 +437,6 @@ html:not(.dark) .hero-terminal-replay {
   font-size: 0.48rem;
   color: var(--gold);
   opacity: 0.68;
-}
-
-.product-link {
-  display: inline-flex;
-  gap: 0.5rem;
-  align-items: center;
-  color: rgb(var(--fg) / 0.86);
-  text-decoration: none;
-  font-family: "EB Garamond", Georgia, serif;
-  letter-spacing: 0.04em;
-  transition: color 180ms ease, gap 200ms ease;
-}
-
-.product-link:hover {
-  color: var(--gold);
-  gap: 0.8rem;
 }
 
 /* ── Story / Outcomes ──────────────────────────────────────────────────────── */
@@ -804,11 +666,6 @@ html:not(.dark) .hero-terminal-replay {
   }
 }
 
-@keyframes hero-float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-10px); }
-}
-
 @keyframes hero-caret-blink {
   0%, 48%   { opacity: 1; }
   50%, 100% { opacity: 0; }
@@ -913,10 +770,6 @@ html:not(.dark) .hero-terminal-replay {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-title-caret {
-    animation: none;
-  }
-
   .typed-caret,
   .instr-prog-fill::after,
   .instr-xfer-dot {
@@ -1198,20 +1051,6 @@ html:not(.dark) body.app-website {
 }
 
 /* Hero — warm parchment instead of obsidian */
-html:not(.dark) .hero-stage::before {
-  background:
-    radial-gradient(ellipse 58% 48% at 16% 22%, rgba(198, 166, 100, 0.18), transparent),
-    radial-gradient(ellipse 44% 38% at 76% 26%, rgba(139, 62, 47, 0.09), transparent),
-    radial-gradient(ellipse 40% 36% at 54% 80%, rgba(94, 133, 112, 0.07), transparent),
-    linear-gradient(148deg, rgba(246, 235, 212, 0.97), rgba(239, 225, 198, 0.82) 52%, rgba(249, 240, 220, 0.98));
-}
-
-html:not(.dark) .hero-stage::after {
-  background-image:
-    linear-gradient(rgba(90, 60, 20, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(90, 60, 20, 0.06) 1px, transparent 1px);
-}
-
 /* Header — light parchment glass */
 html:not(.dark) .landing-header {
   background: linear-gradient(
@@ -1220,14 +1059,6 @@ html:not(.dark) .landing-header {
     rgba(242, 228, 202, 0.12)
   );
   border-bottom-color: rgba(120, 86, 28, 0.18);
-}
-
-/* Hero orbit */
-html:not(.dark) .hero-orbit {
-  background:
-    radial-gradient(circle at 34% 30%, rgba(198, 166, 100, 0.26), transparent 28%),
-    radial-gradient(circle at 66% 22%, rgba(94, 133, 112, 0.15), transparent 24%),
-    radial-gradient(circle at 50% 50%, rgba(120, 86, 28, 0.06), transparent 58%);
 }
 
 /* Hero visual frame — parchment panel */
@@ -1296,15 +1127,6 @@ html:not(.dark) .support-visual {
 }
 
 /* Product pane ruling */
-html:not(.dark) .product-pane::before {
-  background: linear-gradient(
-    90deg,
-    rgba(120, 86, 28, 0.18),
-    rgba(120, 86, 28, 0.34) 40%,
-    rgba(120, 86, 28, 0.18)
-  );
-}
-
 
 /* Final CTA section */
 html:not(.dark) .final-cta {
@@ -1519,4 +1341,46 @@ html:not(.dark) .armillary {
 
 @media (prefers-reduced-motion: reduce) {
   .armillary-spin { animation: none; }
+}
+
+/* ── Homepage hero ─────────────────────────────────────────────────────────
+   Scoped to .hero-stage because .hero-* classes are shared with other pages. */
+
+.hero-stage {
+  padding-top: 6rem;
+}
+
+.hero-stage .hero-grid {
+  align-items: center;
+  min-height: calc(100vh - 10rem);
+}
+
+.hero-stage .hero-copy {
+  max-width: 40rem;
+  padding-top: 0;
+  animation: none;
+}
+
+.hero-stage .hero-title {
+  font-size: clamp(3rem, min(6.4vw, 11vh), 6rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  max-width: 14ch;
+}
+
+.hero-stage .hero-subtitle {
+  margin-top: clamp(1rem, 3vh, 1.75rem);
+  max-width: 34rem;
+  font-size: clamp(1.15rem, 1.5vw, 1.3rem);
+  line-height: 1.65;
+  color: rgb(var(--fg) / 0.82);
+}
+
+.hero-stage .hero-actions {
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
+  animation: none;
+}
+
+@media (max-width: 899px) {
+  .hero-stage .hero-grid { min-height: 0; }
 }
